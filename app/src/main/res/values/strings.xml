@@ -220,5 +220,6 @@
     <string name="err_no_apps_found">No Apps Found</string>
     <string name="genres">Genres</string>
     <string name="err_no_genres_found">No Genres Found</string>
+    <string name="internet_not_connected">No internet connection</string>
 
 </resources>

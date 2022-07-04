@@ -201,6 +201,13 @@ public class Methods {
         animatorSet.start();
     }
 
+    public boolean isConnectingToInternet() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     public String milliSecondsToTimer(long milliseconds, long duration) {
         if(duration > 0) {
             String finalTimerString = "";
@@ -290,7 +297,7 @@ public class Methods {
         return percentage.intValue();
     }
 
-    public long getSeekFromPercentage(int percentage, long totalDuration) {
+    public static long getSeekFromPercentage(int percentage, long totalDuration) {
 
         long currentSeconds = 0;
         long totalSeconds = (int) (totalDuration / 1000);
@@ -317,7 +324,7 @@ public class Methods {
         return currentDuration * 1000;
     }
 
-    public int calculateTime(String duration) {
+    public static int calculateTime(String duration) {
         int time = 0, min, sec, hr = 0;
         try {
             StringTokenizer st = new StringTokenizer(duration, ".");
