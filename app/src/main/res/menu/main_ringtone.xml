@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/item_search"
+        android:title="search"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_loupe"/>
+
+    <item
+        android:id="@+id/action_pro"
+        android:icon="@drawable/ic_subscribe"
+        android:orderInCategory="100"
+        android:title="Pay"
+        app:showAsAction="always" />
+
+
+</menu>

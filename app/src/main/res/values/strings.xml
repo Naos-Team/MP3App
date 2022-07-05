@@ -221,4 +221,86 @@
     <string name="genres">Genres</string>
     <string name="err_no_genres_found">No Genres Found</string>
 
+    ----------------------Ringtone----------------------------------------------------
+    <string name="home_ringtone">Home</string>
+    <string name="favourite_ringtone">Favourite</string>
+    <string name="download_ringtone">Download</string>
+    <string name="settings_ringtone">Settings</string>
+    <string name="share_ringtone">Share</string>
+    <string name="about_ringtone">About</string>
+    <string name="search_ringtone">Search</string>
+
+    <string name="company_ringtone">Company</string>
+    <string name="email_ringtone">Email</string>
+    <string name="website_ringtone">Website</string>
+    <string name="contact_ringtone">Contact</string>
+
+    <string name="made_with_in_srilanka_ringtone">Made With ❤ in Sri Lanka</string>
+    <string name="app_developer_by_nemosofts_ringtone">App developer By : Nemosofts</string>
+
+    <string name="loading_ringtone">loading...</string>
+    <string name="downloading_ringtone">downloading</string>
+    <string name="already_download_ringtone">already download</string>
+    <string name="navigation_drawer_open_ringtone">open</string>
+    <string name="navigation_drawer_close_ringtone">close</string>
+    <string name="add_to_fav_ringtone">Added to Favourite</string>
+    <string name="remove_from_fav_ringtone">Removed from Favourite</string>
+    <string name="no_internet_connection_ringtone">No Internet Connection</string>
+    <string name="internet_connection_is_not_available_ringtone">Internet Connection is not available.</string>
+    <string name="err_internet_not_conn_ringtone">err internet</string>
+    <string name="file_deleted_ringtone">File Deleted</string>
+    <string name="sure_delete_ringtone">Are you sure you want to delete this Ringtone?</string>
+    <string name="delete_ringtone">Delete</string>
+    <string name="cancel_ringtone">Cancel</string>
+    <string name="set_as_ring_ringtone">Set As Ringtone</string>
+    <string name="set_as_noti_ringtone">Set As Notificaiton tone</string>
+    <string name="set_as_alarm_ringtone">Set As Alarm tone</string>
+    <string name="alarm_set_ringtone">Alarm Ringtone Set</string>
+    <string name="noti_set_ringtone">Notification tone set</string>
+    <string name="ringtone_set_ringtone">Ringtone Set</string>
+    <string name="exit_ringtone">exit</string>
+    <string name="retey_ringtone">RETEY</string>
+
+    <string name="err_no_categories_found_ringtone">No Categories Found</string>
+    <string name="error_unauth_access_ringtone">Unauthorized Access</string>
+    <string name="server_error_ringtone">Server Error</string>
+    <string name="error_connect_net_tryagain_ringtone">Please connect to internet and try again</string>
+    <string name="try_again_ringtone">Try Again</string>
+
+
+
+    <string name="dialog_text_no_ads_title_ringtone">Turn Off ads</string>
+    <string name="dialog_text_no_ads_description_ringtone">Use App more free without ads</string>
+    <string name="description_subsribte_ringtone">With our pack. You can enjoy an ad-free experiance . and focus on the  essential!</string>
+
+
+    <string name="error_nemosofts_key_ringtone">Error Nemosofts key</string>
+    <string name="create_nemosofts_key_ringtone">Create a new nemosofts key</string>
+    <string name="welcomeback_ringtone">Welcome</string>
+    <string name="signin_to_continue_ringtone">Sign In to continue</string>
+    <string name="remember_me_ringtone">Remember Me</string>
+    <string name="registering_ringtone">Registering..</string>
+    <string name="password_ringtone">Password</string>
+    <string name="login_ringtone">Login</string>
+    <string name="skip_ringtone">Skip</string>
+    <string name="signup_ringtone">SignUp</string>
+    <string name="cannot_empty_ringtone">Field cannot be empty</string>
+    <string name="pass_end_space_ringtone">Please do not add space at end</string>
+    <string name="name_ringtone">Name</string>
+    <string name="cpassword_ringtone">Confirm Password</string>
+    <string name="enter_phone_ringtone">Enter Phone</string>
+    <string name="register_ringtone">Register</string>
+    <string name="phone_ringtone">Phone</string>
+    <string name="enter_name_ringtone">Please Enter Name</string>
+    <string name="enter_email_ringtone">Please Enter Email</string>
+    <string name="enter_password_ringtone">Please Enter Password</string>
+    <string name="enter_cpassword_ringtone">Please Enter Confirm Password</string>
+    <string name="pass_nomatch_ringtone">Confirm Password not matched</string>
+    <string name="logout_ringtone">Logout</string>
+    <string name="logout_success_ringtone">Logout Successful</string>
+    <string name="image_ringtone">Image</string>
+    <string name="error_password_sort_ringtone">This password is too short</string>
+    <string name="error_invalid_email_ringtone">Invalid Email</string>
+    <string name="err_server_ringtone">err server</string>
+    <string name="ok_ringtone">OK</string>
 </resources>
