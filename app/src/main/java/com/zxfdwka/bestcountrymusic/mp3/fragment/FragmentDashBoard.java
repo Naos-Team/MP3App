@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
 import com.irfaan008.irbottomnavigation.SpaceItem;
 import com.irfaan008.irbottomnavigation.SpaceNavigationView;
 import com.irfaan008.irbottomnavigation.SpaceOnClickListener;
 import com.zxfdwka.bestcountrymusic.mp3.activity.MainActivity;
 import com.zxfdwka.bestcountrymusic.mp3.activity.OfflineMusicActivity;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

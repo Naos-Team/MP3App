@@ -28,13 +28,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.alexnguyen.interfaces.BackInterAdListener;
-import com.alexnguyen.interfaces.InterAdListener;
-import com.alexnguyen.item.ItemUser;
-import com.alexnguyen.radiofreeonline.BaseActivity;
-import com.alexnguyen.radiofreeonline.BuildConfig;
-import com.alexnguyen.radiofreeonline.LoginActivity;
-import com.alexnguyen.radiofreeonline.R;
 import com.google.ads.consent.ConsentInformation;
 import com.google.ads.consent.ConsentStatus;
 import com.google.ads.mediation.admob.AdMobAdapter;
@@ -45,12 +38,14 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.yakivmospan.scytale.Crypto;
 import com.yakivmospan.scytale.Options;
 import com.yakivmospan.scytale.Store;
+import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.radio.interfaces.BackInterAdListener;
+import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -72,16 +67,15 @@ public class Methods {
     private SharedPref sharedPref;
     private boolean isClicked = false;
     private SecretKey key;
-    private TemplateView NativeAdsView;
 
     public Methods(Context context, Boolean flag) {
         this.context = context;
 
         Store store = new Store(context);
-        if (!store.hasKey(BuildConfig.API_KEY)) {
-            key = store.generateSymmetricKey(BuildConfig.API_KEY, null);
+        if (!store.hasKey(Constants.BASE_SERVER_URL)) {
+            key = store.generateSymmetricKey(Constants.BASE_SERVER_URL, null);
         } else {
-            key = store.getSymmetricKey(BuildConfig.API_KEY, null);
+            key = store.getSymmetricKey(Constants.BASE_SERVER_URL, null);
         }
     }
 
@@ -119,26 +113,26 @@ public class Methods {
     }
 
     public void clickLogin() {
-        if (Constants.isLogged) {
-            logout((Activity) context);
-            showToast(context.getString(R.string.logout_success));
-        } else {
-            Intent intent = new Intent(context, LoginActivity.class);
-            intent.putExtra("from", "app");
-            context.startActivity(intent);
-        }
+//        if (Constants.isLogged) {
+//            logout((Activity) context);
+//            showToast(context.getString(R.string.logout_success));
+//        } else {
+//            Intent intent = new Intent(context, LoginActivity.class);
+//            intent.putExtra("from", "app");
+//            context.startActivity(intent);
+//        }
     }
 
     public void logout(Activity activity) {
-        Constants.itemUser = new ItemUser("", "", "", "");
-        SharedPref sharedPref = new SharedPref(context);
-        sharedPref.setLoginDetails(Constants.itemUser, false, "");
-        Constants.isLogged = false;
-        Intent intent1 = new Intent(context, LoginActivity.class);
-        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent1.putExtra("from", "");
-        context.startActivity(intent1);
-        activity.finish();
+//        Constants.itemUser = new ItemUser("", "", "", "");
+//        SharedPref sharedPref = new SharedPref(context);
+//        sharedPref.setLoginDetails(Constants.itemUser, false, "");
+//        Constants.isLogged = false;
+//        Intent intent1 = new Intent(context, LoginActivity.class);
+//        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        intent1.putExtra("from", "");
+//        context.startActivity(intent1);
+//        activity.finish();
     }
 
     public static String format(Number number) {
@@ -238,41 +232,41 @@ public class Methods {
         return AdSize.getCurrentOrientationBannerAdSizeWithWidth(context, adWidth);
     }
 
-    public void showNativeAd(){
-        NativeAdsView = ((BaseActivity) context).findViewById(R.id.my_template_native_ads);
-
-        if(Constants.adNativeCount++ % 3 == 0){
-            if(Constants.nativeAdsRequestCount++ < 5){
-
-                AdLoader adLoader = new AdLoader.Builder(context, "ca-app-pub-3940256099942544/2247696110")
-                        .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
-                            @Override
-                            public void onNativeAdLoaded(NativeAd nativeAd) {
-                                NativeTemplateStyle styles = new
-                                        NativeTemplateStyle.Builder().withMainBackgroundColor(new ColorDrawable(Color.WHITE)).build();
-                                NativeAdsView.setStyles(styles);
-                                NativeAdsView.setNativeAd(nativeAd);
-                                NativeAdsView.setVisibility(View.VISIBLE);
-                            }
-                        })
-                        .withAdListener(new AdListener(){
-                            @Override
-                            public void onAdFailedToLoad(LoadAdError loadAdError) {
-                                NativeAdsView.setVisibility(View.GONE);
-                                super.onAdFailedToLoad(loadAdError);
-                            }
-                        })
-                        .build();
-                if(adLoader != null){
-                    adLoader.loadAd(new AdRequest.Builder().build());
-                }
-            }else {
-                NativeAdsView.setVisibility(View.GONE);
-            }
-        }else {
-            NativeAdsView.setVisibility(View.GONE);
-        }
-    }
+//    public void showNativeAd(){
+//        NativeAdsView = ((BaseActivity) context).findViewById(R.id.my_template_native_ads);
+//
+//        if(Constants.adNativeCount++ % 3 == 0){
+//            if(Constants.nativeAdsRequestCount++ < 5){
+//
+//                AdLoader adLoader = new AdLoader.Builder(context, "ca-app-pub-3940256099942544/2247696110")
+//                        .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+//                            @Override
+//                            public void onNativeAdLoaded(NativeAd nativeAd) {
+//                                NativeTemplateStyle styles = new
+//                                        NativeTemplateStyle.Builder().withMainBackgroundColor(new ColorDrawable(Color.WHITE)).build();
+//                                NativeAdsView.setStyles(styles);
+//                                NativeAdsView.setNativeAd(nativeAd);
+//                                NativeAdsView.setVisibility(View.VISIBLE);
+//                            }
+//                        })
+//                        .withAdListener(new AdListener(){
+//                            @Override
+//                            public void onAdFailedToLoad(LoadAdError loadAdError) {
+//                                NativeAdsView.setVisibility(View.GONE);
+//                                super.onAdFailedToLoad(loadAdError);
+//                            }
+//                        })
+//                        .build();
+//                if(adLoader != null){
+//                    adLoader.loadAd(new AdRequest.Builder().build());
+//                }
+//            }else {
+//                NativeAdsView.setVisibility(View.GONE);
+//            }
+//        }else {
+//            NativeAdsView.setVisibility(View.GONE);
+//        }
+//    }
 
     public void showInter(final int pos, final String type) {
         if (Constants.isInterAd) {
@@ -369,7 +363,7 @@ public class Methods {
             final SharedPref sharedPref = new SharedPref(context);
 
             if (sharedPref.getIsRate()) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context, R.style.AlertDialogTheme_RED);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
                 alertDialog.setTitle(context.getString(R.string.rate_this_app));
                 alertDialog.setMessage(context.getString(R.string.rate_this_app_message));
                 alertDialog.setPositiveButton(context.getString(R.string.rate_it_now), new DialogInterface.OnClickListener() {
@@ -670,7 +664,7 @@ public class Methods {
     }
 
     public void getVerifyDialog(String title, String message) {
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context, R.style.AlertDialogTheme);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
         alertDialog.setCancelable(false);
@@ -707,7 +701,7 @@ public class Methods {
     public RequestBody getAPIRequest(String method, int page, String deviceID, String radioID, String searchText, String like, String catID, String type, String email, String password, String name, String phone, String userID, String reportMessage, File file) {
         JsonObject jsObj = (JsonObject) new Gson().toJsonTree(new API());
         jsObj.addProperty("method_name", method);
-        jsObj.addProperty("package_name", context.getPackageName());
+        jsObj.addProperty("package_name", "com.alexnguyen.radiofreeonline");
 
         switch (method) {
             case Constants.METHOD_ALL_RADIO:

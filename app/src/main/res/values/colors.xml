@@ -16,6 +16,8 @@
     <color name="negative_button">#00f</color>
     <color name="positive_button">#f00</color>
 
+    <color name="bg_playing">#e2e2e2</color>
+
     <color name="text_black">#000000</color>
     <color name="text_blackAA">#AA000000</color>
     <color name="text_title">#323232</color>
@@ -37,6 +39,13 @@
     <color name="notification_title">#000000</color>
     <color name="notification_sub_title">#000000</color>
     <color name="notification">#ffffff</color>
+
+    <integer-array name="progress_colors">
+        <item>@color/gplus_color_1</item>
+        <item>@color/gplus_color_2</item>
+        <item>@color/gplus_color_3</item>
+        <item>@color/gplus_color_4</item>
+    </integer-array>
 
 
     <color name="ripple">#d9dadb</color>

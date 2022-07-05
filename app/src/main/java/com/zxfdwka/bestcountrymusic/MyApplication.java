@@ -1,4 +1,4 @@
-package com.zxfdwka.bestcountrymusic.mp3.activity;
+package com.zxfdwka.bestcountrymusic;
 
 import android.app.Application;
 import android.os.StrictMode;

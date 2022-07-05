@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.adapter.AdapterOFSongList;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemAlbums;
 import com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
 import com.zxfdwka.bestcountrymusic.mp3.utils.GlobalBus;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;

@@ -41,12 +41,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.adapter.AdapterPlaylistDialog;
-import com.zxfdwka.bestcountrymusic.mp3.activity.BuildConfig;
+import com.zxfdwka.bestcountrymusic.BuildConfig;
 import com.zxfdwka.bestcountrymusic.mp3.activity.DownloadService;
 import com.zxfdwka.bestcountrymusic.mp3.activity.LoginActivity;
 import com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemMyPlayList;

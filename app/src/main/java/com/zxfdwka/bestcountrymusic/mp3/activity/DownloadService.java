@@ -13,6 +13,8 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.zxfdwka.bestcountrymusic.BuildConfig;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemSong;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Encrypter;
 

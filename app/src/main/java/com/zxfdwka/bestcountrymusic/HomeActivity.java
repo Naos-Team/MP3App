@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
-
 public class HomeActivity extends AppCompatActivity {
 
     @Override

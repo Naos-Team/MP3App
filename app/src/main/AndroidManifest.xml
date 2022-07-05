@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zxfdwka.bestcountrymusic.mp3.activity">
+    package="com.zxfdwka.bestcountrymusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name="com.zxfdwka.bestcountrymusic.mp3.activity.MyApplication"
+        android:name="com.zxfdwka.bestcountrymusic.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
@@ -28,11 +28,11 @@
             android:name="com.zxfdwka.bestcountrymusic.HomeActivity"
             android:exported="false" />
         <activity android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name="com.zxfdwka.bestcountrymusic.mp3.activity.LoginActivity"
@@ -78,6 +78,7 @@
         <activity
             android:name="com.zxfdwka.bestcountrymusic.mp3.activity.Add2OfflinePlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
+
         <activity
             android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SettingActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
@@ -88,7 +89,7 @@
             android:name="com.zxfdwka.bestcountrymusic.mp3.activity.OfflineMusicActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan|adjustNothing" />
+            android:windowSoftInputMode="adjustPan|adjustNothing"/>
         <activity
             android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SelectSongActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
@@ -114,6 +115,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />
@@ -124,6 +132,10 @@
         <service
             android:name="com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService"
             android:exported="false" />
+
+        <service android:name="com.zxfdwka.bestcountrymusic.radio.utils.PlayService"
+            android:exported="false"/>
+
         <service
             android:name="com.zxfdwka.bestcountrymusic.mp3.utils.NotificationExtenderExample"
             android:exported="false"

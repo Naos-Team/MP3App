@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 
 import androidx.core.content.ContextCompat;
 
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
-
+import com.zxfdwka.bestcountrymusic.R;
 
 public class SharedPref {
 

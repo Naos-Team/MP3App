@@ -7,7 +7,7 @@ import com.zxfdwka.bestcountrymusic.mp3.item.ItemAlbums;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemArtist;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemSong;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemUser;
-import com.zxfdwka.bestcountrymusic.mp3.activity.BuildConfig;
+import com.zxfdwka.bestcountrymusic.BuildConfig;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -20,12 +20,12 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.adapter.AdapterCat;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadCat;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.CatListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemCat;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 import com.zxfdwka.bestcountrymusic.mp3.activity.SongByCatActivity;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
 import com.zxfdwka.bestcountrymusic.mp3.utils.EndlessRecyclerViewScrollListener;

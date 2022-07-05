@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadLogin;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadRegister;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.LoginListener;

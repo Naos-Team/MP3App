@@ -7,7 +7,7 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.FileDataSource;
-import com.zxfdwka.bestcountrymusic.mp3.activity.BuildConfig;
+import com.zxfdwka.bestcountrymusic.BuildConfig;
 
 import java.io.EOFException;
 import java.io.IOException;

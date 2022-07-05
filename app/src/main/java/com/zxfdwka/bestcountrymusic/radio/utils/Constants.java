@@ -26,6 +26,7 @@ public class Constants implements Serializable {
     public static final String METHOD_SUGGESTION = "add_user_suggest";
     public static final String METHOD_REPORT = "add_report";
     public static final String METHOD_THEMES = "get_themes";
+    public static final String API_KEY = "alexnguyen";
 
     public static final String METHOD_SINGLE_RADIO = "get_single_radio";
     public static final String METHOD_LATEST = "get_latest_radio";

@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.adapter.AdapterCountry;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadCountry;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 import com.zxfdwka.bestcountrymusic.mp3.activity.SongByCatActivity;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.CountryListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;

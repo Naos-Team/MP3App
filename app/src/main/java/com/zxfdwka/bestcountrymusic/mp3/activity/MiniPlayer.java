@@ -36,11 +36,15 @@ import java.lang.ref.WeakReference;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+import com.zxfdwka.bestcountrymusic.R;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class MiniPlayer extends AppCompatActivity implements MediaPlayer.OnCompletionListener,
         MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener, View.OnClickListener,
         AudioManager.OnAudioFocusChangeListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
+
 
     @Override
     protected void attachBaseContext(Context newBase) {

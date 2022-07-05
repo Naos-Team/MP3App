@@ -66,12 +66,12 @@
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-<!--            <include-->
-<!--                android:id="@+id/layout_musicplayer"-->
-<!--                layout="@layout/layout_musicscreen"-->
-<!--                android:layout_marginTop="50dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent" />-->
+            <include
+                android:id="@+id/layout_musicplayer"
+                layout="@layout/layout_musicscreen"
+                android:layout_marginTop="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
 
         </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
@@ -95,6 +95,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         app:itemShapeAppearance="@style/CardView"
-        app:menu="@menu/activity_main_drawer"/>
+        app:menu="@menu/radio_drawer"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

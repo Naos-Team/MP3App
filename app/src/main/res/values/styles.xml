@@ -13,6 +13,10 @@
         <item name="colorAccent">@color/white</item>
     </style>
 
+    <style name="AppThemeTwo" parent="Widget.AppCompat.SeekBar">
+        <item name="android:colorControlNormal">#ffffff</item>
+    </style>
+
     <style name="PopupMenuLight" parent="ThemeOverlay.AppCompat.Light">
     </style>
 

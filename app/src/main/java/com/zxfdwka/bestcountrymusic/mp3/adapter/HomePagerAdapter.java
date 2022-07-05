@@ -15,9 +15,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.tiagosantos.enchantedviewpager.EnchantedViewPager;
 import com.tiagosantos.enchantedviewpager.EnchantedViewPagerAdapter;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemHomeBanner;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 import com.zxfdwka.bestcountrymusic.mp3.activity.SongByCatActivity;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
 

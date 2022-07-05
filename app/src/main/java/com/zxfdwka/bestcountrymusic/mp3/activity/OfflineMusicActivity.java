@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentOFAlbums;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentOFArtist;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentOFPlaylist;

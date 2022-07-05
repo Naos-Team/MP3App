@@ -3,13 +3,9 @@ package com.zxfdwka.bestcountrymusic.radio.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.Dialog;
-import android.app.PendingIntent;
+
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -68,9 +64,9 @@ import com.squareup.picasso.Picasso;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.AdConsentListener;
-import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
+import com.zxfdwka.bestcountrymusic.radio.utils.Methods;
 import com.zxfdwka.bestcountrymusic.radio.adapter.AdapterSuggest;
 import com.zxfdwka.bestcountrymusic.radio.asyncTasks.LoadRadioViewed;
 import com.zxfdwka.bestcountrymusic.radio.asyncTasks.LoadReport;
@@ -84,9 +80,6 @@ import com.zxfdwka.bestcountrymusic.radio.fragments.FragmentMain;
 import com.zxfdwka.bestcountrymusic.radio.fragments.FragmentOnDemandCat;
 import com.zxfdwka.bestcountrymusic.radio.fragments.FragmentOnDemandDetails;
 import com.zxfdwka.bestcountrymusic.radio.fragments.FragmentSearch;
-import com.zxfdwka.bestcountrymusic.radio.fragments.FragmentSuggestion;
-import com.zxfdwka.bestcountrymusic.radio.interfaces.AboutListener;
-import com.zxfdwka.bestcountrymusic.radio.interfaces.AdConsentListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.BackInterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.RadioViewListener;
@@ -96,9 +89,9 @@ import com.zxfdwka.bestcountrymusic.radio.item.ItemRadio;
 import com.zxfdwka.bestcountrymusic.mp3.utils.AdConsent;
 import com.zxfdwka.bestcountrymusic.radio.utils.Constants;
 import com.zxfdwka.bestcountrymusic.radio.utils.DBHelper;
+import com.zxfdwka.bestcountrymusic.radio.utils.PlayService;
 import com.zxfdwka.bestcountrymusic.radio.utils.RecyclerItemClickListener;
 import com.zxfdwka.bestcountrymusic.radio.utils.SharedPref;
-import com.zxfdwka.bestcountrymusic.radio.utils.SleepTimeReceiver;
 import com.zxfdwka.bestcountrymusic.radio.utils.StatusBarView;
 
 import java.util.ArrayList;
@@ -180,7 +173,7 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
         setSupportActionBar(toolbar);
 
         dbHelper = new DBHelper(this);
-        methods = new Methods(this, interAdListener);
+        methods = new Methods(RadioBaseActivity.this, interAdListener);
         methods.forceRTLIfSupported(getWindow());
         methods.setStatusColor(getWindow());
         fm = getSupportFragmentManager();
@@ -213,9 +206,7 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
         imageView_share = findViewById(R.id.imageView_share);
         imageView_fav = findViewById(R.id.imageView_fav_expand);
         imageView_player = findViewById(R.id.imageView_player);
-//        imageView_previous = findViewById(R.id.imageView_player_previous);
         btn_previous_expand = findViewById(R.id.btn_previous_expand);
-//        imageView_next = findViewById(R.id.imageView_player_next);
         btn_next_expand = findViewById(R.id.btn_next_expand);
         imageView_play = findViewById(R.id.imageView_player_play);
         //imageView_desc = findViewById(R.id.imageView_desc_expand);
@@ -267,7 +258,7 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
         });
 
         if (methods.isConnectingToInternet()) {
-            loadAboutData();
+//            loadAboutData();
             adConsent.checkForConsent();
         } else {
 
@@ -522,11 +513,11 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
                 if (Constants.arrayList_radio.size() > 0) {
                     methods.showRateDialog();
                     if (dbHelper.addORremoveFav(Constants.arrayList_radio.get(Constants.pos))) {
-                        imageView_fav.setImageResource(R.drawable.fav);
-                        methods.showToast(getString(R.string.add_to_fav));
+                        imageView_fav.setImageResource(R.drawable.radio_fav);
+                        Toast.makeText(RadioBaseActivity.this, getString(R.string.add_to_fav), Toast.LENGTH_SHORT).show();
                     } else {
-                        imageView_fav.setImageResource(R.drawable.unfav);
-                        methods.showToast(getString(R.string.remove_from_fav));
+                        imageView_fav.setImageResource(R.drawable.radio_unfav);
+                        Toast.makeText(RadioBaseActivity.this, getString(R.string.remove_from_fav), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -560,27 +551,27 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
                 changeVolume();
             }
         });
+//
+//        btn_sleep.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                methods.showRateDialog();
+//                if (sharedPref.getIsSleepTimeOn()) {
+//                    openTimeDialog();
+//                } else {
+//                    openTimeSelectDialog();
+//                }
+//            }
+//        });
 
-        btn_sleep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                methods.showRateDialog();
-                if (sharedPref.getIsSleepTimeOn()) {
-                    openTimeDialog();
-                } else {
-                    openTimeSelectDialog();
-                }
-            }
-        });
-
-        btn_report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Constants.arrayList_radio.size() > 0) {
-                    showReportDialog();
-                }
-            }
-        });
+//        btn_report.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (Constants.arrayList_radio.size() > 0) {
+//                    showReportDialog();
+//                }
+//            }
+//        });
 
         if (!Constants.pushRID.equals("0")) {
             progressDialog.show();
@@ -632,20 +623,8 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
                 FragmentFavourite ffav = new FragmentFavourite();
                 loadFrag(ffav, getResources().getString(R.string.favourite), fm);
                 break;
-            case R.id.nav_profile:
-                Intent intent = new Intent(BaseActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                break;
             case R.id.nav_login:
                 methods.clickLogin();
-                break;
-            case R.id.nav_settings:
-                Intent intent_setting = new Intent(BaseActivity.this, SettingActivity.class);
-                startActivity(intent_setting);
-                break;
-            case R.id.nav_sug:
-                FragmentSuggestion fsug = new FragmentSuggestion();
-                loadFrag(fsug, getResources().getString(R.string.suggestion), fm);
                 break;
             case R.id.nav_shareapp:
                 Intent ishare = new Intent(Intent.ACTION_SEND);
@@ -689,10 +668,10 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
     private void togglePlayPosition(Boolean isNext) {
         if (Constants.arrayList_radio.size() > 0) {
             if (PlayService.getInstance() == null) {
-                PlayService.createInstance().initialize(BaseActivity.this, Constants.arrayList_radio.get(Constants.pos));
+                PlayService.createInstance().initialize(RadioBaseActivity.this, Constants.arrayList_radio.get(Constants.pos));
             }
             Intent intent;
-            intent = new Intent(BaseActivity.this, PlayService.class);
+            intent = new Intent(RadioBaseActivity.this, PlayService.class);
             if (isNext) {
                 intent.setAction(PlayService.ACTION_NEXT);
             } else {
@@ -707,23 +686,23 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
             Constants.playTypeRadio = isRadio;
             Constants.pos = position;
             ItemRadio radio = Constants.arrayList_radio.get(Constants.pos);
-            final Intent intent = new Intent(BaseActivity.this, PlayService.class);
+            final Intent intent = new Intent(RadioBaseActivity.this, PlayService.class);
 
             if (PlayService.getInstance() != null) {
                 ItemRadio playerCurrrentRadio = PlayService.getInstance().getPlayingRadioStation();
                 if (playerCurrrentRadio != null) {
                     if (!radio.getRadioId().equals(PlayService.getInstance().getPlayingRadioStation().getRadioId())) {
-                        PlayService.getInstance().initialize(BaseActivity.this, radio);
+                        PlayService.getInstance().initialize(RadioBaseActivity.this, radio);
                         intent.setAction(PlayService.ACTION_PLAY);
                     } else {
                         intent.setAction(PlayService.ACTION_TOGGLE);
                     }
                 } else {
-                    PlayService.getInstance().initialize(BaseActivity.this, radio);
+                    PlayService.getInstance().initialize(RadioBaseActivity.this, radio);
                     intent.setAction(PlayService.ACTION_PLAY);
                 }
             } else {
-                PlayService.createInstance().initialize(BaseActivity.this, radio);
+                PlayService.createInstance().initialize(RadioBaseActivity.this, radio);
                 intent.setAction(PlayService.ACTION_PLAY);
             }
             startService(intent);
@@ -826,11 +805,11 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
             ItemRadio itemRadio = PlayService.getInstance().getPlayingRadioStation();
             if (itemRadio != null) {
                 changeText(itemRadio);
-                imageView_play.setImageDrawable(getResources().getDrawable(R.drawable.pause_2));
-//                fab_play_expand.setImageDrawable(ContextCompat.getDrawable(BaseActivity.this, R.mipmap.fab_pause));
-
-                iv_play_music.setImageDrawable(getResources().getDrawable(R.drawable.pause_2));
-                iv_play_scene2.setImageDrawable(getResources().getDrawable(R.drawable.pause_2));
+//                imageView_play.setImageDrawable(getResources().getDrawable(R.drawable.pause_2));
+////                fab_play_expand.setImageDrawable(ContextCompat.getDrawable(BaseActivity.this, R.mipmap.fab_pause));
+//
+//                iv_play_music.setImageDrawable(getResources().getDrawable(R.drawable.pause_2));
+//                iv_play_scene2.setImageDrawable(getResources().getDrawable(R.drawable.pause_2));
 
                 startImageAnimation();
             }
@@ -838,11 +817,11 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
             if (Constants.arrayList_radio.size() > 0) {
                 changeText(Constants.arrayList_radio.get(Constants.pos));
             }
-            imageView_play.setImageDrawable(getResources().getDrawable(R.drawable.play_2));
-//            fab_play_expand.setImageDrawable(ContextCompat.getDrawable(BaseActivity.this, R.mipmap.fab_play));
-
-            iv_play_music.setImageDrawable(getResources().getDrawable(R.drawable.play_2));
-            iv_play_scene2.setImageDrawable(getResources().getDrawable(R.drawable.play_2));
+//            imageView_play.setImageDrawable(getResources().getDrawable(R.drawable.play_2));
+////            fab_play_expand.setImageDrawable(ContextCompat.getDrawable(BaseActivity.this, R.mipmap.fab_play));
+//
+//            iv_play_music.setImageDrawable(getResources().getDrawable(R.drawable.play_2));
+//            iv_play_scene2.setImageDrawable(getResources().getDrawable(R.drawable.play_2));
 
             stopImageAnimation();
         }
@@ -850,7 +829,7 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
 
     public void changeText(ItemRadio itemRadio) {
         if (Constants.playTypeRadio) {
-            textView_freq_expand.setText(itemRadio.getRadioFreq() + " " + getString(R.string.HZ));
+            textView_freq_expand.setText(itemRadio.getRadioFreq() + " HZ");
             changeSongName(Constants.song_name);
             changeFav(itemRadio);
 
@@ -892,11 +871,11 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
     }
 
     public void changeFav(ItemRadio itemRadio) {
-        if (dbHelper.checkFav(itemRadio)) {
-            imageView_fav.setImageDrawable(ContextCompat.getDrawable(BaseActivity.this, R.mipmap.fav_hover_white));
-        } else {
-            imageView_fav.setImageDrawable(ContextCompat.getDrawable(BaseActivity.this, R.mipmap.fav_white));
-        }
+//        if (dbHelper.checkFav(itemRadio)) {
+//            imageView_fav.setImageDrawable(ContextCompat.getDrawable(RadioBaseActivity.this, R.mipmap.fav_hover_white));
+//        } else {
+//            imageView_fav.setImageDrawable(ContextCompat.getDrawable(RadioBaseActivity.this, R.mipmap.fav_white));
+//        }
     }
 
     public void changeSongName(String songName) {
@@ -907,7 +886,7 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
 
     public void setIfPlaying() {
         if (PlayService.getInstance() != null) {
-            PlayService.initNewContext(BaseActivity.this);
+            PlayService.initNewContext(RadioBaseActivity.this);
             changePlayPause(PlayService.getInstance().isPlaying());
             seekUpdation();
         } else {
@@ -934,61 +913,61 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
 //        loadAbout.execute();
 //    }
 
-    public void openQuitDialog() {
-        TextView txt_Exit_dialog, txtTitle_Exit_dialog;
-        Button btnCancel_Exit_dialog, btnexit_Exit_dialog;
-//        AlertDialog.Builder alert;
-//        alert = new AlertDialog.Builder(BaseActivity.this, R.style.Widget_MaterialComponents_MaterialCalendar_Day);
-//        alert.setTitle(R.string.app_name);
-//        alert.setIcon(R.mipmap.app_icon);
-//        alert.setMessage(getString(R.string.sure_quit));
+//    public void openQuitDialog() {
+//        TextView txt_Exit_dialog, txtTitle_Exit_dialog;
+//        Button btnCancel_Exit_dialog, btnexit_Exit_dialog;
+////        AlertDialog.Builder alert;
+////        alert = new AlertDialog.Builder(BaseActivity.this, R.style.Widget_MaterialComponents_MaterialCalendar_Day);
+////        alert.setTitle(R.string.app_name);
+////        alert.setIcon(R.mipmap.app_icon);
+////        alert.setMessage(getString(R.string.sure_quit));
+////
+////        alert.setPositiveButton(R.string.exit, new DialogInterface.OnClickListener() {
+////            public void onClick(DialogInterface dialog, int whichButton) {
+////                finish();
+////            }
+////        });
+////
+////        alert.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+////            public void onClick(DialogInterface dialog, int which) {
+////            }
+////        });
+////       alert.show();
+//        Dialog dialog = new Dialog(this);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(R.layout.layout_dialog_exit_app);
+//        Window window = dialog.getWindow();
+//        if(window == null){
+//            return;
+//        }
+//        txt_Exit_dialog = (TextView) dialog.findViewById(R.id.txt_Exit_dialog);
+//        txtTitle_Exit_dialog = (TextView) dialog.findViewById(R.id.txtTitle_Exit_dialog);
+//        btnCancel_Exit_dialog = (Button) dialog.findViewById(R.id.btnCancel_Exit_dialog);
+//        btnexit_Exit_dialog = (Button) dialog.findViewById(R.id.btnexit_Exit_dialog);
 //
-//        alert.setPositiveButton(R.string.exit, new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int whichButton) {
+//        txtTitle_Exit_dialog.setText("Confirm");
+//        txt_Exit_dialog.setText(getString(R.string.sure_quit));
+//        btnCancel_Exit_dialog.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//
+//
+//        btnexit_Exit_dialog.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
 //                finish();
 //            }
 //        });
 //
-//        alert.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int which) {
-//            }
-//        });
-//       alert.show();
-        Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_exit_app);
-        Window window = dialog.getWindow();
-        if(window == null){
-            return;
-        }
-        txt_Exit_dialog = (TextView) dialog.findViewById(R.id.txt_Exit_dialog);
-        txtTitle_Exit_dialog = (TextView) dialog.findViewById(R.id.txtTitle_Exit_dialog);
-        btnCancel_Exit_dialog = (Button) dialog.findViewById(R.id.btnCancel_Exit_dialog);
-        btnexit_Exit_dialog = (Button) dialog.findViewById(R.id.btnexit_Exit_dialog);
-
-        txtTitle_Exit_dialog.setText("Confirm");
-        txt_Exit_dialog.setText(getString(R.string.sure_quit));
-        btnCancel_Exit_dialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-
-
-        btnexit_Exit_dialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.setCancelable(true);
-        dialog.show();
-    }
+//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+//        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        dialog.setCancelable(true);
+//        dialog.show();
+//    }
 
     private InterAdListener interAdListener = new InterAdListener() {
         @Override
@@ -1002,12 +981,12 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
     private BackInterAdListener backInterAdListener = new BackInterAdListener() {
         @Override
         public void onClick() {
-            BaseActivity.super.onBackPressed();
+            RadioBaseActivity.super.onBackPressed();
         }
     };
 
     public void checkPer() {
-        if ((ContextCompat.checkSelfPermission(BaseActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(BaseActivity.this, "android.permission.READ_PHONE_STATE") != PackageManager.PERMISSION_GRANTED)) {
+        if ((ContextCompat.checkSelfPermission(RadioBaseActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE") != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(RadioBaseActivity.this, "android.permission.READ_PHONE_STATE") != PackageManager.PERMISSION_GRANTED)) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_PHONE_STATE"}, 1);
@@ -1052,111 +1031,72 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
         loadRadioViewed.execute();
     }
 
-    public void showBottomSheetDialog() {
-        View view = getLayoutInflater().inflate(R.layout.layout_desc, null);
+//    @SuppressLint("RestrictedApi")
+//    public void showReportDialog() {
+//        View view = getLayoutInflater().inflate(R.layout.layout_report, null);
+//
+//        dialog_report = new BottomSheetDialog(this);
+//        dialog_report.setContentView(view);
+//        dialog_report.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
+//        dialog_report.show();
+//
+//        final AppCompatEditText editText = dialog_report.findViewById(R.id.editText_report);
+//        Button button_report = dialog_report.findViewById(R.id.button_report);
+//        button_report.setBackground(methods.getRoundDrawable(sharedPref.getFirstColor()));
+//
+//        ViewCompat.setBackgroundTintList(editText, ColorStateList.valueOf(sharedPref.getFirstColor()));
+//
+//        button_report.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (Constants.isLogged) {
+//                    if (!TextUtils.isEmpty(editText.getText())) {
+//                        String type = "";
+//                        if (Constants.playTypeRadio) {
+//                            type = "alexnguyen";
+//                        } else {
+//                            type = "song";
+//                        }
+////                        Toast.makeText(BaseActivity.this, "Reporting is disabled in demo app", Toast.LENGTH_SHORT).show();
+//                        loadReport(type, editText.getText().toString());
+//                    } else {
+//                        methods.showToast(getString(R.string.write_report_details));
+//                    }
+//                } else {
+//                    Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
+//                    intent.putExtra("from", "app");
+//                    startActivity(intent);
+//                }
+//            }
+//        });
+//    }
 
-        dialog_desc = new BottomSheetDialog(this);
-        dialog_desc.setContentView(view);
-        dialog_desc.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
-        dialog_desc.show();
-
-        AppCompatButton button = dialog_desc.findViewById(R.id.button_detail_close);
-        ViewCompat.setBackgroundTintList(button, ColorStateList.valueOf(sharedPref.getFirstColor()));
-        TextView textView = dialog_desc.findViewById(R.id.textView_detail_title);
-        textView.setText(Constants.arrayList_radio.get(Constants.pos).getRadioName());
-
-        textView.setBackground(methods.getGradientDrawableToolbar());
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog_desc.dismiss();
-            }
-        });
-
-        WebView webview_song_desc = dialog_desc.findViewById(R.id.webView_bottom);
-        String mimeType = "text/html;charset=UTF-8";
-        String encoding = "utf-8";
-        String text = "<html><head>"
-                + "<style> body{color: #000 !important;text-align:left}"
-                + "</style></head>"
-                + "<body>"
-                + Constants.arrayList_radio.get(Constants.pos).getDescription()
-                + "</body></html>";
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            webview_song_desc.loadData(text, mimeType, encoding);
-        } else {
-            webview_song_desc.loadDataWithBaseURL("blarg://ignored", text, mimeType, encoding, "");
-        }
-    }
-
-    @SuppressLint("RestrictedApi")
-    public void showReportDialog() {
-        View view = getLayoutInflater().inflate(R.layout.layout_report, null);
-
-        dialog_report = new BottomSheetDialog(this);
-        dialog_report.setContentView(view);
-        dialog_report.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
-        dialog_report.show();
-
-        final AppCompatEditText editText = dialog_report.findViewById(R.id.editText_report);
-        Button button_report = dialog_report.findViewById(R.id.button_report);
-        button_report.setBackground(methods.getRoundDrawable(sharedPref.getFirstColor()));
-
-        ViewCompat.setBackgroundTintList(editText, ColorStateList.valueOf(sharedPref.getFirstColor()));
-
-        button_report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Constants.isLogged) {
-                    if (!TextUtils.isEmpty(editText.getText())) {
-                        String type = "";
-                        if (Constants.playTypeRadio) {
-                            type = "alexnguyen";
-                        } else {
-                            type = "song";
-                        }
-//                        Toast.makeText(BaseActivity.this, "Reporting is disabled in demo app", Toast.LENGTH_SHORT).show();
-                        loadReport(type, editText.getText().toString());
-                    } else {
-                        methods.showToast(getString(R.string.write_report_details));
-                    }
-                } else {
-                    Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
-                    intent.putExtra("from", "app");
-                    startActivity(intent);
-                }
-            }
-        });
-    }
-
-    private void loadReport(String radioType, String radioDesc) {
-        if (methods.isConnectingToInternet()) {
-            LoadReport loadReport = new LoadReport(new SuccessListener() {
-                @Override
-                public void onStart() {
-                    progressDialog.show();
-                }
-
-                @Override
-                public void onEnd(String success, String registerSuccess, String message) {
-                    progressDialog.dismiss();
-                    if (success.equals("1")) {
-                        if (registerSuccess.equals("1")) {
-                            dialog_report.dismiss();
-                            methods.showToast(message);
-                        }
-                    } else {
-                        methods.showToast(getString(R.string.error_server));
-                    }
-                }
-            }, methods.getAPIRequest(Constants.METHOD_REPORT, 0, "", Constants.arrayList_radio.get(Constants.pos).getRadioId(), "", "", "", radioType, Constants.itemUser.getEmail(), "", "", "", Constants.itemUser.getId(), radioDesc, null));
-            loadReport.execute();
-        } else {
-            methods.showToast(getString(R.string.internet_not_connected));
-        }
-    }
+//    private void loadReport(String radioType, String radioDesc) {
+//        if (methods.isConnectingToInternet()) {
+//            LoadReport loadReport = new LoadReport(new SuccessListener() {
+//                @Override
+//                public void onStart() {
+//                    progressDialog.show();
+//                }
+//
+//                @Override
+//                public void onEnd(String success, String registerSuccess, String message) {
+//                    progressDialog.dismiss();
+//                    if (success.equals("1")) {
+//                        if (registerSuccess.equals("1")) {
+//                            dialog_report.dismiss();
+//                            methods.showToast(message);
+//                        }
+//                    } else {
+//                        methods.showToast(getString(R.string.error_server));
+//                    }
+//                }
+//            }, methods.getAPIRequest(Constants.METHOD_REPORT, 0, "", Constants.arrayList_radio.get(Constants.pos).getRadioId(), "", "", "", radioType, Constants.itemUser.getEmail(), "", "", "", Constants.itemUser.getId(), radioDesc, null));
+//            loadReport.execute();
+//        } else {
+//            methods.showToast(getString(R.string.internet_not_connected));
+//        }
+//    }
 
     public void changeThemeColor() {
         Constants.isThemeChanged = false;
@@ -1208,7 +1148,7 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
             getSupportActionBar().setTitle(fm.getFragments().get(fm.getBackStackEntryCount() - 2).getTag());
             methodsBack.showInter(999, "BackPress");
         } else {
-            openQuitDialog();
+//            openQuitDialog();
         }
     }
 
@@ -1299,124 +1239,124 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
         popupWindow.showOnAnchor(btn_volume, RelativePopupWindow.VerticalPosition.ABOVE, RelativePopupWindow.HorizontalPosition.CENTER);
     }
 
-    private void openTimeSelectDialog() {
-        AlertDialog.Builder alt_bld = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
-        alt_bld.setTitle(getString(R.string.sleep_time));
+//    private void openTimeSelectDialog() {
+//        AlertDialog.Builder alt_bld = new AlertDialog.Builder(this, R.style.AlertDialogTheme);
+//        alt_bld.setTitle(getString(R.string.sleep_time));
+//
+//        LayoutInflater inflater = this.getLayoutInflater();
+//        View dialogView = inflater.inflate(R.layout.layout_dailog_selecttime, null);
+//        alt_bld.setView(dialogView);
+//
+//        final TextView tv_min = dialogView.findViewById(R.id.tv_min);
+//        tv_min.setText("1 " + getString(R.string.min));
+//        FrameLayout frameLayout = dialogView.findViewById(R.id.fl);
+//
+//        final IndicatorSeekBar seekbar = IndicatorSeekBar
+//                .with(BaseActivity.this)
+//                .min(1)
+//                .max(120)
+//                .progress(1)
+//                .thumbColor(sharedPref.getSecondColor())
+//                .indicatorColor(sharedPref.getFirstColor())
+//                .trackProgressColor(sharedPref.getFirstColor())
+//                .build();
+//
+//        seekbar.setOnSeekChangeListener(new OnSeekChangeListener() {
+//            @Override
+//            public void onSeeking(SeekParams seekParams) {
+//                tv_min.setText(seekParams.progress + " " + getString(R.string.min));
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
+//
+//            }
+//        });
+//
+//        frameLayout.addView(seekbar);
+//
+//        alt_bld.setPositiveButton(getString(R.string.set), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//                String hours = String.valueOf(seekbar.getProgress() / 60);
+//                String minute = String.valueOf(seekbar.getProgress() % 60);
+//
+//                if (hours.length() == 1) {
+//                    hours = "0" + hours;
+//                }
+//
+//                if (minute.length() == 1) {
+//                    minute = "0" + minute;
+//                }
+//
+//                String totalTime = hours + ":" + minute;
+//                long total_timer = methods.convertToMili(totalTime) + System.currentTimeMillis();
+//
+//                Random random = new Random();
+//                int id = random.nextInt(100);
+//
+//                sharedPref.setSleepTime(true, total_timer, id);
+//
+//                Intent intent = new Intent(BaseActivity.this, SleepTimeReceiver.class);
+//                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, PendingIntent.FLAG_ONE_SHOT);
+//                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, total_timer, pendingIntent);
+//                } else {
+//                    alarmManager.set(AlarmManager.RTC_WAKEUP, total_timer, pendingIntent);
+//                }
+//            }
+//        });
+//        alt_bld.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        });
+//        AlertDialog alert = alt_bld.create();
+//        alert.show();
+//    }
 
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.layout_dailog_selecttime, null);
-        alt_bld.setView(dialogView);
-
-        final TextView tv_min = dialogView.findViewById(R.id.tv_min);
-        tv_min.setText("1 " + getString(R.string.min));
-        FrameLayout frameLayout = dialogView.findViewById(R.id.fl);
-
-        final IndicatorSeekBar seekbar = IndicatorSeekBar
-                .with(BaseActivity.this)
-                .min(1)
-                .max(120)
-                .progress(1)
-                .thumbColor(sharedPref.getSecondColor())
-                .indicatorColor(sharedPref.getFirstColor())
-                .trackProgressColor(sharedPref.getFirstColor())
-                .build();
-
-        seekbar.setOnSeekChangeListener(new OnSeekChangeListener() {
-            @Override
-            public void onSeeking(SeekParams seekParams) {
-                tv_min.setText(seekParams.progress + " " + getString(R.string.min));
-            }
-
-            @Override
-            public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
-
-            }
-        });
-
-        frameLayout.addView(seekbar);
-
-        alt_bld.setPositiveButton(getString(R.string.set), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                String hours = String.valueOf(seekbar.getProgress() / 60);
-                String minute = String.valueOf(seekbar.getProgress() % 60);
-
-                if (hours.length() == 1) {
-                    hours = "0" + hours;
-                }
-
-                if (minute.length() == 1) {
-                    minute = "0" + minute;
-                }
-
-                String totalTime = hours + ":" + minute;
-                long total_timer = methods.convertToMili(totalTime) + System.currentTimeMillis();
-
-                Random random = new Random();
-                int id = random.nextInt(100);
-
-                sharedPref.setSleepTime(true, total_timer, id);
-
-                Intent intent = new Intent(BaseActivity.this, SleepTimeReceiver.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, PendingIntent.FLAG_ONE_SHOT);
-                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, total_timer, pendingIntent);
-                } else {
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, total_timer, pendingIntent);
-                }
-            }
-        });
-        alt_bld.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        AlertDialog alert = alt_bld.create();
-        alert.show();
-    }
 
 
-
-    private void openTimeDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this, R.style.AlertDialogTheme);
-        builder.setTitle(getString(R.string.sleep_time));
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.layout_dailog_time, null);
-        builder.setView(dialogView);
-
-        TextView textView = dialogView.findViewById(R.id.textView_time);
-
-        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-
-        builder.setPositiveButton(getString(R.string.stop), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent i = new Intent(BaseActivity.this, SleepTimeReceiver.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(BaseActivity.this, sharedPref.getSleepID(), i, PendingIntent.FLAG_ONE_SHOT);
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                pendingIntent.cancel();
-                alarmManager.cancel(pendingIntent);
-                sharedPref.setSleepTime(false, 0, 0);
-            }
-        });
-
-        updateTimer(textView, sharedPref.getSleepTime());
-
-        builder.show();
-    }
+//    private void openTimeDialog() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this, R.style.AlertDialogTheme);
+//        builder.setTitle(getString(R.string.sleep_time));
+//        LayoutInflater inflater = this.getLayoutInflater();
+//        View dialogView = inflater.inflate(R.layout.layout_dailog_time, null);
+//        builder.setView(dialogView);
+//
+//        TextView textView = dialogView.findViewById(R.id.textView_time);
+//
+//        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//
+//            }
+//        });
+//
+//        builder.setPositiveButton(getString(R.string.stop), new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Intent i = new Intent(BaseActivity.this, SleepTimeReceiver.class);
+//                PendingIntent pendingIntent = PendingIntent.getBroadcast(BaseActivity.this, sharedPref.getSleepID(), i, PendingIntent.FLAG_ONE_SHOT);
+//                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//                pendingIntent.cancel();
+//                alarmManager.cancel(pendingIntent);
+//                sharedPref.setSleepTime(false, 0, 0);
+//            }
+//        });
+//
+//        updateTimer(textView, sharedPref.getSleepTime());
+//
+//        builder.show();
+//    }
 
     private void updateTimer(final TextView textView, long time) {
         long timeleft = time - System.currentTimeMillis();
@@ -1493,9 +1433,9 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
                 ViewCompat.setBackgroundTintList(FragmentLanguageDetails.button_try, ColorStateList.valueOf(sharedPref.getFirstColor()));
             }
 
-            if (FragmentSuggestion.button_submit != null) {
-                ViewCompat.setBackgroundTintList(FragmentSuggestion.button_submit, ColorStateList.valueOf(sharedPref.getFirstColor()));
-            }
+//            if (FragmentSuggestion.button_submit != null) {
+//                ViewCompat.setBackgroundTintList(FragmentSuggestion.button_submit, ColorStateList.valueOf(sharedPref.getFirstColor()));
+//            }
         }
         navigationView.setCheckedItem(navigationView.getMenu().findItem(R.id.nav_home).getItemId());
         super.onResume();
