@@ -491,13 +491,13 @@ public class FragmentHome extends Fragment {
                                 enchantedViewPager.setCurrentItem(1);
                             }
 
-                            adapterArtistHome = new AdapterArtistHome(arrayList_artist);
+                            adapterArtistHome = new AdapterArtistHome(arrayList_artist, getActivity());
                             rv_artist.setAdapter(adapterArtistHome);
 
-                            adapterCountry = new AdapterCountryHome(arrayList_country);
+                            adapterCountry = new AdapterCountryHome(arrayList_country, getActivity());
                             rv_country.setAdapter(adapterCountry);
 
-                            adapterGenresHome = new AdapterGenresHome(arrayList_genres);
+                            adapterGenresHome = new AdapterGenresHome(arrayList_genres, getActivity());
                             rv_genres.setAdapter(adapterGenresHome);
 
                             adapterTrending = new AdapterAllSongList(getActivity(), arrayList_trend_songs, new ClickListenerPlayList() {
@@ -554,13 +554,13 @@ public class FragmentHome extends Fragment {
                             });
                             rv_recent.setAdapter(adapterRecent);
 
-                            adapterAlbumsHome = new AdapterAlbumsHome(arrayList_albums);
+                            adapterAlbumsHome = new AdapterAlbumsHome(arrayList_albums, getActivity());
                             rv_albums.setAdapter(adapterAlbumsHome);
 
-                            adapterPlaylistHome = new AdapterPlaylistHome(arrayList_playlist);
+                            adapterPlaylistHome = new AdapterPlaylistHome(arrayList_playlist, getActivity());
                             rv_playlist.setAdapter(adapterPlaylistHome);
 
-                            adapterAppsHome = new AdapterAppsHome(arrayList_apps);
+                            adapterAppsHome = new AdapterAppsHome(arrayList_apps, getActivity());
                             rv_apps.setAdapter(adapterAppsHome);
 
                             ll_home.setVisibility(View.VISIBLE);

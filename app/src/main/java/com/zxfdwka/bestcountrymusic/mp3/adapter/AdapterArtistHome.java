@@ -1,5 +1,6 @@
 package com.zxfdwka.bestcountrymusic.mp3.adapter;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,25 +14,30 @@ import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AdapterArtistHome extends RecyclerView.Adapter<AdapterArtistHome.MyViewHolder> {
 
     private ArrayList<ItemArtist> arrayList;
+    private Activity activity;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         RoundedImageView imageView_artist;
+        ConstraintLayout layout_home_artist;
 
         MyViewHolder(View view) {
             super(view);
             textView = view.findViewById(R.id.tv_home_artist);
             imageView_artist = view.findViewById(R.id.iv_home_artist);
+            layout_home_artist = view.findViewById(R.id.layout_home_artist);
         }
     }
 
-    public AdapterArtistHome(ArrayList<ItemArtist> arrayList) {
+    public AdapterArtistHome(ArrayList<ItemArtist> arrayList, Activity activity) {
         this.arrayList = arrayList;
+        this.activity = activity;
     }
 
     @NonNull
@@ -51,7 +57,12 @@ public class AdapterArtistHome extends RecyclerView.Adapter<AdapterArtistHome.My
                 .load(arrayList.get(position).getImage())
                 .placeholder(R.drawable.placeholder_artist)
                 .into(holder.imageView_artist);
-
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
+                activity.getResources().getDisplayMetrics().heightPixels * 185 / 1000,
+                activity.getResources().getDisplayMetrics().heightPixels * 185 /85*100 / 1000);
+        layoutParams.setMargins(activity.getResources().getDisplayMetrics().widthPixels*3/100, 5,
+                2, 5);
+        holder.layout_home_artist.setLayoutParams(layoutParams);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -37,6 +38,7 @@ public class AdapterRecent extends RecyclerView.Adapter<AdapterRecent.MyViewHold
         RoundedImageView iv_song;
         ImageView iv_more;
         TextView tv_title, tv_cat;
+        ConstraintLayout layout_recent;
 
         MyViewHolder(View view) {
             super(view);
@@ -44,6 +46,7 @@ public class AdapterRecent extends RecyclerView.Adapter<AdapterRecent.MyViewHold
             iv_more = view.findViewById(R.id.iv_recent_more);
             tv_title = view.findViewById(R.id.tv_recent_song);
             tv_cat = view.findViewById(R.id.tv_recent_cat);
+            layout_recent = view.findViewById(R.id.layout_recent);
         }
     }
 
@@ -86,6 +89,14 @@ public class AdapterRecent extends RecyclerView.Adapter<AdapterRecent.MyViewHold
                 clickListenerPlayList.onClick(holder.getAdapterPosition());
             }
         });
+
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
+                context.getResources().getDisplayMetrics().heightPixels * 185 / 1000,
+                context.getResources().getDisplayMetrics().heightPixels * 230 / 1000
+        );
+        layoutParams.setMargins(context.getResources().getDisplayMetrics().widthPixels*3/100, 5,
+                2, 5);
+        holder.layout_recent.setLayoutParams(layoutParams);
     }
 
     @Override

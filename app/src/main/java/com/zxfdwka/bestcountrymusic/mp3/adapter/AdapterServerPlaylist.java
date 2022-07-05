@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Random;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AdapterServerPlaylist extends RecyclerView.Adapter {
@@ -62,11 +63,14 @@ public class AdapterServerPlaylist extends RecyclerView.Adapter {
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         RoundedImageView imageView;
+        ConstraintLayout layout_albums_home;
 
         MyViewHolder(View view) {
             super(view);
-            textView = view.findViewById(R.id.tv_album_name);
+
             imageView = view.findViewById(R.id.iv_albums);
+            textView = view.findViewById(R.id.tv_album_name);
+            layout_albums_home = view.findViewById(R.id.layout_albums_home);
         }
     }
 
@@ -98,7 +102,7 @@ public class AdapterServerPlaylist extends RecyclerView.Adapter {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_ads, parent, false);
             return new ADViewHolder(itemView);
         } else {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_albums, parent, false);
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_albums_home, parent, false);
         return new MyViewHolder(itemView);
     }
     }
@@ -106,7 +110,6 @@ public class AdapterServerPlaylist extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MyViewHolder) {
-            ((MyViewHolder) holder).imageView.setLayoutParams(new RelativeLayout.LayoutParams(columnWidth, columnWidth));
             ((MyViewHolder) holder).textView.setText(arrayList.get(position).getName());
             ((MyViewHolder) holder).imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Picasso.get()
@@ -115,6 +118,13 @@ public class AdapterServerPlaylist extends RecyclerView.Adapter {
                     .into(((MyViewHolder) holder).imageView);
 
             ((MyViewHolder) holder).textView.setTypeface(((MyViewHolder) holder).textView.getTypeface(), Typeface.BOLD);
+            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
+                    context.getResources().getDisplayMetrics().widthPixels * 46 / 100,
+                    context.getResources().getDisplayMetrics().widthPixels * 46 / 100);
+            layoutParams.setMargins(context.getResources().getDisplayMetrics().widthPixels*2/100,
+                    context.getResources().getDisplayMetrics().widthPixels*5/100,
+                    context.getResources().getDisplayMetrics().widthPixels*2/100, 0);
+            ((MyViewHolder) holder).layout_albums_home.setLayoutParams(layoutParams);
         } else if (holder instanceof ADViewHolder) {
             if (isAdLoaded) {
                 if (((ADViewHolder) holder).rl_native_ad.getChildCount() == 0) {

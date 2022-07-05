@@ -303,10 +303,10 @@ public class FragmentSearch extends Fragment {
         });
         rv_songs.setAdapter(adapterSongs);
 
-        adapterArtistHome = new AdapterArtistHome(arrayList_artist);
+        adapterArtistHome = new AdapterArtistHome(arrayList_artist, getActivity());
         rv_artist.setAdapter(adapterArtistHome);
 
-        adapterAlbumsHome = new AdapterAlbumsHome(arrayList_album);
+        adapterAlbumsHome = new AdapterAlbumsHome(arrayList_album, getActivity());
         rv_albums.setAdapter(adapterAlbumsHome);
 
         setEmpty();

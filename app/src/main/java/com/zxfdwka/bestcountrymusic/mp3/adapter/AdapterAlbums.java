@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Random;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class AdapterAlbums extends RecyclerView.Adapter {
@@ -62,14 +63,15 @@ public class AdapterAlbums extends RecyclerView.Adapter {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView textView_album, textView_artist;
+        TextView textView_album ;
         RoundedImageView imageView;
+        ConstraintLayout layout_albums_home;
 
         MyViewHolder(View view) {
             super(view);
-            textView_artist = view.findViewById(R.id.tv_album_artist);
-            textView_album = view.findViewById(R.id.tv_album_name);
             imageView = view.findViewById(R.id.iv_albums);
+            textView_album = view.findViewById(R.id.tv_album_name);
+            layout_albums_home = view.findViewById(R.id.layout_albums_home);
         }
     }
 
@@ -101,7 +103,7 @@ public class AdapterAlbums extends RecyclerView.Adapter {
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_ads, parent, false);
             return new ADViewHolder(itemView);
         } else {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_albums, parent, false);
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_albums_home, parent, false);
             return new MyViewHolder(itemView);
         }
     }
@@ -111,7 +113,6 @@ public class AdapterAlbums extends RecyclerView.Adapter {
 
         if (holder instanceof MyViewHolder) {
 
-            ((MyViewHolder) holder).imageView.setLayoutParams(new RelativeLayout.LayoutParams(columnWidth, columnWidth));
             ((MyViewHolder) holder).textView_album.setText(arrayList.get(position).getName());
             ((MyViewHolder) holder).imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Picasso.get()
@@ -120,10 +121,13 @@ public class AdapterAlbums extends RecyclerView.Adapter {
                     .into(((MyViewHolder) holder).imageView);
 
             ((MyViewHolder) holder).textView_album.setTypeface(((MyViewHolder) holder).textView_album.getTypeface(), Typeface.BOLD);
-            if (!isOnline) {
-                ((MyViewHolder) holder).textView_artist.setVisibility(View.VISIBLE);
-                ((MyViewHolder) holder).textView_artist.setText(arrayList.get(holder.getAdapterPosition()).getArtist());
-            }
+            ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(
+                    context.getResources().getDisplayMetrics().widthPixels * 46 / 100,
+                    context.getResources().getDisplayMetrics().widthPixels * 46 / 100);
+            layoutParams.setMargins(context.getResources().getDisplayMetrics().widthPixels*2/100,
+                    context.getResources().getDisplayMetrics().widthPixels*5/100,
+                    context.getResources().getDisplayMetrics().widthPixels*2/100, 0);
+            ((AdapterAlbums.MyViewHolder) holder).layout_albums_home.setLayoutParams(layoutParams);
         } else if (holder instanceof ADViewHolder) {
             if (isAdLoaded) {
                 if (((ADViewHolder) holder).rl_native_ad.getChildCount() == 0) {

@@ -116,8 +116,7 @@ public class AdapterArtist extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MyViewHolder) {
             ((MyViewHolder) holder).iv.setVisibility(View.GONE);
-
-            ((MyViewHolder) holder).vieww.setLayoutParams(new FrameLayout.LayoutParams(columnWidth, columnWidth));
+            ((MyViewHolder) holder).vieww.setVisibility(View.GONE);
             ((MyViewHolder) holder).imageView.setLayoutParams(new FrameLayout.LayoutParams(columnWidth, columnWidth));
             ((MyViewHolder) holder).cardView.setLayoutParams(new LinearLayout.LayoutParams(columnWidth, columnWidth));
             ((MyViewHolder) holder).cardView.setRadius(columnWidth / 2);
