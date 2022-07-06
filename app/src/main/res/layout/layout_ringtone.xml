@@ -6,8 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:shimmer="http://schemas.android.com/tools"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
     android:background="@color/black"
     >
 
@@ -49,8 +47,7 @@
                        android:layout_width="15dp"
                        android:layout_height="15dp"
                        android:layout_centerInParent="true"
-                       android:src="@drawable/play_ringtone"
-                       />
+                       android:src="@drawable/play_ringtone" />
 
                    <ImageView
                        android:id="@+id/pause"

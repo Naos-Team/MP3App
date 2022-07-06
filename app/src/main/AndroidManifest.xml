@@ -164,7 +164,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.SplashActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.AboutActivity" />
         <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.CategoriesActivity" />
         <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.DownloadActivity" />
         <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.FavouriteActivity" />

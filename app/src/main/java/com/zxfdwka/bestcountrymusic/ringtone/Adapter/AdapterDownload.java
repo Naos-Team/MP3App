@@ -201,14 +201,14 @@ public class AdapterDownload extends RecyclerView.Adapter<AdapterDownload.MyView
                 if (Setting.exoPlayer_do.getPlayWhenReady()) {
                     Setting.exoPlayer_do.setPlayWhenReady(false);
                     Picasso.get()
-                            .load(R.drawable.play)
-                            .placeholder(R.drawable.play)
+                            .load(R.drawable.play_ringtone)
+                            .placeholder(R.drawable.play_ringtone)
                             .into(holder.pause);
                 } else {
                     Setting.exoPlayer_do.setPlayWhenReady(true);
                     Picasso.get()
-                            .load(R.drawable.pause)
-                            .placeholder(R.drawable.pause)
+                            .load(R.drawable.pause_ringtone)
+                            .placeholder(R.drawable.pause_ringtone)
                             .into(holder.pause);
                 }
             }
@@ -234,13 +234,13 @@ public class AdapterDownload extends RecyclerView.Adapter<AdapterDownload.MyView
 
 
                 Picasso.get()
-                        .load(R.drawable.pause)
-                        .placeholder(R.drawable.pause)
+                        .load(R.drawable.pause_ringtone)
+                        .placeholder(R.drawable.pause_ringtone)
                         .into(holder.pause);
 
                 Picasso.get()
-                        .load(R.drawable.play)
-                        .placeholder(R.drawable.play)
+                        .load(R.drawable.play_ringtone)
+                        .placeholder(R.drawable.play_ringtone)
                         .into(holder.play);
 
 
@@ -315,11 +315,7 @@ public class AdapterDownload extends RecyclerView.Adapter<AdapterDownload.MyView
         AlertDialog.Builder dialog;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (Setting.Dark_Mode){
-                dialog = new AlertDialog.Builder(context, R.style.ThemeDialog2);
-            }else {
-                dialog = new AlertDialog.Builder(context, R.style.ThemeDialog);
-            }
+            dialog = new AlertDialog.Builder(context, R.style.ThemeDialog);
         } else {
             dialog = new AlertDialog.Builder(context);
         }

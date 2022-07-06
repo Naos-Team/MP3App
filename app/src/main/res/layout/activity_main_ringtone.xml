@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
-    android:background="?attr/BackgroundColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
@@ -19,33 +19,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:itemIconTint="?attr/BackgroundTint"
-        app:itemTextColor="?attr/BackgroundTint"
-        android:background="?attr/BackgroundColor"
+        android:background="@color/black"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main_ringtone"
-        app:menu="@menu/activity_main_drawer_ringtone" >
-
-        <LinearLayout
-            android:layout_gravity="bottom"
-            android:layout_width="match_parent"
-            android:paddingBottom="2dp"
-            android:paddingTop="2dp"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/activity_main_drawer_ringtone">
 
 
-            <TextView
-                android:layout_marginBottom="5dp"
-                android:padding="5dp"
-                android:textColor="?attr/BackgroundTint"
-                android:text="@string/app_developer_by_nemosofts_ringtone"
-                android:textAlignment="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13dp"
-                android:layout_gravity="center"
-                android:textStyle="bold" />
-        </LinearLayout>
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -77,23 +77,11 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        sharedPref = new SharedPref(this);
-        if (sharedPref.getNightMode()) {
-            Setting.Dark_Mode = true;
-            setTheme(R.style.AppTheme);
-        } else {
-            Setting.Dark_Mode = false;
-            setTheme(R.style.AppTheme);
-        }
+        setTheme(R.style.AppTheme);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_ringtone);
-
-        methods = new Methods(this);
-
-        // Making notification bar transparent
+        setContentView(R.layout.activity_splash_ringtone);methods = new Methods(this);
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }

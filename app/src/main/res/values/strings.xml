@@ -259,7 +259,7 @@
     <string name="noti_set_ringtone">Notification tone set</string>
     <string name="ringtone_set_ringtone">Ringtone Set</string>
     <string name="exit_ringtone">exit</string>
-    <string name="retey_ringtone">RETEY</string>
+    <string name="retey_ringtone">RETRY</string>
 
     <string name="err_no_categories_found_ringtone">No Categories Found</string>
     <string name="error_unauth_access_ringtone">Unauthorized Access</string>

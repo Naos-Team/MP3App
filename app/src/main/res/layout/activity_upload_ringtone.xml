@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/BackgroundColor"
-        app:titleTextColor="?attr/BackgroundTint"
+        android:theme="@style/AppTheme.AppBarOverlay"
         app:navigationIcon="?attr/icon_a"
-        app:title="Update Ringtone"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:theme="@style/AppTheme.AppBarOverlay"/>
+        app:title="Update Ringtone"
+        app:titleTextColor="?attr/BackgroundTint" />
 
     <ScrollView
         android:layout_below="@id/toolbar2"
