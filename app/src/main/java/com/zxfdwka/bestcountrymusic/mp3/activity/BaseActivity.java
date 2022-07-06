@@ -977,14 +977,14 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                     .placeholder(R.drawable.placeholder_song)
                     .into(iv_max_song);
 
-            if (ratingBar.getVisibility() == View.GONE) {
-                ratingBar.setVisibility(View.VISIBLE);
-                iv_max_fav.setVisibility(View.VISIBLE);
-
-                iv_music_rate.setVisibility(View.VISIBLE);
-                view_rate.setVisibility(View.VISIBLE);
-                iv_music_add2playlist.setVisibility(View.VISIBLE);
-            }
+//            if (ratingBar.getVisibility() == View.GONE) {
+//                ratingBar.setVisibility(View.VISIBLE);
+//                iv_max_fav.setVisibility(View.VISIBLE);
+//
+//                iv_music_rate.setVisibility(View.VISIBLE);
+//                view_rate.setVisibility(View.VISIBLE);
+//                iv_music_add2playlist.setVisibility(View.VISIBLE);
+//            }
 
             if (Constant.isSongDownload) {
                 iv_music_download.setVisibility(View.VISIBLE);
@@ -1009,16 +1009,16 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                     .placeholder(R.drawable.placeholder_song)
                     .into(iv_max_song);
 
-            if (ratingBar.getVisibility() == View.VISIBLE) {
-                ratingBar.setVisibility(View.GONE);
-                iv_max_fav.setVisibility(View.GONE);
-
-                iv_music_rate.setVisibility(View.GONE);
-                view_rate.setVisibility(View.GONE);
-
-                iv_music_download.setVisibility(View.GONE);
-                view_download.setVisibility(View.GONE);
-            }
+//            if (ratingBar.getVisibility() == View.VISIBLE) {
+//                ratingBar.setVisibility(View.GONE);
+//                iv_max_fav.setVisibility(View.GONE);
+//
+//                iv_music_rate.setVisibility(View.GONE);
+//                view_rate.setVisibility(View.GONE);
+//
+//                iv_music_download.setVisibility(View.GONE);
+//                view_download.setVisibility(View.GONE);
+//            }
         }
 
         if (viewpager.getAdapter() == null || Constant.isNewAdded || !Constant.addedFrom.equals(adapter.getIsLoadedFrom())) {

@@ -2,10 +2,10 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <solid
-        android:color="?attr/BackgroundUpdate1"/>
+        android:color="@color/background"/>
     <corners
         android:radius="5dp" />
     <stroke
         android:width="2dp"
-        android:color="?attr/BackgroundUpdate2" />
+        android:color="@color/background_Night" />
 </shape>

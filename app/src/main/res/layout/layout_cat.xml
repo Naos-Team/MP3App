@@ -37,7 +37,7 @@
             android:id="@+id/iv"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@mipmap/placeholder_cat"
+            android:src="@drawable/play_icon"
             android:layout_gravity="center"/>
 
     </androidx.cardview.widget.CardView>
