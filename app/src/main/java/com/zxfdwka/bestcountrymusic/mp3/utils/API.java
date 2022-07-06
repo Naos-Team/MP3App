@@ -4,7 +4,7 @@ import android.util.Base64;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.zxfdwka.bestcountrymusic.mp3.activity.BuildConfig;
+import com.zxfdwka.bestcountrymusic.BuildConfig;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

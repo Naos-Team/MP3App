@@ -9,8 +9,8 @@ import com.google.ads.consent.ConsentInfoUpdateListener;
 import com.google.ads.consent.ConsentInformation;
 import com.google.ads.consent.ConsentStatus;
 import com.google.ads.consent.DebugGeography;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.AdConsentListener;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 
 import java.net.MalformedURLException;
 import java.net.URL;

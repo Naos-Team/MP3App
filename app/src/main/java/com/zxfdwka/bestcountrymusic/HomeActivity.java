@@ -6,8 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
-import com.zxfdwka.bestcountrymusic.mp3.activity.databinding.ActivityHomeBinding;
+import com.zxfdwka.bestcountrymusic.databinding.ActivityHomeBinding;
 import com.zxfdwka.bestcountrymusic.ringtone.Activity.SplashActivity;
 
 public class HomeActivity extends AppCompatActivity {

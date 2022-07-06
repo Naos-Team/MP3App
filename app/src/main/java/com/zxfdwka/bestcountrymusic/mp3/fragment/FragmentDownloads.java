@@ -28,7 +28,7 @@ import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemAlbums;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemSong;
 import com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
 import com.zxfdwka.bestcountrymusic.mp3.utils.DBHelper;
 import com.zxfdwka.bestcountrymusic.mp3.utils.GlobalBus;

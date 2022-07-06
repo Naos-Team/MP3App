@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadAbout;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.AboutListener;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;

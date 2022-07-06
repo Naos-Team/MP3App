@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemMyPlayList;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
+import com.zxfdwka.bestcountrymusic.R;
 
 import java.util.ArrayList;
 

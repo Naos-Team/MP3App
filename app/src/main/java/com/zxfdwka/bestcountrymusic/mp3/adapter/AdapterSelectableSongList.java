@@ -11,9 +11,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemSong;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
 
 import java.util.ArrayList;

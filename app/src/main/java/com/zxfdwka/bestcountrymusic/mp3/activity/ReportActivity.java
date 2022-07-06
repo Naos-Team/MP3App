@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadReport;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.SuccessListener;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemSong;

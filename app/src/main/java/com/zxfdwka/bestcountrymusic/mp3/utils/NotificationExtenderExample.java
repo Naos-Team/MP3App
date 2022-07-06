@@ -15,8 +15,8 @@ import androidx.core.app.NotificationCompat;
 
 import com.onesignal.NotificationExtenderService;
 import com.onesignal.OSNotificationReceivedResult;
-import com.zxfdwka.bestcountrymusic.mp3.activity.BuildConfig;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
+import com.zxfdwka.bestcountrymusic.BuildConfig;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.activity.SplashActivity;
 
 import java.io.IOException;

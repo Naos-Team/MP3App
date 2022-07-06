@@ -73,6 +73,8 @@
     <color name="social_ggle">#ea4235</color>
 
     ----------------------------------------------
+
+    <!--Light Color-->
     <color name="background">#FDFDFE</color>
 
     <!--Night Color-->
@@ -88,7 +90,6 @@
     <color name="color_5">#BF89AE</color>
     <color name="color_6">#8c47fb</color>
     <color name="color_7">#59BC10</color>
-
 
     <!-- Red -->
     <color name="md_red_50">#FFEBEE</color>

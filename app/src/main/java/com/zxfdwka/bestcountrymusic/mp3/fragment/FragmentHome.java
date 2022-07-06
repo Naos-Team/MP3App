@@ -30,7 +30,7 @@ import com.zxfdwka.bestcountrymusic.mp3.activity.ArtistByGenreActivity;
 import com.zxfdwka.bestcountrymusic.mp3.activity.BaseActivity;
 import com.zxfdwka.bestcountrymusic.mp3.activity.MainActivity;
 import com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.activity.SongByCatActivity;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.HomeListener;

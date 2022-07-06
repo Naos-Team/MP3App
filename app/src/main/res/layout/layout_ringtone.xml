@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:shimmer="http://schemas.android.com/tools"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@color/black"
+    >
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    app:cardCornerRadius="5dp"
+    android:backgroundTint="@color/black"
+    android:orientation="vertical">
+
+    <RelativeLayout
+       android:id="@+id/thiva"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <RelativeLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="horizontal">
+
+               <RelativeLayout
+                   android:layout_width="65dp"
+                   android:layout_height="match_parent">
+
+                   <ImageView
+                       android:id="@+id/bg_play_pause"
+                       android:layout_width="35dp"
+                       android:layout_height="35dp"
+                       android:layout_centerInParent="true"
+                       android:background="@drawable/gradient3"
+                       android:visibility="visible" />
+
+                   <ImageView
+                       android:id="@+id/play"
+                       android:layout_width="15dp"
+                       android:layout_height="15dp"
+                       android:layout_centerInParent="true"
+                       android:src="@drawable/play_ringtone"
+                       />
+
+                   <ImageView
+                       android:id="@+id/pause"
+                       android:layout_width="15dp"
+                       android:layout_height="15dp"
+                       android:layout_centerInParent="true"
+                       android:src="@drawable/pause_ringtone"
+                       android:visibility="gone" />
+
+                   <ProgressBar
+                      android:progressTint="#fff"
+                      android:visibility="gone"
+                       android:id="@+id/progressbar_new"
+                       android:layout_width="65dp"
+                       android:layout_height="match_parent"/>
+               </RelativeLayout>
+
+
+
+               <RelativeLayout
+                   android:layout_marginRight="5dp"
+                   android:layout_width="0.8dp"
+                   android:background="?BackgroundColor"
+                   android:layout_height="match_parent"/>
+
+
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:layout_weight="1"
+                   android:orientation="vertical">
+
+                   <TextView
+                       android:textStyle="bold"
+                       android:id="@+id/tv_songlist_name"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:ellipsize="end"
+                       android:text="@string/app_name"
+                       android:maxLines="1"
+                       android:textColor="#fff"
+                       android:autoSizeMaxTextSize="25sp"
+                       android:autoSizeMinTextSize="15sp"
+                       android:autoSizeStepGranularity="1sp"
+                       android:autoSizeTextType="uniform"
+                       android:layout_marginEnd="5dp"/>
+
+                   <TextView
+                       android:textStyle="bold"
+                       android:textColor="#fff"
+                       android:id="@+id/tv_songlist_cat"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:ellipsize="end"
+                       android:maxLines="1"
+                       android:text="sdasd"
+                       android:textSize="13sp"
+                       android:visibility="gone"
+                       android:layout_marginEnd="90dp"/>
+
+                   <TextView
+                       android:textStyle="bold"
+                       android:textColor="#fff"
+                       android:id="@+id/tv_songlist_vie"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:ellipsize="end"
+                       android:maxLines="1"
+                       android:visibility="gone"
+                       android:text="0 Views"
+                       android:textSize="12sp"
+                       android:layout_marginEnd="90dp"/>
+
+               </LinearLayout>
+
+               <ImageView
+                   android:layout_marginRight="5dp"
+                   android:id="@+id/imageView_fav_home"
+                   android:layout_width="45dp"
+                   android:layout_height="match_parent"
+                   android:layout_alignParentEnd="true"
+                   android:layout_alignParentRight="true"
+                   android:padding="5dp"
+                   android:src="@drawable/ic_bookmark2"
+                   android:visibility="gone"/>
+
+               <RelativeLayout
+                   android:layout_width="55dp"
+                   android:layout_height="match_parent">
+                   <TextView
+                       android:textStyle="bold"
+                       android:layout_marginBottom="6dp"
+                       android:layout_alignParentBottom="true"
+                       android:textColor="#fff"
+                       android:textAlignment="center"
+                       android:id="@+id/total_downlod"
+                       android:layout_centerHorizontal="true"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="0"
+                       android:textSize="12sp"
+                       />
+
+
+                   <ImageView
+                       android:id="@+id/ringtone"
+                       android:layout_width="20dp"
+                       android:layout_height="20dp"
+                       android:layout_centerHorizontal="true"
+                       android:layout_marginEnd="10dp"
+                       android:layout_marginTop="5dp"
+                       android:src="@drawable/ic_ringtone"
+                       app:tint="#fff" />
+
+               </RelativeLayout>
+
+
+           </LinearLayout>
+
+
+       </RelativeLayout>
+
+   </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+
+</LinearLayout>

@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.zxfdwka.bestcountrymusic.mp3.adapter.AdapterAllSongList;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadSong;
 import com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.SongListener;

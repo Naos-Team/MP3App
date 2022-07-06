@@ -119,8 +119,8 @@
     <string name="set_as_ring">Set As Ringtone</string>
     <string name="set_ringnotification">Notification Ringtone</string>
     <string name="set_ringalarm">Alarm Ringtone</string>
-    <string name="set_as_noti">Set As Notificaiton tone</string>
-    <string name="set_as_alarm">Set As Alarm tone</string>
+    <string name="set_as_noti">Set As Notificaiton Tone</string>
+    <string name="set_as_alarm">Set As Alarm Tone</string>
     <string name="alarm_set">Alarm Ringtone Set</string>
     <string name="noti_set">Notification tone set</string>
     <string name="ringtone_set">Ringtone Set</string>
@@ -266,7 +266,6 @@
     <string name="server_error_ringtone">Server Error</string>
     <string name="error_connect_net_tryagain_ringtone">Please connect to internet and try again</string>
     <string name="try_again_ringtone">Try Again</string>
-
 
 
     <string name="dialog_text_no_ads_title_ringtone">Turn Off ads</string>

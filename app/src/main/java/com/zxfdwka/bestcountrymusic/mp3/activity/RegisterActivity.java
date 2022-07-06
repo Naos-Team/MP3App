@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadRegister;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.SocialLoginListener;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;

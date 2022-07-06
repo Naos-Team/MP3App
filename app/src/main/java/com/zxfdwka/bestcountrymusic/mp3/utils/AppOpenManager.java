@@ -5,8 +5,8 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.zxfdwka.bestcountrymusic.MyApplication;
 import com.zxfdwka.bestcountrymusic.mp3.activity.MainActivity;
-import com.zxfdwka.bestcountrymusic.mp3.activity.MyApplication;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;

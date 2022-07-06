@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/BackgroundColor"
+    tools:context=".ringtone.Activity.intActivity"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        app:title="@string/app_name"
+        app:titleTextColor="?attr/BackgroundTint"
+        android:layout_height="wrap_content"
+        android:background="?attr/BackgroundColor"
+        android:minHeight="?attr/actionBarSize" />
+
+
+
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+
+
+        <TextView
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="22dp"
+            android:textColor="?attr/BackgroundTint"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:text="@string/no_internet_connection_ringtone"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="?attr/BackgroundTint"
+            android:layout_marginTop="2dp"
+            android:textSize="17dp"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:text="@string/internet_connection_is_not_available_ringtone"
+            android:layout_height="wrap_content" />
+
+
+        <RelativeLayout
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:text="@string/retey_ringtone"
+                android:textColor="?attr/BackgroundColor"
+                android:background="?attr/BackgroundTint"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

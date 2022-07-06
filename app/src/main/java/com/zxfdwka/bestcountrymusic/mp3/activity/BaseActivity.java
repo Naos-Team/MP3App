@@ -34,6 +34,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.GetRating;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadFav;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadRating;
