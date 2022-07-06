@@ -59,6 +59,8 @@ public class FragmentLanguage extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_radio_cat, container, false);
 
+        Constants.fragmentStatus = Constants.OTHER_HOME;
+
         sharedPref = new SharedPref(getActivity());
         methods = new Methods(getActivity());
         ll_empty = rootView.findViewById(R.id.ll_empty);
@@ -184,7 +186,7 @@ public class FragmentLanguage extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.menu_search, menu);
+        inflater.inflate(R.menu.menu_search_radio, menu);
 
         MenuItem item = menu.findItem(R.id.search);
         //MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);

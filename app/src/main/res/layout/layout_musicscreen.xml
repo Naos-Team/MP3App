@@ -10,33 +10,40 @@
     <!--Expanded View of music player-->
     <RelativeLayout
         android:id="@+id/ll_expand"
+        android:background="@drawable/drawable_round_musicscreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.sothree.slidinguppanel.SlidingUpPanelLayout
-            android:id="@+id/sliding_layout_main"
+        <include
+            android:id="@+id/ll_musicsceen_main"
+            layout="@layout/layout_musicsceen_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            app:umanoFadeColor="@android:color/transparent"
-            app:umanoShadowHeight="0dp"
-            sothree:umanoOverlay="true"
-            sothree:umanoPanelHeight="100dp">
+            android:layout_height="match_parent" />
 
-            <include
-                android:id="@+id/ll_musicsceen_main"
-                layout="@layout/layout_musicsceen_main"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--        <com.sothree.slidinguppanel.SlidingUpPanelLayout-->
+<!--            android:id="@+id/sliding_layout_main"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="bottom"-->
+<!--            app:umanoFadeColor="@android:color/transparent"-->
+<!--            app:umanoShadowHeight="0dp"-->
+<!--            sothree:umanoOverlay="true"-->
+<!--            sothree:umanoPanelHeight="100dp">-->
 
-            <include
-                android:id="@+id/ll_musicsceen_main"
-                layout="@layout/layout_musicsceen_control"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--            <include-->
+<!--                android:id="@+id/ll_musicsceen_main"-->
+<!--                layout="@layout/layout_musicsceen_main"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
+
+<!--            <include-->
+<!--                android:id="@+id/ll_musicsceen_main"-->
+<!--                layout="@layout/layout_musicsceen_control"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
 
 
-        </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+<!--        </com.sothree.slidinguppanel.SlidingUpPanelLayout>-->
 
 
     </RelativeLayout>

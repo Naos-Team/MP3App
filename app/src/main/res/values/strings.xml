@@ -244,5 +244,6 @@
     <string name="city">City</string>
     <string name="language">Language</string>
     <string name="no_song">No song available</string>
+    <string name="radio">Radio</string>
 
 </resources>

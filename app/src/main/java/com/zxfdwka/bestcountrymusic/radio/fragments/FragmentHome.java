@@ -94,6 +94,8 @@ public class FragmentHome extends Fragment {
 
         methods = new Methods(getActivity());
 
+        Constants.fragmentStatus = Constants.AT_HOME;
+
         arrayList_radio_latest = new ArrayList<>();
         arrayList_radio_mostviewed = new ArrayList<>();
         arrayList_radio_all = new ArrayList<>();
@@ -512,7 +514,7 @@ public class FragmentHome extends Fragment {
                 ft.add(R.id.content_frame_activity, f1, getString(R.string.menu_search));
                 ft.addToBackStack(getString(R.string.menu_search));
                 ft.commit();
-                ((BaseActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_search));
+                ((RadioBaseActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_search));
             }
             return true;
         }

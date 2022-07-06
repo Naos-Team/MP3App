@@ -20,7 +20,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.activity.BaseActivity;
 import com.zxfdwka.bestcountrymusic.mp3.utils.EndlessRecyclerViewScrollListener;
+import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.adapter.AdapterRadios;
 import com.zxfdwka.bestcountrymusic.radio.asyncTasks.LoadRadioList;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.RadioListListener;
@@ -62,6 +64,8 @@ public class FragmentAllRadio extends Fragment {
         methods = new Methods(getActivity());
         sharedPref = new SharedPref(getActivity());
         arrayList = new ArrayList<>();
+
+        Constants.fragmentStatus = Constants.OTHER_HOME;
 
         progressBar = rootView.findViewById(R.id.progressBar_city_details);
 
@@ -136,7 +140,8 @@ public class FragmentAllRadio extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.menu_search, menu);
+        inflater.inflate(R.menu.menu_search_radio, menu);
+
 
 //        MenuItem item = menu.findItem(R.id.search);
 //        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);

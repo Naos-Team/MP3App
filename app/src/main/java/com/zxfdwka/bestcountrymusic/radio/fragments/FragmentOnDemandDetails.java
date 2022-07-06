@@ -66,6 +66,8 @@ public class FragmentOnDemandDetails extends Fragment {
 
         itemOnDemandCat = (ItemOnDemandCat) getArguments().getSerializable("item");
 
+        Constants.fragmentStatus = Constants.OTHER_HOME;
+
         methods = new Methods(getActivity());
         sharedPref = new SharedPref(getActivity());
 
@@ -110,14 +112,7 @@ public class FragmentOnDemandDetails extends Fragment {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(some_stack){
-                    for (int i = 2; i < getActivity().getSupportFragmentManager().getBackStackEntryCount(); i++){
-                        getActivity().getSupportFragmentManager().popBackStack();
-                    }
-                } else {
-
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
+                ((RadioBaseActivity) getActivity()).onBackPressed();
             }
         });
 
@@ -167,7 +162,7 @@ public class FragmentOnDemandDetails extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.menu_search, menu);
+        inflater.inflate(R.menu.menu_search_radio, menu);
 
         MenuItem item = menu.findItem(R.id.search);
         //MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);

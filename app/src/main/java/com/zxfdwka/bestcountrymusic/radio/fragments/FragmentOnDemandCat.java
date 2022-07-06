@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.adapter.AdapterOnDemandCat;
 import com.zxfdwka.bestcountrymusic.radio.asyncTasks.LoadOnDemandCat;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
@@ -50,12 +51,15 @@ public class FragmentOnDemandCat extends Fragment {
     SharedPref sharedPref;
     Methods methods;
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_radio_ondemand_cat, container, false);
 
         methods = new Methods(getActivity(), interAdListener);
         sharedPref = new SharedPref(getActivity());
+
+        Constants.fragmentStatus = Constants.NEAR_HOME;
 
         arraylist = new ArrayList<>();
         progressBar = rootView.findViewById(R.id.progressBar_on);
@@ -183,17 +187,30 @@ public class FragmentOnDemandCat extends Fragment {
         @Override
         public void onClick(int position, String type) {
             int pos = getPosition(adapter.getID(position));
-            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//            ft.hide(getFragmentManager().getFragments().get(getFragmentManager().getBackStackEntryCount()));
             FragmentOnDemandDetails f1 = new FragmentOnDemandDetails(false);
-            FragmentTransaction ft = fm.beginTransaction();
             Bundle bundle = new Bundle();
             bundle.putSerializable("item", arraylist.get(pos));
             f1.setArguments(bundle);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            ft.hide(fm.findFragmentByTag(getString(R.string.on_demand)));
             ft.add(R.id.content_frame_activity, f1, arraylist.get(pos).getName());
             ft.addToBackStack(arraylist.get(pos).getName());
             ft.commit();
+
+//            FragmentCatHome f1 = new FragmentCatHome();
+//            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+////                ft.hide(getFragmentManager().getFragments().get(getFragmentManager().getBackStackEntryCount()));
+//
+//            Bundle bundle = new Bundle();
+//            bundle.putString("type", "trending");
+//            f1.setArguments(bundle);
+//
+//            ft.add(R.id.frame_content_home, f1, getString(R.string.all_trending));
+//            ft.addToBackStack(getString(R.string.all_trending));
+//            ft.commit();
+//            ((RadioBaseActivity)getActivity()).getSupportActionBar().setTitle(R.string.all_trending);
         }
     };
 

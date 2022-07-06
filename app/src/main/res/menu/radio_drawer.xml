@@ -1,62 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@mipmap/home"
-            android:title="@string/home" />
-
-        <item
-            android:id="@+id/nav_ondemand"
-            android:icon="@mipmap/home"
-            android:title="@string/on_demand"
-            android:visible="true"/>
-
-        <item
-            android:id="@+id/nav_featured"
-            android:icon="@mipmap/home"
-            android:title="@string/featured" />
-        <item
-            android:id="@+id/nav_fav"
-            android:icon="@mipmap/home"
-            android:title="@string/favourite" />
-
-        <item
-            android:id="@+id/nav_fb"
-            android:icon="@mipmap/home"
-            android:title="Facebook" />
-
-        <item
-            android:id="@+id/nav_twitter"
-            android:icon="@mipmap/home"
-            android:title="Twitter" />
-
-        <item
-            android:id="@+id/nav_profile"
-            android:icon="@mipmap/profile"
-            android:title="@string/profile" />
-
-        <item
-            android:id="@+id/nav_sug"
-            android:icon="@mipmap/profile"
-            android:title="Suggestion" />
-
-    </group>
-
     <item
-        android:id="@+id/nav_shareapp"
+        android:id="@+id/nav_home"
         android:icon="@mipmap/home"
-        android:title="Share app" />
+        android:title="@string/home" />
 
     <item
-        android:id="@+id/nav_settings"
+        android:id="@+id/nav_ondemand"
         android:icon="@mipmap/home"
-        android:title="@string/settings" />
+        android:title="@string/on_demand"
+        android:visible="true"/>
 
     <item
-        android:id="@+id/nav_login"
-        android:icon="@mipmap/profile"
-        android:title="@string/login" />
+        android:id="@+id/nav_featured"
+        android:icon="@mipmap/home"
+        android:title="@string/featured" />
+    <item
+        android:id="@+id/nav_fav"
+        android:icon="@mipmap/home"
+        android:title="@string/favourite" />
+<!--    <group android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/nav_home"-->
+<!--            android:icon="@mipmap/home"-->
+<!--            android:title="@string/home" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_ondemand"-->
+<!--            android:icon="@mipmap/home"-->
+<!--            android:title="@string/on_demand"-->
+<!--            android:visible="true"/>-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_featured"-->
+<!--            android:icon="@mipmap/home"-->
+<!--            android:title="@string/featured" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_fav"-->
+<!--            android:icon="@mipmap/home"-->
+<!--            android:title="@string/favourite" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_fb"-->
+<!--            android:icon="@mipmap/home"-->
+<!--            android:title="Facebook" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_twitter"-->
+<!--            android:icon="@mipmap/home"-->
+<!--            android:title="Twitter" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_profile"-->
+<!--            android:icon="@mipmap/profile"-->
+<!--            android:title="@string/profile" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_sug"-->
+<!--            android:icon="@mipmap/profile"-->
+<!--            android:title="Suggestion" />-->
+
+<!--    </group>-->
+
+<!--    <item-->
+<!--        android:id="@+id/nav_shareapp"-->
+<!--        android:icon="@mipmap/home"-->
+<!--        android:title="Share app" />-->
+
+<!--    <item-->
+<!--        android:id="@+id/nav_settings"-->
+<!--        android:icon="@mipmap/home"-->
+<!--        android:title="@string/settings" />-->
+
+<!--    <item-->
+<!--        android:id="@+id/nav_login"-->
+<!--        android:icon="@mipmap/profile"-->
+<!--        android:title="@string/login" />-->
 
 </menu>

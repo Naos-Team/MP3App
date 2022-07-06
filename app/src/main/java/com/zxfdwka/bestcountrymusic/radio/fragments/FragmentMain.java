@@ -29,8 +29,8 @@ public class FragmentMain extends Fragment {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             FragmentHome f1 = new FragmentHome();
-        ft.add(R.id.frame_content_home, f1, "RadioHome");
-        ft.addToBackStack(getString(R.string.home));
+        ft.add(R.id.frame_content_home, f1, "Radio");
+        ft.addToBackStack(getString(R.string.radio));
         ft.commit();
 
         return rootView;

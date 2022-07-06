@@ -54,6 +54,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar;
@@ -101,13 +102,12 @@ import java.util.concurrent.TimeUnit;
 import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public class RadioBaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class RadioBaseActivity extends AppCompatActivity{
 
     Toolbar toolbar;
     StatusBarView statusBarView;
     FragmentManager fm;
-    NavigationView navigationView;
-    SlidingUpPanelLayout slidingPanel, sliding_layout_main;
+    SlidingUpPanelLayout slidingPanel;
     BottomSheetDialog dialog_desc;
     DBHelper dbHelper;
     AdConsent adConsent;
@@ -123,7 +123,6 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
     TextView textView_name, textView_song, textView_freq_expand, textView_radio_expand, textView_song_expand, textView_song_duration, textView_total_duration, tv_views;
     Methods methods, methodsBack;
 //    LoadAbout loadAbout;
-    DrawerLayout drawer;
     Boolean isExpand = false, isLoaded = false;
     SharedPref sharedPref;
     final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 102;
@@ -138,7 +137,7 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
     CardView btn_report;
     LinearLayout control_dragview, ll_suggest, ll_player_scene2, ll_player_content;
     TextView tv_songname_scene2;
-
+    BottomNavigationView bottomNavigationView;
 
     double current_offset = 0;
 
@@ -165,12 +164,19 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
             view_lollipop.setVisibility(View.VISIBLE);
         }
 
-        drawer = findViewById(R.id.drawer_layout);
 
         statusBarView = findViewById(R.id.statusBar);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
+
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         dbHelper = new DBHelper(this);
         methods = new Methods(RadioBaseActivity.this, interAdListener);
@@ -180,22 +186,25 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
 
         methodsBack = new Methods(this, backInterAdListener);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        bottomNavigationView= findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                clickNav(item.getItemId());
+                slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                Log.e("Count", "entry count: " + fm.getBackStackEntryCount());
+                return true;
+            }
+        });
 
         slidingPanel = findViewById(R.id.sliding_layout);
-        sliding_layout_main = findViewById(R.id.sliding_layout_main);
-        navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        Menu menu = navigationView.getMenu();
-        menu_login = menu.findItem(R.id.nav_login);
-        menu_profile = menu.findItem(R.id.nav_profile);
+//        navigationView = findViewById(R.id.nav_view);
+//        Menu menu = navigationView.getMenu();
+//        menu_login = menu.findItem(R.id.nav_login);
+//        menu_profile = menu.findItem(R.id.nav_profile);
 
         changeLoginName();
 
-        control_dragview = findViewById(R.id.slp_control_dragview);
         tv_views = findViewById(R.id.tv_views);
         btn_report = findViewById(R.id.btn_report);
         rv_suggestion = findViewById(R.id.rv_suggestion);
@@ -316,9 +325,7 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
             }
         });
 
-        sliding_layout_main.setDragView(control_dragview);
-
-        slidingPanel.setDragView(rl_collapse);
+//        slidingPanel.setDragView(rl_collapse);
         slidingPanel.setShadowHeight(0);
         slidingPanel.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -354,75 +361,75 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
 
 
 
-        sliding_layout_main.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View panel, float slideOffset) {
-
-
-            }
-
-            @Override
-            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-                if (newState == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                    Log.e("AAA", "expand");
-
-                    ObjectAnimator suggestDown = ObjectAnimator.ofFloat(ll_suggest, "translationY", 220f);
-                    suggestDown.setDuration(300);
-                    suggestDown.start();
-
-
-                    ll_player_expand.animate()
-                            .alpha(0f)
-                            .setDuration(100)
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    ll_player_expand.setVisibility(View.GONE);
-                                }
-                            });
-
-
-                    ll_player_scene2.animate()
-                            .alpha(1f)
-                            .setDuration(200)
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationStart(Animator animation) {
-                                    ll_player_scene2.setVisibility(View.VISIBLE);
-                                }
-                            });
-
-
-                }else{
-                    Log.e("AAA", "collapse");
-
-                    ObjectAnimator suggestUp = ObjectAnimator.ofFloat(ll_suggest, "translationY", 0f);
-                    suggestUp.setDuration(300);
-                    suggestUp.start();
-
-
-                    ll_player_expand.animate()
-                            .alpha(1f)
-                            .setDuration(200)
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationStart(Animator animation) {
-                                    ll_player_expand.setVisibility(View.VISIBLE);
-                                }
-                            });
-
-                    ll_player_scene2.animate()
-                            .alpha(0f)
-                            .setDuration(100)
-                            .setListener(new AnimatorListenerAdapter() {
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    ll_player_scene2.setVisibility(View.GONE);
-                                }
-                            });
-                }
-            }
-        });
+//        sliding_layout_main.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+//            @Override
+//            public void onPanelSlide(View panel, float slideOffset) {
+//
+//
+//            }
+//
+//            @Override
+//            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+//                if (newState == SlidingUpPanelLayout.PanelState.EXPANDED) {
+//                    Log.e("AAA", "expand");
+//
+//                    ObjectAnimator suggestDown = ObjectAnimator.ofFloat(ll_suggest, "translationY", 220f);
+//                    suggestDown.setDuration(300);
+//                    suggestDown.start();
+//
+//
+//                    ll_player_expand.animate()
+//                            .alpha(0f)
+//                            .setDuration(100)
+//                            .setListener(new AnimatorListenerAdapter() {
+//                                @Override
+//                                public void onAnimationEnd(Animator animation) {
+//                                    ll_player_expand.setVisibility(View.GONE);
+//                                }
+//                            });
+//
+//
+//                    ll_player_scene2.animate()
+//                            .alpha(1f)
+//                            .setDuration(200)
+//                            .setListener(new AnimatorListenerAdapter() {
+//                                @Override
+//                                public void onAnimationStart(Animator animation) {
+//                                    ll_player_scene2.setVisibility(View.VISIBLE);
+//                                }
+//                            });
+//
+//
+//                }else{
+//                    Log.e("AAA", "collapse");
+//
+//                    ObjectAnimator suggestUp = ObjectAnimator.ofFloat(ll_suggest, "translationY", 0f);
+//                    suggestUp.setDuration(300);
+//                    suggestUp.start();
+//
+//
+//                    ll_player_expand.animate()
+//                            .alpha(1f)
+//                            .setDuration(200)
+//                            .setListener(new AnimatorListenerAdapter() {
+//                                @Override
+//                                public void onAnimationStart(Animator animation) {
+//                                    ll_player_expand.setVisibility(View.VISIBLE);
+//                                }
+//                            });
+//
+//                    ll_player_scene2.animate()
+//                            .alpha(0f)
+//                            .setDuration(100)
+//                            .setListener(new AnimatorListenerAdapter() {
+//                                @Override
+//                                public void onAnimationEnd(Animator animation) {
+//                                    ll_player_scene2.setVisibility(View.GONE);
+//                                }
+//                            });
+//                }
+//            }
+//        });
 
 
         imageView_play.setOnClickListener(new View.OnClickListener() {
@@ -451,14 +458,6 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
             }
         });
 
-        btn_play_scene2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                methods.showRateDialog();
-                clickPlay(Constants.pos, Constants.playTypeRadio);
-            }
-        });
-
 //        imageView_next.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -467,21 +466,21 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
 //            }
 //        });
 
-        btn_next_expand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                methods.showRateDialog();
-                togglePlayPosition(true);
-            }
-        });
+//        btn_next_expand.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                methods.showRateDialog();
+//                togglePlayPosition(true);
+//            }
+//        });
 
-        btn_next_scene2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                methods.showRateDialog();
-                togglePlayPosition(true);
-            }
-        });
+//        btn_next_scene2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                methods.showRateDialog();
+//                togglePlayPosition(true);
+//            }
+//        });
 
 //        imageView_previous.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -491,21 +490,21 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
 //            }
 //        });
 
-        btn_previous_expand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                methods.showRateDialog();
-                togglePlayPosition(false);
-            }
-        });
+//        btn_previous_expand.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                methods.showRateDialog();
+//                togglePlayPosition(false);
+//            }
+//        });
 
-        btn_previous_scene2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                methods.showRateDialog();
-                togglePlayPosition(false);
-            }
-        });
+//        btn_previous_scene2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                methods.showRateDialog();
+//                togglePlayPosition(false);
+//            }
+//        });
 
         imageView_fav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -544,13 +543,13 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
 //            }
 //        });
 
-        btn_volume.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                methods.showRateDialog();
-                changeVolume();
-            }
-        });
+//        btn_volume.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                methods.showRateDialog();
+//                changeVolume();
+//            }
+//        });
 //
 //        btn_sleep.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -578,17 +577,17 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
             loadRadio();
         }
         isLoaded = true;
-        navigationView.setCheckedItem(navigationView.getMenu().findItem(R.id.nav_home).getItemId());
+//        navigationView.setCheckedItem(navigationView.getMenu().findItem(R.id.nav_home).getItemId());
         changeThemeColor();
         checkPer();
 
         FragmentMain f1 = new FragmentMain();
-        loadFrag(f1, getResources().getString(R.string.home), fm);
-        getSupportActionBar().setTitle(getString(R.string.home));
+        loadFrag(f1, getResources().getString(R.string.radio), fm);
+        getSupportActionBar().setTitle(getString(R.string.radio));
     }
 
     private void setUpContentSlideMain() {
-        int height = sliding_layout_main.getPanelHeight();
+        int height = slidingPanel.getPanelHeight();
 
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll_player_content.getLayoutParams();
         params.setMargins(0, 0, 0, height); //substitute parameters for left, top, right, bottom
@@ -596,20 +595,11 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
         
     }
 
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        clickNav(item.getItemId());
-        return true;
-    }
-
     private void clickNav(int item) {
-        drawer.closeDrawer(GravityCompat.START);
         switch (item) {
             case R.id.nav_home:
                 FragmentMain f1 = new FragmentMain();
-                loadFrag(f1, getResources().getString(R.string.home), fm);
+                loadFrag(f1, getResources().getString(R.string.radio), fm);
                 break;
             case R.id.nav_ondemand:
                 FragmentOnDemandCat f2 = new FragmentOnDemandCat();
@@ -623,31 +613,31 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
                 FragmentFavourite ffav = new FragmentFavourite();
                 loadFrag(ffav, getResources().getString(R.string.favourite), fm);
                 break;
-            case R.id.nav_login:
-                methods.clickLogin();
-                break;
-            case R.id.nav_shareapp:
-                Intent ishare = new Intent(Intent.ACTION_SEND);
-                ishare.setType("text/plain");
-                ishare.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_name) + " - http://play.google.com/store/apps/details?id=" + getPackageName());
-                startActivity(ishare);
-                break;
-            case R.id.nav_fb:
-                if (!Constants.fb_url.trim().isEmpty()) {
-                    String url = Constants.fb_url;
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    startActivity(i);
-                }
-                break;
-            case R.id.nav_twitter:
-                if (!Constants.twitter_url.trim().isEmpty()) {
-                    String urlt = Constants.twitter_url;
-                    Intent intent_t = new Intent(Intent.ACTION_VIEW);
-                    intent_t.setData(Uri.parse(urlt));
-                    startActivity(intent_t);
-                }
-                break;
+//            case R.id.nav_login:
+//                methods.clickLogin();
+//                break;
+//            case R.id.nav_shareapp:
+//                Intent ishare = new Intent(Intent.ACTION_SEND);
+//                ishare.setType("text/plain");
+//                ishare.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_name) + " - http://play.google.com/store/apps/details?id=" + getPackageName());
+//                startActivity(ishare);
+//                break;
+//            case R.id.nav_fb:
+//                if (!Constants.fb_url.trim().isEmpty()) {
+//                    String url = Constants.fb_url;
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setData(Uri.parse(url));
+//                    startActivity(i);
+//                }
+//                break;
+//            case R.id.nav_twitter:
+//                if (!Constants.twitter_url.trim().isEmpty()) {
+//                    String urlt = Constants.twitter_url;
+//                    Intent intent_t = new Intent(Intent.ACTION_VIEW);
+//                    intent_t.setData(Uri.parse(urlt));
+//                    startActivity(intent_t);
+//                }
+//                break;
         }
     }
 
@@ -763,21 +753,20 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
                 ft.commit();
 
                 slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                sliding_layout_main.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             }
         };
 
-        Methods suggest_method = new Methods(this, interAdListener);
+//        Methods suggest_method = new Methods(this, interAdListener);
 
-        rv_suggestion.setLayoutManager(new GridLayoutManager(this, 3));
-        rv_suggestion.setAdapter(adapterSuggest);
+//        rv_suggestion.setLayoutManager(new GridLayoutManager(this, 3));
+//        rv_suggestion.setAdapter(adapterSuggest);
 
-        rv_suggestion.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                suggest_method.showInter(position, "");
-            }
-        }));
+//        rv_suggestion.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                suggest_method.showInter(position, "");
+//            }
+//        }));
 
 
     }
@@ -853,10 +842,8 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
             imageView_fav.setVisibility(View.GONE);
             rl_song_seekbar.setVisibility(View.VISIBLE);
         }
-        tv_songname_scene2.setText(itemRadio.getRadioName());
         textView_name.setText(itemRadio.getRadioName());
         textView_radio_expand.setText(itemRadio.getRadioName());
-        tv_views.setText(itemRadio.getViews());
 
 
         Picasso.get().load(itemRadio.getRadioImageurl())
@@ -865,9 +852,6 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
         Picasso.get().load(methods.getImageThumbSize(itemRadio.getRadioImageurl(), getString(R.string.home)))
                 .placeholder(R.drawable.placeholder)
                 .into(imageView_player);
-        Picasso.get().load(methods.getImageThumbSize(itemRadio.getRadioImageurl(), getString(R.string.home)))
-                .placeholder(R.drawable.placeholder)
-                .into(iv_thumb_scene2);
     }
 
     public void changeFav(ItemRadio itemRadio) {
@@ -1139,17 +1123,66 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else if (slidingPanel.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+
+        if(slidingPanel.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED){
             slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-        } else if (fm.getBackStackEntryCount() > 2) {
-            getSupportActionBar().setTitle(fm.getFragments().get(fm.getBackStackEntryCount() - 2).getTag());
-            methodsBack.showInter(999, "BackPress");
-        } else {
-//            openQuitDialog();
+            return;
         }
+
+        if(Constants.fragmentStatus == Constants.AT_HOME){
+            Toast.makeText(this, "quit", Toast.LENGTH_SHORT).show();
+        }else if(Constants.fragmentStatus == Constants.NEAR_HOME){
+            loadFrag(new FragmentMain(), getResources().getString(R.string.radio), fm);
+            getSupportActionBar().setTitle(getString(R.string.radio));
+            bottomNavigationView.getMenu().getItem(0).setChecked(true);
+        }else if(Constants.fragmentStatus == Constants.OTHER_HOME){
+
+            String current_fragment = fm.getFragments().get(fm.getBackStackEntryCount() - 2).getTag();
+
+            if(current_fragment.equals(getString(R.string.on_demand)) ||
+                    current_fragment.equals(getString(R.string.favourite)) ||
+                    current_fragment.equals(getString(R.string.featured))){
+                Constants.fragmentStatus = Constants.NEAR_HOME;
+            }
+
+            getSupportActionBar().setTitle(fm.getFragments().get(fm.getBackStackEntryCount() - 2).getTag());
+
+            super.onBackPressed();
+
+
+        }
+
+//        try{
+//            String current_fragment = fm.getFragments().get(fm.getBackStackEntryCount() - 2).getTag();
+//
+//            if(current_fragment.equals(getString(R.string.radio))){
+//                Toast.makeText(this, "quit", Toast.LENGTH_SHORT).show();
+//            }
+//        }catch (Exception e){
+//            if(current_fragment.equals(getString(R.string.on_demand)) ||
+//                    current_fragment.equals(getString(R.string.favourite)) ||
+//                    current_fragment.equals(getString(R.string.featured))){
+//                loadFrag(new FragmentHome(), getResources().getString(R.string.radio), fm);
+//            }else{
+//                if(fm.getFragments().get(fm.getBackStackEntryCount() - 2).getTag())
+//            }
+//        }
+
+
+
+//        if (fm.getBackStackEntryCount() > 2) {
+//            getSupportActionBar().setTitle(fm.getFragments().get(fm.getBackStackEntryCount() - 2).getTag());
+////            methodsBack.showInter(999, "BackPress");
+//            super.onBackPressed();
+//        } else {
+////            String tag = fm.getFragments().get(fm.getBackStackEntryCount() - 2).getTag();
+////            if(!tag.equals(getString(R.string.radio))){
+////                loadFrag(new FragmentHome(), getResources().getString(R.string.radio), fm);
+////            }
+////            openQuitDialog();
+//
+//            Log.e("Count", "last count: " + fm.getBackStackEntryCount());
+//        }
     }
 
     private Runnable run = new Runnable() {
@@ -1437,7 +1470,7 @@ public class RadioBaseActivity extends AppCompatActivity implements NavigationVi
 //                ViewCompat.setBackgroundTintList(FragmentSuggestion.button_submit, ColorStateList.valueOf(sharedPref.getFirstColor()));
 //            }
         }
-        navigationView.setCheckedItem(navigationView.getMenu().findItem(R.id.nav_home).getItemId());
+//        navigationView.setCheckedItem(navigationView.getMenu().findItem(R.id.nav_home).getItemId());
         super.onResume();
     }
 

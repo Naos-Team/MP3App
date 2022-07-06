@@ -16,6 +16,11 @@ public class Constants implements Serializable {
     public static final String BASE_SERVER_URL = "http://radiomusicpro.com/bestradiofree/";
     public static final String SERVER_URL =  BASE_SERVER_URL + "api.php";
 
+    public static int AT_HOME = 779;
+    public static int NEAR_HOME = 389;
+    public static int OTHER_HOME = 6596;
+    public static int fragmentStatus = OTHER_HOME;
+
     public static final String METHOD_HOME =  "get_home_radio";
     public static final String METHOD_ABOUT = "get_app_details";
     public static final String METHOD_LOGIN = "users_login";

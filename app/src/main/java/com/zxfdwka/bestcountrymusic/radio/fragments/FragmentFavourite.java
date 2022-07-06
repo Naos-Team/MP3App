@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.radio.adapter.AdapterCityDetails;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemRadio;
+import com.zxfdwka.bestcountrymusic.radio.utils.Constants;
 import com.zxfdwka.bestcountrymusic.radio.utils.DBHelper;
 
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class FragmentFavourite extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_radio_favorite, container, false);
+
+        Constants.fragmentStatus = Constants.NEAR_HOME;
 
         dbHelper = new DBHelper(getActivity());
         arraylist = dbHelper.getAllData();
@@ -62,7 +65,7 @@ public class FragmentFavourite extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.menu_search, menu);
+        inflater.inflate(R.menu.menu_search_radio, menu);
 
         MenuItem item = menu.findItem(R.id.search);
         //MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);

@@ -64,6 +64,8 @@ public class FragmentCatHome extends Fragment {
             type = bundle.getString("type");
         }
 
+        Constants.fragmentStatus = Constants.OTHER_HOME;
+
         sharedPref = new SharedPref(getActivity());
         methods = new Methods(getActivity());
         progressBar = rootView.findViewById(R.id.progressBar_cat);
