@@ -5,11 +5,17 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,6 +40,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Target;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.GetRating;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadFav;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadRating;
@@ -94,7 +101,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     BottomSheetDialog dialog_desc;
     Dialog dialog_rate;
     RelativeLayout rl_min_header;
-    LinearLayout ll_max_header;
+    LinearLayout ll_max_header, ll_topplayer, layout_music_player;
     RelativeLayout rl_music_loading;
     private Handler seekHandler = new Handler();
     PausableRotateAnimation rotateAnimation;
@@ -105,8 +112,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     View view_playlist, view_download, view_rate, view_round;
     TextView tv_min_title, tv_min_artist, tv_max_title, tv_max_artist, tv_music_title, tv_music_artist, tv_song_count,
             tv_current_time, tv_total_time;
-    RoundedImageView iv_max_song, iv_min_song, imageView_pager;
-    ImageView iv_music_bg, iv_min_previous, iv_min_play, iv_min_next, iv_max_fav, iv_max_option, iv_music_shuffle,
+    RoundedImageView iv_min_song, imageView_pager;
+    ImageView iv_max_song, iv_music_bg, iv_min_previous, iv_min_play, iv_min_next, iv_max_fav, iv_max_option, iv_music_shuffle,
             iv_music_repeat, iv_music_previous, iv_music_next, iv_music_play, iv_music_add2playlist, iv_music_share,
             iv_music_download, iv_music_rate, iv_music_volume, imageView_heart, iv_lyrics;
 
@@ -146,7 +153,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         toggle.syncState();
 
         adapter = new ImagePagerAdapter();
-
+        layout_music_player = findViewById(R.id.layout_music_player);
+        ll_topplayer = findViewById(R.id.ll_topplayer);
         navigationView = findViewById(R.id.nav_view);
         viewpager = findViewById(R.id.viewPager_song);
         viewpager.setOffscreenPageLimit(5);
@@ -158,8 +166,22 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         seekbar_min = findViewById(R.id.seekbar_min);
         seekbar_min.setPadding(0, 0, 0, 0);
 
+        int[] colors = {Color.parseColor("#000000"), Color.parseColor("#FFFFFF")};
+
+        GradientDrawable gd = new GradientDrawable(
+                GradientDrawable.Orientation.BOTTOM_TOP, colors);
+        gd.setCornerRadius(0f);
+        layout_music_player.setBackground(gd);
+
         RelativeLayout rl = findViewById(R.id.rl);
         rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        ll_topplayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -327,7 +349,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        newRotateAnim();
+//        newRotateAnim();
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -928,7 +950,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                         imageView_pager.setAnimation(null);
                     }
                     View view_pager = viewpager.findViewWithTag("myview" + Constant.playPos);
-                    newRotateAnim();
+//                    newRotateAnim();
                     imageView_pager = view_pager.findViewById(R.id.image);
                     imageView_pager.startAnimation(rotateAnimation);
                 } else {
@@ -948,19 +970,29 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         tv_song_count.setText((viewpager.getCurrentItem() + 1) + "/" + Constant.arrayList_play.size());
     }
 
+
+
     public void changeText(final ItemSong itemSong, final String page) {
 
         tv_min_title.setText(itemSong.getTitle());
         tv_min_artist.setText(itemSong.getArtist());
 
-        tv_max_title.setText(itemSong.getTitle());
-        tv_max_artist.setText(itemSong.getArtist());
-
+//        tv_max_title.setText(itemSong.getTitle());
+//        tv_max_artist.setText(Constant.addedFrom);
         ratingBar.setRating(Integer.parseInt(itemSong.getAverageRating()));
         tv_music_title.setText(itemSong.getTitle());
         tv_music_artist.setText(itemSong.getArtist());
-
-        tv_song_count.setText(Constant.playPos + 1 + "/" + Constant.arrayList_play.size());
+        String temp = "th";
+        if(Constant.playPos == 0)
+            temp = "st";
+        if(Constant.playPos == 1)
+            temp = "nd";
+        if(Constant.playPos == 2)
+            temp = "rd";
+        temp = (Constant.playPos + 1) + temp;
+        if(Constant.playPos == Constant.arrayList_play.size() - 1)
+            temp = "last";
+        tv_max_artist.setText("The " + temp + " track in the playlist");
         tv_total_time.setText(itemSong.getDuration());
 
         changeFav(itemSong.getIsFavourite());
@@ -972,10 +1004,10 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                     .placeholder(R.drawable.placeholder_song)
                     .into(iv_min_song);
 
-            Picasso.get()
-                    .load(itemSong.getImageSmall())
-                    .placeholder(R.drawable.placeholder_song)
-                    .into(iv_max_song);
+//            Picasso.get()
+//                    .load(itemSong.getImageSmall())
+//                    .placeholder(R.drawable.placeholder_song)
+//                    .into(iv_max_song);
 
 //            if (ratingBar.getVisibility() == View.GONE) {
 //                ratingBar.setVisibility(View.VISIBLE);
@@ -1061,6 +1093,72 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         iv_music_download.setEnabled(!isBuffer);
         iv_min_play.setEnabled(!isBuffer);
         seekBar_music.setEnabled(!isBuffer);
+    }
+
+    public void change_bg_layout(Bitmap bitmap){
+        CheckColor checkColor = new CheckColor(bitmap);
+        checkColor.execute();
+    }
+
+    private class CheckColor extends AsyncTask<Void, Void, Drawable>{
+        private Bitmap bitmap;
+
+        public CheckColor(Bitmap bitmap) {
+            this.bitmap = bitmap;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected Drawable doInBackground(Void... voids) {
+
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            int[] pixels = new int[width * height];
+            bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+            int pixel = 0;
+            int[] value = {0, 0, 0, 0};
+            for (int y = 0; y < height; ++y) {
+                for (int x = 0; x < width; ++x) {
+                    // get current index in 2D-matrix
+                    int index = y * width + x;
+                    pixel = pixels[index];
+                    if (pixel != Color.BLACK) {
+                        value[0] += Color.alpha(pixel);
+                        value[1] += Color.red(pixel);
+                        value[2] += Color.green(pixel);
+                        value[3] += Color.blue(pixel);
+                    } else {
+                        value[0] += Color.alpha(Color.WHITE);
+                        value[1] += Color.red(Color.WHITE);
+                        value[2] += Color.green(Color.WHITE);
+                        value[3] += Color.blue(Color.WHITE);
+                    }
+                }
+            }
+            for(int i = 0; i < 4; i++){
+                value[i] = (int)value[i]/(width*height);
+            }
+            if(value[0] < 10)
+                value[0] = 10;
+            int[] colors = {Color.parseColor("#000000"),Color.argb(value[0], value[1], value[2], value[3])};
+
+//create a new gradient color
+            GradientDrawable gd = new GradientDrawable(
+                    GradientDrawable.Orientation.BOTTOM_TOP, colors);
+            gd.setCornerRadius(0f);
+            return ((Drawable) gd);
+        }
+
+        @Override
+        protected void onPostExecute(Drawable drawable) {
+            super.onPostExecute(drawable);
+            layout_music_player.setBackground(drawable);
+        }
     }
 
     private class ImagePagerAdapter extends PagerAdapter {
