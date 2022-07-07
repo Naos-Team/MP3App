@@ -45,6 +45,7 @@ import com.zxfdwka.bestcountrymusic.mp3.asyncTask.GetRating;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadFav;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadRating;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadSong;
+import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentOptionMusic;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.LyricsFragment;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.RatingListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.SongListener;
@@ -471,7 +472,12 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 setRepeat();
                 break;
             case R.id.iv_max_option:
-                openOptionPopUp();
+                FragmentOptionMusic fragmentOptionMusic = new FragmentOptionMusic();
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("item", Constant.arrayList_play.get(viewpager.getCurrentItem()));
+//                fragmentOptionMusic.setArguments(bundle);
+
+                fragmentOptionMusic.show(getSupportFragmentManager(), fragmentOptionMusic.getTag());
                 break;
             case R.id.iv_max_fav:
                 if (Constant.isLogged) {
