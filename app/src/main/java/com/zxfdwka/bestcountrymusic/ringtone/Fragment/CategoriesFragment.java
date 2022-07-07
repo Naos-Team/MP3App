@@ -41,9 +41,9 @@ public class CategoriesFragment extends Fragment {
         arrayList = new ArrayList<>();
 
         recyclerView_category = rootView.findViewById(R.id.category);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 1);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView_category.setLayoutManager(mLayoutManager);
-        recyclerView_category.addItemDecoration(new GridSpacingItemDecoration(1, dpToPx(2), true));
+        recyclerView_category.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(2), true));
         recyclerView_category.setItemAnimator(new DefaultItemAnimator());
 
         loadCategories();

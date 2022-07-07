@@ -3,6 +3,7 @@ package com.zxfdwka.bestcountrymusic.ringtone.Adapter;
 import static com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity.checkIfAlreadyhavePermission;
 import static com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity.requestForSpecificPermission;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -138,7 +139,7 @@ public class SongAdapter extends RecyclerView.Adapter {
 
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder  holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder  holder, @SuppressLint("RecyclerView") final int position) {
         if (holder instanceof SongViewHolder) {
             Boolean isFav = checkFav(position);
             final ItemRingtone song = listltems.get(position);
@@ -231,13 +232,13 @@ public class SongAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
                     if (playbackState == Player.STATE_ENDED) {
-                        if (Setting.Dark_Mode){
-                            ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.background)));
-                            ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.background)));
-                        }else {
-                            ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.background)));
-                            ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.background)));
-                        }
+//                        if (Setting.Dark_Mode){
+//                            ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.background)));
+//                            ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.background)));
+//                        }else {
+//                            ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.background)));
+//                            ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.background)));
+//                        }
 
                         ((SongViewHolder) holder).play.setVisibility(View.VISIBLE);
                         ((SongViewHolder) holder).pause.setVisibility(View.GONE);
@@ -287,14 +288,14 @@ public class SongAdapter extends RecyclerView.Adapter {
                     if (Setting.exoPlayer.getPlayWhenReady()) {
                         Setting.exoPlayer.setPlayWhenReady(false);
                         Picasso.get()
-                                .load(R.drawable.play)
-                                .placeholder(R.drawable.play)
+                                .load(R.drawable.play_ringtone)
+                                .placeholder(R.drawable.play_ringtone)
                                 .into(((SongViewHolder) holder).pause);
                     } else {
                         Setting.exoPlayer.setPlayWhenReady(true);
                         Picasso.get()
-                                .load(R.drawable.pause)
-                                .placeholder(R.drawable.pause)
+                                .load(R.drawable.pause_ringtone)
+                                .placeholder(R.drawable.pause_ringtone)
                                 .into(((SongViewHolder) holder).pause);
                     }
                 }
@@ -320,13 +321,13 @@ public class SongAdapter extends RecyclerView.Adapter {
                     Setting.exoPlayer.setPlayWhenReady(true);
 
                     Picasso.get()
-                            .load(R.drawable.pause)
-                            .placeholder(R.drawable.pause)
+                            .load(R.drawable.pause_ringtone)
+                            .placeholder(R.drawable.pause_ringtone)
                             .into(((SongViewHolder) holder).pause);
 
                     Picasso.get()
-                            .load(R.drawable.play)
-                            .placeholder(R.drawable.play)
+                            .load(R.drawable.play_ringtone)
+                            .placeholder(R.drawable.play_ringtone)
                             .into(((SongViewHolder) holder).play);
 
                     ((SongViewHolder) holder).play.setVisibility(View.GONE);
@@ -361,48 +362,48 @@ public class SongAdapter extends RecyclerView.Adapter {
 
             switch (step){
                 case 1:
-                    ((SongViewHolder) holder).linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient1));
+                    ((SongViewHolder) holder).bg_play_pause.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient1));
                     break;
                 case 2:
-                    ((SongViewHolder) holder).linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient2));
+                    ((SongViewHolder) holder).bg_play_pause.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient2));
                     break;
                 case 3:
-                    ((SongViewHolder) holder).linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient3));
+                    ((SongViewHolder) holder).bg_play_pause.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient3));
                     break;
                 case 4:
-                    ((SongViewHolder) holder).linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient4));
+                    ((SongViewHolder) holder).bg_play_pause.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient4));
                     break;
                 case 5:
-                    ((SongViewHolder) holder).linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient5));
+                    ((SongViewHolder) holder).bg_play_pause.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient5));
                     break;
                 case 6:
-                    ((SongViewHolder) holder).linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient6));
+                    ((SongViewHolder) holder).bg_play_pause.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient6));
                     break;
                 case 7:
-                    ((SongViewHolder) holder).linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient7));
+                    ((SongViewHolder) holder).bg_play_pause.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient7));
                     break;
                 case 8:
-                    ((SongViewHolder) holder).linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient8));
+                    ((SongViewHolder) holder).bg_play_pause.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient8));
                     break;
                 case 9:
-                    ((SongViewHolder) holder).linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient9));
+                    ((SongViewHolder) holder).bg_play_pause.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient9));
                     break;
                 case 10:
-                    ((SongViewHolder) holder).linearLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient10));
+                    ((SongViewHolder) holder).bg_play_pause.setBackground(ContextCompat.getDrawable(context, R.drawable.gradient10));
                     break;
             }
 
 
             if (Setting.exoPlayer.getPlayWhenReady() & Setting.arrayList_play_rc.get(Setting.playPos_rc).getRadio_id().equals(song.getRadio_id())) {
 
-                ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.white)));
-                ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.white)));
+                ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
+                ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
 
                 ((SongViewHolder) holder).progressbar_new.setVisibility(View.VISIBLE);
 
             } else {
-                ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.background)));
-                ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.background)));
+                ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
+                ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
 
                 ((SongViewHolder) holder).progressbar_new.setVisibility(View.GONE);
             }
@@ -441,7 +442,7 @@ public class SongAdapter extends RecyclerView.Adapter {
         public ImageView play, pause, ringtone;
         RelativeLayout linearLayout;
         private ProgressBar progressbar_new;
-        private ImageView imageView_fav;
+        private ImageView imageView_fav, bg_play_pause;
 
 
 
@@ -462,7 +463,7 @@ public class SongAdapter extends RecyclerView.Adapter {
             views = itemView.findViewById(R.id.tv_songlist_vie);
             ringtone = itemView.findViewById(R.id.ringtone);
             imageView_fav = itemView.findViewById(R.id.imageView_fav_home);
-
+            bg_play_pause = itemView.findViewById(R.id.bg_play_pause);
 
         }
     }

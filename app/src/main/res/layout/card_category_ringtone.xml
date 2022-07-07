@@ -23,17 +23,17 @@
 
     <ImageView
         android:id="@+id/bg_image"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
+        app:layout_constraintWidth_percent="0.95"
         android:scaleType="centerCrop"
         android:src="@drawable/bg_shadow_cat_ringtone"
         app:layout_constraintBottom_toBottomOf="@+id/image"
         app:layout_constraintEnd_toEndOf="@+id/image"
-        app:layout_constraintHeight_percent="0.35"
+        app:layout_constraintHeight_percent="0.3"
         app:layout_constraintStart_toStartOf="@+id/image"
         app:layout_constraintTop_toTopOf="@+id/image"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintVertical_bias="0.95" />
 
     <ImageView
         android:layout_width="0dp"
@@ -51,7 +51,10 @@
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textSize="20dp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="10sp"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeTextType="uniform"
         android:textColor="@color/white"
         android:ellipsize="end"
         android:text="Ringtone Name Cat"
@@ -63,10 +66,6 @@
         app:layout_constraintHorizontal_bias="0.1"
         android:gravity="center_vertical"
         android:textStyle="bold"
-        android:autoSizeMaxTextSize="25sp"
-        android:autoSizeMinTextSize="10sp"
-        android:autoSizeStepGranularity="1sp"
-        android:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="@+id/bg_image"
         app:layout_constraintTop_toTopOf="@+id/bg_image"/>
 

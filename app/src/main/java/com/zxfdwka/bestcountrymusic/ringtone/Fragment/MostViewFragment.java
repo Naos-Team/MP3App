@@ -100,12 +100,13 @@ public class MostViewFragment extends Fragment {
             public void onEnd(String success, ArrayList<ItemRingtone> arrayListWall) {
                 if(arrayListWall.size() == 0) {
                     isOver = true;
-                    try {
-                        adapter.hideHeader();
-                    }catch (Exception e) {
-                        progressBar.setVisibility(View.GONE);
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        adapter.hideHeader();
+//                    }catch (Exception e) {
+//
+//                        e.printStackTrace();
+//                    }
+                    progressBar.setVisibility(View.GONE);
                 } else {
                     page = page + 1;
                     arrayList.addAll(arrayListWall);

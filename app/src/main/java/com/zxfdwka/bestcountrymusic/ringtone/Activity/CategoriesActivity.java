@@ -71,12 +71,12 @@ public class CategoriesActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         grid = new GridLayoutManager(CategoriesActivity.this, 1);
-        grid.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return adapter.isHeader(position) ? grid.getSpanCount() : 1;
-            }
-        });
+//        grid.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                return adapter.isHeader(position) ? grid.getSpanCount() : 1;
+//            }
+//        });
         recyclerView.setLayoutManager(grid);
 
         recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(grid) {
@@ -96,9 +96,10 @@ public class CategoriesActivity extends AppCompatActivity {
             }
         });
 
-        if (BuildConfig.APPLICATION_ID.equals(Setting.itemAbout.getPackage_name())){
-            getData();
-        }
+//        if (BuildConfig.APPLICATION_ID.equals(Setting.itemAbout.getPackage_name())){
+//            getData();
+//        }
+        getData();
 
         LinearLayout adView = findViewById(R.id.adView);
         methods.showBannerAd(adView);

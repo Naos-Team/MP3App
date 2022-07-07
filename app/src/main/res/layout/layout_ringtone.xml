@@ -32,7 +32,7 @@
                android:orientation="horizontal">
 
                <RelativeLayout
-                   android:layout_width="65dp"
+                   android:layout_width="45dp"
                    android:layout_height="match_parent">
 
                    <ImageView
@@ -62,7 +62,7 @@
                        android:id="@+id/progressbar_new"
                        android:layout_width="65dp"
                        android:layout_height="match_parent"
-                       android:progressTint="#fff"
+                       android:progressTint="#ffffff"
                        android:visibility="gone" />
                </RelativeLayout>
 
@@ -71,7 +71,7 @@
                    android:layout_width="0.8dp"
                    android:layout_height="match_parent"
                    android:layout_marginRight="5dp"
-                   android:background="?BackgroundColor" />
+                   android:background="@color/black" />
 
 
                <LinearLayout
@@ -79,13 +79,13 @@
                    android:layout_height="wrap_content"
                    android:layout_gravity="center"
                    android:layout_weight="1"
+                   android:layout_marginLeft="5dp"
                    android:orientation="vertical">
 
                    <TextView
                        android:id="@+id/tv_songlist_name"
-                       android:layout_width="match_parent"
+                       android:layout_width="190dp"
                        android:layout_height="wrap_content"
-                       android:layout_marginEnd="5dp"
                        android:autoSizeMaxTextSize="25sp"
                        android:autoSizeMinTextSize="15sp"
                        android:autoSizeStepGranularity="1sp"
@@ -104,7 +104,7 @@
                        android:ellipsize="end"
                        android:maxLines="1"
                        android:text="sdasd"
-                       android:textColor="#fff"
+                       android:textColor="#ffffff"
                        android:textSize="13sp"
                        android:textStyle="bold"
                        android:visibility="gone" />
@@ -117,7 +117,7 @@
                        android:ellipsize="end"
                        android:maxLines="1"
                        android:text="0 Views"
-                       android:textColor="#fff"
+                       android:textColor="#ffffff"
                        android:textSize="12sp"
                        android:textStyle="bold"
                        android:visibility="gone" />
@@ -126,17 +126,17 @@
 
                <ImageView
                    android:id="@+id/imageView_fav_home"
-                   android:layout_width="45dp"
-                   android:layout_height="match_parent"
+                   android:layout_width="20dp"
+                   android:layout_height="20dp"
                    android:layout_alignParentEnd="true"
                    android:layout_alignParentRight="true"
-                   android:layout_marginRight="5dp"
-                   android:padding="5dp"
+                   android:layout_gravity="center"
+                   android:layout_marginEnd="10dp"
                    android:src="@drawable/ic_bookmark2"
-                   android:visibility="gone" />
+                   android:visibility="visible" />
 
                <RelativeLayout
-                   android:layout_width="55dp"
+                   android:layout_width="wrap_content"
                    android:layout_height="match_parent">
 
                    <TextView
@@ -148,7 +148,7 @@
                        android:layout_marginBottom="6dp"
                        android:text="0"
                        android:textAlignment="center"
-                       android:textColor="#fff"
+                       android:textColor="#ffffff"
                        android:textSize="12sp"
                        android:textStyle="bold" />
 
@@ -161,7 +161,7 @@
                        android:layout_marginTop="5dp"
                        android:layout_marginEnd="10dp"
                        android:src="@drawable/ic_ringtone"
-                       app:tint="#fff" />
+                       app:tint="#ffffff" />
 
                </RelativeLayout>
 
