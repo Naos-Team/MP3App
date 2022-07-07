@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaMetadata;
 import android.net.Uri;
@@ -27,6 +28,8 @@ import android.telephony.TelephonyManager;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemAlbums;
 import com.zxfdwka.bestcountrymusic.mp3.item.MessageEvent;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
@@ -485,6 +488,23 @@ public class PlayerService extends IntentService implements Player.EventListener
                 return null;
             }
         }.execute();
+        Picasso.get().load(Constant.arrayList_play.get(Constant.playPos).getImageBig()).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap2, Picasso.LoadedFrom from) {
+
+                ((BaseActivity) Constant.context).change_bg_layout(bitmap2);
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
     }
 
     private void updateNoti() {

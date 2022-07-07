@@ -166,13 +166,12 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         seekbar_min = findViewById(R.id.seekbar_min);
         seekbar_min.setPadding(0, 0, 0, 0);
 
-        int[] colors = {Color.parseColor("#000000"), Color.parseColor("#FFFFFF")};
+        int[] colors = {Color.BLACK, Color.rgb( 119, 136,153)};
 
         GradientDrawable gd = new GradientDrawable(
                 GradientDrawable.Orientation.BOTTOM_TOP, colors);
         gd.setCornerRadius(0f);
         layout_music_player.setBackground(gd);
-
         RelativeLayout rl = findViewById(R.id.rl);
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -276,10 +275,10 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.primary));
         }
 
-        ImageView iv_white_blur = findViewById(R.id.iv_music_white_blur);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (50 * methods.getScreenHeight() / 100));
-        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        iv_white_blur.setLayoutParams(params);
+//        ImageView iv_white_blur = findViewById(R.id.iv_music_white_blur);
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (50 * methods.getScreenHeight() / 100));
+//        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//        iv_white_blur.setLayoutParams(params);
 
         mLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
@@ -1145,7 +1144,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             }
             if(value[0] < 10)
                 value[0] = 10;
-            int[] colors = {Color.parseColor("#000000"),Color.argb(value[0], value[1], value[2], value[3])};
+            int[] colors = {Color.BLACK , Color.argb(value[0], value[1], value[2], value[3])};
 
 //create a new gradient color
             GradientDrawable gd = new GradientDrawable(

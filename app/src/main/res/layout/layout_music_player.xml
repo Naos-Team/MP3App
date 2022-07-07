@@ -53,7 +53,8 @@
                 android:id="@+id/iv_music_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/iv_music_white_blur"
@@ -141,7 +142,7 @@
                     android:layout_height="0dp"
                     android:layout_marginEnd="14dp"
                     android:padding="7dp"
-                    android:src="@drawable/ic_menu1"
+                    android:src="@drawable/ic_lyrics"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
