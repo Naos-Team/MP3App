@@ -488,23 +488,6 @@ public class PlayerService extends IntentService implements Player.EventListener
                 return null;
             }
         }.execute();
-        Picasso.get().load(Constant.arrayList_play.get(Constant.playPos).getImageBig()).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap2, Picasso.LoadedFrom from) {
-
-                ((BaseActivity) Constant.context).change_bg_layout(bitmap2);
-            }
-
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-        });
     }
 
     private void updateNoti() {

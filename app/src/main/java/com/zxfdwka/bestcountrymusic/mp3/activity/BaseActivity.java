@@ -115,7 +115,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     RoundedImageView iv_min_song, imageView_pager;
     ImageView iv_max_song, iv_music_bg, iv_min_previous, iv_min_play, iv_min_next, iv_max_fav, iv_max_option, iv_music_shuffle,
             iv_music_repeat, iv_music_previous, iv_music_next, iv_music_play, iv_music_add2playlist, iv_music_share,
-            iv_music_download, iv_music_rate, iv_music_volume, imageView_heart, iv_lyrics;
+            iv_music_download, iv_music_rate, iv_music_volume, imageView_heart, iv_lyrics, iv_list;
 
     LinearLayout ll_adView_base;
     Handler handler = new Handler();
@@ -163,6 +163,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         rl_music_loading = findViewById(R.id.rl_music_loading);
         ratingBar = findViewById(R.id.rb_music);
         seekBar_music = findViewById(R.id.seekbar_music);
+        iv_list = findViewById(R.id.iv_list);
         seekbar_min = findViewById(R.id.seekbar_min);
         seekbar_min.setPadding(0, 0, 0, 0);
 
@@ -180,10 +181,21 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        iv_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BaseActivity.this, PlayListNowActivity.class);
+                intent.putExtra("name", "Current Playlist");
+                startActivity(intent);
+            }
+        });
+
         ll_topplayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(BaseActivity.this, PlayListNowActivity.class);
+                intent.putExtra("name", "Current Playlist");
+                startActivity(intent);
             }
         });
 
@@ -641,10 +653,10 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         methods.showRateDialog();
         if (Constant.isSuffle) {
             Constant.isSuffle = false;
-            iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.grey));
+            iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.white));
         } else {
             Constant.isSuffle = true;
-            iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.colorPrimary));
+            iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.com_facebook_blue));
         }
     }
 
@@ -973,6 +985,22 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     public void changeText(final ItemSong itemSong, final String page) {
 
+        Picasso.get().load(Constant.arrayList_play.get(Constant.playPos).getImageBig()).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap2, Picasso.LoadedFrom from) {
+                ((BaseActivity) Constant.context).change_bg_layout(bitmap2);
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
         tv_min_title.setText(itemSong.getTitle());
         tv_min_artist.setText(itemSong.getArtist());
 
@@ -993,7 +1021,6 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             temp = "last";
         tv_max_artist.setText("The " + temp + " track in the playlist");
         tv_total_time.setText(itemSong.getDuration());
-
         changeFav(itemSong.getIsFavourite());
 
         if (Constant.isOnline) {
@@ -1062,6 +1089,14 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             adapter.notifyDataSetChanged();
             viewpager.setCurrentItem(Constant.playPos);
         }
+    }
+
+    public void hide_Music_layout(){
+        mLayout.setEnabled(false);
+    }
+
+    public void show_Music_layout(){
+        mLayout.setEnabled(true);
     }
 
     public void changePlayPauseIcon(Boolean isPlay) {

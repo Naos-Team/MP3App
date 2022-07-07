@@ -57,12 +57,22 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
     private Methods methods;
     private DBHelper dbHelper;
 
+    private boolean is_currentList = false;
+
     private final int VIEW_PROG = -1;
 
     private Boolean isAdLoaded = false;
     private List<UnifiedNativeAd> mNativeAdsAdmob = new ArrayList<>();
     private NativeAdsManager mNativeAdsManager;
     private ArrayList<NativeAd> mNativeAdsFB = new ArrayList<>();
+
+    public boolean isIs_currentList() {
+        return is_currentList;
+    }
+
+    public void setIs_currentList(boolean is_currentList) {
+        this.is_currentList = is_currentList;
+    }
 
     public AdapterAllSongList(Context context, ArrayList<ItemSong> arrayList, ClickListenerPlayList recyclerClickListener, String type) {
         this.arrayList = arrayList;
@@ -296,7 +306,7 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         if (isHeader(position)) {
-            return VIEW_PROG;
+            return (!is_currentList) ? VIEW_PROG : 1000 + position;
         } else if (arrayList.get(position) == null) {
             return 1000 + position;
         } else {
