@@ -3,30 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?attr/BackgroundColor"
+    android:background="@color/black"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/BackgroundColor"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:navigationIcon="?attr/icon_a"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_height="50dp"
+        android:background="@color/black"
+        app:navigationIcon="@drawable/ic_baseline_menu_24"
         app:title="Update Ringtone"
-        app:titleTextColor="?attr/BackgroundTint" />
+        app:titleTextColor="@color/white" />
 
     <ScrollView
-        android:layout_below="@id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar2"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -35,20 +34,21 @@
 
                 <TextView
                     android:id="@+id/user"
-                    android:textAlignment="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:textStyle="bold"
                     android:text="Update By : User Name"
-                    android:textColor="?attr/Titel_1"
-                    android:textSize="20sp" />
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -56,9 +56,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:text="Ringtone Category"
-                    android:textStyle="bold"
-                    android:textColor="?attr/Titel_1"
-                    android:textSize="17sp" />
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
 
@@ -71,17 +71,19 @@
                 android:padding="20dp" />
 
             <RelativeLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:textStyle="bold"
                     android:text="Ringtone Name"
-                    android:textColor="?attr/Titel_1"
-                    android:textSize="17sp" />
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <EditText
@@ -92,21 +94,23 @@
                 android:background="@drawable/bg_round_border"
                 android:hint="Enter Ringtone Name"
                 android:padding="15dp"
-                android:textColorHint="?attr/Titel_2"
-                android:textColor="?attr/Titel_1" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/white_with_alpha" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:textStyle="bold"
                     android:text="Ringtone"
-                    android:textColor="?attr/Titel_1"
-                    android:textSize="17sp" />
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -117,45 +121,44 @@
                     android:id="@+id/browsebtn"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:translationZ="0dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/bg_round_border"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:translationZ="0dp" />
 
                 <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:translationZ="2dp"
-                    android:layout_width="80dp"
                     android:src="@drawable/ic_files_and_folders"
-                    android:layout_height="90dp"
-                    app:tint="?attr/Titel_1" />
+                    android:translationZ="2dp"
+                    app:tint="@color/white" />
 
                 <ImageView
                     android:id="@+id/add"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:translationZ="2dp"
                     android:layout_width="20dp"
-                    android:src="@drawable/ic_plus"
                     android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_plus"
+                    android:translationZ="2dp"
                     app:tint="?attr/Titel_1" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
                     android:layout_toEndOf="@+id/add"
                     android:text="Select Ringtone"
+                    android:textColor="@color/white"
                     android:textSize="18dp"
-                    android:textColor="?attr/Titel_1"
                     android:translationZ="2dp" />
             </RelativeLayout>
-
 
 
             <TextView
@@ -164,127 +167,125 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="URI Path"
-                android:textColor="?attr/Titel_2" />
+                android:textColor="@color/white" />
 
             <RelativeLayout
                 android:id="@+id/relativelayout"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:visibility="gone"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="5dp"
+                android:visibility="gone">
 
-                    <androidx.cardview.widget.CardView
-                        app:cardCornerRadius="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="70dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    app:cardCornerRadius="5dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/black">
+
+                        <SeekBar
+                            android:id="@+id/seek_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:fitsSystemWindows="true"
+                            android:progressDrawable="@drawable/progress"
+                            android:thumb="@color/transperent" />
+
+                        <ImageView
+                            android:id="@+id/transimage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_round_border"
+                            android:clickable="true" />
 
                         <RelativeLayout
-                            android:background="@drawable/gradient10"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-                            <SeekBar
-                                android:id="@+id/seek_bar"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:clickable="false"
-                                android:enabled="false"
-                                android:fitsSystemWindows="true"
-                                android:progressDrawable="@drawable/progress"
-                                android:thumb="@color/transperent" />
+                            android:id="@+id/uirel"
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true">
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerInParent="true"
+                                android:clickable="true"
+                                android:padding="10dp"
+                                android:indeterminateTint="@color/white"
+                                android:theme="@style/WhiteAccent"
+                                android:visibility="gone"
+                                tools:ignore="VectorDrawableCompat" />
 
                             <ImageView
-                                android:id="@+id/transimage"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/transperent"
-                                android:clickable="true" />
+                                android:id="@+id/image_play_bg"
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:layout_centerInParent="true"
+                                android:clickable="true"
+                                android:src="@drawable/gradient6"
+                                tools:ignore="VectorDrawableCompat" />
 
-                            <RelativeLayout
-                                android:id="@+id/uirel"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true">
+                            <ImageView
+                                android:id="@+id/image_play"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_centerInParent="true"
+                                android:clickable="true"
+                                android:src="@drawable/play_ringtone"
+                                tools:ignore="VectorDrawableCompat" />
 
-                                <ProgressBar
-                                    android:id="@+id/progress_bar"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_centerInParent="true"
-                                    android:clickable="true"
-                                    android:padding="10dp"
-                                    android:src="@drawable/play"
-                                    android:theme="@style/WhiteAccent"
-                                    android:visibility="gone"
-                                    tools:ignore="VectorDrawableCompat" />
-
-                                <ImageView
-                                    android:id="@+id/image_play"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_centerInParent="true"
-                                    android:clickable="true"
-                                    android:padding="4dp"
-                                    android:src="@drawable/play"
-                                    tools:ignore="VectorDrawableCompat" />
-
-                            </RelativeLayout>
-
-                            <TextView
-                                android:id="@+id/ringtone_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="40dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_toEndOf="@id/uirel"
-                                android:layout_toRightOf="@id/uirel"
-                                android:text="S8 classic tone"
-                                android:textColor="@color/white"
-                                android:textSize="17.628sp" />
                         </RelativeLayout>
 
-                    </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/ringtone_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toEndOf="@id/uirel"
+                            android:layout_toRightOf="@id/uirel"
+                            android:text="S8 classic tone"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <Button
-                    android:layout_centerHorizontal="true"
                     android:id="@+id/submitbtn"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_margin="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/cardmy"
-                    android:textSize="19dp"
                     android:text="Submit"
-                    android:backgroundTint="?BackgroundTint"
-                    android:textColor="?attr/BackgroundColor"
+                    android:textColor="@color/black"
+                    android:textSize="19dp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_marginBottom="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_marginBottom="1dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/made_with_in_srilanka_ringtone"
-                    android:textColor="#607d8b"
-                    android:textAlignment="center"
-                    android:textStyle="bold" />
-            </RelativeLayout>
 
         </LinearLayout>
 

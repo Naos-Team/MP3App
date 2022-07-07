@@ -10,8 +10,9 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/black" />
+        android:layout_height="50dp"
+        android:background="@color/black"
+        app:navigationIcon="@drawable/ic_baseline_menu_24"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
@@ -19,8 +20,8 @@
         android:layout_height="35dp"
         android:layout_below="@id/toolbar"
         android:background="@color/black"
-        ads:tabIndicatorColor="?attr/BackgroundTint"
-        ads:tabTextColor="?attr/BackgroundTint" />
+        ads:tabIndicatorColor="@color/white"
+        ads:tabTextColor="@color/white" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

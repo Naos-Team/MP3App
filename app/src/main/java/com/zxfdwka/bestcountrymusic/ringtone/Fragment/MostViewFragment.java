@@ -80,9 +80,7 @@ public class MostViewFragment extends Fragment {
             }
         });
 
-        if (BuildConfig.APPLICATION_ID.equals(Setting.itemAbout.getPackage_name())){
-            getData();
-        }
+        getData();
 
 
 

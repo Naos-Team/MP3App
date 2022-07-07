@@ -7,6 +7,7 @@
     android:orientation="vertical"
     xmlns:shimmer="http://schemas.android.com/tools"
     android:background="@color/black"
+    android:layout_margin="10dp"
     >
 
 <androidx.cardview.widget.CardView
@@ -58,20 +59,19 @@
                        android:visibility="gone" />
 
                    <ProgressBar
-                      android:progressTint="#fff"
-                      android:visibility="gone"
                        android:id="@+id/progressbar_new"
                        android:layout_width="65dp"
-                       android:layout_height="match_parent"/>
+                       android:layout_height="match_parent"
+                       android:progressTint="#fff"
+                       android:visibility="gone" />
                </RelativeLayout>
 
 
-
                <RelativeLayout
-                   android:layout_marginRight="5dp"
                    android:layout_width="0.8dp"
-                   android:background="?BackgroundColor"
-                   android:layout_height="match_parent"/>
+                   android:layout_height="match_parent"
+                   android:layout_marginRight="5dp"
+                   android:background="?BackgroundColor" />
 
 
                <LinearLayout
@@ -82,75 +82,75 @@
                    android:orientation="vertical">
 
                    <TextView
-                       android:textStyle="bold"
                        android:id="@+id/tv_songlist_name"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:ellipsize="end"
-                       android:text="@string/app_name"
-                       android:maxLines="1"
-                       android:textColor="#fff"
+                       android:layout_marginEnd="5dp"
                        android:autoSizeMaxTextSize="25sp"
                        android:autoSizeMinTextSize="15sp"
                        android:autoSizeStepGranularity="1sp"
                        android:autoSizeTextType="uniform"
-                       android:layout_marginEnd="5dp"/>
+                       android:ellipsize="end"
+                       android:maxLines="1"
+                       android:text="@string/app_name"
+                       android:textColor="#fff"
+                       android:textStyle="bold" />
 
                    <TextView
-                       android:textStyle="bold"
-                       android:textColor="#fff"
                        android:id="@+id/tv_songlist_cat"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
+                       android:layout_marginEnd="90dp"
                        android:ellipsize="end"
                        android:maxLines="1"
                        android:text="sdasd"
+                       android:textColor="#fff"
                        android:textSize="13sp"
-                       android:visibility="gone"
-                       android:layout_marginEnd="90dp"/>
+                       android:textStyle="bold"
+                       android:visibility="gone" />
 
                    <TextView
-                       android:textStyle="bold"
-                       android:textColor="#fff"
                        android:id="@+id/tv_songlist_vie"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
+                       android:layout_marginEnd="90dp"
                        android:ellipsize="end"
                        android:maxLines="1"
-                       android:visibility="gone"
                        android:text="0 Views"
+                       android:textColor="#fff"
                        android:textSize="12sp"
-                       android:layout_marginEnd="90dp"/>
+                       android:textStyle="bold"
+                       android:visibility="gone" />
 
                </LinearLayout>
 
                <ImageView
-                   android:layout_marginRight="5dp"
                    android:id="@+id/imageView_fav_home"
                    android:layout_width="45dp"
                    android:layout_height="match_parent"
                    android:layout_alignParentEnd="true"
                    android:layout_alignParentRight="true"
+                   android:layout_marginRight="5dp"
                    android:padding="5dp"
                    android:src="@drawable/ic_bookmark2"
-                   android:visibility="gone"/>
+                   android:visibility="gone" />
 
                <RelativeLayout
                    android:layout_width="55dp"
                    android:layout_height="match_parent">
+
                    <TextView
-                       android:textStyle="bold"
-                       android:layout_marginBottom="6dp"
-                       android:layout_alignParentBottom="true"
-                       android:textColor="#fff"
-                       android:textAlignment="center"
                        android:id="@+id/total_downlod"
-                       android:layout_centerHorizontal="true"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
+                       android:layout_alignParentBottom="true"
+                       android:layout_centerHorizontal="true"
+                       android:layout_marginBottom="6dp"
                        android:text="0"
+                       android:textAlignment="center"
+                       android:textColor="#fff"
                        android:textSize="12sp"
-                       />
+                       android:textStyle="bold" />
 
 
                    <ImageView
@@ -158,8 +158,8 @@
                        android:layout_width="20dp"
                        android:layout_height="20dp"
                        android:layout_centerHorizontal="true"
-                       android:layout_marginEnd="10dp"
                        android:layout_marginTop="5dp"
+                       android:layout_marginEnd="10dp"
                        android:src="@drawable/ic_ringtone"
                        app:tint="#fff" />
 

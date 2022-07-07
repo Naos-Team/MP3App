@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.zxfdwka.bestcountrymusic.databinding.ActivityHomeBinding;
+import com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity;
 import com.zxfdwka.bestcountrymusic.ringtone.Activity.SplashActivity;
 
 public class HomeActivity extends AppCompatActivity {
@@ -21,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.icOpenRingtone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

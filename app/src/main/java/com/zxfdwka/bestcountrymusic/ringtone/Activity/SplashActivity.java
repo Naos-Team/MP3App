@@ -61,19 +61,19 @@ public class SplashActivity extends AppCompatActivity {
     private BillingProcessor bp;
     private boolean readyToPurchase = false;
 
-    ServiceConnection mServiceConn = new ServiceConnection() {
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mService = null;
-        }
-
-        @Override
-        public void onServiceConnected(ComponentName name,
-                                       IBinder service) {
-            mService = IInAppBillingService.Stub.asInterface(service);
-
-        }
-    };
+//    ServiceConnection mServiceConn = new ServiceConnection() {
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//            mService = null;
+//        }
+//
+//        @Override
+//        public void onServiceConnected(ComponentName name,
+//                                       IBinder service) {
+//            mService = IInAppBillingService.Stub.asInterface(service);
+//
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +88,7 @@ public class SplashActivity extends AppCompatActivity {
         changeStatusBarColor();
 
         if (methods.isNetworkAvailable()) {
-            loadAboutData();
+            //loadAboutData();
         } else {
             IntActivity();
         }
@@ -225,7 +225,7 @@ public class SplashActivity extends AppCompatActivity {
             alertDialog.setNegativeButton(getString(R.string.try_again), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    loadAboutData();
+                    //loadAboutData();
                 }
             });
         }
@@ -283,7 +283,7 @@ public class SplashActivity extends AppCompatActivity {
     private void initBuy() {
         Intent serviceIntent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
         serviceIntent.setPackage("com.android.vending");
-        bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+        //bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
 
 
         if(!BillingProcessor.isIabServiceAvailable(this)) {
@@ -319,7 +319,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         try{
-            unbindService(mServiceConn);
+            //unbindService(mServiceConn);
         }
         catch(Exception e){
             e.printStackTrace();

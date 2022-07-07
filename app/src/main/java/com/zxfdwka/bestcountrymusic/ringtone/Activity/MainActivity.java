@@ -82,21 +82,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     UpdateManager update;
     Nemosofts nemosofts;
 
-    ServiceConnection mServiceConn = new ServiceConnection() {
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            mService = null;
-            // Toast.makeText(MainActivity.this, "set null", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onServiceConnected(ComponentName name,
-                                       IBinder service) {
-            mService = IInAppBillingService.Stub.asInterface(service);
-            //Toast.makeText(MainActivity.this, "set Stub", Toast.LENGTH_SHORT).show();
-
-        }
-    };
+//    ServiceConnection mServiceConn = new ServiceConnection() {
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//            mService = null;
+//            // Toast.makeText(MainActivity.this, "set null", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        @Override
+//        public void onServiceConnected(ComponentName name,
+//                                       IBinder service) {
+//            mService = IInAppBillingService.Stub.asInterface(service);
+//            //Toast.makeText(MainActivity.this, "set Stub", Toast.LENGTH_SHORT).show();
+//
+//        }
+//    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (Setting.Dark_Mode) {
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_ringtone);
-        initBuy();
+        //initBuy();
         nemosofts = new Nemosofts(this);
 
         methods = new Methods(this);
@@ -138,12 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawer.openDrawer(GravityCompat.START);
             }
         });
-        if (Setting.Dark_Mode) {
-            toggle.setHomeAsUpIndicator(R.drawable.ic_menu2);
-        } else {
-            toggle.setHomeAsUpIndicator(R.drawable.ic_menu1);
-        }
-
+        toggle.setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -403,7 +398,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent serviceIntent =
                 new Intent("com.android.vending.billing.InAppBillingService.BIND");
         serviceIntent.setPackage("com.android.vending");
-        bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+        //bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
 
 
         if(!BillingProcessor.isIabServiceAvailable(this)) {

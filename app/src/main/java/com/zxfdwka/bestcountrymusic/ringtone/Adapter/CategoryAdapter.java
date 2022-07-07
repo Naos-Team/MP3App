@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -38,6 +39,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ListltemCategory listltem = listltems.get(position);
+
+        int width = context.getResources().getDisplayMetrics().widthPixels;
+        int height = context.getResources().getDisplayMetrics().heightPixels;
+        ConstraintLayout.LayoutParams layoutParams= new ConstraintLayout.LayoutParams((int)Math.round(width*0.45), (int)Math.round(height*0.2));
+        layoutParams.setMargins(10,10,10,10);
+        holder.cat_layout.setLayoutParams(layoutParams);
 
         holder.name.setText(listltem.getCategory_name());
 
@@ -154,6 +161,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         public TextView name;
         public ImageView imageView, thiva, logo;
         public LinearLayout linearLayout;
+        public ConstraintLayout cat_layout;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -164,7 +172,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             thiva = itemView.findViewById(R.id.thiva);
 
             logo = itemView.findViewById(R.id.logo);
-
+            cat_layout = itemView.findViewById(R.id.category_ringtone);
             //on item click
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override
