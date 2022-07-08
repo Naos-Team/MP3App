@@ -12,4 +12,5 @@ public interface OptionMusicListener {
     void onSearchYTB(ItemSong itemSong);
     void onShare(ItemSong itemSong);
     void onRate(ItemSong itemSong);
+    void onEndLike();
 }

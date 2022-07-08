@@ -31,25 +31,30 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
             btn_add_playlist_option_music, btn_add_queue_option_music,
             btn_search_YTB_option_music, btn_description_option_music,
             btn_share_option_music, btn_rate_option_music;
-    private ImageView img_option_music, img_fav_option_music;
-    private TextView txt_title_option_music, txt_art_option_music, txt_fav_option_music;
+    private ImageView img_option_music, img_fav_option_music, img_add_playlist_option_music;
+    private TextView txt_title_option_music, txt_art_option_music, txt_fav_option_music,
+            txt_add_playlist_option_music;
     private BottomSheetBehavior mBehavior;
     private ItemSong itemSong;
     private OptionMusicListener listener;
     private Methods methods;
     private BaseActivity baseActivity;
+    private boolean is_Playlist;
+    private int posi = -1;
 
-    public FragmentOptionMusic(ItemSong itemSong, OptionMusicListener listener, Methods methods, BaseActivity activity) {
+    public FragmentOptionMusic(ItemSong itemSong, OptionMusicListener listener, Methods methods, BaseActivity activity, boolean is_Playlist) {
         this.itemSong = itemSong;
         this.listener = listener;
         this.methods = methods;
         this.baseActivity = activity;
+        this.is_Playlist = is_Playlist;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        baseActivity.changeFav(itemSong.getIsFavourite());
+        if(baseActivity != null)
+            baseActivity.changeFav(itemSong.getIsFavourite());
     }
 
     @NonNull
@@ -70,6 +75,8 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
         txt_art_option_music = view.findViewById(R.id.txt_art_option_music);
         img_fav_option_music = view.findViewById(R.id.img_fav_option_music);
         txt_fav_option_music = view.findViewById(R.id.txt_fav_option_music);
+        img_add_playlist_option_music = view.findViewById(R.id.img_add_playlist_option_music);
+        txt_add_playlist_option_music = view.findViewById(R.id.txt_add_playlist_option_music);
 
         setUp();
         dialog.setContentView(view);
@@ -89,12 +96,14 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
     }
 
     private void changeFav(){
-        if (itemSong.getIsFavourite()) {
-            img_fav_option_music.setImageDrawable(getResources().getDrawable(R.mipmap.ic_fav_hover));
-            txt_fav_option_music.setText("Favorited");
-        } else {
-            img_fav_option_music.setImageDrawable(getResources().getDrawable(R.mipmap.ic_fav));
-            txt_fav_option_music.setText("Favorite");
+        if(getContext() != null) {
+            if (itemSong.getIsFavourite()) {
+                img_fav_option_music.setImageDrawable(getContext().getResources().getDrawable(R.mipmap.ic_fav_hover));
+                txt_fav_option_music.setText("Favorited");
+            } else {
+                img_fav_option_music.setImageDrawable(getContext().getResources().getDrawable(R.mipmap.ic_fav));
+                txt_fav_option_music.setText("Favorite");
+            }
         }
     }
 
@@ -103,6 +112,10 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
         txt_title_option_music.setText(itemSong.getTitle());
         txt_art_option_music.setText(itemSong.getArtist());
 
+        if(is_Playlist){
+            txt_add_playlist_option_music.setText("Remove from Playlist");
+            img_add_playlist_option_music.setImageResource(R.drawable.remove_play_list);
+        }
         changeFav();
 
         btn_description_option_music.setOnClickListener(new View.OnClickListener() {
@@ -116,33 +129,48 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 listener.onLike(itemSong, img_fav_option_music);
-                int posi = Constant.arrayList_play.indexOf(itemSong);
-                if (methods.isNetworkAvailable()) {
-                    LoadFav loadFav = new LoadFav(new SuccessListener() {
-                        @Override
-                        public void onStart() {
+                for(int i = 0; i <  Constant.arrayList_play.size(); ++i ){
+                    if(Constant.arrayList_play.get(i).getId().equals(itemSong.getId())){
+                        posi = i;
+                    }
+                }
+                if (Constant.isLogged) {
+                    if (methods.isNetworkAvailable()) {
+                        LoadFav loadFav = new LoadFav(new SuccessListener() {
+                            @Override
+                            public void onStart() {
 
-                        }
-
-                        @Override
-                        public void onEnd(String success, String favSuccess, String message) {
-                            if (success.equals("1")) {
-                                if (favSuccess.equals("1")) {
-                                    Constant.arrayList_play.get(posi).setIsFavourite(true);
-                                } else if (favSuccess.equals("-2")) {
-                                    methods.getInvalidUserDialog(message);
-                                } else {
-                                    Constant.arrayList_play.get(posi).setIsFavourite(false);
-                                }
-                                itemSong = Constant.arrayList_play.get(posi);
-                                changeFav();
-                                baseActivity.changeFav(itemSong.getIsFavourite());
-                                if(getActivity() != null)
-                                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                             }
-                        }
-                    }, methods.getAPIRequest(Constant.METHOD_FAV, 0, "", itemSong.getId(), "", "song", "", "", "", "", "", "", "", "", "", Constant.itemUser.getId(), "", null));
-                    loadFav.execute();
+
+                            @Override
+                            public void onEnd(String success, String favSuccess, String message) {
+                                if (success.equals("1")) {
+                                    if (favSuccess.equals("1")) {
+                                        itemSong.setIsFavourite(true);
+                                        if(posi != -1) {
+                                            Constant.arrayList_play.get(posi).setIsFavourite(true);
+                                        }
+                                    } else if (favSuccess.equals("-2")) {
+                                        methods.getInvalidUserDialog(message);
+                                    } else {
+                                        itemSong.setIsFavourite(false);
+                                        if(posi != -1) {
+                                            Constant.arrayList_play.get(posi).setIsFavourite(false);
+                                        }
+                                    }
+                                    changeFav();
+                                    if(baseActivity != null)
+                                        baseActivity.changeFav(itemSong.getIsFavourite());
+                                    if (getActivity() != null)
+                                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                    listener.onEndLike();
+                                }
+                            }
+                        }, methods.getAPIRequest(Constant.METHOD_FAV, 0, "", itemSong.getId(), "", "song", "", "", "", "", "", "", "", "", "", Constant.itemUser.getId(), "", null));
+                        loadFav.execute();
+                    } else {
+                        methods.clickLogin();
+                    }
                 } else {
                     if(getActivity() != null)
                         Toast.makeText(getActivity(), getString(R.string.err_internet_not_conn), Toast.LENGTH_SHORT).show();
@@ -154,6 +182,9 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 listener.onAddToPlaylist(itemSong);
+                if(is_Playlist){
+                    FragmentOptionMusic.this.dismiss();
+                }
             }
         });
 

@@ -269,7 +269,7 @@ public class SongByMyPlaylistActivity extends BaseActivity {
                 setEmpty();
             }
         }, "playlist");
-
+        adapter.setIs_currentList(true);
         loadNativeAds();
 
         rv.setAdapter(adapter);

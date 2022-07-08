@@ -2,6 +2,7 @@ package com.zxfdwka.bestcountrymusic.mp3.activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -318,6 +319,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
                     rl_min_header.setVisibility(View.INVISIBLE);
                     ll_max_header.setVisibility(View.VISIBLE);
+                    changeFav(Constant.arrayList_play.get(Constant.playPos).getIsFavourite());
                 }
             }
 
@@ -499,17 +501,27 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onAddToPlaylist(ItemSong itemSong) {
-
+                        methods.openPlaylists(itemSong, true);
                     }
 
                     @Override
                     public void onAddToQueue(ItemSong itemSong) {
-
+                        Constant.arrayList_play.add(itemSong);
+                        GlobalBus.getBus().postSticky(new ItemMyPlayList("", "", null));
+                        Toast.makeText(BaseActivity.this, getString(R.string.add_to_queue), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onSearchYTB(ItemSong itemSong) {
-
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_SEARCH);
+                            intent.setPackage("com.google.android.youtube");
+                            intent.putExtra("query", itemSong.getTitle());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        } catch (ActivityNotFoundException e) {
+                            Toast.makeText(BaseActivity.this, getString(R.string.youtube_not_installed), Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -521,7 +533,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                     public void onRate(ItemSong itemSong) {
                         openRateDialog();
                     }
-                }, methods, BaseActivity.this);
+
+                    @Override
+                    public void onEndLike() {
+                    }
+                }, methods, BaseActivity.this, false);
 
                 fragmentOptionMusic.show(getSupportFragmentManager(), fragmentOptionMusic.getTag());
                 break;
@@ -1280,7 +1296,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             RoundedImageView imageView = imageLayout.findViewById(R.id.image);
             final ImageView imageView_play = imageLayout.findViewById(R.id.iv_vp_play);
             final ProgressBar spinner = imageLayout.findViewById(R.id.loading);
-
+            final ImageView fav = imageLayout.findViewById(R.id.iv_max_fav);
             loadedPage = Constant.addedFrom;
 
             if (Constant.playPos == position) {

@@ -159,7 +159,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_like_option_music">
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/img_add_playlist_option_music"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="15dp"
@@ -169,11 +169,11 @@
                 app:layout_constraintHeight_percent="0.7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/playlist"
-                app:tint="@color/grey"/>
+                app:srcCompat="@drawable/add_play_list"
+                app:tint="@color/grey" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/txt_add_playlist_option_music"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
@@ -189,7 +189,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintStart_toEndOf="@+id/img_add_playlist_option_music"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
