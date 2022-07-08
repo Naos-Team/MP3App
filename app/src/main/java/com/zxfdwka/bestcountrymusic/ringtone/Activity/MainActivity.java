@@ -52,6 +52,7 @@ import com.zxfdwka.bestcountrymusic.ringtone.Constant.Constant;
 import com.zxfdwka.bestcountrymusic.ringtone.DBHelper.DBHelper;
 import com.zxfdwka.bestcountrymusic.ringtone.Method.Methods;
 import com.zxfdwka.bestcountrymusic.ringtone.SharedPref.Setting;
+import com.zxfdwka.bestcountrymusic.ringtone.SharedPref.SharedPref;
 
 import java.io.File;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Activity activity;
     Methods methods;
     DBHelper dbHelper;
+
+    SharedPref sharedPref;
 
     // put your Google merchant id here (as stated in public profile of your Payments Merchant Center)
     // if filled library will provide protection against Freedom alike Play Market simulators
@@ -112,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
         dbHelper = new DBHelper(this);
-
+        sharedPref = new SharedPref(MainActivity.this);
         nemosofts = new Nemosofts(this);
         // Initialize the Update Manager with the Activity and the Update Mode
         update = UpdateManager.Builder(this).mode(UpdateManagerConstant.FLEXIBLE);
@@ -158,9 +161,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
 
-        String[] pageTitle = {"Home", "Top 10 Views", "Categories"};
+        String[] pageTitle = {"Home", "Top 10 Views"};
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             tabLayout.addTab(tabLayout.newTab().setText(pageTitle[i]));
         }
 
@@ -253,6 +256,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_login:
                 methods.clickLogin();
                 break;
+            case R.id.nav_cat:
+                Stop();
+                Intent cat = new Intent(MainActivity.this, BaseCategoriesActivity.class);
+                startActivity(cat);
+                break;
+
+            case R.id.nav_search:
+                Stop();
+                Intent search = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(search);
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -300,27 +314,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         showRationale = shouldShowRequestPermissionRationale( Manifest.permission.WRITE_EXTERNAL_STORAGE );
                     }
                     if (! showRationale) {
-                        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                        alertDialogBuilder.setTitle("Permissions Required")
-                                .setMessage("You have forcefully denied some of the required permissions " +
-                                        "for this action. Please open settings, go to permissions and allow them.")
-                                .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                                Uri.fromParts("package", getPackageName(), null));
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                    }
-                                })
-                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .setCancelable(false)
-                                .create()
-                                .show();
+                        if (sharedPref.getCheckPermission()){
+                            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                            alertDialogBuilder.setTitle("Permissions Required")
+                                    .setMessage("You have forcefully denied some of the required permissions " +
+                                            "for this action. Please open settings, go to permissions and allow them.")
+                                    .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                                    Uri.fromParts("package", getPackageName(), null));
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setCancelable(false)
+                                    .create()
+                                    .show();
+                        }
+                        sharedPref.setCheckPermission(false);
+
                     } else if (Manifest.permission.WRITE_CONTACTS.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         Toast.makeText(activity, "We need permissions to manage songs", Toast.LENGTH_SHORT).show();
                     }

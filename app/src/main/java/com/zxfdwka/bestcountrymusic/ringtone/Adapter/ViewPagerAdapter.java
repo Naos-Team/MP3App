@@ -27,9 +27,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 MostViewFragment tab2 = new MostViewFragment();
                 return tab2;
-            case 2:
-                CategoriesFragment tab3 = new CategoriesFragment();
-                return tab3;
+//            case 2:
+//                CategoriesFragment tab3 = new CategoriesFragment();
+//                return tab3;
             default:
                 return null;
         }

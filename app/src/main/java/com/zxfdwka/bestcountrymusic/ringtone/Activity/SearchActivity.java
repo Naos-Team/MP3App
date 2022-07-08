@@ -24,6 +24,7 @@ import com.zxfdwka.bestcountrymusic.ringtone.SharedPref.Setting;
 import com.zxfdwka.bestcountrymusic.ringtone.item.ItemRingtone;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
     ArrayList<ItemRingtone> arrayList;
     ProgressBar progressBar;
     Boolean isOver = false, isScroll = false;
-    int page = 1;
+    int page = 0;
     GridLayoutManager grid;
     LoadSongs load;
 
@@ -150,7 +151,7 @@ public class SearchActivity extends AppCompatActivity {
                     Setad();
                 }
             }
-        },methods.getAPIRequest(Setting.METHOD_SEARCH, page, "", "", searchView.getText().toString(), "", "", "", "", "","","","","","","","", null));
+        },methods.getAPIRequest(Setting.METHOD_SEARCH, page, "", "", searchView.getText().toString().toUpperCase(), "", "", "", "", "","","","","","","","", null));
         load.execute();
     }
 

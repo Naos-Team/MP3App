@@ -11,6 +11,16 @@
             android:title="@string/home" />
 
         <item
+            android:id="@+id/nav_cat"
+            android:icon="@drawable/ic_category_ringtone"
+            android:title="Categories" />
+
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search_ringtone"
+            android:title="Search" />
+
+        <item
             android:id="@+id/nav_user_by"
             android:icon="@drawable/ic_user_nav_ringtone"
             android:title="Update" />

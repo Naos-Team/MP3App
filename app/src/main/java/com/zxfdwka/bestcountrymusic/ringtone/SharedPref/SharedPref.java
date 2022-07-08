@@ -16,10 +16,21 @@ public class SharedPref {
     private static String TAG_UID = "uid" ,TAG_USERNAME = "name", TAG_EMAIL = "email", TAG_MOBILE = "mobile", TAG_REMEMBER = "rem",
             TAG_PASSWORD = "pass", SHARED_PREF_AUTOLOGIN = "autologin";
 
+    private static Boolean checkPermission = true;
+
     public SharedPref(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences("setting", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+    }
+
+    public Boolean getCheckPermission(){
+        return sharedPreferences.getBoolean("checkPermission", true);
+    }
+
+    public void setCheckPermission(Boolean state){
+        editor.putBoolean("checkPermission", state);
+        editor.apply();
     }
 
     public Boolean getNightMode() {

@@ -35,17 +35,13 @@ public class CategoriesActivity extends AppCompatActivity {
     int page = 1;
     GridLayoutManager grid;
     LoadSongs loadWallpaper;
-    Toolbar toolbar2;
+    Toolbar toolbar;
     Methods methods;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Setting.Dark_Mode ) {
-            setTheme(R.style.AppTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+        setTheme(R.style.AppTheme);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories_ringtone);
@@ -53,12 +49,20 @@ public class CategoriesActivity extends AppCompatActivity {
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
 
-        toolbar2 = findViewById(R.id.toolbar2);
-        setSupportActionBar(toolbar2);
+        toolbar = findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
         setTitle(getIntent().getExtras().getString("name"));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
