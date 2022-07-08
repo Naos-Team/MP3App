@@ -47,6 +47,7 @@ import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadRating;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadSong;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentOptionMusic;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.LyricsFragment;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.OptionMusicListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.RatingListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.SongListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.SuccessListener;
@@ -373,6 +374,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 changeTextPager(Constant.arrayList_play.get(position));
 
                 View view = viewpager.findViewWithTag("myview" + position);
+                changeFav(Constant.arrayList_play.get(position).getIsFavourite());
                 if (view != null) {
                     ImageView iv = view.findViewById(R.id.iv_vp_play);
                     if (Constant.playPos == position) {
@@ -472,10 +474,54 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 setRepeat();
                 break;
             case R.id.iv_max_option:
-                FragmentOptionMusic fragmentOptionMusic = new FragmentOptionMusic();
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("item", Constant.arrayList_play.get(viewpager.getCurrentItem()));
-//                fragmentOptionMusic.setArguments(bundle);
+                FragmentOptionMusic fragmentOptionMusic = new FragmentOptionMusic(Constant.arrayList_play.get(viewpager.getCurrentItem()), new OptionMusicListener() {
+                    @Override
+                    public void onDescription(ItemSong itemSong) {
+                        showBottomSheetDialog(itemSong);
+                    }
+
+                    @Override
+                    public void onLike(ItemSong itemSong, View view) {
+                        if (Constant.isLogged) {
+                            if (Constant.arrayList_play.size() > 0) {
+                                if (Constant.isOnline) {
+                                    methods.animateHeartButton(view);
+                                    view.setSelected(!view.isSelected());
+                                    view.setSelected(view.isSelected());
+                                }
+                            } else {
+                                Toast.makeText(BaseActivity.this, getResources().getString(R.string.err_no_songs_selected), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            methods.clickLogin();
+                        }
+                    }
+
+                    @Override
+                    public void onAddToPlaylist(ItemSong itemSong) {
+
+                    }
+
+                    @Override
+                    public void onAddToQueue(ItemSong itemSong) {
+
+                    }
+
+                    @Override
+                    public void onSearchYTB(ItemSong itemSong) {
+
+                    }
+
+                    @Override
+                    public void onShare(ItemSong itemSong) {
+                        shareSong();
+                    }
+
+                    @Override
+                    public void onRate(ItemSong itemSong) {
+                        openRateDialog();
+                    }
+                }, methods, BaseActivity.this);
 
                 fragmentOptionMusic.show(getSupportFragmentManager(), fragmentOptionMusic.getTag());
                 break;
@@ -536,7 +582,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void showBottomSheetDialog() {
+    public void showBottomSheetDialog(ItemSong itemSong) {
         View view = getLayoutInflater().inflate(R.layout.layout_desc, null);
 
         dialog_desc = new BottomSheetDialog(this);
@@ -546,7 +592,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
         AppCompatButton button = dialog_desc.findViewById(R.id.button_detail_close);
         TextView textView = dialog_desc.findViewById(R.id.tv_desc_title);
-        textView.setText(Constant.arrayList_play.get(Constant.playPos).getTitle());
+        textView.setText(itemSong.getTitle());
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -562,7 +608,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 + "<style> body{color: #000 !important;text-align:left}"
                 + "</style></head>"
                 + "<body>"
-                + Constant.arrayList_play.get(Constant.playPos).getDescription()
+                + itemSong.getDescription()
                 + "</body></html>";
 
 //        webview_song_desc.loadData(text, mimeType, encoding);
@@ -690,7 +736,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void fav() {
-        loadFav(Constant.arrayList_play.get(Constant.playPos).getId(), Constant.playPos);
+        loadFav(Constant.arrayList_play.get(viewpager.getCurrentItem()).getId(), viewpager.getCurrentItem());
     }
 
     private void loadFav(String qid, final int posi) {
@@ -728,6 +774,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             iv_max_fav.setImageDrawable(getResources().getDrawable(R.mipmap.ic_fav));
         }
+        adapter.notifyDataSetChanged();
     }
 
     private void openRateDialog() {
@@ -1297,34 +1344,32 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void openOptionPopUp() {
-        PopupMenu popup = new PopupMenu(BaseActivity.this, iv_max_option);
-        popup.getMenuInflater().inflate(R.menu.popup_base_option, popup.getMenu());
-
-//        if (Constant.isLoginOn) {
-//            popup.getMenu().findItem(R.id.popup_base_report).setVisible(true);
-//        } else {
-//            popup.getMenu().findItem(R.id.popup_base_report).setVisible(false);
-//        }
-
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-//                    case R.id.popup_base_report:
-//                        Intent intent = new Intent(BaseActivity.this, ReportActivity.class);
-//                        startActivity(intent);
+//    private void openOptionPopUp(ItemSong itemSong) {
+//        PopupMenu popup = new PopupMenu(BaseActivity.this, iv_max_option);
+//        popup.getMenuInflater().inflate(R.menu.popup_base_option, popup.getMenu());
+//
+////        if (Constant.isLoginOn) {
+////            popup.getMenu().findItem(R.id.popup_base_report).setVisible(true);
+////        } else {
+////            popup.getMenu().findItem(R.id.popup_base_report).setVisible(false);
+////        }
+//
+//        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//            public boolean onMenuItemClick(MenuItem item) {
+//                switch (item.getItemId()) {
+////                    case R.id.popup_base_report:
+////                        Intent intent = new Intent(BaseActivity.this, ReportActivity.class);
+////                        startActivity(intent);
+////                        break;
+//                    case R.id.popup_base_desc:
+//                        showBottomSheetDialog(itemSong);
 //                        break;
-                    case R.id.popup_base_desc:
-                        if (Constant.arrayList_play.size() > 0) {
-                            showBottomSheetDialog();
-                        }
-                        break;
-                }
-                return true;
-            }
-        });
-        popup.show();
-    }
+//                }
+//                return true;
+//            }
+//        });
+//        popup.show();
+//    }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onSongChange(ItemSong itemSong) {
