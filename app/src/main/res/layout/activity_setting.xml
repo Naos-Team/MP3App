@@ -9,8 +9,10 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_setting"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:layout_height="50dp"
+        android:background="@color/black"
+        app:title="Setting"
+        app:titleTextColor="@color/white"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
