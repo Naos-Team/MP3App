@@ -3,18 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg"
+    android:background="@color/black"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_setting"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:background="@color/black"
-        app:title="Setting"
-        app:titleTextColor="@color/white"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:navigationIcon="@mipmap/ic_back"/>
 
     <ScrollView
         android:id="@+id/scrollview"
@@ -27,14 +24,47 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/llfav"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:tint="@color/white"
+                    android:src="@drawable/ic_bookmark2"/>
+
+                <TextView
+                    android:id="@+id/tv_fav"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="Favorite"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_theme"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="?attr/selectableItemBackground"
+                android:background="@color/black"
                 android:orientation="horizontal"
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp">
+                android:paddingEnd="10dp"
+                >
 
                 <TextView
                     android:id="@+id/tv1"
@@ -43,7 +73,7 @@
                     android:layout_marginStart="7dp"
                     android:text="@string/theme"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toTopOf="@+id/tv_theme"
                     app:layout_constraintEnd_toStartOf="@+id/iv_theme"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -60,7 +90,7 @@
                     android:gravity="center_vertical"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="14sp"
-                    android:textColor="@color/text_title"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/iv_theme"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -97,6 +127,8 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
+
+
                     <TextView
                         android:id="@+id/textView7"
                         android:layout_width="wrap_content"
@@ -104,7 +136,7 @@
                         android:layout_marginStart="7dp"
                         android:text="@string/your_ad_consent"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/text_title" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/tv_show_personalized"
@@ -123,14 +155,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:checked="true" />
+                    android:checked="true"
+                    android:minHeight="50dp" />
 
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/line" />
 
             <LinearLayout
                 android:id="@+id/llvibrate"
@@ -142,65 +170,123 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp">
 
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_setting_noti"/>
+
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
                     android:layout_weight="1"
-                    android:text="@string/enable_push_noti"
+                    android:text="Notification"
+
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/text_title" />
+                    android:textColor="@color/white" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_noti"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp" />
+                    android:layout_marginEnd="10dp"
+                    android:minHeight="50dp" />
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/line" />
+        <LinearLayout
+            android:id="@+id/llrate"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_setting_rate"/>
 
             <TextView
                 android:id="@+id/tv_rateapp"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:paddingStart="17dp"
-                android:paddingEnd="17dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/rateapp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text_title" />
+                android:textColor="@color/white" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/line" />
+            <!--            <View-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="1dp"-->
+            <!--                android:background="@color/line" />-->
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/llshare"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_setting_share"/>
+
 
             <TextView
                 android:id="@+id/tv_shareapp"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:paddingStart="17dp"
-                android:paddingEnd="17dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/shareapp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text_title" />
+                android:textColor="@color/white" />
+        </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/line" />
 
+        <LinearLayout
+            android:id="@+id/llmore"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_setting_more"/>
             <TextView
                 android:id="@+id/tv_moreapp"
                 android:layout_width="match_parent"
@@ -208,17 +294,36 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:paddingStart="17dp"
-                android:paddingEnd="17dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/moreapp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text_title" />
+                android:textColor="@color/white" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/line" />
+        </LinearLayout>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:background="@color/line" />-->
 
+
+        <LinearLayout
+            android:id="@+id/llprivacy"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_setting_privacy"/>
             <TextView
                 android:id="@+id/tv_privacy"
                 android:layout_width="match_parent"
@@ -226,17 +331,36 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:paddingStart="17dp"
-                android:paddingEnd="17dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/privacypolicy"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text_title" />
+                android:textColor="@color/white" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/line" />
 
+        </LinearLayout>
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:background="@color/line" />-->
+
+        <LinearLayout
+            android:id="@+id/llabout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_setting_about"/>
             <TextView
                 android:id="@+id/tv_about"
                 android:layout_width="match_parent"
@@ -244,12 +368,13 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:paddingStart="17dp"
-                android:paddingEnd="17dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="@string/about_us"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/text_title" />
+                android:textColor="@color/white" />
 
+        </LinearLayout>
         </LinearLayout>
 
     </ScrollView>

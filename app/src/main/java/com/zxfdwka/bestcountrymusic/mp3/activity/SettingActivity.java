@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.zxfdwka.bestcountrymusic.BaseFavoriteActivity;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.AdConsentListener;
 import com.zxfdwka.bestcountrymusic.mp3.utils.AdConsent;
@@ -30,6 +31,7 @@ import com.google.ads.consent.ConsentInformation;
 import com.google.ads.consent.ConsentStatus;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
+import com.zxfdwka.bestcountrymusic.ringtone.Activity.FavouriteActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -48,7 +50,7 @@ public class SettingActivity extends AppCompatActivity {
     Methods methods;
     AdConsent adConsent;
     ConstraintLayout ll_theme;
-    LinearLayout ll_consent, ll_adView;
+    LinearLayout ll_consent, ll_adView, llfav;
     SwitchCompat switch_consent, switch_noti;
     Boolean isNoti = true;
     ImageView iv_theme;
@@ -74,9 +76,16 @@ public class SettingActivity extends AppCompatActivity {
         them_mode = methods.getDarkMode();
 
         toolbar = this.findViewById(R.id.toolbar_setting);
-        toolbar.setTitle(getString(R.string.settings));
         this.setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
 
         adConsent = new AdConsent(this, new AdConsentListener() {
             @Override
@@ -97,6 +106,7 @@ public class SettingActivity extends AppCompatActivity {
         tv_about = findViewById(R.id.tv_about);
         tv_privacy = findViewById(R.id.tv_privacy);
         ll_adView = findViewById(R.id.ll_adView);
+        llfav = findViewById(R.id.llfav);
         methods.showBannerAd(ll_adView);
 
         if (adConsent.isUserFromEEA()) {
@@ -208,6 +218,13 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 adConsent.requestConsent();
+            }
+        });
+
+        llfav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingActivity.this, BaseFavoriteActivity.class));
             }
         });
 

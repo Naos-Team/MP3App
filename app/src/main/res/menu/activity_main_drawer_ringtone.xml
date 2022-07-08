@@ -40,15 +40,20 @@
             android:icon="@drawable/ic_upload_ringtone"
             android:title="Upload" />
 
-        <item
-            android:id="@+id/nav_set"
-            android:icon="@drawable/ic_setting_ringtone"
-            android:title="@string/settings" />
+<!--        <item-->
+<!--            android:id="@+id/nav_set"-->
+<!--            android:icon="@drawable/ic_setting_ringtone"-->
+<!--            android:title="@string/settings" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_login"-->
+<!--            android:icon="@drawable/ic_back_ringtone"-->
+<!--            android:title="Back" />-->
 
         <item
-            android:id="@+id/nav_login"
-            android:icon="@drawable/ic_login"
-            android:title="@string/login" />
+            android:id="@+id/nav_back"
+            android:icon="@drawable/ic_back_ringtone"
+            android:title="Back" />
     </group>
 
     

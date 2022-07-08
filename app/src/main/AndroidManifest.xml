@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name="com.zxfdwka.bestcountrymusic.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
@@ -25,10 +25,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.BaseCategoriesActivity"
+            android:name=".BaseFavoriteActivity"
             android:exported="false" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.HomeActivity"
+            android:name=".ringtone.Activity.BaseCategoriesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,70 +39,70 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SplashActivity"></activity>
+        <activity android:name=".mp3.activity.SplashActivity" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.LoginActivity"
+            android:name=".mp3.activity.LoginActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.MainActivity"
+            android:name=".mp3.activity.MainActivity"
             android:label="@string/title_activity_main"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.mp3.activity.BaseActivity" />
+        <activity android:name=".mp3.activity.BaseActivity" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.RegisterActivity"
+            android:name=".mp3.activity.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.ForgotPasswordActivity"
+            android:name=".mp3.activity.ForgotPasswordActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.ProfileActivity"
+            android:name=".mp3.activity.ProfileActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.ProfileEditActivity"
+            android:name=".mp3.activity.ProfileEditActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.ReportActivity"
+            android:name=".mp3.activity.ReportActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SuggestionActivity"
+            android:name=".mp3.activity.SuggestionActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SongByCatActivity"
+            android:name=".mp3.activity.SongByCatActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SongByServerPlaylistActivity"
+            android:name=".mp3.activity.SongByServerPlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SongByMyPlaylistActivity"
+            android:name=".mp3.activity.SongByMyPlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SongByOfflineActivity"
+            android:name=".mp3.activity.SongByOfflineActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SongByOFFPlaylistActivity"
+            android:name=".mp3.activity.SongByOFFPlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.Add2OfflinePlaylistActivity"
+            android:name=".mp3.activity.Add2OfflinePlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SettingActivity"
+            android:name=".mp3.activity.SettingActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.AboutActivity"
+            android:name=".mp3.activity.AboutActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.OfflineMusicActivity"
+            android:name=".mp3.activity.OfflineMusicActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.SelectSongActivity"
+            android:name=".mp3.activity.SelectSongActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.ArtistByGenreActivity"
+            android:name=".mp3.activity.ArtistByGenreActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.MiniPlayer"
+            android:name=".mp3.activity.MiniPlayer"
             android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
@@ -125,10 +128,10 @@
             android:value="@integer/google_play_services_version" />
 
         <service
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService"
+            android:name=".mp3.activity.PlayerService"
             android:exported="false" />
         <service
-            android:name="com.zxfdwka.bestcountrymusic.mp3.utils.NotificationExtenderExample"
+            android:name=".mp3.utils.NotificationExtenderExample"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>
@@ -136,10 +139,10 @@
             </intent-filter>
         </service>
         <service
-            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.DownloadService"
+            android:name=".mp3.activity.DownloadService"
             android:exported="false" />
 
-        <receiver android:name="com.zxfdwka.bestcountrymusic.mp3.utils.MediaButtonIntentReceiver">
+        <receiver android:name=".mp3.utils.MediaButtonIntentReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
@@ -165,18 +168,18 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.SplashActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.CategoriesActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.DownloadActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.FavouriteActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.intActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.SearchActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.SettingActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.UploadRingtoneActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Activity.UserActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Login.LoginActivity" />
-        <activity android:name="com.zxfdwka.bestcountrymusic.ringtone.Login.RegisterActivity" />
+        <activity android:name=".ringtone.Activity.SplashActivity" />
+        <activity android:name=".ringtone.Activity.CategoriesActivity" />
+        <activity android:name=".ringtone.Activity.DownloadActivity" />
+        <activity android:name=".ringtone.Activity.FavouriteActivity" />
+        <activity android:name=".ringtone.Activity.intActivity" />
+        <activity android:name=".ringtone.Activity.MainActivity" />
+        <activity android:name=".ringtone.Activity.SearchActivity" />
+        <activity android:name=".ringtone.Activity.SettingActivity" />
+        <activity android:name=".ringtone.Activity.UploadRingtoneActivity" />
+        <activity android:name=".ringtone.Activity.UserActivity" />
+        <activity android:name=".ringtone.Login.LoginActivity" />
+        <activity android:name=".ringtone.Login.RegisterActivity" />
     </application>
 
 </manifest>

@@ -46,6 +46,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.nemosofts.library.Nemosofts;
 import com.nemosofts.library.UpdateManager.UpdateManager;
 import com.nemosofts.library.UpdateManager.UpdateManagerConstant;
+import com.zxfdwka.bestcountrymusic.HomeActivity;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.ViewPagerAdapter;
 import com.zxfdwka.bestcountrymusic.ringtone.Constant.Constant;
@@ -247,15 +248,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent update = new Intent(MainActivity.this,UploadRingtoneActivity.class);
                 startActivity(update);
                 break;
-            case R.id.nav_set:
-                overridePendingTransition(0, 0);
-                overridePendingTransition(0, 0);
-                startActivity(new Intent(MainActivity.this, SettingActivity.class));
-                finish();
+//            case R.id.nav_set:
+//                overridePendingTransition(0, 0);
+//                overridePendingTransition(0, 0);
+//                startActivity(new Intent(MainActivity.this, SettingActivity.class));
+//                finish();
+//                break;
+//            case R.id.nav_login:
+//                methods.clickLogin();
+//                break;
+            case R.id.nav_back:
+                Stop();
+                Intent back = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(back);
                 break;
-            case R.id.nav_login:
-                methods.clickLogin();
-                break;
+
             case R.id.nav_cat:
                 Stop();
                 Intent cat = new Intent(MainActivity.this, BaseCategoriesActivity.class);
