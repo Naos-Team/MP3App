@@ -113,6 +113,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation 'com.anjlab.android.iab.v3:library:1.1.0'
+    implementation 'me.relex:circleindicator:2.1.6'
 
 }
 apply plugin: 'com.google.gms.google-services'

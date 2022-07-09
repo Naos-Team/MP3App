@@ -403,14 +403,14 @@ public class RingtoneAdapter extends RecyclerView.Adapter {
 
 
             if (Setting.exoPlayer.getPlayWhenReady() & Setting.arrayList_play_rc.get(Setting.playPos_rc).getRadio_id().equals(song.getRadio_id())) {
-                ((MyViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
-                ((MyViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
+//                ((MyViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
+//                ((MyViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
 
                 ((MyViewHolder) holder).play.setVisibility(View.GONE);
                 ((MyViewHolder) holder).pause.setVisibility(View.VISIBLE);
             } else {
-                ((MyViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
-                ((MyViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
+//                ((MyViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
+//                ((MyViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
                 ((MyViewHolder) holder).progressbar_new.setVisibility(View.GONE);
 
                 ((MyViewHolder) holder).pause.setVisibility(View.GONE);

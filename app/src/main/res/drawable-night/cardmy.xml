@@ -21,6 +21,9 @@
                 android:endColor="#FFFFFF"
                 android:startColor="#FFFFFF"  />
             <corners android:radius="25dp" />
+            <stroke
+                android:width="0.5dp"
+                android:color="@color/black"/>
         </shape>
     </item>
 </layer-list>

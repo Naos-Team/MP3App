@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black"
+    android:background="@color/white_dark"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
@@ -11,10 +11,10 @@
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/black"
+        android:background="@color/white_dark"
         app:navigationIcon="@drawable/ic_baseline_menu_24"
         app:title="Update Ringtone"
-        app:titleTextColor="@color/white" />
+        app:titleTextColor="@color/text_black" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="Update By : User Name"
                     android:textAlignment="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -56,7 +56,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:text="Ringtone Category"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:textSize="17sp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -71,9 +71,9 @@
                 android:padding="20dp" />
 
             <RelativeLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:text="Ringtone Name"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:textSize="17sp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -108,7 +108,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:text="Ringtone"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:textSize="17sp"
                     android:textStyle="bold" />
             </RelativeLayout>
@@ -136,17 +136,16 @@
                     android:layout_marginLeft="20dp"
                     android:src="@drawable/ic_files_and_folders"
                     android:translationZ="2dp"
-                    app:tint="@color/white" />
+                    app:tint="@color/text_black" />
 
                 <ImageView
                     android:id="@+id/add"
                     android:layout_width="20dp"
                     android:layout_height="30dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:src="@drawable/ic_plus"
                     android:translationZ="2dp"
-                    app:tint="?attr/Titel_1" />
+                    app:tint="@color/text_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -155,7 +154,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@+id/add"
                     android:text="Select Ringtone"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:textSize="18dp"
                     android:translationZ="2dp" />
             </RelativeLayout>
@@ -167,7 +166,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="URI Path"
-                android:textColor="@color/white" />
+                android:textColor="@color/text_black"
+                android:textStyle="bold" />
 
             <RelativeLayout
                 android:id="@+id/relativelayout"
@@ -187,7 +187,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/black">
+                        android:background="@color/colorPrimary">
 
                         <SeekBar
                             android:id="@+id/seek_bar"
@@ -208,10 +208,10 @@
 
                         <RelativeLayout
                             android:id="@+id/uirel"
-                            android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true">
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp">
 
                             <ProgressBar
                                 android:id="@+id/progress_bar"
@@ -220,8 +220,8 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerInParent="true"
                                 android:clickable="true"
+                                android:indeterminateTint="@color/text_black"
                                 android:padding="10dp"
-                                android:indeterminateTint="@color/white"
                                 android:theme="@style/WhiteAccent"
                                 android:visibility="gone"
                                 tools:ignore="VectorDrawableCompat" />
@@ -256,7 +256,7 @@
                             android:layout_toEndOf="@id/uirel"
                             android:layout_toRightOf="@id/uirel"
                             android:text="S8 classic tone"
-                            android:textColor="@color/white"
+                            android:textColor="@color/text_black"
                             android:textSize="18sp" />
                     </RelativeLayout>
 

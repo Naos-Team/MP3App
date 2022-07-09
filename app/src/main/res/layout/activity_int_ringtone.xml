@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black"
+    android:background="@color/white_dark"
     tools:context=".ringtone.Activity.intActivity"
     >
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:navigationIcon="@drawable/ic_baseline_menu_24"
-        android:background="@color/black" />
+        android:background="@color/white_dark" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:layout_marginBottom="5dp"
             android:text="@string/no_internet_connection_ringtone"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/text_black"
             android:textSize="22dp"
             android:textStyle="bold" />
 
@@ -44,7 +44,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/internet_connection_is_not_available_ringtone"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/text_black"
             android:textSize="17dp" />
 
 
@@ -59,10 +59,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:background="@color/white"
+                android:background="@drawable/btnbg"
                 android:text="@string/retey_ringtone"
-                android:textColor="@color/black"
-                android:textSize="20dp"/>
+                android:textColor="@color/text_black"
+                android:textSize="20dp" />
 
         </RelativeLayout>
     </LinearLayout>

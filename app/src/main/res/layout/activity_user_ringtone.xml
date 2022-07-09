@@ -3,18 +3,18 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:background="@color/white_dark"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:background="?attr/BackgroundColor"
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        app:titleTextColor="@color/white"
-        app:navigationIcon="@drawable/ic_baseline_menu_24"
+        android:layout_height="wrap_content"
+        android:background="@color/white_dark"
         android:minHeight="50dp"
-        android:layout_height="wrap_content"/>
+        app:navigationIcon="@drawable/ic_baseline_menu_24"
+        app:titleTextColor="@color/text_black" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
@@ -33,8 +33,8 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
         android:id="@+id/adView"
-        android:background="@color/black"
-        android:backgroundTint="@color/black"
+        android:background="@color/white_dark"
+        android:backgroundTint="@color/white_dark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
