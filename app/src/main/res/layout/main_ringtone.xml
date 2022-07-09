@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/black"
+        android:background="@color/white_dark"
         app:navigationIcon="@drawable/ic_baseline_menu_24"/>
 
     <com.google.android.material.tabs.TabLayout
@@ -19,9 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_below="@id/toolbar"
-        android:background="@color/black"
-        ads:tabIndicatorColor="@color/white"
-        ads:tabTextColor="@color/white" />
+        android:background="@color/white_dark"
+        ads:tabIndicatorColor="@color/text_black"
+        ads:tabTextColor="@color/text_black" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
