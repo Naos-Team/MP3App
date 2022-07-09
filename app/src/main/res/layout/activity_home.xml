@@ -77,15 +77,15 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/ic_fav_mp3"
-        android:tint="@color/white"
+        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/mp3"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/mp3"
         app:layout_constraintHeight_percent="0.08"
-        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="@id/mp3"
         app:layout_constraintTop_toTopOf="@+id/mp3"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.8" />
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/radio"
@@ -118,16 +118,16 @@
         android:id="@+id/ic_open_radio"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:tint="@color/white"
+        app:tint="@color/white"
         android:src="@drawable/ic_fav_radio"
         app:layout_constraintBottom_toBottomOf="@id/radio"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/radio"
         app:layout_constraintHeight_percent="0.08"
-        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="@id/radio"
         app:layout_constraintTop_toTopOf="@+id/radio"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.8" />
 
     <TextView
         android:layout_width="0dp"
@@ -184,10 +184,10 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/ringtone"
         app:layout_constraintHeight_percent="0.08"
-        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="@id/ringtone"
         app:layout_constraintTop_toTopOf="@+id/ringtone"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.8" />
 
     <TextView
         android:layout_width="0dp"
