@@ -1,12 +1,15 @@
 package com.zxfdwka.bestcountrymusic.mp3.adapter;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.ImageView;
@@ -16,12 +19,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.zxfdwka.bestcountrymusic.mp3.activity.R;
+import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentOptionMusic;
+import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentOptionPlaylist;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.OptionMusicListener;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.OptionPlayListListener;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemArtist;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemMyPlayList;
+import com.zxfdwka.bestcountrymusic.mp3.item.ItemSong;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
 import com.zxfdwka.bestcountrymusic.mp3.utils.DBHelper;
+import com.zxfdwka.bestcountrymusic.mp3.utils.GlobalBus;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
 import com.facebook.ads.AdOptionsView;
 import com.facebook.ads.NativeAd;
@@ -37,7 +47,9 @@ import java.util.List;
 import java.util.Random;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -160,7 +172,31 @@ public class AdapterMyPlaylist extends RecyclerView.Adapter {
             ((MyViewHolder) holder).imageView_more.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    openOptionPopUp(((MyViewHolder) holder).imageView_more, holder.getAdapterPosition());
+//                    openOptionPopUp(((MyViewHolder) holder).imageView_more, holder.getAdapterPosition());
+                    FragmentOptionPlaylist fragmentOptionPlaylist = new FragmentOptionPlaylist(arrayList.get(holder.getAdapterPosition()), new OptionPlayListListener() {
+                        @Override
+                        public void onRemove(ItemMyPlayList itemMyPlayList) {
+                            dbHelper.removePlayList(itemMyPlayList.getId(), isOnline);
+                            int pos = arrayList.indexOf(itemMyPlayList);
+                            arrayList.remove(pos);
+                            notifyItemRemoved(pos);
+                            Toast.makeText(context, context.getString(R.string.remove_playlist), Toast.LENGTH_SHORT).show();
+                            if (arrayList.size() == 0) {
+                                clickListenerPlayList.onItemZero();
+                            }
+                        }
+
+                        @Override
+                        public void onShare(ItemMyPlayList itemMyPlayList) {
+                            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                            sharingIntent.setType("text/plain");
+                            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, context.getResources().getString(R.string.share_song));
+                            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, context.getResources().getString(R.string.listening) + " - "
+                                    + itemMyPlayList.getName() + "\n\nvia " + context.getResources().getString(R.string.app_name) + " - http://play.google.com/store/apps/details?id=" + context.getPackageName());
+                            context.startActivity(Intent.createChooser(sharingIntent, context.getResources().getString(R.string.share_song)));
+                        }
+                    });
+                    fragmentOptionPlaylist.show(((FragmentActivity) context).getSupportFragmentManager(), fragmentOptionPlaylist.getTag());
                 }
             });
         } else if (holder instanceof ADViewHolder) {

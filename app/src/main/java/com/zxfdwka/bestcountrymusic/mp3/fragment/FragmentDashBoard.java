@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
 import com.irfaan008.irbottomnavigation.SpaceItem;
 import com.irfaan008.irbottomnavigation.SpaceNavigationView;
@@ -22,8 +24,8 @@ import androidx.fragment.app.FragmentTransaction;
 public class FragmentDashBoard extends Fragment {
 
     Methods methods;
-    static SpaceNavigationView spaceNavigationView;
     private FragmentManager fm;
+    static AHBottomNavigation bottomNavigation;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,31 +37,30 @@ public class FragmentDashBoard extends Fragment {
 
         fm = getFragmentManager();
 
-        spaceNavigationView = rootView.findViewById(R.id.space);
-        spaceNavigationView.initWithSaveInstanceState(savedInstanceState);
-        spaceNavigationView.addSpaceItem(new SpaceItem(getString(R.string.home), R.mipmap.ic_home_bottom));
-        spaceNavigationView.addSpaceItem(new SpaceItem(getString(R.string.recent), R.mipmap.ic_recent));
-        spaceNavigationView.addSpaceItem(new SpaceItem(getString(R.string.categories), R.mipmap.ic_categories));
-        spaceNavigationView.addSpaceItem(new SpaceItem(getString(R.string.latest), R.mipmap.ic_latest));
+       bottomNavigation = (AHBottomNavigation) rootView.findViewById(R.id.space);
 
-        if(methods.isDarkMode()) {
-            View view = rootView.findViewById(R.id.view1);
-            view.setVisibility(View.GONE);
-        }
+// Create items
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(getString(R.string.home), R.mipmap.ic_home_bottom, R.color.colorPrimary);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(getString(R.string.recent), R.mipmap.ic_recent, R.color.colorPrimary);
+//        AHBottomNavigationItem item3 = new AHBottomNavigationItem(getString(R.string.music_library), R.mipmap.ic_music_library, R.color.colorPrimary);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(getString(R.string.categories), R.mipmap.ic_categories, R.color.colorPrimary);
+        AHBottomNavigationItem item5 = new AHBottomNavigationItem(getString(R.string.latest), R.mipmap.ic_latest, R.color.colorPrimary);
 
-        FragmentHome f1 = new FragmentHome();
-        loadFrag(f1, getString(R.string.home));
+// Add items
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item4);
+        bottomNavigation.addItem(item5);
 
-        spaceNavigationView.setSpaceOnClickListener(new SpaceOnClickListener() {
+        bottomNavigation.setColored(false);
+        bottomNavigation.setDefaultBackgroundColor(getActivity().getResources().getColor(R.color.grey));
+        bottomNavigation.setAccentColor(getActivity().getResources().getColor(R.color.bottom_item_active_color));
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
-            public void onCentreButtonClick() {
-                Intent intent = new Intent(getActivity(), OfflineMusicActivity.class);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onItemClick(int itemIndex, String itemName) {
-                switch (itemIndex) {
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                switch (position){
                     case 0:
                         FragmentHome f1 = new FragmentHome();
                         loadFrag(f1, getString(R.string.home));
@@ -76,14 +77,16 @@ public class FragmentDashBoard extends Fragment {
                         FragmentLatest flatest = new FragmentLatest();
                         loadFrag(flatest, getString(R.string.latest));
                         break;
+                    default:
+                        break;
                 }
-            }
-
-            @Override
-            public void onItemReselected(int itemIndex, String itemName) {
-
+                return true;
             }
         });
+
+
+        FragmentHome f1 = new FragmentHome();
+        loadFrag(f1, getString(R.string.home));
 
         return rootView;
     }

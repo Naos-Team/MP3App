@@ -415,7 +415,7 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    FragmentDashBoard.spaceNavigationView.changeCurrentItem(1);
+                    FragmentDashBoard.bottomNavigation.setCurrentItem(1);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
