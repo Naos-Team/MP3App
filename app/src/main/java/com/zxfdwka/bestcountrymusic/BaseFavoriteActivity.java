@@ -27,5 +27,12 @@ public class BaseFavoriteActivity extends AppCompatActivity {
                 startActivity(new Intent(BaseFavoriteActivity.this, FavouriteActivity.class));
             }
         });
+
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 }
