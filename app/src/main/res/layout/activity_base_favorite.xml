@@ -49,7 +49,6 @@
         android:id="@+id/view_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/text_black"
         app:layout_constraintBottom_toTopOf="@+id/circle_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.28"

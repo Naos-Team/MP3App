@@ -69,11 +69,11 @@
                </RelativeLayout>
 
 
-               <RelativeLayout
-                   android:layout_width="0.8dp"
-                   android:layout_height="match_parent"
-                   android:layout_marginRight="5dp"
-                   android:background="@color/black" />
+<!--               <RelativeLayout-->
+<!--                   android:layout_width="0.8dp"-->
+<!--                   android:layout_height="match_parent"-->
+<!--                   android:layout_marginRight="5dp"-->
+<!--                   android:background="@color/black" />-->
 
 
                <LinearLayout
