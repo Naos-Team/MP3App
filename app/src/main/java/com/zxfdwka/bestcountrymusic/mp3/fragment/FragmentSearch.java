@@ -80,10 +80,12 @@ public class FragmentSearch extends Fragment {
                     intent.putExtra("type", getString(R.string.artist));
                     intent.putExtra("id", arrayList_artist.get(position).getId());
                     intent.putExtra("name", arrayList_artist.get(position).getName());
+                    intent.putExtra("image", arrayList_artist.get(position).getImage());
                 } else if(type.equals(getString(R.string.albums))) {
                     intent.putExtra("type", getString(R.string.albums));
                     intent.putExtra("id", arrayList_album.get(position).getId());
                     intent.putExtra("name", arrayList_album.get(position).getName());
+                    intent.putExtra("image", arrayList_album.get(position).getImage());
                 }
                 startActivity(intent);
             }

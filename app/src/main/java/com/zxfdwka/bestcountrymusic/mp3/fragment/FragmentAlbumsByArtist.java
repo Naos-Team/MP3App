@@ -77,11 +77,13 @@ public class FragmentAlbumsByArtist extends Fragment {
                         intent.putExtra("type", getString(R.string.albums));
                         intent.putExtra("id", adapterAlbums.getItem(position).getId());
                         intent.putExtra("name", adapterAlbums.getItem(position).getName());
+                        intent.putExtra("image", adapterAlbums.getItem(position).getImage());
                         break;
                     case "all":
                         intent.putExtra("type", getString(R.string.artist));
                         intent.putExtra("id", itemArtist.getId());
                         intent.putExtra("name", itemArtist.getName());
+                        intent.putExtra("image", itemArtist.getImage());
                         break;
                 }
                 startActivity(intent);

@@ -10,7 +10,7 @@
         android:id="@+id/tv_desc_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
+        android:background="@color/primary"
         android:maxLines="1"
         android:padding="12dp"
         android:textColor="@color/white"
@@ -37,6 +37,6 @@
         android:layout_marginBottom="2dp"
         android:text="@string/close"
         android:textColor="@color/white"
-        app:backgroundTint="@color/black" />
+        app:backgroundTint="@color/primary" />
 
 </LinearLayout>

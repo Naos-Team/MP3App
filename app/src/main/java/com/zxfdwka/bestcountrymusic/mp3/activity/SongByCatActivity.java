@@ -2,19 +2,32 @@ package com.zxfdwka.bestcountrymusic.mp3.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
+
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.ads.AdError;
@@ -23,7 +36,11 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.zxfdwka.bestcountrymusic.mp3.adapter.AdapterAllSongList;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadSong;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
@@ -31,6 +48,7 @@ import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.SongListener;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemAlbums;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemMyPlayList;
+import com.zxfdwka.bestcountrymusic.mp3.item.ItemServerPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemSong;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
 import com.zxfdwka.bestcountrymusic.mp3.utils.EndlessRecyclerViewScrollListener;
@@ -53,15 +71,20 @@ public class SongByCatActivity extends BaseActivity {
     AdapterAllSongList adapter;
     ArrayList<ItemSong> arrayList, arrayListTemp;
     CircularProgressBar progressBar;
-    String id = "", name = "", type = "";
+    String id = "", name = "", type = "", image;
     FrameLayout frameLayout;
-
     String errr_msg;
     SearchView searchView;
     Boolean isFromPush = false;
     int page = 1;
     String addedFrom = "";
     Boolean isOver = false, isScroll = false, isLoading = false, isNewAdded = true, isAllNew = false;
+    ImageView iv_playlist2;
+    ConstraintLayout iv_playlist;
+    TextView tv_no_song, txt_title_SongByPlaylist;
+    AppBarLayout appBarLayout;
+    CollapsingToolbarLayout collapsing_play;
+    Toolbar toolbar_playlist;
     private NativeAdsManager mNativeAdsManager;
 
     @Override
@@ -82,6 +105,7 @@ public class SongByCatActivity extends BaseActivity {
         type = getIntent().getStringExtra("type");
         id = getIntent().getStringExtra("id");
         name = getIntent().getStringExtra("name");
+        image =  getIntent().getStringExtra("image");
 
         methods = new Methods(this, new InterAdListener() {
             @Override
@@ -94,11 +118,10 @@ public class SongByCatActivity extends BaseActivity {
         methods.forceRTLIfSupported(getWindow());
         methods.showSMARTBannerAd(ll_adView_base);
 
-//        toolbar = findViewById(R.id.toolbar_song_by_cat);
-        toolbar.setTitle(name);
-        setSupportActionBar(toolbar);
+        toolbar.setVisibility(View.GONE);
+        toolbar_playlist = findViewById(R.id.toolbar_playlist_cat);
+        setSupportActionBar(toolbar_playlist);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_back);
 
         frameLayout = findViewById(R.id.fl_empty);
         progressBar = findViewById(R.id.pb_song_by_cat);
@@ -107,9 +130,85 @@ public class SongByCatActivity extends BaseActivity {
         rv.setLayoutManager(llm_banner);
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setHasFixedSize(true);
+        toolbar.setVisibility(View.GONE);
 
         arrayList = new ArrayList<>();
         arrayListTemp = new ArrayList<>();
+
+        collapsing_play = findViewById(R.id.collapsing_play_cat);
+        collapsing_play.setTitle("");
+
+        iv_playlist = findViewById(R.id.iv_collapse_playlist_cat);
+        iv_playlist2 = findViewById(R.id.iv_collapse_playlist2_cat);
+        tv_no_song = findViewById(R.id.tv_playlist_no_song_cat);
+
+        txt_title_SongByPlaylist = findViewById(R.id.txt_title_SongByPlaylist_cat);
+        Picasso.get()
+                .load(image)
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        CheckColor checkColor = new CheckColor(bitmap);
+                        checkColor.execute();
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                        int[] colors = {getResources().getColor(R.color.bg_items), Color.rgb( 119, 136,153)};
+
+                        GradientDrawable gd = new GradientDrawable(
+                                GradientDrawable.Orientation.BOTTOM_TOP, colors);
+                        gd.setCornerRadius(0f);
+                        appBarLayout.setBackground(gd);
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
+
+        Picasso.get()
+                .load(image)
+                .into(iv_playlist2);
+
+        txt_title_SongByPlaylist.setText(name);
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true);
+        appBarLayout = findViewById(R.id.mainappbar_cat);
+        int height_img = typedValue.TYPE_DIMENSION + getResources().getDisplayMetrics().widthPixels * 1 / 2
+                + 20 + txt_title_SongByPlaylist.getHeight() + tv_no_song.getHeight() + 5;
+        CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                getResources().getDisplayMetrics().heightPixels * 46 / 100);
+        appBarLayout.setLayoutParams(layoutParams);
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                txt_title_SongByPlaylist.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
+                tv_no_song.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
+                iv_playlist.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
+                iv_playlist2.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
+                if(Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()) > 0.5f) {
+                    collapsing_play.setTitle(name);
+
+                    int[] colors = {getResources().getColor(R.color.colorPrimary), Color.rgb( 119, 136,153)};
+
+                    GradientDrawable gd = new GradientDrawable(
+                            GradientDrawable.Orientation.BOTTOM_TOP, colors);
+                    gd.setCornerRadius(0f);
+                    appBarLayout.setBackground(gd);
+                } else {
+                    collapsing_play.setTitle("");
+                    int[] colors = {getResources().getColor(R.color.bg_items), Color.rgb( 119, 136,153)};
+
+                    GradientDrawable gd = new GradientDrawable(
+                            GradientDrawable.Orientation.BOTTOM_TOP, colors);
+                    gd.setCornerRadius(0f);
+                    appBarLayout.setBackground(gd);
+                }
+            }
+        });
 
         if (type.equals(getString(R.string.banner))) {
             addedFrom = "banner" + name;
@@ -393,6 +492,7 @@ public class SongByCatActivity extends BaseActivity {
     }
 
     public void setEmpty() {
+        tv_no_song.setText(arrayList.size() + " " + getString(R.string.songs));
         if (arrayList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
             frameLayout.setVisibility(View.GONE);
@@ -422,6 +522,67 @@ public class SongByCatActivity extends BaseActivity {
                 }
             });
             frameLayout.addView(myView);
+        }
+    }
+
+    private class CheckColor extends AsyncTask<Void, Void, Drawable> {
+        private Bitmap bitmap;
+
+        public CheckColor(Bitmap bitmap) {
+            this.bitmap = bitmap;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected Drawable doInBackground(Void... voids) {
+
+            int width = bitmap.getWidth();
+            int height = bitmap.getHeight();
+            int[] pixels = new int[width * height];
+            bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+            int pixel = 0;
+            int[] value = {0, 0, 0, 0};
+            for (int y = 0; y < height; ++y) {
+                for (int x = 0; x < width; ++x) {
+                    // get current index in 2D-matrix
+                    int index = y * width + x;
+                    pixel = pixels[index];
+                    if (pixel != Color.BLACK) {
+                        value[0] += Color.alpha(pixel);
+                        value[1] += Color.red(pixel);
+                        value[2] += Color.green(pixel);
+                        value[3] += Color.blue(pixel);
+                    } else {
+                        value[0] += Color.alpha(Color.WHITE);
+                        value[1] += Color.red(Color.WHITE);
+                        value[2] += Color.green(Color.WHITE);
+                        value[3] += Color.blue(Color.WHITE);
+                    }
+                }
+            }
+            for(int i = 0; i < 4; i++){
+                value[i] = (int)value[i]/(width*height);
+            }
+            if(value[0] < 10)
+                value[0] = 10;
+            int[] colors = {getResources().getColor(R.color.bg_items), Color.argb(value[0], value[1], value[2], value[3])};
+
+//create a new gradient color
+            GradientDrawable gd = new GradientDrawable(
+                    GradientDrawable.Orientation.BOTTOM_TOP, colors);
+            gd.setCornerRadius(0f);
+            return ((Drawable) gd);
+        }
+
+        @Override
+        protected void onPostExecute(Drawable drawable) {
+            super.onPostExecute(drawable);
+            iv_playlist.setBackground(drawable);
         }
     }
 

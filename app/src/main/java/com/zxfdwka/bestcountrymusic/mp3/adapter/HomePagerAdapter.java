@@ -105,6 +105,7 @@ public class HomePagerAdapter extends EnchantedViewPagerAdapter {
             intent.putExtra("type", mContext.getString(R.string.banner));
             intent.putExtra("id", arrayList.get(position).getId());
             intent.putExtra("name", arrayList.get(position).getTitle());
+            intent.putExtra("image", arrayList.get(position).getImage());
             intent.putExtra("songs", arrayList.get(position).getArrayListSongs());
             mContext.startActivity(intent);
         }

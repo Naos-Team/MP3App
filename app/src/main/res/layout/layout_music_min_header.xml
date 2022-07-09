@@ -33,6 +33,7 @@
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
             android:padding="3dp"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_song"
@@ -97,10 +98,10 @@
         android:id="@+id/iv_min_next"
         android:layout_width="35dp"
         android:layout_height="match_parent"
-        android:padding="5dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:src="@mipmap/ic_next_grey"
-        android:layout_marginEnd="15dp"/>
+        android:layout_marginEnd="15dp"
+        android:padding="5dp"
+        android:src="@mipmap/ic_next_grey" />
 
 </RelativeLayout>

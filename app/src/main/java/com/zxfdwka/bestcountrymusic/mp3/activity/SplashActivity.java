@@ -203,18 +203,21 @@ public class SplashActivity extends AppCompatActivity {
             intent.putExtra("type", getString(R.string.categories));
             intent.putExtra("id", Constant.pushCID);
             intent.putExtra("name", Constant.pushCName);
+            intent.putExtra("image", "");
         } else if (Constant.isFromPush && !Constant.pushArtID.equals("0")) {
             intent = new Intent(SplashActivity.this, SongByCatActivity.class);
             intent.putExtra("isPush", true);
             intent.putExtra("type", getString(R.string.artist));
             intent.putExtra("id", Constant.pushArtID);
             intent.putExtra("name", Constant.pushArtNAME);
+            intent.putExtra("image", "");
         } else if (Constant.isFromPush && !Constant.pushAlbID.equals("0")) {
             intent = new Intent(SplashActivity.this, SongByCatActivity.class);
             intent.putExtra("isPush", true);
             intent.putExtra("type", getString(R.string.albums));
             intent.putExtra("id", Constant.pushAlbID);
             intent.putExtra("name", Constant.pushAlbNAME);
+            intent.putExtra("image", "");
         } else {
             intent = new Intent(SplashActivity.this, MainActivity.class);
         }

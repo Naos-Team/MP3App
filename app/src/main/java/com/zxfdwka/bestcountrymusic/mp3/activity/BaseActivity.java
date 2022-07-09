@@ -170,7 +170,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         seekbar_min = findViewById(R.id.seekbar_min);
         seekbar_min.setPadding(0, 0, 0, 0);
 
-        int[] colors = {Color.BLACK, Color.rgb( 119, 136,153)};
+        int[] colors = {getResources().getColor(R.color.bg_items), Color.rgb( 119, 136,153)};
 
         GradientDrawable gd = new GradientDrawable(
                 GradientDrawable.Orientation.BOTTOM_TOP, colors);
@@ -285,7 +285,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (!Constant.isSuffle) {
-            iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.grey_dark));
+            iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.text_black));
         } else {
             iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.primary));
         }
@@ -721,10 +721,10 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         methods.showRateDialog();
         if (Constant.isSuffle) {
             Constant.isSuffle = false;
-            iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.white));
+            iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.text_black));
         } else {
             Constant.isSuffle = true;
-            iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.com_facebook_blue));
+            iv_music_shuffle.setColorFilter(ContextCompat.getColor(BaseActivity.this, R.color.primary));
         }
     }
 
@@ -1248,7 +1248,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             }
             if(value[0] < 10)
                 value[0] = 10;
-            int[] colors = {Color.BLACK , Color.argb(value[0], value[1], value[2], value[3])};
+            int[] colors = {getResources().getColor(R.color.bg_items) , Color.argb(value[0], value[1], value[2], value[3])};
 
 //create a new gradient color
             GradientDrawable gd = new GradientDrawable(

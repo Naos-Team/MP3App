@@ -70,6 +70,7 @@ public class FragmentAlbums extends Fragment {
                 intent.putExtra("type", getString(R.string.albums));
                 intent.putExtra("id", adapterAlbums.getItem(position).getId());
                 intent.putExtra("name", adapterAlbums.getItem(position).getName());
+                intent.putExtra("image", adapterAlbums.getItem(position).getImage());
                 startActivity(intent);
             }
         });

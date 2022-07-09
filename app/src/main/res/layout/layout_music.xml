@@ -43,7 +43,7 @@
                     android:ellipsize="end"
                     android:gravity="start|center_vertical"
                     android:maxLines="1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_black"
                     android:textSize="18sp" />
 
                 <TextView
@@ -90,7 +90,8 @@
                 app:layout_constraintHorizontal_weight="1.2"
                 app:layout_constraintStart_toEndOf="@+id/linearLayout2"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_fav" />
+                app:srcCompat="@mipmap/ic_fav"
+                app:tint="@color/text_black"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatSeekBar
@@ -118,7 +119,7 @@
                 android:layout_marginStart="7dp"
                 android:gravity="center"
                 android:maxLines="1"
-                android:textColor="@color/white"
+                android:textColor="@color/text_duration"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_music_total_time"
@@ -134,7 +135,7 @@
                 android:layout_marginEnd="7dp"
                 android:gravity="center"
                 android:maxLines="1"
-                android:textColor="@color/white"
+                android:textColor="@color/text_duration"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -159,8 +160,8 @@
                 android:background="@drawable/ripple"
                 android:clickable="true"
                 android:padding="7dp"
-                app:tint="@color/white"
-                android:src="@mipmap/ic_shuffle" />
+                android:src="@mipmap/ic_shuffle"
+                app:tint="@color/text_black" />
 
             <ImageView
                 android:id="@+id/iv_music_previous"
@@ -171,7 +172,8 @@
                 android:background="@drawable/ripple"
                 android:clickable="true"
                 android:padding="7dp"
-                android:src="@drawable/ic_previous_grey" />
+                android:src="@drawable/ic_previous_grey"
+                app:tint="@color/text_black" />
 
             <ImageView
                 android:id="@+id/iv_music_play"
@@ -182,7 +184,8 @@
                 android:layout_marginEnd="20dp"
                 android:padding="7dp"
                 android:clickable="true"
-                android:src="@drawable/play" />
+                android:src="@drawable/play"
+                app:tint="@color/text_black" />
 
             <RelativeLayout
                 android:id="@+id/rl_music_loading"
@@ -197,7 +200,8 @@
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/close" />
+                    android:src="@drawable/close"
+                    app:tint="@color/text_black" />
 
                 <ProgressBar
                     android:layout_width="match_parent"
@@ -216,7 +220,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="7dp"
-                android:src="@drawable/ic_next_grey" />
+                android:src="@drawable/ic_next_grey"
+                app:tint="@color/text_black"/>
 
             <ImageView
                 android:id="@+id/iv_music_repeat"
@@ -229,8 +234,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="7dp"
-                app:tint="@color/white"
-                android:src="@mipmap/ic_repeat" />
+                android:src="@mipmap/ic_repeat"
+                app:tint="@color/text_black" />
 
         </RelativeLayout>
 

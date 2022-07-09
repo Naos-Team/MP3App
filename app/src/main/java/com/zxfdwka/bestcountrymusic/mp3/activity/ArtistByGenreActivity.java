@@ -69,6 +69,7 @@ public class ArtistByGenreActivity extends BaseActivity {
                 intent.putExtra("type", getString(R.string.artist));
                 intent.putExtra("id", arrayList.get(position).getId());
                 intent.putExtra("name", arrayList.get(position).getName());
+                intent.putExtra("image", arrayList.get(position).getImage());
                 startActivity(intent);
             }
         });

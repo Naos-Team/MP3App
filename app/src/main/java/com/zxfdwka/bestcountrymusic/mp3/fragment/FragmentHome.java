@@ -136,6 +136,7 @@ public class FragmentHome extends Fragment {
                     intent.putExtra("type", getString(R.string.playlist));
                     intent.putExtra("id", arrayList_playlist.get(position).getId());
                     intent.putExtra("name", arrayList_playlist.get(position).getName());
+                    intent.putExtra("image", arrayList_playlist.get(position).getImage());
                     startActivity(intent);
 
                 } else if (type.equals(getString(R.string.albums))) {
@@ -143,12 +144,14 @@ public class FragmentHome extends Fragment {
                     intent.putExtra("type", getString(R.string.albums));
                     intent.putExtra("id", arrayList_albums.get(position).getId());
                     intent.putExtra("name", arrayList_albums.get(position).getName());
+                    intent.putExtra("image", arrayList_albums.get(position).getImage());
                     startActivity(intent);
                 } else if (type.equals(getString(R.string.countries))) {
                     Intent intent = new Intent(getActivity(), SongByCatActivity.class);
                     intent.putExtra("type", getString(R.string.countries));
                     intent.putExtra("id", arrayList_country.get(position).getId());
                     intent.putExtra("name", arrayList_country.get(position).getName());
+                    intent.putExtra("image", arrayList_country.get(position).getImage());
                     startActivity(intent);
                 }  else if (type.equals(getString(R.string.genres))) {
                     Intent intent = new Intent(getActivity(), ArtistByGenreActivity.class);
@@ -160,6 +163,7 @@ public class FragmentHome extends Fragment {
                     intent.putExtra("id", arrayList_banner.get(position).getId());
                     intent.putExtra("name", arrayList_banner.get(position).getTitle());
                     intent.putExtra("songs", arrayList_banner.get(position).getArrayListSongs());
+                    intent.putExtra("image", arrayList_banner.get(position).getImage());
                     startActivity(intent);
                 } else if (type.equals(getString(R.string.moreapp))) {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(arrayList_apps.get(position).getURL()));

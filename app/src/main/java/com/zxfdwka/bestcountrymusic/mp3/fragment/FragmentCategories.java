@@ -72,6 +72,7 @@ public class FragmentCategories extends Fragment {
                     intent.putExtra("type", getString(R.string.categories));
                     intent.putExtra("id", adapterCat.getItem(position).getId());
                     intent.putExtra("name", adapterCat.getItem(position).getName());
+                    intent.putExtra("image", adapterCat.getItem(position).getImage());
                     startActivity(intent);
                 } catch (Exception e) {
                     e.printStackTrace();
