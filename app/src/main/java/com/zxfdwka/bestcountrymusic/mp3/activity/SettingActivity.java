@@ -120,11 +120,11 @@ public class SettingActivity extends AppCompatActivity {
             switch_noti.setChecked(false);
         }
 
-        if (methods.isDarkMode()) {
-            iv_theme.setImageResource(R.mipmap.mode_dark);
-        } else {
-            iv_theme.setImageResource(R.mipmap.mode_icon);
-        }
+//        if (methods.isDarkMode()) {
+//            iv_theme.setImageResource(R.mipmap.mode_dark);
+//        } else {
+//            iv_theme.setImageResource(R.mipmap.mode_icon);
+//        }
 
         String mode = methods.getDarkMode();
         switch (mode) {

@@ -2,6 +2,7 @@ package com.zxfdwka.bestcountrymusic.ringtone.Adapter;
 
 import static com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity.checkIfAlreadyhavePermission;
 import static com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity.requestForSpecificPermission;
+import static com.zxfdwka.bestcountrymusic.ringtone.SharedPref.Setting.arrayList_play_rc;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -337,14 +338,22 @@ public class SongAdapter extends RecyclerView.Adapter {
 
                 }
             });
+            try{
+                if (arrayList_play_rc.size()>0){
+                    if (Setting.exoPlayer.getPlayWhenReady() & arrayList_play_rc.get(Setting.playPos_rc).getRadio_id().equals(song.getRadio_id())) {
+                        ((SongViewHolder) holder).play.setVisibility(View.GONE);
+                        ((SongViewHolder) holder).pause.setVisibility(View.VISIBLE);
+                    } else {
+                        ((SongViewHolder) holder).pause.setVisibility(View.GONE);
+                        ((SongViewHolder) holder).play.setVisibility(View.VISIBLE);
+                    }
+                }
 
-            if (Setting.exoPlayer.getPlayWhenReady() & Setting.arrayList_play_rc.get(Setting.playPos_rc).getRadio_id().equals(song.getRadio_id())) {
-                ((SongViewHolder) holder).play.setVisibility(View.GONE);
-                ((SongViewHolder) holder).pause.setVisibility(View.VISIBLE);
-            } else {
-                ((SongViewHolder) holder).pause.setVisibility(View.GONE);
-                ((SongViewHolder) holder).play.setVisibility(View.VISIBLE);
             }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
 
 
             int step = 1;
@@ -394,19 +403,25 @@ public class SongAdapter extends RecyclerView.Adapter {
             }
 
 
-            if (Setting.exoPlayer.getPlayWhenReady() & Setting.arrayList_play_rc.get(Setting.playPos_rc).getRadio_id().equals(song.getRadio_id())) {
+            try{
+                if (Setting.exoPlayer.getPlayWhenReady() & arrayList_play_rc.get(Setting.playPos_rc).getRadio_id().equals(song.getRadio_id())) {
 
-                ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
-                ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
+//                    ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
+//                    ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
 
-                ((SongViewHolder) holder).progressbar_new.setVisibility(View.VISIBLE);
+                    ((SongViewHolder) holder).progressbar_new.setVisibility(View.VISIBLE);
 
-            } else {
-                ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
-                ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
+                } else {
+//                    ((SongViewHolder) holder).play.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
+//                    ((SongViewHolder) holder).pause.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context,R.color.black)));
 
-                ((SongViewHolder) holder).progressbar_new.setVisibility(View.GONE);
+                    ((SongViewHolder) holder).progressbar_new.setVisibility(View.GONE);
+                }
             }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
 
         }else {
             if (getItemCount() == 1) {

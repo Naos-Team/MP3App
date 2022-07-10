@@ -38,10 +38,14 @@ import com.loopj.android.http.RequestParams;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.ringtone.Constant.Constant;
 import com.zxfdwka.bestcountrymusic.ringtone.Method.API;
+import com.zxfdwka.bestcountrymusic.ringtone.Method.Methods;
 import com.zxfdwka.bestcountrymusic.ringtone.SharedPref.Setting;
 import com.zxfdwka.bestcountrymusic.ringtone.SharedPref.SharedPref;
 import com.zxfdwka.bestcountrymusic.ringtone.Utils.DemoVolleyMultipartRequest;
 import com.zxfdwka.bestcountrymusic.ringtone.Utils.VolleySingleton;
+import com.zxfdwka.bestcountrymusic.ringtone.asyncTask.LoadCat;
+import com.zxfdwka.bestcountrymusic.ringtone.interfaces.CatListener;
+import com.zxfdwka.bestcountrymusic.ringtone.item.ListltemCategory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +73,8 @@ public class UploadRingtoneActivity extends AppCompatActivity {
     Uri FilePath;
     EditText tvimagename;
     RelativeLayout relativelayout;
-
+    Methods methods;
+    static int page = 0;
     SeekBar seek_bar;
     ImageView image_play;
     TextView ringtone_name, user;
@@ -91,6 +96,8 @@ public class UploadRingtoneActivity extends AppCompatActivity {
 
         toolbar2 = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
+
+        methods = new Methods(UploadRingtoneActivity.this);
 
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,51 +177,89 @@ public class UploadRingtoneActivity extends AppCompatActivity {
 
 
         if (this != null) {
-            AsyncHttpClient client = new AsyncHttpClient();
-            RequestParams params = new RequestParams();
-            JsonObject jsObj = (JsonObject) new Gson().toJsonTree(new API(this));
-            jsObj.addProperty("method_name", "Catrgory");
-            params.put("data", API.toBase64(jsObj.toString()));
-            client.post(Constant.Saver_Url+"upload_api.php?cat_list", params, new AsyncHttpResponseHandler() {
+
+            LoadCat loadCat = new LoadCat(new CatListener() {
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                    if (this != null) {
-
-                        Log.d("Response", new String(responseBody));
-                        String res = new String(responseBody);
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(res);
-
-                            JSONArray array= jsonObject.getJSONArray("nemosofts");
-
-                            for (int i = 0; i<array.length(); i++) {
-                                JSONObject thiva = array.getJSONObject(i);
-
-                                String cat_id = thiva.getInt("cid") + "";
-                                String cat_name = thiva.getString("category_name");
-                                String category_image = thiva.getString("category_image");
-                                String ringtone_cat_image = thiva.getString("category_image_thumb");
-
-                                String string = cat_name + " - " + cat_id;
-                                categorieslist.add(string);
-
-                                aa3 = new ArrayAdapter(UploadRingtoneActivity.this, android.R.layout.simple_spinner_item, categorieslist);
-                                aa3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                spin2.setAdapter(aa3);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                public void onStart() {
+                    //progressBar.setVisibility(View.VISIBLE);
+                    if (categorieslist.size() != 0) {
+                        categorieslist.clear();
                     }
                 }
 
                 @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                public void onEnd(String success, String verifyStatus, String message, ArrayList<ListltemCategory> arrayListCat) {
+                        if (success.equals("1")) {
+                            if (!verifyStatus.equals("-1")) {
+                                if (arrayListCat.size() == 0) {
+
+                                } else {
+                                    //progressBar.setVisibility(View.GONE);
+                                    page = page + 1;
+                                    for (ListltemCategory l : arrayListCat){
+                                        String string = l.getCategory_name() + " - " + l.getCid();
+                                        categorieslist.add(string);
+                                    }
+
+                                    aa3 = new ArrayAdapter(UploadRingtoneActivity.this, android.R.layout.simple_spinner_item, categorieslist);
+                                    aa3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    spin2.setAdapter(aa3);
+                                }
+                            } else {
+                                //methods.getVerifyDialog(getString(R.string.error_unauth_access), message);
+                            }
+                        } else {
+
+                        }
                 }
-            });
+            }, methods.getAPIRequest(Setting.METHOD_CAT, page, "", "", "", "", "", "", "", "","","","","","","","", null));
+            loadCat.execute();
+
+//            AsyncHttpClient client = new AsyncHttpClient();
+//            RequestParams params = new RequestParams();
+//            JsonObject jsObj = (JsonObject) new Gson().toJsonTree(new API(this));
+//            jsObj.addProperty("method_name", "Catrgory");
+//            params.put("data", jsObj.toString());
+//            client.post(Constant.Saver_Url, params, new AsyncHttpResponseHandler() {
+//                @Override
+//                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//
+//                    if (this != null) {
+//
+//                        Log.d("Response", new String(responseBody));
+//                        String res = new String(responseBody);
+//
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(res);
+//
+//                            JSONArray array= jsonObject.getJSONArray("nemosofts");
+//
+//                            for (int i = 0; i<array.length(); i++) {
+//                                JSONObject thiva = array.getJSONObject(i);
+//
+//                                String cat_id = thiva.getInt("cid") + "";
+//                                String cat_name = thiva.getString("category_name");
+//                                String category_image = thiva.getString("category_image");
+//                                String ringtone_cat_image = thiva.getString("category_image_thumb");
+//
+//                                String string = cat_name + " - " + cat_id;
+//                                categorieslist.add(string);
+//
+//                                aa3 = new ArrayAdapter(UploadRingtoneActivity.this, android.R.layout.simple_spinner_item, categorieslist);
+//                                aa3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                                spin2.setAdapter(aa3);
+//                            }
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                }
+//            });
 
         }
         mHandler = new Handler();
@@ -244,7 +289,7 @@ public class UploadRingtoneActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (image_play.getTag().equals("notclicked")) {
-                    image_play.setImageResource(R.drawable.pause);
+                    image_play.setImageResource(R.drawable.pause_ringtone);
 
                     Log.e("statusofbtn", "clicked");
                     image_play.setTag("clicked");
@@ -265,7 +310,7 @@ public class UploadRingtoneActivity extends AppCompatActivity {
                     initializeSeekBar();
 
                 } else if (image_play.getTag().equals("clicked")) {
-                    image_play.setImageResource(R.drawable.play);
+                    image_play.setImageResource(R.drawable.play_ringtone);
                     Log.e("statusofbtn", "notclicked");
                     image_play.setTag("notclicked");
 

@@ -23,7 +23,8 @@
         <item
             android:id="@+id/nav_user_by"
             android:icon="@drawable/ic_user_nav_ringtone"
-            android:title="Update" />
+            android:title="Update"
+            android:visible="false"/>
 
         <item
             android:id="@+id/nav_fav"
@@ -38,7 +39,8 @@
         <item
             android:id="@+id/nav_upload"
             android:icon="@drawable/ic_upload_ringtone"
-            android:title="Upload" />
+            android:title="Upload"
+            android:visible="false"/>
 
 <!--        <item-->
 <!--            android:id="@+id/nav_set"-->

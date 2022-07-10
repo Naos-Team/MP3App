@@ -9,13 +9,14 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white_dark"
-        app:titleTextColor="@color/text_black"
+        android:background="@color/black"
+        app:titleTextColor="@color/white"
         app:title="Download"
-        app:navigationIcon="@drawable/ic_baseline_menu_24" />
+        app:navigationIcon="@mipmap/ic_back" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_song_by_cat"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

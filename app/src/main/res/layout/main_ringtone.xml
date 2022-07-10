@@ -11,25 +11,24 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white_dark"
-        app:navigationIcon="@drawable/ic_baseline_menu_24"/>
+        android:background="@color/black"
+        app:navigationIcon="@drawable/ic_baseline_menu_24" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="40dp"
         android:layout_below="@id/toolbar"
-        android:background="@color/white_dark"
-        ads:tabIndicatorColor="@color/text_black"
-        ads:tabTextColor="@color/text_black" />
+        android:background="@color/black"
+        ads:tabIndicatorColor="@color/white"
+        ads:tabTextColor="@color/white" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/adView"
-        android:layout_below="@+id/tab_layout"
-        />
+        android:layout_below="@+id/tab_layout" />
 
     <LinearLayout
         android:layout_alignParentBottom="true"

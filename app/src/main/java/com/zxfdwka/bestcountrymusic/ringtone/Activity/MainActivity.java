@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Home");
 
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -162,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
 
-        String[] pageTitle = {"Home", "Top 10 Views"};
+        String[] pageTitle = {"All", "Top 10 Views"};
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         for (int i = 0; i < 2; i++) {
             tabLayout.addTab(tabLayout.newTab().setText(pageTitle[i]));
@@ -206,13 +207,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (menu_login != null) {
             if (Setting.isLoginOn) {
                 if (Setting.isLogged) {
-                    menu_login.setTitle(getResources().getString(R.string.logout));
-                    menu_login.setIcon(getResources().getDrawable(R.drawable.ic_logout));
-                    menu_upload.setVisible(true);
-                    menu_user_by.setVisible(true);
+                    //menu_login.setTitle(getResources().getString(R.string.logout));
+                   // menu_login.setIcon(getResources().getDrawable(R.drawable.ic_logout));
+                    menu_upload.setVisible(false);
+                    menu_user_by.setVisible(false);
                 } else {
-                    menu_login.setTitle(getResources().getString(R.string.login));
-                    menu_login.setIcon(getResources().getDrawable(R.drawable.ic_login));
+                    //menu_login.setTitle(getResources().getString(R.string.login));
+                    //menu_login.setIcon(getResources().getDrawable(R.drawable.ic_login));
                     menu_upload.setVisible(false);
                     menu_user_by.setVisible(false);
                 }

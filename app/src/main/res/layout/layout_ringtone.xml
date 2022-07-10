@@ -7,13 +7,14 @@
     android:orientation="vertical"
     xmlns:shimmer="http://schemas.android.com/tools"
     android:background="@color/white_dark"
-    android:layout_margin="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
     >
 
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    app:cardCornerRadius="5dp"
     android:backgroundTint="@color/white_dark"
     android:orientation="vertical">
 
@@ -45,11 +46,11 @@
 
                    <ImageView
                        android:id="@+id/play"
-                       android:layout_width="15dp"
-                       android:layout_height="15dp"
+                       android:layout_width="12dp"
+                       android:layout_height="13dp"
                        android:layout_centerInParent="true"
                        android:src="@drawable/play_ringtone"
-                       app:tint="@color/white_dark" />
+                       app:tint="@color/text_black" />
 
                    <ImageView
                        android:id="@+id/pause"
@@ -58,7 +59,7 @@
                        android:layout_centerInParent="true"
                        android:src="@drawable/pause_ringtone"
                        android:visibility="gone"
-                       app:tint="@color/white_dark" />
+                       app:tint="@color/text_black" />
 
                    <ProgressBar
                        android:id="@+id/progressbar_new"
@@ -69,18 +70,18 @@
                </RelativeLayout>
 
 
-<!--               <RelativeLayout-->
-<!--                   android:layout_width="0.8dp"-->
-<!--                   android:layout_height="match_parent"-->
-<!--                   android:layout_marginRight="5dp"-->
-<!--                   android:background="@color/black" />-->
+               <!--               <RelativeLayout-->
+               <!--                   android:layout_width="0.8dp"-->
+               <!--                   android:layout_height="match_parent"-->
+               <!--                   android:layout_marginRight="5dp"-->
+               <!--                   android:background="@color/black" />-->
 
 
                <LinearLayout
                    android:layout_width="0dp"
                    android:layout_height="wrap_content"
                    android:layout_gravity="center"
-                   android:layout_marginLeft="5dp"
+                   android:layout_marginLeft="10dp"
                    android:layout_weight="1"
                    android:orientation="vertical">
 

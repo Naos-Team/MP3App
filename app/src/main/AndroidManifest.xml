@@ -25,6 +25,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".mp3.activity.FavoriteActivity"
+            android:exported="false" />
+        <activity
             android:name=".BaseFavoriteActivity"
             android:exported="false" />
         <activity
