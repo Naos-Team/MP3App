@@ -45,30 +45,30 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="4dp"
                         android:text="@string/songs"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_black"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_search_songs_tot"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:layout_weight="1"
                         android:text="(0)"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:layout_marginTop="2dp"/>
+                        android:textColor="@color/text_black"
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tv_search_songs_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="end"
                         android:layout_marginEnd="10dp"
                         android:background="?attr/selectableItemBackground"
                         android:padding="10dp"
                         android:text="@string/see_all"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"
-                        android:layout_gravity="end"/>
+                        android:textColor="@color/primary_dark"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -121,18 +121,18 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="4dp"
                         android:text="@string/artist"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_black"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_search_artist_tot"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:layout_weight="1"
                         android:text="(0)"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:layout_marginTop="2dp"/>
+                        android:textColor="@color/text_black"
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tv_search_artist"
@@ -142,7 +142,7 @@
                         android:background="?attr/selectableItemBackground"
                         android:padding="10dp"
                         android:text="@string/see_all"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/primary_dark"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -196,18 +196,18 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="4dp"
                         android:text="@string/albums"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_black"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tv_search_albums_tot"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:layout_weight="1"
                         android:text="(0)"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:layout_marginTop="2dp"/>
+                        android:textColor="@color/text_black"
+                        android:textSize="13sp" />
 
                     <TextView
                         android:id="@+id/tv_search_albums"
@@ -217,7 +217,7 @@
                         android:background="?attr/selectableItemBackground"
                         android:padding="10dp"
                         android:text="@string/see_all"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/primary_dark"
                         android:textSize="14sp" />
 
                 </LinearLayout>

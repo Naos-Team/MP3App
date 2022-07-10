@@ -2,8 +2,12 @@ package com.zxfdwka.bestcountrymusic.mp3.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,8 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.zxfdwka.bestcountrymusic.mp3.activity.MainActivity;
 import com.zxfdwka.bestcountrymusic.mp3.adapter.AdapterAllSongList;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadSong;
 import com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService;
@@ -41,6 +49,9 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -64,6 +75,12 @@ public class FragmentTrendingSongs extends Fragment {
     private int page = 1;
     private Boolean isOver = false, isScroll = false, isLoading = false, isNewAdded = true, isAllNew = false;
     private NativeAdsManager mNativeAdsManager;
+    private AppBarLayout appBarLayout;
+    private ImageView iv_playlist2;
+    private ConstraintLayout iv_playlist;
+    private TextView tv_no_song, txt_title_SongByPlaylist;
+    private CollapsingToolbarLayout collapsing_play;
+    private Toolbar toolbar_playlist;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,6 +94,7 @@ public class FragmentTrendingSongs extends Fragment {
                 getActivity().startService(intent);
             }
         });
+        appBarLayout = rootView.findViewById(R.id.mainappbar_cat);
 
         arrayList = new ArrayList<>();
         arrayListTemp = new ArrayList<>();
@@ -103,6 +121,67 @@ public class FragmentTrendingSongs extends Fragment {
                             }
                         }, 0);
                     }
+                }
+            }
+        });
+        collapsing_play = rootView.findViewById(R.id.collapsing_play_cat);
+        collapsing_play.setTitle("");
+
+        toolbar_playlist = rootView.findViewById(R.id.toolbar_playlist_cat);
+        toolbar_playlist.setVisibility(View.GONE);
+//
+//        ((MainActivity) getActivity()).setSupportActionBar(toolbar_playlist);
+//        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        iv_playlist = rootView.findViewById(R.id.iv_collapse_playlist_cat);
+        iv_playlist2 = rootView.findViewById(R.id.iv_collapse_playlist2_cat);
+        tv_no_song = rootView.findViewById(R.id.tv_playlist_no_song_cat);
+        txt_title_SongByPlaylist = rootView.findViewById(R.id.txt_title_SongByPlaylist_cat);
+        txt_title_SongByPlaylist.setText(getString(R.string.trending_songs));
+
+        iv_playlist2.setImageResource(R.drawable.trending);
+
+        int[] colors = {getResources().getColor(R.color.bg_items), Color.parseColor("#FF0000")};
+        iv_playlist2.setColorFilter(getActivity().getResources().getColor(R.color.md_yellow_500));
+
+//create a new gradient color
+        GradientDrawable gd = new GradientDrawable(
+                GradientDrawable.Orientation.BOTTOM_TOP, colors);
+        gd.setCornerRadius(0f);
+        iv_playlist.setBackground(gd);
+
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true);
+        CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                getResources().getDisplayMetrics().heightPixels * 46 / 100 - typedValue.TYPE_DIMENSION);
+        appBarLayout.setLayoutParams(layoutParams);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                txt_title_SongByPlaylist.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
+                tv_no_song.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
+                iv_playlist.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
+                iv_playlist2.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
+                if(Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()) > 0.5f) {
+//                    collapsing_play.setTitle("Trending Songs");
+                    ((MainActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.trending_songs));
+                    int[] colors = {getResources().getColor(R.color.colorPrimary), Color.rgb( 119, 136,153)};
+                    ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
+                    ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
+                    GradientDrawable gd = new GradientDrawable(
+                            GradientDrawable.Orientation.BOTTOM_TOP, colors);
+                    gd.setCornerRadius(0f);
+                    appBarLayout.setBackground(gd);
+                } else {
+//                    collapsing_play.setTitle("");
+                    int[] colors = {getResources().getColor(R.color.bg_items), Color.rgb( 119, 136,153)};
+                    ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF0000"));
+                    ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
+                    ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
+                    GradientDrawable gd = new GradientDrawable(
+                            GradientDrawable.Orientation.BOTTOM_TOP, colors);
+                    gd.setCornerRadius(0f);
+                    appBarLayout.setBackground(gd);
                 }
             }
         });
@@ -391,6 +470,8 @@ public class FragmentTrendingSongs extends Fragment {
         if(adapter != null) {
             adapter.destroyNativeAds();
         }
+        ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
+        ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
         super.onDestroy();
     }
 }
