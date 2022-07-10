@@ -420,6 +420,13 @@ public class FragmentSongs extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.color_2));
+        ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
+        super.onResume();
+    }
+
+    @Override
     public void onDestroy() {
         if(adapter != null) {
             adapter.destroyNativeAds();

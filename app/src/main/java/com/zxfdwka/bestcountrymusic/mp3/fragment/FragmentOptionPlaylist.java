@@ -106,6 +106,7 @@ public class FragmentOptionPlaylist extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 listener.onShare(itemMyPlayList);
+                FragmentOptionPlaylist.this.dismiss();
             }
         });
     }

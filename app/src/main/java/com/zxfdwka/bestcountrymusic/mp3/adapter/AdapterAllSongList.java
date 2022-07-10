@@ -290,13 +290,6 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
                                         }
                                         break;
                                     default:
-                                        if(Constant.arrayList_play.get(Constant.playPos).equals(itemSong)){
-                                            Toast.makeText(context, "The song is playing", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            arrayList.remove(itemSong);
-                                            Constant.arrayList_play.remove(itemSong);
-                                            notifyItemRemoved(index);
-                                        }
                                         break;
                                 }
                             } else {

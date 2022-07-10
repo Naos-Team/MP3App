@@ -122,6 +122,7 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 listener.onDescription(itemSong);
+                FragmentOptionMusic.this.dismiss();
             }
         });
 
@@ -163,6 +164,7 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
                                         baseActivity.changeFav(itemSong.getIsFavourite());
                                     if (getActivity() != null)
                                         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                                    FragmentOptionMusic.this.dismiss();
                                     listener.onEndLike();
                                 }
                             }
@@ -182,9 +184,7 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 listener.onAddToPlaylist(itemSong);
-                if(is_Playlist){
-                    FragmentOptionMusic.this.dismiss();
-                }
+                FragmentOptionMusic.this.dismiss();
             }
         });
 
@@ -192,6 +192,7 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 listener.onAddToQueue(itemSong);
+                FragmentOptionMusic.this.dismiss();
             }
         });
 
@@ -199,6 +200,7 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 listener.onSearchYTB(itemSong);
+                FragmentOptionMusic.this.dismiss();
             }
         });
 
@@ -206,6 +208,7 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 listener.onShare(itemSong);
+                FragmentOptionMusic.this.dismiss();
             }
         });
 
@@ -213,6 +216,7 @@ public class FragmentOptionMusic extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 listener.onRate(itemSong);
+                FragmentOptionMusic.this.dismiss();
             }
         });
     }

@@ -224,7 +224,6 @@ public class PlayListNowActivity extends BaseActivity {
         }, "online");
 
         loadNativeAds();
-        adapter.setIs_currentList(true);
         rv.setAdapter(adapter);
     }
 

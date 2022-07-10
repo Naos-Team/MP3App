@@ -468,6 +468,13 @@ public class FragmentTrendingSongs extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF0000"));
+        ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
+        super.onResume();
+    }
+
+    @Override
     public void onDestroy() {
         if(adapter != null) {
             adapter.destroyNativeAds();
