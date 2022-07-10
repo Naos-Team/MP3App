@@ -101,11 +101,12 @@ public class AdapterRecent extends RecyclerView.Adapter<AdapterRecent.MyViewHold
                 .placeholder(R.drawable.placeholder_song)
                 .into(holder.iv_song);
 
+        int index = position;
         holder.iv_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                openOptionPopUp(holder.iv_more, holder.getAdapterPosition());
-                FragmentOptionMusic fragmentOptionMusic = new FragmentOptionMusic(arrayList.get(holder.getAdapterPosition()), new OptionMusicListener() {
+                FragmentOptionMusic fragmentOptionMusic = new FragmentOptionMusic(arrayList.get(index), new OptionMusicListener() {
                     @Override
                     public void onDescription(ItemSong itemSong) {
                         View view = ((Activity) context).getLayoutInflater().inflate(R.layout.layout_desc, null);
@@ -159,7 +160,7 @@ public class AdapterRecent extends RecyclerView.Adapter<AdapterRecent.MyViewHold
 
                     @Override
                     public void onAddToPlaylist(ItemSong itemSong) {
-                        methods.openPlaylists(arrayList.get(holder.getAdapterPosition()), true);
+                        methods.openPlaylists(itemSong, true);
                     }
 
                     @Override
@@ -210,7 +211,7 @@ public class AdapterRecent extends RecyclerView.Adapter<AdapterRecent.MyViewHold
 
                     @Override
                     public void onEndLike() {
-                        notifyDataSetChanged();
+                        notifyItemChanged(index);
                     }
                 }, methods, null, false);
 

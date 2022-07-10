@@ -2,9 +2,12 @@ package com.zxfdwka.bestcountrymusic.mp3.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,6 +16,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
+
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,8 +25,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.zxfdwka.bestcountrymusic.mp3.activity.MainActivity;
 import com.zxfdwka.bestcountrymusic.mp3.adapter.AdapterAllSongList;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadSong;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
@@ -64,10 +72,13 @@ public class FragmentSongs extends Fragment {
     private int page = 1;
     private Boolean isOver = false, isScroll = false, isLoading = false, isNewAdded = true, isAllNew = false;
     private NativeAdsManager mNativeAdsManager;
+    private ImageView img_Latest;
+    private ConstraintLayout iv_latest;
+    private TextView tv_Latest;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_song_by_cat, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_latest, container, false);
 
         methods = new Methods(getActivity(), new InterAdListener() {
             @Override
@@ -82,12 +93,36 @@ public class FragmentSongs extends Fragment {
         arrayListTemp = new ArrayList<>();
 
         frameLayout = rootView.findViewById(R.id.fl_empty);
-        progressBar = rootView.findViewById(R.id.pb_song_by_cat);
-        rv = rootView.findViewById(R.id.rv_song_by_cat);
+        progressBar = rootView.findViewById(R.id.pb_latest);
+        rv = rootView.findViewById(R.id.rv_latest);
         LinearLayoutManager llm_banner = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm_banner);
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setHasFixedSize(true);
+        img_Latest = rootView.findViewById(R.id.img_Latest);
+        img_Latest.setImageResource(R.drawable.all_songs);
+        img_Latest.setColorFilter(getActivity().getResources().getColor(R.color.white));
+        tv_Latest = rootView.findViewById(R.id.tv_Latest);
+        tv_Latest.setText(getResources().getString(R.string.all_songs));
+
+        iv_latest = rootView.findViewById(R.id.iv_latest);
+        int[] colors_default = {getActivity().getResources().getColor(R.color.bg_items), getActivity().getResources().getColor(R.color.color_2)};
+
+        ColorDrawable colorDrawable_bottom = new ColorDrawable(getActivity().getResources().getColor(R.color.color_2));
+        ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable_bottom);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
+
+//create a new gradient color
+        GradientDrawable gd_default = new GradientDrawable(
+                GradientDrawable.Orientation.BOTTOM_TOP, colors_default);
+        gd_default.setCornerRadius(0f);
+        iv_latest.setBackground(gd_default);
+
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true);
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                getResources().getDisplayMetrics().heightPixels * 30 / 100 - typedValue.TYPE_DIMENSION);
+        iv_latest.setLayoutParams(layoutParams);
 
         rv.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm_banner) {
             @Override
@@ -379,6 +414,8 @@ public class FragmentSongs extends Fragment {
     @Override
     public void onStop() {
         GlobalBus.getBus().unregister(this);
+        ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
+        ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
         super.onStop();
     }
 

@@ -462,6 +462,8 @@ public class FragmentTrendingSongs extends Fragment {
     @Override
     public void onStop() {
         GlobalBus.getBus().unregister(this);
+        ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
+        ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
         super.onStop();
     }
 
@@ -470,8 +472,6 @@ public class FragmentTrendingSongs extends Fragment {
         if(adapter != null) {
             adapter.destroyNativeAds();
         }
-        ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
-        ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
         super.onDestroy();
     }
 }

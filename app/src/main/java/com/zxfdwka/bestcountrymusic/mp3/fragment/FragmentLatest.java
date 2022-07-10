@@ -74,12 +74,9 @@ public class FragmentLatest extends Fragment {
     private int page = 1;
     private Boolean isOver = false, isScroll = false, isLoading = false, isNewAdded = true, isAllNew = false;
     private NativeAdsManager mNativeAdsManager;
-    private AppBarLayout appBarLayout;
-    private ImageView iv_playlist2;
-    private ConstraintLayout iv_playlist;
-    private TextView tv_no_song, txt_title_SongByPlaylist;
-    private CollapsingToolbarLayout collapsing_play;
-    private Toolbar toolbar_playlist;
+    private ImageView img_Latest;
+    private ConstraintLayout iv_latest;
+    private TextView tv_Latest;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -109,6 +106,31 @@ public class FragmentLatest extends Fragment {
 
         frameLayout = rootView.findViewById(R.id.fl_empty);
 
+        img_Latest = rootView.findViewById(R.id.img_Latest);
+        img_Latest.setImageResource(R.drawable.latest_img);
+        img_Latest.setColorFilter(getActivity().getResources().getColor(R.color.white));
+        tv_Latest = rootView.findViewById(R.id.tv_Latest);
+        tv_Latest.setText(getResources().getString(R.string.latest));
+
+        iv_latest = rootView.findViewById(R.id.iv_latest);
+        int[] colors_default = {getActivity().getResources().getColor(R.color.bg_items), getActivity().getResources().getColor(R.color.color_2)};
+
+        ColorDrawable colorDrawable_bottom = new ColorDrawable(getActivity().getResources().getColor(R.color.color_2));
+        ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable_bottom);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
+
+//create a new gradient color
+        GradientDrawable gd_default = new GradientDrawable(
+                GradientDrawable.Orientation.BOTTOM_TOP, colors_default);
+        gd_default.setCornerRadius(0f);
+        iv_latest.setBackground(gd_default);
+
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true);
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                getResources().getDisplayMetrics().heightPixels * 30 / 100 - typedValue.TYPE_DIMENSION);
+        iv_latest.setLayoutParams(layoutParams);
+
         rv.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm_banner) {
             @Override
             public void onLoadMore(int p, int totalItemsCount) {
@@ -124,65 +146,6 @@ public class FragmentLatest extends Fragment {
                             }
                         }, 0);
                     }
-                }
-            }
-        });
-
-        collapsing_play = rootView.findViewById(R.id.collapsing_play_latest);
-        collapsing_play.setTitle("");
-
-        toolbar_playlist = rootView.findViewById(R.id.toolbar_playlist_latest);
-        toolbar_playlist.setVisibility(View.GONE);
-
-        appBarLayout = rootView.findViewById(R.id.mainappbar_latest);
-        iv_playlist = rootView.findViewById(R.id.iv_collapse_playlist_latest);
-        iv_playlist2 = rootView.findViewById(R.id.iv_collapse_playlist2_latest);
-        tv_no_song = rootView.findViewById(R.id.tv_playlist_no_song_latest);
-        txt_title_SongByPlaylist = rootView.findViewById(R.id.txt_title_SongByPlaylist_latest);
-        txt_title_SongByPlaylist.setText(getString(R.string.latest));
-        iv_playlist2.setImageResource(R.drawable.latest_img);
-        iv_playlist2.setColorFilter(getActivity().getResources().getColor(R.color.white));
-
-        int[] colors = {getActivity().getResources().getColor(R.color.bg_items), getActivity().getResources().getColor(R.color.primary)};
-
-//create a new gradient color
-        GradientDrawable gd = new GradientDrawable(
-                GradientDrawable.Orientation.BOTTOM_TOP, colors);
-        gd.setCornerRadius(0f);
-        iv_playlist.setBackground(gd);
-
-        TypedValue typedValue = new TypedValue();
-        getActivity().getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true);
-        CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                getResources().getDisplayMetrics().heightPixels * 46 / 100 - typedValue.TYPE_DIMENSION);
-        appBarLayout.setLayoutParams(layoutParams);
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                txt_title_SongByPlaylist.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
-                tv_no_song.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
-                iv_playlist.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
-                iv_playlist2.setAlpha(1 - Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()));
-                if(Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()) > 0.5f) {
-//                    collapsing_play.setTitle("Trending Songs");
-                    ((MainActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.latest));
-                    int[] colors = {getResources().getColor(R.color.colorPrimary), Color.rgb( 119, 136,153)};
-                    ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
-                    ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
-                    GradientDrawable gd = new GradientDrawable(
-                            GradientDrawable.Orientation.BOTTOM_TOP, colors);
-                    gd.setCornerRadius(0f);
-                    appBarLayout.setBackground(gd);
-                } else {
-//                    collapsing_play.setTitle("");
-                    int[] colors = {getResources().getColor(R.color.bg_items), Color.rgb( 119, 136,153)};
-                    ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.primary));
-                    ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
-                    ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
-                    GradientDrawable gd = new GradientDrawable(
-                            GradientDrawable.Orientation.BOTTOM_TOP, colors);
-                    gd.setCornerRadius(0f);
-                    appBarLayout.setBackground(gd);
                 }
             }
         });
@@ -453,6 +416,8 @@ public class FragmentLatest extends Fragment {
     @Override
     public void onStop() {
         GlobalBus.getBus().unregister(this);
+        ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
+        ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
         super.onStop();
     }
 
@@ -461,8 +426,6 @@ public class FragmentLatest extends Fragment {
         if (adapter != null) {
             adapter.destroyNativeAds();
         }
-        ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
-        ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
         super.onDestroy();
     }
 }

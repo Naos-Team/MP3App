@@ -214,6 +214,7 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
                 }
             });
 
+            int index = position;
             ((MyViewHolder) holder).imageView_option.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -222,7 +223,8 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
 //                    } catch (Exception e) {
 //                        e.printStackTrace();
 //                    }
-                    FragmentOptionMusic fragmentOptionMusic = new FragmentOptionMusic(arrayList.get(holder.getAdapterPosition()), new OptionMusicListener() {
+
+                    FragmentOptionMusic fragmentOptionMusic = new FragmentOptionMusic(arrayList.get(index), new OptionMusicListener() {
                         @Override
                         public void onDescription(ItemSong itemSong) {
                             View view = ((Activity) context).getLayoutInflater().inflate(R.layout.layout_desc, null);
@@ -281,7 +283,7 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
                                     case "playlist":
                                         dbHelper.removeFromPlayList(itemSong.getId(), true);
                                         arrayList.remove(holder.getAdapterPosition());
-                                        notifyItemRemoved(holder.getAdapterPosition());
+                                        notifyItemRemoved(index);
                                         Toast.makeText(context, context.getString(R.string.remove_from_playlist), Toast.LENGTH_SHORT).show();
                                         if (arrayList.size() == 0) {
                                             recyclerClickListener.onItemZero();
@@ -293,7 +295,7 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
                                         } else {
                                             arrayList.remove(itemSong);
                                             Constant.arrayList_play.remove(itemSong);
-                                            notifyDataSetChanged();
+                                            notifyItemRemoved(index);
                                         }
                                         break;
                                 }
@@ -350,7 +352,7 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
 
                         @Override
                         public void onEndLike() {
-                            notifyDataSetChanged();
+                            notifyItemChanged(index);
                         }
                     }, methods, null, is_currentList);
 
