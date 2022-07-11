@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
-import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemRadio;
 import com.zxfdwka.bestcountrymusic.radio.utils.Constants;
 import com.zxfdwka.bestcountrymusic.radio.utils.DBHelper;
@@ -40,6 +38,7 @@ public class AdapterRadioList extends RecyclerView.Adapter {
     private ArrayList<Object> filteredArrayList;
     private NameFilter filter;
     private Methods methods;
+    private com.zxfdwka.bestcountrymusic.mp3.utils.Methods mp3_methods;
     private ConstraintLayout.LayoutParams lp_item;
     private boolean isGrid;
 
@@ -69,7 +68,8 @@ public class AdapterRadioList extends RecyclerView.Adapter {
         this.arrayList = arrayList;
         this.context = context;
         this.lp_item = lp_item;
-        methods = new Methods(context, interAdListener);
+        methods = new Methods(context);
+        mp3_methods = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(context, interAdListener);
         filteredArrayList = arrayList;
         dbHelper = new DBHelper(context);
         this.isGrid = isGrid;
@@ -143,7 +143,7 @@ public class AdapterRadioList extends RecyclerView.Adapter {
                 myViewHolder.cs_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        methods.showInter(holder.getAdapterPosition(), "");
+                        mp3_methods.showInterAd(holder.getAdapterPosition(), "");
                     }
                 });
 

@@ -23,10 +23,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.adapter.AdapterOnDemandCat;
 import com.zxfdwka.bestcountrymusic.radio.asyncTasks.LoadOnDemandCat;
-import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.OnDemandCatListener;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemOnDemandCat;
 import com.zxfdwka.bestcountrymusic.radio.utils.Constants;
@@ -51,6 +51,7 @@ public class FragmentOnDemandCat extends Fragment {
     private String errr_msg;
     SharedPref sharedPref;
     Methods methods;
+    com.zxfdwka.bestcountrymusic.mp3.utils.Methods mp3_methods;
     private ConstraintLayout.LayoutParams radio_lp_grid;
 
 
@@ -58,7 +59,8 @@ public class FragmentOnDemandCat extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_radio_ondemand_cat, container, false);
 
-        methods = new Methods(getActivity(), interAdListener);
+        methods = new Methods(getActivity());
+        mp3_methods = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(getContext(), interAdListener);
         sharedPref = new SharedPref(getActivity());
 
         Constants.fragmentStatus = Constants.NEAR_HOME;
@@ -89,7 +91,7 @@ public class FragmentOnDemandCat extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                methods.showInter(position, "");
+                mp3_methods.showInterAd(position, "");
             }
         }));
 
@@ -197,7 +199,7 @@ public class FragmentOnDemandCat extends Fragment {
         }
     }
 
-    private InterAdListener interAdListener = new InterAdListener() {
+    private com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener interAdListener = new InterAdListener() {
         @Override
         public void onClick(int position, String type) {
             int pos = getPosition(adapter.getID(position));

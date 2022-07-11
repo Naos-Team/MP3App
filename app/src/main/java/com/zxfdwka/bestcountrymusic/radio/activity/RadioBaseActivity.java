@@ -129,6 +129,7 @@ public class RadioBaseActivity extends AppCompatActivity{
 //    FloatingActionButton fab_play_expand;
     TextView textView_name, textView_song, textView_freq_expand, textView_radio_expand, textView_song_expand, textView_song_duration, textView_total_duration, tv_views;
     Methods methods, methodsBack;
+    com.zxfdwka.bestcountrymusic.mp3.utils.Methods mp3_methods;
 //    LoadAbout loadAbout;
     Boolean isExpand = false, isLoaded = false;
     SharedPref sharedPref;
@@ -194,6 +195,7 @@ public class RadioBaseActivity extends AppCompatActivity{
         methods = new Methods(RadioBaseActivity.this, interAdListener);
         methods.forceRTLIfSupported(getWindow());
         methods.setStatusColor(getWindow());
+        mp3_methods = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
         fm = getSupportFragmentManager();
 
         methodsBack = new Methods(this, backInterAdListener);
@@ -274,8 +276,7 @@ public class RadioBaseActivity extends AppCompatActivity{
         adConsent = new AdConsent(this, new AdConsentListener() {
             @Override
             public void onConsentUpdate() {
-//                methods.showBannerAd(ll_ad);
-
+                mp3_methods.showSMARTBannerAd(ll_ad);
             }
         });
 

@@ -31,6 +31,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.activity.BaseActivity;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.adapter.AdapterHomeCity;
 import com.zxfdwka.bestcountrymusic.radio.adapter.AdapterHomeLanguage;
@@ -44,7 +45,6 @@ import com.zxfdwka.bestcountrymusic.mp3.interfaces.AdConsentListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.CityClickListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.CityListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.HomeListener;
-import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.LanguageListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.RadioListListener;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemCity;
@@ -63,6 +63,7 @@ public class FragmentHome extends Fragment {
 
     private AdConsent adConsent;
     private Methods methods;
+    private com.zxfdwka.bestcountrymusic.mp3.utils.Methods mp3_methods;
     private ArrayList<Object> arrayList_radio_latest, arrayList_radio_featured, arrayList_radio_mostviewed, arrayList_radio_all;
     private ArrayList<ItemCity> arrayList_radio_city;
     private ArrayList<ItemLanguage> arrayList_radio_language;
@@ -99,6 +100,7 @@ public class FragmentHome extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home_radio, container, false);
 
         methods = new Methods(getActivity());
+        mp3_methods = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(getActivity());
 
         Constants.fragmentStatus = Constants.AT_HOME;
 
@@ -122,7 +124,7 @@ public class FragmentHome extends Fragment {
         adConsent = new AdConsent(getContext(), new AdConsentListener() {
             @Override
             public void onConsentUpdate() {
-                methods.showBannerAd(ll_ad);
+                mp3_methods.showSMARTBannerAd(ll_ad);
             }
         });
 
@@ -575,7 +577,7 @@ public class FragmentHome extends Fragment {
     };
 
     private void loadSlider() {
-        InterAdListener interAdListener = new InterAdListener() {
+        com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener interAdListener = new InterAdListener() {
             @Override
             public void onClick(int position, String type) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -592,7 +594,7 @@ public class FragmentHome extends Fragment {
             }
         };
 
-        Methods methods = new Methods(getActivity(), interAdListener);
+        com.zxfdwka.bestcountrymusic.mp3.utils.Methods mp3_methods = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(getActivity(), interAdListener);
 
 
         //       for (int i = 0; i < arrayList_ondemandcat.size(); i++) {
@@ -644,7 +646,7 @@ public class FragmentHome extends Fragment {
             }
         });
         viewpager_slide.setPageTransformer(compositePageTransformer);
-        adapterSlideOnDemand = new AdapterSlideOnDemand(arrayList_ondemandcat, methods);
+        adapterSlideOnDemand = new AdapterSlideOnDemand(arrayList_ondemandcat, mp3_methods);
         AdapterSlideOnDemand.setSelected_index(0);
         viewpager_slide.setAdapter(adapterSlideOnDemand);
         viewpager_slide.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
