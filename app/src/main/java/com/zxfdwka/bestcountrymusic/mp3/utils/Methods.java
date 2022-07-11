@@ -41,6 +41,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.LoadAdError;
 import com.zxfdwka.bestcountrymusic.BuildConfig;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.adapter.AdapterPlaylistDialog;
@@ -534,6 +535,7 @@ public class Methods {
                                 .build();
                     }
                     interstitialAd.setAdUnitId(Constant.ad_inter_id);
+//                    interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
                     interstitialAd.loadAd(adRequest);
                     interstitialAd.setAdListener(new AdListener() {
                         @Override
@@ -551,14 +553,14 @@ public class Methods {
                         }
 
                         @Override
-                        public void onAdFailedToLoad(int i) {
+                        public void onAdFailedToLoad(LoadAdError loadAdError) {
                             if (!isClicked) {
                                 isClicked = true;
                                 interAdListener.onClick(pos, type);
                             }
-                            super.onAdFailedToLoad(i);
+                            super.onAdFailedToLoad(loadAdError);
+                            String err = loadAdError.getMessage();
                         }
-
                     });
 
                     new Handler().postDelayed(new Runnable() {

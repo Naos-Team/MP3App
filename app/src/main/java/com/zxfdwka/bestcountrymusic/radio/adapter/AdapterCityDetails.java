@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
-import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemRadio;
 import com.zxfdwka.bestcountrymusic.radio.utils.Constants;
 import com.zxfdwka.bestcountrymusic.radio.utils.DBHelper;
@@ -38,6 +38,7 @@ public class AdapterCityDetails extends RecyclerView.Adapter<AdapterCityDetails.
     private ArrayList<ItemRadio> filteredArrayList;
     private NameFilter filter;
     private Methods methods;
+    private com.zxfdwka.bestcountrymusic.mp3.utils.Methods mp3_method;
     private ConstraintLayout.LayoutParams lp_item;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -61,8 +62,8 @@ public class AdapterCityDetails extends RecyclerView.Adapter<AdapterCityDetails.
         this.filteredArrayList = list;
         dbHelper = new DBHelper(context);
 
-
-        methods = new Methods(context, interAdListener);
+        methods = new Methods(context);
+        mp3_method = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(context, interAdListener);
         this.lp_item = lp_item;
         Resources r = context.getResources();
         float padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, Constants.GRID_PADDING, r.getDisplayMetrics());
@@ -125,7 +126,7 @@ public class AdapterCityDetails extends RecyclerView.Adapter<AdapterCityDetails.
         holder.cs_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                methods.showInter(holder.getAdapterPosition(), "");
+                mp3_method.showInterAd(holder.getAdapterPosition(), "");
             }
         });
 

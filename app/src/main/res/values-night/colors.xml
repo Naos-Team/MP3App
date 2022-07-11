@@ -5,7 +5,7 @@
     <color name="colorAccent">#5961FF</color>
 
     <color name="colorThemeRadio">#222222</color>
-    <color name="radio_player_theme">#DBFFFFFF</color>
+    <color name="radio_player_theme">#F2F2F2</color>
     <color name="radio_item_border">#DBFFFFFF</color>
 
     <color name="primary">#8958E3</color>

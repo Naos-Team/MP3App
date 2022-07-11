@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -165,6 +166,7 @@ public class FragmentTrendingSongs extends Fragment {
                 if(Math.abs((float) verticalOffset / appBarLayout.getTotalScrollRange()) > 0.5f) {
 //                    collapsing_play.setTitle("Trending Songs");
                     ((MainActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.trending_songs));
+                    getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorThemeRadio));
                     int[] colors = {getResources().getColor(R.color.colorPrimary), Color.rgb( 119, 136,153)};
                     ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
                     ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
@@ -176,6 +178,7 @@ public class FragmentTrendingSongs extends Fragment {
 //                    collapsing_play.setTitle("");
                     int[] colors = {getResources().getColor(R.color.bg_items), Color.rgb( 119, 136,153)};
                     ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FF0000"));
+                    getActivity().getWindow().setStatusBarColor(0xFFff0000);
                     ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
                     ((MainActivity) getActivity()).getSupportActionBar().setTitle("");
                     GradientDrawable gd = new GradientDrawable(
@@ -462,6 +465,7 @@ public class FragmentTrendingSongs extends Fragment {
     @Override
     public void onStop() {
         GlobalBus.getBus().unregister(this);
+        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorThemeRadio));
         ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
         ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
         super.onStop();
