@@ -11,10 +11,10 @@
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white_dark"
+        android:background="@color/colorPrimary"
         android:minHeight="50dp"
         app:navigationIcon="@drawable/ic_baseline_menu_24"
-        app:titleTextColor="@color/text_black" />
+        app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"

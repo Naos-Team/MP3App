@@ -11,10 +11,10 @@
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white_dark"
+        android:background="@color/colorPrimary"
         app:navigationIcon="@drawable/ic_baseline_menu_24"
         app:title="Update Ringtone"
-        app:titleTextColor="@color/text_black" />
+        app:titleTextColor="@color/white" />
 
     <ScrollView
         android:layout_width="match_parent"

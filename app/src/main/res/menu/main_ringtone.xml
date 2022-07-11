@@ -7,7 +7,7 @@
         android:id="@+id/item_search"
         android:title="search"
         app:showAsAction="ifRoom"
-        android:iconTint="@color/text_black"
+        android:iconTint="@color/white"
         android:icon="@mipmap/ic_search"/>
 
     <item
