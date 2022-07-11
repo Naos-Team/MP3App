@@ -80,4 +80,6 @@
     <color name="radio_subtext_color">#838383</color>
     <color name="radio_bg_color">#121212</color>
 
+    <color name="ic_ringtone_nav">#C2AAEE</color>
+
 </resources>

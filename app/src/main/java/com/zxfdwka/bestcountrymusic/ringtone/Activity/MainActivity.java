@@ -258,9 +258,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                methods.clickLogin();
 //                break;
             case R.id.nav_back:
-                Stop();
-                Intent back = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(back);
+                finish();
+//                Stop();
+//                Intent back = new Intent(MainActivity.this, HomeActivity.class);
+//                startActivity(back);
                 break;
 
             case R.id.nav_cat:
@@ -403,10 +404,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         switch (id){
-            case R.id.action_pro :
-                showDialog_pay();
-
-                break;
+//            case R.id.action_pro :
+//                showDialog_pay();
+//
+//                break;
 
             case R.id.item_search :
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));

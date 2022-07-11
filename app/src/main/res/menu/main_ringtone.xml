@@ -7,14 +7,16 @@
         android:id="@+id/item_search"
         android:title="search"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_loupe"/>
+        android:iconTint="@color/text_black"
+        android:icon="@mipmap/ic_search"/>
 
     <item
         android:id="@+id/action_pro"
         android:icon="@drawable/ic_subscribe"
         android:orderInCategory="100"
         android:title="Pay"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:visible="false"/>
 
 
 </menu>

@@ -49,7 +49,7 @@ public class SettingActivity extends AppCompatActivity {
     SharedPref sharedPref;
     Methods methods;
     AdConsent adConsent;
-    ConstraintLayout ll_theme;
+    LinearLayout ll_theme;
     LinearLayout ll_consent, ll_adView;
     SwitchCompat switch_consent, switch_noti;
     Boolean isNoti = true;
