@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
+import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
 import com.zxfdwka.bestcountrymusic.ringtone.Activity.CategoriesActivity;
 import com.zxfdwka.bestcountrymusic.ringtone.item.ListltemCategory;
 
@@ -23,6 +25,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     private List<ListltemCategory> listltems;
     private Context context;
+    private Methods methods;
 
     public CategoryAdapter(List<ListltemCategory> listltems, Context context) {
         this.listltems = listltems;
@@ -179,11 +182,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 public void onClick(View v){
                     int pos = getAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION){
-                        Intent intent = new Intent(context, CategoriesActivity.class);
-                        intent.putExtra("name", listltems.get(pos).getCategory_name());
-                        intent.putExtra("cid", listltems.get(pos).getCid());
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+                        methods.showInterScreenAd(new InterScreenListener() {
+                            @Override
+                            public void onClick() {
+                                Intent intent = new Intent(context, CategoriesActivity.class);
+                                intent.putExtra("name", listltems.get(pos).getCategory_name());
+                                intent.putExtra("cid", listltems.get(pos).getCid());
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent);
+                            }
+                        });
+
                     }
                 }
             });
