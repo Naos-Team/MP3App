@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,11 +37,13 @@ public class SearchActivity extends AppCompatActivity {
     int page = 0;
     GridLayoutManager grid;
     LoadSongs load;
-
+    LinearLayout ll_ad;
     EditText searchView;
     ImageView search;
     Methods methods;
     Toolbar toolbar2;
+
+    com.zxfdwka.bestcountrymusic.mp3.utils.Methods methods1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +69,12 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
         arrayList = new ArrayList<>();
         progressBar = findViewById(R.id.load_video);
+
+        methods1 = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
+        ll_ad = findViewById(R.id.ll_ad);
+        methods1.showSMARTBannerAd(ll_ad);
 
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
