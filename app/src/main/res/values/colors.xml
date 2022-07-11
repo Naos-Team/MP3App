@@ -6,8 +6,8 @@
 
     <color name="colorThemeRadio">#3CB966</color>
 
-    <color name="primary">#2b1d58</color>
-    <color name="primary_dark">#186B8E</color>
+    <color name="primary">#6939c1</color>
+    <color name="primary_dark">#6939c1</color>
 
     <color name="bg">#F6F7F8</color>
     <color name="bg_items">#FFFFFF</color>
