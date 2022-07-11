@@ -72,6 +72,7 @@
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:layout_marginRight="6dp"
+                        app:tint="@color/white"
                         app:srcCompat="@drawable/radio_eye" />
 
                     <TextView

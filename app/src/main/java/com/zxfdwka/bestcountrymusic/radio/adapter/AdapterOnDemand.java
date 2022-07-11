@@ -80,6 +80,7 @@ public class AdapterOnDemand extends RecyclerView.Adapter<AdapterOnDemand.MyView
 
         Picasso.get()
                 .load(methods.getImageThumbSize(arraylist.get(holder.getAdapterPosition()).getImageThumb(),context.getString(R.string.on_demand)))
+                .placeholder(R.drawable.placeholder)
                 .into(holder.imageView);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
