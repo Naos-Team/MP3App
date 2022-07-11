@@ -127,9 +127,9 @@ public class LoginActivity extends AppCompatActivity {
         textView_register = findViewById(R.id.tv_login_signup);
         textView_forgotpass = findViewById(R.id.tv_forgotpass);
 
-        button_login.setBackground(methods.getRoundDrawable(getResources().getColor(R.color.primary)));
+        button_login.setBackground(methods.getRoundDrawable(getResources().getColor(R.color.black)));
         button_skip.setBackground(methods.getRoundDrawable(Color.WHITE));
-        button_skip.setTextColor(getResources().getColor(R.color.primary));
+        //button_skip.setTextColor(getResources().getColor(R.color.primary));
 
         TextView tv_welcome = findViewById(R.id.tv);
 

@@ -59,62 +59,60 @@
 <!--                    android:textColor="@color/text_black" />-->
 <!--            </LinearLayout>-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/ll_theme"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/white_dark"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                >
+                android:paddingEnd="10dp">
 
-                <TextView
-                    android:id="@+id/tv1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:text="@string/theme"
-                    android:textStyle="bold"
-                    android:textSize="17sp"
-                    android:textColor="@color/text_black"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_theme"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_theme"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                <ImageView
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:tint="@color/text_black"
+                    android:src="@drawable/setting_theme"/>
 
-                <TextView
-                    android:id="@+id/tv_theme"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:textSize="14sp"
-                    android:textColor="@color/text_black"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_theme"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv1" />
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:text="Theme"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_black" />
+                    <TextView
+                        android:id="@+id/tv_theme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text=""
+                        android:textSize="14sp"
+                        android:textColor="@color/text_black" />
+
+                </LinearLayout>
+
+
 
                 <ImageView
                     android:id="@+id/iv_theme"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="10dp"
-                    android:contentDescription="@string/image"
-                    android:padding="4dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     app:tint="@color/text_black"
-                    android:src="@drawable/setting_theme"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:src="@drawable/more_ringtone"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/ll_consent"
@@ -187,7 +185,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:text="Notification"
                     android:textSize="18sp"

@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
         editText_cpass = findViewById(R.id.et_regis_cpassword);
         editText_phone = findViewById(R.id.et_regis_phone);
 
-        button_register.setBackground(methods.getRoundDrawable(getResources().getColor(R.color.primary)));
+        button_register.setBackground(methods.getRoundDrawable(getResources().getColor(R.color.black)));
 
         TextView tv_welcome = findViewById(R.id.tv);
 

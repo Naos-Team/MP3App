@@ -18,7 +18,7 @@
             android:elevation="10dp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/logo_ringtone"
-            app:tint="@color/white" />
+            app:tint="@color/ic_ringtone_nav" />
 
 
     </RelativeLayout>
@@ -28,7 +28,7 @@
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/ic_ringtone_nav"
         android:text="Ringtone"
         android:layout_marginTop="10dp"
         android:textSize="20dp" />
