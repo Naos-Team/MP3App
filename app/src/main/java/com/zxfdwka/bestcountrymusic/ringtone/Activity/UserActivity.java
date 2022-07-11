@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.BuildConfig;
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.RingtoneAdapter;
 import com.zxfdwka.bestcountrymusic.ringtone.EndlessRecyclerViewScroll.EndlessRecyclerViewScrollListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Listener.ClickListenerRecorder;
@@ -35,14 +36,16 @@ public class UserActivity extends AppCompatActivity {
     LoadSongs loadWallpaper;
     Toolbar toolbar2;
     Methods methods;
+    com.zxfdwka.bestcountrymusic.mp3.utils.Methods methods1;
+    LinearLayout adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Setting.Dark_Mode) {
-            setTheme(R.style.AppTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+//        if (Setting.Dark_Mode) {
+//            setTheme(R.style.AppTheme);
+//        } else {
+//            setTheme(R.style.AppTheme);
+//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_ringtone);
 
@@ -57,9 +60,18 @@ public class UserActivity extends AppCompatActivity {
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        finish();
+                    }
+                });
             }
         });
+
+        methods1 = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
+        adView = findViewById(R.id.adView);
+        methods1.showSMARTBannerAd(adView);
 
         arrayList = new ArrayList<>();
         progressBar = findViewById(R.id.load_video);
@@ -144,7 +156,7 @@ public class UserActivity extends AppCompatActivity {
             adapter = new RingtoneAdapter(UserActivity.this, arrayList , new ClickListenerRecorder(){
                 @Override
                 public void onClick(int position) {
-                    methods.showInter(position, "");
+                    //methods.showInter(position, "");
                     Setting.arrayList_play_rc.clear();
                     Setting.arrayList_play_rc.addAll(arrayList);
                     Setting.playPos_rc = position;

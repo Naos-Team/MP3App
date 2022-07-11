@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.SongAdapter;
 import com.zxfdwka.bestcountrymusic.ringtone.DBHelper.DBHelper;
 import com.zxfdwka.bestcountrymusic.ringtone.Listener.ClickListenerRecorder;
@@ -30,22 +31,28 @@ public class FavouriteActivity extends AppCompatActivity {
     private SongAdapter adapter;
     private ArrayList<ItemRingtone> arrayList;
     private ProgressBar progressBar;
+    private com.zxfdwka.bestcountrymusic.mp3.utils.Methods methods1;
+    LinearLayout adView;
 
     Toolbar toolbar2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Setting.Dark_Mode ) {
-            setTheme(R.style.AppTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+//        if (Setting.Dark_Mode ) {
+//            setTheme(R.style.AppTheme);
+//        } else {
+//            setTheme(R.style.AppTheme);
+//        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories_ringtone);
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
+
+        methods1 = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
+        adView = findViewById(R.id.adView);
+        methods1.showSMARTBannerAd(adView);
 
         toolbar2 = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar2);
@@ -56,7 +63,13 @@ public class FavouriteActivity extends AppCompatActivity {
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        finish();
+                    }
+                });
+
             }
         });
 

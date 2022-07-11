@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.AdapterDownload;
 import com.zxfdwka.bestcountrymusic.ringtone.Constant.Constant;
 import com.zxfdwka.bestcountrymusic.ringtone.Listener.ClickListenerRecorder;
@@ -34,6 +36,8 @@ public class DownloadActivity extends AppCompatActivity{
     AdapterDownload adapter;
     ArrayList<Itemdownload> arrayList;
     ProgressBar progressbar;
+    com.zxfdwka.bestcountrymusic.mp3.utils.Methods methods1;
+    LinearLayout ll_ad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +56,20 @@ public class DownloadActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
         setTitle(getResources().getString(R.string.download));
 
+        methods1 = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
+        ll_ad = findViewById(R.id.ll_ad);
+        methods1.showSMARTBannerAd(ll_ad);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        finish();
+                    }
+                });
             }
         });
 

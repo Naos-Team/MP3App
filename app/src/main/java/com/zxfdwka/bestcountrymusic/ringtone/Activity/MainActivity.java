@@ -45,6 +45,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.zxfdwka.bestcountrymusic.HomeActivity;
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.ViewPagerAdapter;
 import com.zxfdwka.bestcountrymusic.ringtone.Constant.Constant;
 import com.zxfdwka.bestcountrymusic.ringtone.DBHelper.DBHelper;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Activity activity;
     Methods methods;
     DBHelper dbHelper;
+    com.zxfdwka.bestcountrymusic.mp3.utils.Methods methods1;
+    LinearLayout adView;
 
     SharedPref sharedPref;
 
@@ -114,6 +117,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         methods.forceRTLIfSupported(getWindow());
         dbHelper = new DBHelper(this);
         sharedPref = new SharedPref(MainActivity.this);
+
+        methods1 = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
+        adView = findViewById(R.id.adView);
+        methods1.showSMARTBannerAd(adView);
 //        nemosofts = new Nemosofts(this);
 //        // Initialize the Update Manager with the Activity and the Update Mode
 //        update = UpdateManager.Builder(this).mode(UpdateManagerConstant.FLEXIBLE);
@@ -193,8 +200,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-        LinearLayout adView = findViewById(R.id.adView);
-        methods.showBannerAd(adView);
+
+        //methods.showBannerAd(adView);
 
         checkIfAlreadyhavePermission(this);
         requestForSpecificPermission(this);
@@ -230,23 +237,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 break;
             case R.id.nav_user_by:
-                Stop();
-                Intent intent_user = new Intent(MainActivity.this, UserActivity.class);
-                startActivity(intent_user);
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        methods1.showInterScreenAd(new InterScreenListener() {
+                            @Override
+                            public void onClick() {
+                                Stop();
+                                Intent intent_user = new Intent(MainActivity.this, UserActivity.class);
+                                startActivity(intent_user);
+                            }
+                        });
+                    }
+                });
                 break;
             case R.id.nav_fav:
-                Stop();
-                Intent intent_fav = new Intent(MainActivity.this, FavouriteActivity.class);
-                startActivity(intent_fav);
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        Stop();
+                        Intent intent_fav = new Intent(MainActivity.this, FavouriteActivity.class);
+                        startActivity(intent_fav);
+                    }
+                });
+
                 break;
             case R.id.nav_download:
-                Stop();
-                Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
-                startActivity(intent);
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        Stop();
+                        Intent intent = new Intent(MainActivity.this, DownloadActivity.class);
+                        startActivity(intent);
+                    }
+                });
                 break;
             case R.id.nav_upload:
-                Intent update = new Intent(MainActivity.this,UploadRingtoneActivity.class);
-                startActivity(update);
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        Intent update = new Intent(MainActivity.this,UploadRingtoneActivity.class);
+                        startActivity(update);
+                    }
+                });
                 break;
 //            case R.id.nav_set:
 //                overridePendingTransition(0, 0);
@@ -258,22 +291,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                methods.clickLogin();
 //                break;
             case R.id.nav_back:
-                finish();
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        finish();
+                    }
+                });
+
 //                Stop();
 //                Intent back = new Intent(MainActivity.this, HomeActivity.class);
 //                startActivity(back);
                 break;
 
             case R.id.nav_cat:
-                Stop();
-                Intent cat = new Intent(MainActivity.this, BaseCategoriesActivity.class);
-                startActivity(cat);
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        Stop();
+                        Intent cat = new Intent(MainActivity.this, BaseCategoriesActivity.class);
+                        startActivity(cat);
+                    }
+                });
+
                 break;
 
             case R.id.nav_search:
-                Stop();
-                Intent search = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(search);
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        Stop();
+                        Intent search = new Intent(MainActivity.this, SearchActivity.class);
+                        startActivity(search);
+                    }
+                });
+
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -493,7 +544,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final BottomSheetDialog dialog_setas = new BottomSheetDialog(this);
         dialog_setas.setContentView(view);
-        dialog_setas.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
+        //dialog_setas.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
 
         this.text_view_go_pro=(TextView) dialog_setas.findViewById(R.id.text_view_go_pro);
         RelativeLayout relativeLayout_close_rate_gialog=(RelativeLayout) dialog_setas.findViewById(R.id.relativeLayout_close_rate_gialog);

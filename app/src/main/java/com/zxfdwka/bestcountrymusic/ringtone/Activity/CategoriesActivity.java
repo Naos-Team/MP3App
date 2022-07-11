@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.BuildConfig;
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.RingtoneAdapter;
 import com.zxfdwka.bestcountrymusic.ringtone.EndlessRecyclerViewScroll.EndlessRecyclerViewScrollListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Listener.ClickListenerRecorder;
@@ -37,17 +38,22 @@ public class CategoriesActivity extends AppCompatActivity {
     LoadSongs loadWallpaper;
     Toolbar toolbar;
     Methods methods;
-
+    LinearLayout adView;
+    com.zxfdwka.bestcountrymusic.mp3.utils.Methods methods1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
+        //setTheme(R.style.AppTheme);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories_ringtone);
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
+
+        methods1 = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
+        adView = findViewById(R.id.adView);
+        methods1.showSMARTBannerAd(adView);
 
         toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
@@ -57,7 +63,12 @@ public class CategoriesActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        finish();
+                    }
+                });
             }
         });
 

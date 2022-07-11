@@ -11,9 +11,11 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.CategoryAdapter;
 import com.zxfdwka.bestcountrymusic.ringtone.Fragment.CategoriesFragment;
 import com.zxfdwka.bestcountrymusic.ringtone.Method.Methods;
@@ -34,6 +36,8 @@ public class BaseCategoriesActivity extends AppCompatActivity {
     private int page = 0;
     private ProgressBar progressBar;
     private Toolbar toolbar;
+    private com.zxfdwka.bestcountrymusic.mp3.utils.Methods methods1;
+    private LinearLayout adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +52,21 @@ public class BaseCategoriesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Categories");
 
+        methods1 = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
+        adView = findViewById(R.id.adView);
+        methods1.showSMARTBannerAd(adView);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        finish();
+                    }
+                });
+
             }
         });
 

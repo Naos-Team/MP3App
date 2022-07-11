@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.SongAdapter;
 import com.zxfdwka.bestcountrymusic.ringtone.EndlessRecyclerViewScroll.EndlessRecyclerViewScrollListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Listener.ClickListenerRecorder;
@@ -65,7 +66,13 @@ public class SearchActivity extends AppCompatActivity {
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        onBackPressed();
+
+                    }
+                });
             }
         });
 
@@ -118,7 +125,7 @@ public class SearchActivity extends AppCompatActivity {
         methods = new Methods(SearchActivity.this, new InterAdListener() {
             @Override
             public void onClick(int position, String type) {
-                methods.showInter(position, "");
+                //methods.showInter(position, "");
                 Setting.arrayList_play_rc.clear();
                 Setting.arrayList_play_rc.addAll(arrayList);
                 Setting.playPos_rc = position;
@@ -167,7 +174,7 @@ public class SearchActivity extends AppCompatActivity {
             adapter = new SongAdapter(SearchActivity.this, arrayList, new ClickListenerRecorder() {
                 @Override
                 public void onClick(int position) {
-                    methods.showInter(position, "");
+                    //methods.showInter(position, "");
                     Setting.arrayList_play_rc.clear();
                     Setting.arrayList_play_rc.addAll(arrayList);
                     Setting.playPos_rc = position;
