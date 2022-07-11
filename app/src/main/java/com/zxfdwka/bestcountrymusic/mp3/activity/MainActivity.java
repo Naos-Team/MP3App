@@ -183,7 +183,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 startActivity(intent);
                 break;
             case R.id.nav_login:
-                methods.clickLogin();
+                finish();
+                //methods.clickLogin();
                 break;
         }
 
@@ -281,15 +282,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void changeLoginName() {
         if (menu_login != null) {
-            if (Constant.isLogged) {
-                menu_prof.setVisible(true);
-                menu_login.setTitle(getResources().getString(R.string.logout));
-                menu_login.setIcon(getResources().getDrawable(R.mipmap.logout));
-            } else {
-                menu_prof.setVisible(false);
-                menu_login.setTitle(getResources().getString(R.string.login));
-                menu_login.setIcon(getResources().getDrawable(R.mipmap.login));
-            }
+//            if (Constant.isLogged) {
+//                menu_prof.setVisible(true);
+//                menu_login.setTitle(getResources().getString(R.string.logout));
+//                menu_login.setIcon(getResources().getDrawable(R.mipmap.logout));
+//            } else {
+//                menu_prof.setVisible(false);
+//                menu_login.setTitle(getResources().getString(R.string.login));
+//                menu_login.setIcon(getResources().getDrawable(R.mipmap.login));
+//            }
         }
     }
 

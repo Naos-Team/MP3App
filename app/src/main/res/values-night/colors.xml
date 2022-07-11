@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6939c1</color>
+    <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#5961FF</color>
 
@@ -8,11 +8,11 @@
     <color name="radio_player_theme">#DBFFFFFF</color>
     <color name="radio_item_border">#DBFFFFFF</color>
 
-    <color name="primary">#2192C1</color>
-    <color name="primary_dark">#186B8E</color>
+    <color name="primary">#8958E3</color>
+    <color name="primary_dark">#8958E3</color>
 
     <color name="bg">#0b0b0b</color>
-    <color name="bg_items">#2F2F2F</color>
+    <color name="bg_items">#000000</color>
     <color name="bg_bottom_bar">#2F2F2F</color>
     <color name="nav_icon">#C5C5C5</color>
     <color name="nav_hover">#20000000</color>
