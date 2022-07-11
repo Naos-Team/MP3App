@@ -45,6 +45,7 @@ public class MiniPlayer extends AppCompatActivity implements MediaPlayer.OnCompl
         MediaPlayer.OnErrorListener, MediaPlayer.OnPreparedListener, View.OnClickListener,
         AudioManager.OnAudioFocusChangeListener, SeekBar.OnSeekBarChangeListener, View.OnTouchListener {
 
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));

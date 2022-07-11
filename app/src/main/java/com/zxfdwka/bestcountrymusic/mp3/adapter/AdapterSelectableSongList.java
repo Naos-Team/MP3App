@@ -72,7 +72,6 @@ public class AdapterSelectableSongList extends RecyclerView.Adapter<AdapterSelec
 
         holder.textView_catname.setText(arrayList.get(position).getArtist());
 
-//        holder.checkBox.setChecked(filteredArrayList.get(holder.getAdapterPosition()).getSelected());
         holder.checkBox.setChecked(arrayListSelectedIDs.contains(arrayList.get(holder.getAdapterPosition()).getId()));
 
         holder.rl.setOnClickListener(new View.OnClickListener() {

@@ -90,6 +90,7 @@
         <activity
             android:name=".mp3.activity.Add2OfflinePlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
+
         <activity
             android:name=".mp3.activity.SettingActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
@@ -100,7 +101,7 @@
             android:name=".mp3.activity.OfflineMusicActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustPan|adjustNothing" />
+            android:windowSoftInputMode="adjustPan|adjustNothing"/>
         <activity
             android:name=".mp3.activity.SelectSongActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
@@ -126,6 +127,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />
@@ -136,6 +144,10 @@
         <service
             android:name="com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService"
             android:exported="false" />
+
+        <service android:name="com.zxfdwka.bestcountrymusic.radio.utils.PlayService"
+            android:exported="false"/>
+
         <service
             android:name=".mp3.utils.NotificationExtenderExample"
             android:exported="false"
