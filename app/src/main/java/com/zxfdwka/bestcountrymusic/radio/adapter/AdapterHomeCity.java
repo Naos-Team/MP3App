@@ -19,10 +19,10 @@ import com.squareup.picasso.Picasso;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.CityClickListener;
-import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemCity;
 import com.zxfdwka.bestcountrymusic.radio.utils.Constants;
-import com.zxfdwka.bestcountrymusic.radio.utils.Methods;
+import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
 import com.zxfdwka.bestcountrymusic.radio.utils.SharedPref;
 
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class AdapterHomeCity extends RecyclerView.Adapter<AdapterHomeCity.MyView
         holder.cs_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                methods.showInter(holder.getAdapterPosition(), "");
+                methods.showInterAd(holder.getAdapterPosition(), "");
             }
         });
 

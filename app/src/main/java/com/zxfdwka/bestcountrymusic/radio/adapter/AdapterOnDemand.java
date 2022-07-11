@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
-import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemRadio;
 import com.zxfdwka.bestcountrymusic.radio.utils.Constants;
 import com.zxfdwka.bestcountrymusic.radio.utils.Methods;
@@ -30,6 +30,7 @@ public class AdapterOnDemand extends RecyclerView.Adapter<AdapterOnDemand.MyView
     private ArrayList<ItemRadio> filteredArrayList;
     private NameFilter filter;
     private Methods methods;
+    private com.zxfdwka.bestcountrymusic.mp3.utils.Methods mp3_methods;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -52,7 +53,8 @@ public class AdapterOnDemand extends RecyclerView.Adapter<AdapterOnDemand.MyView
         this.arraylist = list;
         this.filteredArrayList = list;
 
-        methods = new Methods(context, interAdListener);
+        methods = new Methods(context);
+        mp3_methods = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(context, interAdListener);
 //        Resources r = context.getResources();
 //        float padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, Constants.GRID_PADDING, r.getDisplayMetrics());
 //        Constants.columnWidth = (int) ((methods.getScreenWidth() - ((Constants.NUM_OF_COLUMNS + 1) * padding)) / Constants.NUM_OF_COLUMNS);
@@ -86,7 +88,7 @@ public class AdapterOnDemand extends RecyclerView.Adapter<AdapterOnDemand.MyView
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                methods.showInter(holder.getAdapterPosition(),"");
+                mp3_methods.showInterAd(holder.getAdapterPosition(),"");
             }
         });
     }

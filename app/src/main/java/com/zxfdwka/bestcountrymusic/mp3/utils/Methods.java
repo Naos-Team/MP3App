@@ -50,6 +50,7 @@ import com.zxfdwka.bestcountrymusic.mp3.activity.LoginActivity;
 import com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemMyPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemSong;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemUser;
@@ -442,6 +443,12 @@ public class Methods {
                             linearLayout.addView(adView);
                             super.onAdLoaded();
                         }
+
+                        @Override
+                        public void onAdFailedToLoad(LoadAdError loadAdError) {
+                            String err = loadAdError.getMessage();
+                            super.onAdFailedToLoad(loadAdError);
+                        }
                     });
 
                     adView.setAdUnitId(Constant.ad_banner_id);
@@ -622,6 +629,117 @@ public class Methods {
         } else {
             showRateDialog();
             interAdListener.onClick(pos, type);
+        }
+    }
+
+    public void showInterScreenAd(InterScreenListener listener) {
+        if (Constant.isInterAd) {
+            Constant.adCount = Constant.adCount + 1;
+            if (Constant.adCount % Constant.ad_interstitial_display == 0) {
+
+                isClicked = false;
+                if (Constant.interstitialAdType.equals("admob")) {
+
+                    final InterstitialAd interstitialAd = new InterstitialAd(context);
+                    AdRequest adRequest;
+                    if (ConsentInformation.getInstance(context).getConsentStatus() == ConsentStatus.PERSONALIZED) {
+                        adRequest = new AdRequest.Builder()
+                                .build();
+                    } else {
+                        Bundle extras = new Bundle();
+                        extras.putString("npa", "1");
+                        adRequest = new AdRequest.Builder()
+                                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+                                .build();
+                    }
+                    interstitialAd.setAdUnitId(Constant.ad_inter_id);
+//                    interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+                    interstitialAd.loadAd(adRequest);
+                    interstitialAd.setAdListener(new AdListener() {
+                        @Override
+                        public void onAdLoaded() {
+                            super.onAdLoaded();
+                            if (!isClicked) {
+                                isClicked = true;
+                                interstitialAd.show();
+                            }
+                        }
+
+                        public void onAdClosed() {
+                            listener.onClick();
+                            super.onAdClosed();
+                        }
+
+                        @Override
+                        public void onAdFailedToLoad(LoadAdError loadAdError) {
+                            if (!isClicked) {
+                                isClicked = true;
+                                listener.onClick();
+                            }
+                            super.onAdFailedToLoad(loadAdError);
+                            String err = loadAdError.getMessage();
+                        }
+                    });
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!isClicked) {
+                                isClicked = true;
+                                listener.onClick();
+                            }
+                        }
+                    }, 2000);
+                } else {
+                    final com.facebook.ads.InterstitialAd interstitialAdFB = new com.facebook.ads.InterstitialAd(context, Constant.ad_inter_id);
+                    interstitialAdFB.loadAd();
+                    interstitialAdFB.loadAd(interstitialAdFB.buildLoadAdConfig()
+                            .withAdListener(new InterstitialAdListener() {
+                                @Override
+                                public void onInterstitialDisplayed(com.facebook.ads.Ad ad) {
+
+                                }
+
+                                @Override
+                                public void onInterstitialDismissed(com.facebook.ads.Ad ad) {
+                                    if (!isClicked) {
+                                        isClicked = true;
+                                        listener.onClick();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(com.facebook.ads.Ad ad, AdError adError) {
+                                    if (!isClicked) {
+                                        isClicked = true;
+                                        listener.onClick();
+                                    }
+                                }
+
+                                @Override
+                                public void onAdLoaded(com.facebook.ads.Ad ad) {
+                                    interstitialAdFB.show();
+                                }
+
+                                @Override
+                                public void onAdClicked(com.facebook.ads.Ad ad) {
+
+                                }
+
+                                @Override
+                                public void onLoggingImpression(com.facebook.ads.Ad ad) {
+
+                                }
+                            })
+                            .build());
+                }
+            } else {
+                showRateDialog();
+                listener.onClick();
+            }
+        } else {
+            showRateDialog();
+            listener.onClick();
         }
     }
 
