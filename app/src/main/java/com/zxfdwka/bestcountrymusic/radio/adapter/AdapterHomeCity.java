@@ -1,6 +1,9 @@
 package com.zxfdwka.bestcountrymusic.radio.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.CityClickListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemCity;
@@ -32,14 +36,16 @@ public class AdapterHomeCity extends RecyclerView.Adapter<AdapterHomeCity.MyView
     private Methods methods;
     private SharedPref sharedPref;
     private Context context;
+    private ConstraintLayout.LayoutParams lp_item;
 
-    public AdapterHomeCity(Context context, ArrayList<ItemCity> arraylist, CityClickListener cityClickListener){
+    public AdapterHomeCity(Context context, ArrayList<ItemCity> arraylist, CityClickListener cityClickListener, ConstraintLayout.LayoutParams lp_item){
         this.context = context;
         this.arraylist = arraylist;
         this.filteredArrayList = arraylist;
         this.cityClickListener = cityClickListener;
         methods = new Methods(context, interAdListener);
         sharedPref = new SharedPref(context);
+        this.lp_item = lp_item;
     }
 
     @NonNull
@@ -55,15 +61,23 @@ public class AdapterHomeCity extends RecyclerView.Adapter<AdapterHomeCity.MyView
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         String[] parts = arraylist.get(position).getName().split("-");
 
-        //holder.tv_title.setText(arraylist.get(position).getName());
         holder.tv_country.setText(parts[1]);
         holder.tv_title.setText(parts[0]);
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.cs_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 methods.showInter(holder.getAdapterPosition(), "");
             }
         });
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RadioBaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        holder.tv_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, height*0.02f);
+        holder.tv_country.setTextSize(TypedValue.COMPLEX_UNIT_PX, height*0.014f);
+        holder.tv_country.setTypeface(null, Typeface.BOLD);
 
         String url ="";
 
@@ -159,6 +173,8 @@ public class AdapterHomeCity extends RecyclerView.Adapter<AdapterHomeCity.MyView
         Picasso.get()
                 .load(url)
                 .into(holder.imageView);
+
+        holder.cs_item.setLayoutParams(lp_item);
     }
 
     @Override
@@ -169,14 +185,14 @@ public class AdapterHomeCity extends RecyclerView.Adapter<AdapterHomeCity.MyView
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tv_title, tv_country;
-        private CardView cardView;
+        private ConstraintLayout cs_item;
         private ImageView imageView;
 
         private MyViewHolder(View view) {
             super(view);
             tv_country = view.findViewById(R.id.tv_cityhome_text_city);
             tv_title = view.findViewById(R.id.tv_cityhome_text);
-            cardView = view.findViewById(R.id.cv_cityhome);
+            cs_item = view.findViewById(R.id.cs_item);
             imageView = view.findViewById(R.id.image_city_item);
         }
     }

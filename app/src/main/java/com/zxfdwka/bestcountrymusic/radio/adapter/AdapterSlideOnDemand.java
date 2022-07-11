@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.radio.interfaces.CityClickListener;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemOnDemandCat;
 import com.zxfdwka.bestcountrymusic.radio.utils.Methods;
 
@@ -22,7 +23,7 @@ public class AdapterSlideOnDemand extends RecyclerView.Adapter<AdapterSlideOnDem
     private Methods methods;
     private static int selected_index= 0;
 
-    public AdapterSlideOnDemand(ArrayList<ItemOnDemandCat> arrayList, Methods methods) {
+    public AdapterSlideOnDemand(ArrayList<ItemOnDemandCat> arrayList,  Methods methods) {
         this.arrayList = arrayList;
         this.methods = methods;
     }

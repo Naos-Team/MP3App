@@ -2,6 +2,9 @@ package com.zxfdwka.bestcountrymusic.radio.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
@@ -34,25 +38,24 @@ public class AdapterCityDetails extends RecyclerView.Adapter<AdapterCityDetails.
     private ArrayList<ItemRadio> filteredArrayList;
     private NameFilter filter;
     private Methods methods;
+    private ConstraintLayout.LayoutParams lp_item;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textView_title, textView_views, textView_lang;
-        private ImageView imageView_fav, imageView;
-        private CardView cardView;
+        private ImageView imageView;
+        private TextView textView_radio, textView_freq;
+        private ConstraintLayout cs_item;
 
         private MyViewHolder(View view) {
             super(view);
-            cardView = view.findViewById(R.id.row_layout1);
-            textView_views = view.findViewById(R.id.textView_view1);
-            textView_lang = view.findViewById(R.id.textView_list_lang1);
-            textView_title = view.findViewById(R.id.textView_radio_name1);
-            imageView = view.findViewById(R.id.row_logo1);
-            imageView_fav = view.findViewById(R.id.imageView_fav);
+            cs_item = view.findViewById(R.id.cs_item);
+            textView_radio = view.findViewById(R.id.tv_cityhome_text);
+            textView_freq = view.findViewById(R.id.tv_cityhome_text_city);
+            imageView = view.findViewById(R.id.image_city_item);;
         }
     }
 
-    public AdapterCityDetails(Context context, ArrayList<ItemRadio> list) {
+    public AdapterCityDetails(Context context, ArrayList<ItemRadio> list, ConstraintLayout.LayoutParams lp_item) {
         this.context = context;
         this.arraylist = list;
         this.filteredArrayList = list;
@@ -60,6 +63,7 @@ public class AdapterCityDetails extends RecyclerView.Adapter<AdapterCityDetails.
 
 
         methods = new Methods(context, interAdListener);
+        this.lp_item = lp_item;
         Resources r = context.getResources();
         float padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, Constants.GRID_PADDING, r.getDisplayMetrics());
         Constants.columnWidth = (int) ((methods.getScreenWidth() - ((Constants.NUM_OF_COLUMNS + 1) * padding)) / Constants.NUM_OF_COLUMNS);
@@ -71,7 +75,7 @@ public class AdapterCityDetails extends RecyclerView.Adapter<AdapterCityDetails.
         View itemView;
         try{
              itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.layout_cityradio_list1, parent, false);
+                    .inflate(R.layout.layout_radiolist_grid, parent, false);
             return new MyViewHolder(itemView);
         }
         catch (Exception e){
@@ -81,21 +85,24 @@ public class AdapterCityDetails extends RecyclerView.Adapter<AdapterCityDetails.
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
-        Boolean isFav = checkFav(position);
+        ItemRadio objAllBean = (ItemRadio) arraylist.get(position);
+        holder.textView_radio.setText(objAllBean.getRadioName());
+        holder.textView_freq.setText(objAllBean.getRadioFreq());
 
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Constants.columnWidth, Constants.columnWidth);
-//        params.setMargins(0, 0, 0, 20);
-//        holder.cardView.setLayoutParams(params);
-        if (isFav) {
-            holder.imageView_fav.setImageResource(R.drawable.radio_fav);
-        } else {
-            holder.imageView_fav.setImageResource(R.drawable.radio_fav);
-        }
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RadioBaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
 
-        holder.textView_views.setText(Methods.format(Double.parseDouble(arraylist.get(position).getViews())));
-        holder.textView_title.setText(arraylist.get(position).getRadioName());
-        holder.textView_lang.setText(arraylist.get(position).getLanguage());
+        holder.textView_radio.setTypeface(null, Typeface.BOLD);
+        holder.textView_radio.setTextSize(TypedValue.COMPLEX_UNIT_PX, height*0.02f);
+        holder.textView_freq.setTextSize(TypedValue.COMPLEX_UNIT_PX, height*0.014f);
 
         String url = methods.getImageThumbSize(arraylist.get(holder.getAdapterPosition()).getRadioImageurl(),"");
         String url1 = "";
@@ -110,27 +117,18 @@ public class AdapterCityDetails extends RecyclerView.Adapter<AdapterCityDetails.
 
         Picasso.get()
                 .load(url1)
+                .placeholder(R.drawable.placeholder)
                 .into(holder.imageView);
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.cs_item.setLayoutParams(lp_item);
+
+        holder.cs_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                methods.showInter(holder.getAdapterPosition(),"");
+                methods.showInter(holder.getAdapterPosition(), "");
             }
         });
 
-        holder.imageView_fav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (dbHelper.addORremoveFav(arraylist.get(holder.getAdapterPosition()))) {
-                    holder.imageView_fav.setImageResource(R.drawable.radio_fav);
-                    methods.showToast(context.getString(R.string.add_to_fav));
-                } else {
-                    holder.imageView_fav.setImageResource(R.drawable.radio_unfav);
-                    methods.showToast(context.getString(R.string.remove_from_fav));
-                }
-            }
-        });
     }
 
     private Boolean checkFav(int pos) {

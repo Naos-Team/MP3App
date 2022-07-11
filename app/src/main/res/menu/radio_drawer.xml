@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/nav_home"
-        android:icon="@mipmap/home"
-        android:title="@string/home" />
+        android:icon="@drawable/ic_nav_radio"
+        android:title="@string/radio" />
 
     <item
         android:id="@+id/nav_ondemand"
-        android:icon="@mipmap/home"
+        android:icon="@drawable/ic_nav_ondemand"
         android:title="@string/on_demand"
         android:visible="true"/>
 
     <item
         android:id="@+id/nav_featured"
-        android:icon="@mipmap/home"
+        android:icon="@drawable/ic_nav_featured1"
         android:title="@string/featured" />
     <item
         android:id="@+id/nav_fav"
-        android:icon="@mipmap/home"
+        android:icon="@drawable/ic_nav_featured"
         android:title="@string/favourite" />
 <!--    <group android:checkableBehavior="single">-->
 <!--        <item-->

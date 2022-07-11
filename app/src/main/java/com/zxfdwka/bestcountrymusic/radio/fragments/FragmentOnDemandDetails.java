@@ -53,6 +53,7 @@ public class FragmentOnDemandDetails extends Fragment {
     private Methods methods;
     private ImageView btn_back;
     private static boolean some_stack;
+    private boolean isFromHome = false;
 
     public FragmentOnDemandDetails(boolean some_stack) {
         this.some_stack = some_stack;
@@ -65,8 +66,14 @@ public class FragmentOnDemandDetails extends Fragment {
         ((RadioBaseActivity) getActivity()).getSupportActionBar().hide();
 
         itemOnDemandCat = (ItemOnDemandCat) getArguments().getSerializable("item");
+        isFromHome = getArguments().getBoolean("is_from_home", false);
 
-        Constants.fragmentStatus = Constants.OTHER_HOME;
+        if(isFromHome){
+            Constants.fragmentStatus = Constants.NEAR_HOME;
+        }else{
+            Constants.fragmentStatus = Constants.OTHER_HOME;
+        }
+
 
         methods = new Methods(getActivity());
         sharedPref = new SharedPref(getActivity());

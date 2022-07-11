@@ -1,7 +1,8 @@
 package com.zxfdwka.bestcountrymusic.radio.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
@@ -39,37 +40,32 @@ public class AdapterRadios extends RecyclerView.Adapter {
     private ArrayList<Object> filteredArrayList;
     private NameFilter filter;
     private Methods methods;
+    private ConstraintLayout.LayoutParams lp_item;
 
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
 
-    public AdapterRadios(Context context, ArrayList<Object> list) {
+    public AdapterRadios(Context context, ArrayList<Object> list, ConstraintLayout.LayoutParams lp_item) {
         this.context = context;
         this.arraylist = list;
         this.filteredArrayList = list;
         dbHelper = new DBHelper(context);
-
-
         methods = new Methods(context, interAdListener);
-        Resources r = context.getResources();
-        float padding = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, Constants.GRID_PADDING, r.getDisplayMetrics());
-        Constants.columnWidth = (int) ((methods.getScreenWidth() - ((Constants.NUM_OF_COLUMNS + 1) * padding)) / Constants.NUM_OF_COLUMNS);
+        this.lp_item = lp_item;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textView_title, textView_views, textView_lang;
-        private ImageView imageView_fav, imageView;
-        private CardView cardView;
+        private ImageView imageView;
+        private TextView textView_radio, textView_freq;
+        private ConstraintLayout cs_item;
 
         private MyViewHolder(View view) {
             super(view);
-            cardView = view.findViewById(R.id.row_layout1);
-            textView_views = view.findViewById(R.id.textView_view1);
-            textView_lang = view.findViewById(R.id.textView_list_lang1);
-            textView_title = view.findViewById(R.id.textView_radio_name1);
-            imageView = view.findViewById(R.id.row_logo1);
-            imageView_fav = view.findViewById(R.id.imageView_fav);
+            cs_item = view.findViewById(R.id.cs_item);
+            textView_radio = view.findViewById(R.id.tv_cityhome_text);
+            textView_freq = view.findViewById(R.id.tv_cityhome_text_city);
+            imageView = view.findViewById(R.id.image_city_item);;
         }
     }
 
@@ -94,7 +90,7 @@ public class AdapterRadios extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
             case VIEW_ITEM:
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_cityradio_list1, parent, false);
+                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_radiolist_grid, parent, false);
                 return new MyViewHolder(itemView);
             case Constants.ITEM_BANNER_AD:
                 View bannerAdView = LayoutInflater.from(parent.getContext())
@@ -117,7 +113,6 @@ public class AdapterRadios extends RecyclerView.Adapter {
                 AdView adView = (AdView) arraylist.get(position);
                 ViewGroup adCardView = (ViewGroup) adsViewHolder.itemView;
 
-
                 if(adCardView.getChildCount()>0){
                     adCardView.removeAllViews();
                 }
@@ -133,43 +128,50 @@ public class AdapterRadios extends RecyclerView.Adapter {
 //                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Constants.columnWidth, Constants.columnWidth);
 //                params.setMargins(0, 0, 0, 20);
 //                holder.cardView.setLayoutParams(params);
-                if (isFav) {
-                    holder.imageView_fav.setImageResource(R.drawable.radio_fav);
-                } else {
-                    holder.imageView_fav.setImageResource(R.drawable.radio_unfav);
-                }
+//                if (isFav) {
+//                    holder.imageView_fav.setImageResource(R.drawable.radio_fav);
+//                } else {
+//                    holder.imageView_fav.setImageResource(R.drawable.radio_unfav);
+//                }
+                ItemRadio objAllBean = (ItemRadio) arraylist.get(position);
+                holder.textView_radio.setText(objAllBean.getRadioName());
+                holder.textView_freq.setText(objAllBean.getRadioFreq());
 
-                ItemRadio item = (ItemRadio) arraylist.get(position);
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                ((RadioBaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int height = displayMetrics.heightPixels;
+                int width = displayMetrics.widthPixels;
 
-                holder.textView_views.setText(Methods.format(Double.parseDouble(item.getViews())));
-                holder.textView_title.setText(item.getRadioName());
-                holder.textView_lang.setText(item.getLanguage());
-
-                ItemRadio itemPosition = (ItemRadio) arraylist.get(holder.getAdapterPosition());
+                holder.textView_radio.setTypeface(null, Typeface.BOLD);
+                holder.textView_radio.setTextSize(TypedValue.COMPLEX_UNIT_PX, height*0.02f);
+                holder.textView_freq.setTextSize(TypedValue.COMPLEX_UNIT_PX, height*0.014f);
 
                 Picasso.get()
-                        .load(methods.getImageThumbSize(itemPosition.getRadioImageurl(), ""))
+                        .load(methods.getImageThumbSize(objAllBean.getRadioImageurl().replace(" ", "%20"),context.getString(R.string.home)))
+                        .placeholder(R.drawable.placeholder)
                         .into(holder.imageView);
 
-                holder.cardView.setOnClickListener(new View.OnClickListener() {
+                holder.cs_item.setLayoutParams(lp_item);
+
+                holder.cs_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         methods.showInter(holder.getAdapterPosition(), "");
                     }
                 });
 
-                holder.imageView_fav.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (dbHelper.addORremoveFav(itemPosition)) {
-                            holder.imageView_fav.setImageResource(R.drawable.radio_fav);
-                            methods.showToast(context.getString(R.string.add_to_fav));
-                        } else {
-                            holder.imageView_fav.setImageResource(R.drawable.radio_unfav);
-                            methods.showToast(context.getString(R.string.remove_from_fav));
-                        }
-                    }
-                });
+//                holder.imageView_fav.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if (dbHelper.addORremoveFav(itemPosition)) {
+//                            holder.imageView_fav.setImageResource(R.drawable.radio_fav);
+//                            methods.showToast(context.getString(R.string.add_to_fav));
+//                        } else {
+//                            holder.imageView_fav.setImageResource(R.drawable.radio_unfav);
+//                            methods.showToast(context.getString(R.string.remove_from_fav));
+//                        }
+//                    }
+//                });
                 break;
             default:
                 if (getItemCount() < 15) {

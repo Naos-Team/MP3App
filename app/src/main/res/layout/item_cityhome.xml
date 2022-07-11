@@ -1,78 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
-    android:layout_width="110dp"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="15dp"
-    android:layout_marginBottom="10dp"
-    android:orientation="vertical"
-    android:layout_marginLeft="15dp">
+    android:id="@+id/cs_item"
+    android:layout_width="150dp"
+    android:layout_height="200dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_cityhome"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:foreground="?attr/selectableItemBackground"
-        card_view:cardBackgroundColor="#FFFFFF"
-        card_view:cardCornerRadius="100dp"
-        card_view:cardElevation="2dp"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:cardUseCompatPadding="false">
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/image_city_item"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/global_img"
+        card_view:layout_constraintBottom_toTopOf="@+id/cs_title"
+        card_view:riv_corner_radius="100dp"
+        card_view:riv_border_color="@color/radio_item_border"
+        card_view:riv_border_width="0.75dp"
+        card_view:layout_constraintDimensionRatio="1:1"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_weight="8"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/image_city_item"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
-                android:src="@drawable/global_img" />
-
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cs_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/image_city_item"
+        card_view:layout_constraintVertical_weight="2.5">
 
         <TextView
             android:id="@+id/tv_cityhome_text"
-            fontPath="fonts/Montserrat-SemiBold_0.otf"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ellipsize="marquee"
-            android:singleLine="false"
-            android:text=""
-            android:paddingTop="3dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            tools:ignore="MissingPrefix" />
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="Country"
+            android:textColor="@color/radio_text_color"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            card_view:layout_constraintBottom_toTopOf="@+id/tv_cityhome_text_city"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintVertical_bias="0.39"
+            card_view:layout_constraintVertical_chainStyle="spread" />
 
         <TextView
             android:id="@+id/tv_cityhome_text_city"
-            fontPath="fonts/Montserrat-SemiBold_0.otf"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ellipsize="marquee"
-            android:singleLine="false"
-            android:text=""
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:ignore="MissingPrefix"/>
-    </LinearLayout>
-</LinearLayout>
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="City name"
+            android:textColor="@color/radio_subtext_color"
+            android:textSize="10sp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_cityhome_text" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

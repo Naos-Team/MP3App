@@ -9,9 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
@@ -40,17 +43,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,6 +68,7 @@ import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
@@ -114,11 +121,11 @@ public class RadioBaseActivity extends AppCompatActivity{
     ProgressDialog progressDialog;
     CircularProgressBar circularProgressBar, circularProgressBar_collapse;
     SeekBar seekbar_song;
-    LinearLayout ll_ad, ll_collapse_color, ll_player_expand, ll_play_collapse, ll_top_collapse;
-    RelativeLayout rl_expand, rl_collapse, rl_song_seekbar, btn_previous_expand, btn_sleep, btn_next_expand, btn_volume;
+    LinearLayout ll_ad, ll_collapse_color, ll_player_expand, ll_play_collapse;
+    RelativeLayout rl_expand, rl_collapse, btn_sleep;
     ImageView imageView_player;
     RoundedImageView imageView_radio;
-    ImageView imageView_play, imageView_share, imageView_fav;
+    ImageView imageView_play, imageView_fav, btn_volume, btn_previous_expand, btn_next_expand, ll_top_collapse;
 //    FloatingActionButton fab_play_expand;
     TextView textView_name, textView_song, textView_freq_expand, textView_radio_expand, textView_song_expand, textView_song_duration, textView_total_duration, tv_views;
     Methods methods, methodsBack;
@@ -132,12 +139,17 @@ public class RadioBaseActivity extends AppCompatActivity{
     MenuItem menu_login, menu_profile;
     BottomSheetDialog dialog_report;
     RecyclerView rv_suggestion;
-    RelativeLayout btn_play_music, btn_previous_scene2, btn_next_scene2, btn_play_scene2;
-    ImageView iv_play_music, iv_thumb_scene2, iv_play_scene2;
+    RelativeLayout btn_play_music, btn_previous_scene2, btn_next_scene2, btn_play_scene2, rl_shadow_radio;
+    ImageView iv_play_music, iv_pause_music, iv_thumb_scene2, iv_play_scene2;
     CardView btn_report;
-    LinearLayout control_dragview, ll_suggest, ll_player_scene2, ll_player_content;
+    LinearLayout control_dragview, ll_suggest, ll_player_scene2, bg_musiccreen;
     TextView tv_songname_scene2;
-    BottomNavigationView bottomNavigationView;
+    public BottomNavigationView bottomNavigationView;
+    public int radio_nav = 540;
+    public int demand_nav = 433;
+    public int featured_nav = 248;
+    public int favorite_nav = 387;
+    public int current_nav = radio_nav;
 
     double current_offset = 0;
 
@@ -164,7 +176,7 @@ public class RadioBaseActivity extends AppCompatActivity{
             view_lollipop.setVisibility(View.VISIBLE);
         }
 
-
+        bg_musiccreen = findViewById(R.id.ll_bg_musicscreen);
         statusBarView = findViewById(R.id.statusBar);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
@@ -190,6 +202,7 @@ public class RadioBaseActivity extends AppCompatActivity{
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 clickNav(item.getItemId());
                 slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                 Log.e("Count", "entry count: " + fm.getBackStackEntryCount());
@@ -198,6 +211,7 @@ public class RadioBaseActivity extends AppCompatActivity{
         });
 
         slidingPanel = findViewById(R.id.sliding_layout);
+        slidingPanel.setDragView(rl_collapse);
 //        navigationView = findViewById(R.id.nav_view);
 //        Menu menu = navigationView.getMenu();
 //        menu_login = menu.findItem(R.id.nav_login);
@@ -212,7 +226,8 @@ public class RadioBaseActivity extends AppCompatActivity{
         circularProgressBar_collapse = findViewById(R.id.loader_collapse);
         seekbar_song = findViewById(R.id.seekbar_song);
         btn_sleep = findViewById(R.id.btn_sleep_expand);
-        imageView_share = findViewById(R.id.imageView_share);
+        rl_shadow_radio = findViewById(R.id.rl_shadow_radio);
+//        imageView_share = findViewById(R.id.imageView_share);
         imageView_fav = findViewById(R.id.imageView_fav_expand);
         imageView_player = findViewById(R.id.imageView_player);
         btn_previous_expand = findViewById(R.id.btn_previous_expand);
@@ -232,10 +247,9 @@ public class RadioBaseActivity extends AppCompatActivity{
         btn_previous_scene2 = findViewById(R.id.btn_previous_scene2);
         btn_next_scene2 = findViewById(R.id.btn_next_scene2);
         tv_songname_scene2 = findViewById(R.id.tv_songname_scene2);
-        ll_player_content = findViewById(R.id.ll_player_content);
-
 
         iv_play_music = findViewById(R.id.iv_play_music);
+        iv_pause_music = findViewById(R.id.iv_pause_music);
         btn_play_music = findViewById(R.id.btn_play_music);
 //        fab_play_expand = findViewById(R.id.fab_play);
         imageView_radio = findViewById(R.id.imageView_radio);
@@ -248,7 +262,7 @@ public class RadioBaseActivity extends AppCompatActivity{
         ll_player_expand = findViewById(R.id.ll_player_expand);
         ll_play_collapse = findViewById(R.id.ll_play_collapse);
         ll_top_collapse = findViewById(R.id.ll_top_collapse);
-        rl_song_seekbar = findViewById(R.id.rl_song_seekbar);
+//        rl_song_seekbar = findViewById(R.id.rl_song_seekbar);
         rl_collapse = findViewById(R.id.ll_collapse);
         ll_collapse_color = findViewById(R.id.ll_collapse_color);
         rl_expand = findViewById(R.id.ll_expand);
@@ -262,7 +276,6 @@ public class RadioBaseActivity extends AppCompatActivity{
             public void onConsentUpdate() {
 //                methods.showBannerAd(ll_ad);
 
-                setUpContentSlideMain();
             }
         });
 
@@ -270,8 +283,6 @@ public class RadioBaseActivity extends AppCompatActivity{
 //            loadAboutData();
             adConsent.checkForConsent();
         } else {
-
-            setUpContentSlideMain();
 
             Toast.makeText(this, getString(R.string.internet_not_connected), Toast.LENGTH_SHORT).show();
         }
@@ -294,13 +305,6 @@ public class RadioBaseActivity extends AppCompatActivity{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-        });
-
-        btn_play_music.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
 
@@ -435,7 +439,6 @@ public class RadioBaseActivity extends AppCompatActivity{
         imageView_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                methods.showRateDialog();
                 clickPlay(Constants.pos, Constants.playTypeRadio);
             }
         });
@@ -453,7 +456,6 @@ public class RadioBaseActivity extends AppCompatActivity{
         btn_play_music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                methods.showRateDialog();
                 clickPlay(Constants.pos, Constants.playTypeRadio);
             }
         });
@@ -466,13 +468,12 @@ public class RadioBaseActivity extends AppCompatActivity{
 //            }
 //        });
 
-//        btn_next_expand.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                methods.showRateDialog();
-//                togglePlayPosition(true);
-//            }
-//        });
+        btn_next_expand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                togglePlayPosition(true);
+            }
+        });
 
 //        btn_next_scene2.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -490,13 +491,12 @@ public class RadioBaseActivity extends AppCompatActivity{
 //            }
 //        });
 
-//        btn_previous_expand.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                methods.showRateDialog();
-//                togglePlayPosition(false);
-//            }
-//        });
+        btn_previous_expand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                togglePlayPosition(false);
+            }
+        });
 
 //        btn_previous_scene2.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -509,30 +509,29 @@ public class RadioBaseActivity extends AppCompatActivity{
         imageView_fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Constants.arrayList_radio.size() > 0) {
-                    methods.showRateDialog();
+                if (Constants.arrayList_radio.size() > 0 && Constants.playTypeRadio) {
                     if (dbHelper.addORremoveFav(Constants.arrayList_radio.get(Constants.pos))) {
-                        imageView_fav.setImageResource(R.drawable.radio_fav);
+                        imageView_fav.setImageResource(R.drawable.ic_filled_heart);
                         Toast.makeText(RadioBaseActivity.this, getString(R.string.add_to_fav), Toast.LENGTH_SHORT).show();
                     } else {
-                        imageView_fav.setImageResource(R.drawable.radio_unfav);
+                        imageView_fav.setImageResource(R.drawable.ic_unfill_heart);
                         Toast.makeText(RadioBaseActivity.this, getString(R.string.remove_from_fav), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
 
-        imageView_share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Constants.arrayList_radio.size() > 0) {
-                    Intent share = new Intent(Intent.ACTION_SEND);
-                    share.setType("text/plain");
-                    share.putExtra(Intent.EXTRA_TEXT, getString(R.string.listining_to) + " - " + Constants.arrayList_radio.get(Constants.pos).getRadioName() + "\n" + getString(R.string.app_name) + " - http://play.google.com/store/apps/details?id=" + getPackageName());
-                    startActivity(share);
-                }
-            }
-        });
+//        imageView_share.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (Constants.arrayList_radio.size() > 0) {
+//                    Intent share = new Intent(Intent.ACTION_SEND);
+//                    share.setType("text/plain");
+//                    share.putExtra(Intent.EXTRA_TEXT, getString(R.string.listining_to) + " - " + Constants.arrayList_radio.get(Constants.pos).getRadioName() + "\n" + getString(R.string.app_name) + " - http://play.google.com/store/apps/details?id=" + getPackageName());
+//                    startActivity(share);
+//                }
+//            }
+//        });
 
 
 //        imageView_desc.setOnClickListener(new View.OnClickListener() {
@@ -543,13 +542,13 @@ public class RadioBaseActivity extends AppCompatActivity{
 //            }
 //        });
 
-//        btn_volume.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+        btn_volume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                methods.showRateDialog();
-//                changeVolume();
-//            }
-//        });
+                changeVolume();
+            }
+        });
 //
 //        btn_sleep.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -586,58 +585,49 @@ public class RadioBaseActivity extends AppCompatActivity{
         getSupportActionBar().setTitle(getString(R.string.radio));
     }
 
-    private void setUpContentSlideMain() {
-        int height = slidingPanel.getPanelHeight();
-
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ll_player_content.getLayoutParams();
-        params.setMargins(0, 0, 0, height); //substitute parameters for left, top, right, bottom
-        ll_player_content.setLayoutParams(params);
-        
-    }
-
     private void clickNav(int item) {
         switch (item) {
             case R.id.nav_home:
+
+                if(current_nav == radio_nav){
+                    return;
+                }
+                current_nav = radio_nav;
+
                 FragmentMain f1 = new FragmentMain();
                 loadFrag(f1, getResources().getString(R.string.radio), fm);
                 break;
             case R.id.nav_ondemand:
+
+                if(current_nav == demand_nav){
+                    return;
+                }
+                current_nav = demand_nav;
+
                 FragmentOnDemandCat f2 = new FragmentOnDemandCat();
                 loadFrag(f2, getResources().getString(R.string.on_demand), fm);
                 break;
             case R.id.nav_featured:
+
+                if(current_nav == featured_nav){
+                    return;
+                }
+                current_nav = featured_nav;
+
                 FragmentFeaturedRadio ffeat = new FragmentFeaturedRadio();
                 loadFrag(ffeat, getResources().getString(R.string.featured), fm);
                 break;
             case R.id.nav_fav:
+
+                if(current_nav == favorite_nav){
+                    return;
+                }
+                current_nav = favorite_nav;
+
                 FragmentFavourite ffav = new FragmentFavourite();
                 loadFrag(ffav, getResources().getString(R.string.favourite), fm);
                 break;
-//            case R.id.nav_login:
-//                methods.clickLogin();
-//                break;
-//            case R.id.nav_shareapp:
-//                Intent ishare = new Intent(Intent.ACTION_SEND);
-//                ishare.setType("text/plain");
-//                ishare.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_name) + " - http://play.google.com/store/apps/details?id=" + getPackageName());
-//                startActivity(ishare);
-//                break;
-//            case R.id.nav_fb:
-//                if (!Constants.fb_url.trim().isEmpty()) {
-//                    String url = Constants.fb_url;
-//                    Intent i = new Intent(Intent.ACTION_VIEW);
-//                    i.setData(Uri.parse(url));
-//                    startActivity(i);
-//                }
-//                break;
-//            case R.id.nav_twitter:
-//                if (!Constants.twitter_url.trim().isEmpty()) {
-//                    String urlt = Constants.twitter_url;
-//                    Intent intent_t = new Intent(Intent.ACTION_VIEW);
-//                    intent_t.setData(Uri.parse(urlt));
-//                    startActivity(intent_t);
-//                }
-//                break;
+
         }
     }
 
@@ -794,7 +784,12 @@ public class RadioBaseActivity extends AppCompatActivity{
             ItemRadio itemRadio = PlayService.getInstance().getPlayingRadioStation();
             if (itemRadio != null) {
                 changeText(itemRadio);
-//                imageView_play.setImageDrawable(getResources().getDrawable(R.drawable.pause_2));
+
+                iv_play_music.setVisibility(View.GONE);
+                iv_pause_music.setVisibility(View.VISIBLE);
+
+
+                imageView_play.setImageDrawable(getResources().getDrawable(R.drawable.ic_btn_pause));
 ////                fab_play_expand.setImageDrawable(ContextCompat.getDrawable(BaseActivity.this, R.mipmap.fab_pause));
 //
 //                iv_play_music.setImageDrawable(getResources().getDrawable(R.drawable.pause_2));
@@ -806,7 +801,11 @@ public class RadioBaseActivity extends AppCompatActivity{
             if (Constants.arrayList_radio.size() > 0) {
                 changeText(Constants.arrayList_radio.get(Constants.pos));
             }
-//            imageView_play.setImageDrawable(getResources().getDrawable(R.drawable.play_2));
+
+            iv_pause_music.setVisibility(View.GONE);
+            iv_play_music.setVisibility(View.VISIBLE);
+
+            imageView_play.setImageDrawable(getResources().getDrawable(R.drawable.ic_btn_play));
 ////            fab_play_expand.setImageDrawable(ContextCompat.getDrawable(BaseActivity.this, R.mipmap.fab_play));
 //
 //            iv_play_music.setImageDrawable(getResources().getDrawable(R.drawable.play_2));
@@ -824,8 +823,10 @@ public class RadioBaseActivity extends AppCompatActivity{
 
             textView_freq_expand.setVisibility(View.VISIBLE);
             textView_song_expand.setVisibility(View.VISIBLE);
-            imageView_fav.setVisibility(View.VISIBLE);
-            rl_song_seekbar.setVisibility(View.GONE);
+            seekbar_song.setVisibility(View.GONE);
+
+            textView_song_duration.setVisibility(View.GONE);
+            textView_total_duration.setVisibility(View.GONE);
 
             if (FragmentHome.adapterRadioList != null && FragmentHome.adapterRadioList_mostview != null) {
                 FragmentHome.adapterRadioList.notifyDataSetChanged();
@@ -837,29 +838,69 @@ public class RadioBaseActivity extends AppCompatActivity{
             textView_song.setText(getString(R.string.on_demand));
             textView_song_expand.setText(itemRadio.getRadioName());
 
+            textView_song_duration.setVisibility(View.VISIBLE);
+            textView_total_duration.setVisibility(View.VISIBLE);
+
             textView_freq_expand.setText(getString(R.string.on_demand));;
             textView_song_expand.setVisibility(View.GONE);
-            imageView_fav.setVisibility(View.GONE);
-            rl_song_seekbar.setVisibility(View.VISIBLE);
+            seekbar_song.setVisibility(View.VISIBLE);
         }
         textView_name.setText(itemRadio.getRadioName());
         textView_radio_expand.setText(itemRadio.getRadioName());
 
+        String url = methods.getImageThumbSize(itemRadio.getRadioImageurl(),"");
+        String url1 = "";
 
-        Picasso.get().load(itemRadio.getRadioImageurl())
+        if (url.contains(Constants.BASE_SERVER_URL)){
+            url1 = url;
+        }
+        else{
+            url1 = Constants.BASE_SERVER_URL + url;
+        }
+
+        Picasso.get().load(url1)
                 .placeholder(R.drawable.placeholder)
-                .into(imageView_radio);
-        Picasso.get().load(methods.getImageThumbSize(itemRadio.getRadioImageurl(), getString(R.string.home)))
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
+                            public void onGenerated(Palette palette) {
+                                //textView_radio_expand.setTextColor(palette.getVibrantColor(0xF000000));
+
+                                GradientDrawable gd = new GradientDrawable(
+                                        GradientDrawable.Orientation.TOP_BOTTOM,
+                                        new int[] {palette.getVibrantColor(0xFF616261), 0xFF131313});
+                                gd.setCornerRadius(0f);
+                                bg_musiccreen.setBackground(gd);
+
+                            }
+                        });
+
+                        imageView_radio.setImageBitmap(bitmap);
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
+        Picasso.get().load(url1)
                 .placeholder(R.drawable.placeholder)
                 .into(imageView_player);
     }
 
     public void changeFav(ItemRadio itemRadio) {
-//        if (dbHelper.checkFav(itemRadio)) {
-//            imageView_fav.setImageDrawable(ContextCompat.getDrawable(RadioBaseActivity.this, R.mipmap.fav_hover_white));
-//        } else {
-//            imageView_fav.setImageDrawable(ContextCompat.getDrawable(RadioBaseActivity.this, R.mipmap.fav_white));
-//        }
+        if (dbHelper.checkFav(itemRadio)) {
+            imageView_fav.setImageResource(R.drawable.ic_filled_heart);
+        } else {
+            imageView_fav.setImageResource(R.drawable.ic_unfill_heart);
+        }
     }
 
     public void changeSongName(String songName) {
@@ -1084,20 +1125,6 @@ public class RadioBaseActivity extends AppCompatActivity{
 
     public void changeThemeColor() {
         Constants.isThemeChanged = false;
-        statusBarView.setBackground(methods.getGradientDrawableToolbar());
-        toolbar.setBackground(methods.getGradientDrawableToolbar());
-//        fab_play_expand.setBackgroundTintList(ColorStateList.valueOf(sharedPref.getFirstColor()));
-//        ll_collapse_color.setBackground(methods.getGradientDrawableToolbar());
-        //navigationView.setBackground(methods.getGradientDrawableToolbar());
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            seekbar_song.setThumbTintList(ColorStateList.valueOf(sharedPref.getFirstColor()));
-//            seekbar_song.setProgressTintList(ColorStateList.valueOf(sharedPref.getFirstColor()));
-//            seekbar_song.setSecondaryProgressTintList(ColorStateList.valueOf(sharedPref.getSecondColor()));
-//        } else {
-//            seekbar_song.getThumb().setColorFilter(sharedPref.getFirstColor(), PorterDuff.Mode.SRC_IN);
-//            seekbar_song.getProgressDrawable().setColorFilter(sharedPref.getSecondColor(), PorterDuff.Mode.SRC_IN);
-//        }
 
         int[][] state = new int[][]{
                 new int[]{android.R.attr.state_checked},
@@ -1215,13 +1242,14 @@ public class RadioBaseActivity extends AppCompatActivity{
 
     public void setBuffer(Boolean flag) {
         if (flag) {
+
             circularProgressBar.setVisibility(View.VISIBLE);
-            //ll_player_expand.setVisibility(View.INVISIBLE);
+            rl_shadow_radio.setVisibility(View.VISIBLE);
             circularProgressBar_collapse.setVisibility(View.VISIBLE);
             ll_play_collapse.setVisibility(View.INVISIBLE);
         } else {
-            circularProgressBar.setVisibility(View.INVISIBLE);
-            //ll_player_expand.setVisibility(View.VISIBLE);
+            rl_shadow_radio.setVisibility(View.GONE);
+            circularProgressBar.setVisibility(View.GONE);
             circularProgressBar_collapse.setVisibility(View.GONE);
             ll_play_collapse.setVisibility(View.VISIBLE);
         }

@@ -2,6 +2,7 @@ package com.zxfdwka.bestcountrymusic.radio.fragments;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -52,6 +54,8 @@ public class FragmentCatHome extends Fragment {
     public static AppCompatButton button_try;
     private SharedPref sharedPref;
     private String type;
+    private ConstraintLayout.LayoutParams radio_lp_grid, radio_lp_linear;
+
 
     private View rootView;
     @Nullable
@@ -72,6 +76,8 @@ public class FragmentCatHome extends Fragment {
         button_try = rootView.findViewById(R.id.button_empty_try);
         ll_empty = rootView.findViewById(R.id.ll_empty);
         ViewCompat.setBackgroundTintList(button_try, ColorStateList.valueOf(sharedPref.getFirstColor()));
+
+        setItemResponsive();
 
         setHasOptionsMenu(true);
 
@@ -127,6 +133,20 @@ public class FragmentCatHome extends Fragment {
         return rootView;
     }
 
+    private void setItemResponsive(){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RadioBaseActivity) getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        radio_lp_grid = new ConstraintLayout.LayoutParams((int) Math.floor(width/2), (int) Math.floor(height*0.25));
+        int top = (int) Math.floor(width*0.04);
+        int bottom = (int) Math.floor(width*0.04);
+        radio_lp_grid.setMargins(0, top, 0, bottom);
+
+        radio_lp_linear = new ConstraintLayout.LayoutParams((int) Math.floor(width*0.373), (int) Math.floor(height*0.25));
+    }
+
     private void getBannerAds(){
         for (int i = Constants.ITEM_PER_AD_GRID; i < arrayList.size(); i += Constants.ITEM_PER_AD_GRID+1){
             if(Constants.adBannerShow++ < Constants.BANNER_SHOW_LIMIT){
@@ -160,7 +180,7 @@ public class FragmentCatHome extends Fragment {
                                 arrayList.addAll(arrayListRadio);
                                 getBannerAds();
                                 if (arrayList.size() > 0) {
-                                    adapterRadioList = new AdapterRadioList(getActivity(), arrayList, "grid");
+                                    adapterRadioList = new AdapterRadioList(getActivity(), arrayList, radio_lp_grid, true);
                                     recyclerView.setAdapter(adapterRadioList);
                                     if (Constants.arrayList_radio.size() == 0) {
                                         for (Object o : arrayList){
@@ -212,7 +232,7 @@ public class FragmentCatHome extends Fragment {
                         }
                         getBannerAds();
                         if (arrayList.size() > 0) {
-                            adapterRadioList = new AdapterRadioList(getActivity(), arrayList, "grid");
+                            adapterRadioList = new AdapterRadioList(getActivity(), arrayList, radio_lp_grid, true);
                             recyclerView.setAdapter(adapterRadioList);
                         }
                     } else {

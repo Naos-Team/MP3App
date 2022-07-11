@@ -2,6 +2,7 @@ package com.zxfdwka.bestcountrymusic.radio.fragments;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,10 +15,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,6 +57,7 @@ public class FragmentLanguage extends Fragment {
     private LinearLayout ll_empty;
     private String errr_msg;
     private SharedPref sharedPref;
+    private ConstraintLayout.LayoutParams radio_lp_grid;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +72,7 @@ public class FragmentLanguage extends Fragment {
         button_try = rootView.findViewById(R.id.button_empty_try);
         ViewCompat.setBackgroundTintList(button_try, ColorStateList.valueOf(sharedPref.getFirstColor()));
         progressBar = rootView.findViewById(R.id.progressBar_cat);
+        setItemResponsive();
         setHasOptionsMenu(true);
 
         arrayList = new ArrayList<>();
@@ -86,15 +91,22 @@ public class FragmentLanguage extends Fragment {
                 ft.commit();
                 ((RadioBaseActivity) getActivity()).getSupportActionBar().setTitle(Constants.itemLanguage.getName());
             }
+        }, radio_lp_grid);
+
+        GridLayoutManager lLayout = new GridLayoutManager(getActivity(),2, RecyclerView.VERTICAL, false);
+        lLayout.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if(arrayList.get(position) instanceof AdView){
+                    return 2;
+                }else{
+                    return 1;
+                }
+            }
         });
-        LinearLayoutManager lLayout = new LinearLayoutManager(getActivity());
         recyclerView = rootView.findViewById(R.id.recyclerView_cat);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(lLayout);
-
-//        if (isVisible && !isLoaded) {
-//            loadLanguage();
-//        }
 
         loadLanguage();
 
@@ -108,8 +120,20 @@ public class FragmentLanguage extends Fragment {
         return rootView;
     }
 
+    private void setItemResponsive(){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RadioBaseActivity) getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        radio_lp_grid = new ConstraintLayout.LayoutParams((int) Math.floor(width/2), (int) Math.floor(width/2));
+//        int top = (int) Math.floor(width*0.04);
+//        int bottom = (int) Math.floor(width*0.04);
+//        radio_lp_grid.setMargins(0, top, 0, bottom);
+    }
+
     private void getBannerAds(){
-        for (int i = Constants.ITEM_PER_AD; i < arrayList.size(); i += Constants.ITEM_PER_AD+1){
+        for (int i = Constants.ITEM_PER_AD_GRID; i < arrayList.size(); i += Constants.ITEM_PER_AD_GRID+1){
             if(Constants.adBannerShow++ < Constants.BANNER_SHOW_LIMIT){
                 final AdView adView = new AdView(getContext());
                 adView.setAdSize(AdSize.SMART_BANNER);

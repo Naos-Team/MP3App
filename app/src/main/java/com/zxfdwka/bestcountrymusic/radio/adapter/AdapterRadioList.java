@@ -1,6 +1,10 @@
 package com.zxfdwka.bestcountrymusic.radio.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
@@ -22,7 +26,6 @@ import com.zxfdwka.bestcountrymusic.radio.utils.DBHelper;
 import com.zxfdwka.bestcountrymusic.radio.utils.Methods;
 import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
-import com.zxfdwka.bestcountrymusic.radio.utils.PlayService;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,21 +40,21 @@ public class AdapterRadioList extends RecyclerView.Adapter {
     private ArrayList<Object> filteredArrayList;
     private NameFilter filter;
     private Methods methods;
-    private String type = "";
+    private ConstraintLayout.LayoutParams lp_item;
+    private boolean isGrid;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView imageView, imageView_fav;
+        private ImageView imageView;
         private TextView textView_radio, textView_freq;
-        private CardView cv_home;
+        private ConstraintLayout cs_item;
 
         private MyViewHolder(View view) {
             super(view);
-            cv_home = view.findViewById(R.id.cv_home);
-            textView_radio = view.findViewById(R.id.textView_radio_home);
-            textView_freq = view.findViewById(R.id.textView_freq_home);
-            imageView = view.findViewById(R.id.imageView_radio_home);
-            imageView_fav = view.findViewById(R.id.imageView_fav_home);
+            cs_item = view.findViewById(R.id.cs_item);
+            textView_radio = view.findViewById(R.id.tv_cityhome_text);
+            textView_freq = view.findViewById(R.id.tv_cityhome_text_city);
+            imageView = view.findViewById(R.id.image_city_item);;
         }
     }
 
@@ -62,34 +65,36 @@ public class AdapterRadioList extends RecyclerView.Adapter {
         }
     }
 
-    public AdapterRadioList(Context context, ArrayList<Object> arrayList, String type) {
+    public AdapterRadioList(Context context, ArrayList<Object> arrayList, ConstraintLayout.LayoutParams lp_item, boolean isGrid) {
         this.arrayList = arrayList;
         this.context = context;
+        this.lp_item = lp_item;
         methods = new Methods(context, interAdListener);
         filteredArrayList = arrayList;
         dbHelper = new DBHelper(context);
-        this.type = type;
+        this.isGrid = isGrid;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        View itemView;
+
         switch (viewType){
             case Constants.ITEM_BANNER_AD:
                 View bannerAdView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.banner_ad_containter, parent, false);
                 return new BannerAdsViewHolder(bannerAdView);
-            default:
-                View itemView;
+            case Constants.ITEM_RADIO_HOME_GRID:
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.layout_radiolist_grid, parent, false);
 
-                if(type.equals("grid")){
-                    itemView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.layout_radiolist_grid, parent, false);
-                }else{
-                    itemView = LayoutInflater.from(parent.getContext())
-                            .inflate(R.layout.layout_radiolist, parent, false);
-                }
+                return new MyViewHolder(itemView);
+            default:
+                itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.layout_radiolist, parent, false);
+
                 return new MyViewHolder(itemView);
         }
 
@@ -116,49 +121,44 @@ public class AdapterRadioList extends RecyclerView.Adapter {
 
                 MyViewHolder myViewHolder = (MyViewHolder) holder;
 
-                try {
-                    if (Constants.playTypeRadio && Constants.isPlaying && PlayService.getInstance().getPlayingRadioStation().getRadioId().equals(objAllBean.getRadioId())) {
-                        myViewHolder.cv_home.setBackgroundColor(ContextCompat.getColor(context, R.color.bg_playing));
-                    } else {
-                        myViewHolder.cv_home.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                if (isFav) {
-                    myViewHolder.imageView_fav.setImageResource(R.drawable.radio_fav);
-                } else {
-                    myViewHolder.imageView_fav.setImageResource(R.drawable.radio_unfav);
-                }
-
                 myViewHolder.textView_radio.setText(objAllBean.getRadioName());
                 myViewHolder.textView_freq.setText(objAllBean.getRadioFreq());
+
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                ((RadioBaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int height = displayMetrics.heightPixels;
+                int width = displayMetrics.widthPixels;
+
+                myViewHolder.textView_radio.setTypeface(null, Typeface.BOLD);
+                myViewHolder.textView_radio.setTextSize(TypedValue.COMPLEX_UNIT_PX, height*0.02f);
+                myViewHolder.textView_freq.setTextSize(TypedValue.COMPLEX_UNIT_PX, height*0.014f);
 
                 Picasso.get()
                         .load(methods.getImageThumbSize(objAllBean.getRadioImageurl().replace(" ", "%20"),context.getString(R.string.home)))
                         .placeholder(R.drawable.placeholder)
                         .into(myViewHolder.imageView);
 
-                myViewHolder.imageView_fav.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (dbHelper.addORremoveFav((ItemRadio) arrayList.get(holder.getAdapterPosition()))) {
-                            myViewHolder.imageView_fav.setImageResource(R.drawable.radio_fav);
-                            methods.showToast(context.getString(R.string.add_to_fav));
-                        } else {
-                            myViewHolder.imageView_fav.setImageResource(R.drawable.radio_unfav);
-                            methods.showToast(context.getString(R.string.remove_from_fav));
-                        }
-                    }
-                });
+                myViewHolder.cs_item.setLayoutParams(lp_item);
 
-                myViewHolder.cv_home.setOnClickListener(new View.OnClickListener() {
+                myViewHolder.cs_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         methods.showInter(holder.getAdapterPosition(), "");
                     }
                 });
+
+                //                myViewHolder.imageView_fav.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if (dbHelper.addORremoveFav((ItemRadio) arrayList.get(holder.getAdapterPosition()))) {
+//                            myViewHolder.imageView_fav.setImageResource(R.drawable.radio_fav);
+//                            methods.showToast(context.getString(R.string.add_to_fav));
+//                        } else {
+//                            myViewHolder.imageView_fav.setImageResource(R.drawable.radio_unfav);
+//                            methods.showToast(context.getString(R.string.remove_from_fav));
+//                        }
+//                    }
+//                });
                 break;
         }
     }
@@ -178,7 +178,12 @@ public class AdapterRadioList extends RecyclerView.Adapter {
         if(arrayList.get(position) instanceof AdView){
             return Constants.ITEM_BANNER_AD;
         }else{
-            return Constants.ITEM_RADIO_HOME;
+            if(isGrid){
+                return Constants.ITEM_RADIO_HOME_GRID;
+            }else{
+                return Constants.ITEM_RADIO_HOME;
+            }
+
         }
     }
 

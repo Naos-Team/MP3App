@@ -2,6 +2,7 @@ package com.zxfdwka.bestcountrymusic.radio.fragments;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,9 +15,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +51,7 @@ public class FragmentOnDemandCat extends Fragment {
     private String errr_msg;
     SharedPref sharedPref;
     Methods methods;
+    private ConstraintLayout.LayoutParams radio_lp_grid;
 
 
     @Override
@@ -74,7 +76,7 @@ public class FragmentOnDemandCat extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView_on);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(lLayout);
-
+        setItemResponsive();
         loadCity();
 
         button_try.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +95,18 @@ public class FragmentOnDemandCat extends Fragment {
 
         setHasOptionsMenu(true);
         return rootView;
+    }
+
+    private void setItemResponsive(){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RadioBaseActivity) getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        radio_lp_grid = new ConstraintLayout.LayoutParams((int) Math.floor(width/2), (int) Math.floor(width/2));
+//        int top = (int) Math.floor(width*0.04);
+//        int bottom = (int) Math.floor(width*0.04);
+//        radio_lp_grid.setMargins(0, top, 0, bottom);
     }
 
     private void loadCity() {
@@ -166,7 +180,7 @@ public class FragmentOnDemandCat extends Fragment {
     };
 
     public void setAdapter() {
-        adapter = new AdapterOnDemandCat(getActivity(), arraylist);
+        adapter = new AdapterOnDemandCat(getActivity(), arraylist, methods, radio_lp_grid);
         recyclerView.setAdapter(adapter);
         setEmpty();
     }

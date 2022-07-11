@@ -1,25 +1,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg">
+    android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/radio_bg_color"
         android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="65dp"
             android:orientation="vertical">
 
-<!--            <com.daimajia.slider.library.SliderLayout-->
-<!--                android:id="@+id/sliderLayout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="220dp"-->
-<!--                android:layout_margin="5dp"/>-->
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager_slide"
                 android:layout_width="match_parent"
@@ -43,30 +39,24 @@
                 android:foreground="?attr/selectableItemBackground">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:id="@+id/tv_featured"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoSizeMaxTextSize="50sp"
+                    android:autoSizeMinTextSize="2sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_vertical"
                     android:text="@string/featured"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
+                    android:textColor="@color/radio_text_color"
                     android:textStyle="bold" />
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/option_icon"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"/>
 
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_featured"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
+                android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:id="@+id/rl_trending"
@@ -76,31 +66,24 @@
                 android:foreground="?attr/selectableItemBackground">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:id="@+id/tv_trending"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoSizeMaxTextSize="50sp"
+                    android:autoSizeMinTextSize="2sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_vertical"
                     android:text="@string/trending"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
+                    android:textColor="@color/radio_text_color"
                     android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/option_icon"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"/>
 
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_mostview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
+                android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:id="@+id/rl_latestVideo"
@@ -110,31 +93,51 @@
                 android:foreground="?attr/selectableItemBackground">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="@string/latest_radio"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
+                    android:id="@+id/tv_latest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoSizeMaxTextSize="50sp"
+                    android:autoSizeMinTextSize="2sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_vertical"
+                    android:text="@string/latest"
+                    android:textColor="@color/radio_text_color"
                     android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/option_icon" />
 
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_radiolist"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp" />
+                android:layout_height="match_parent"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_all_radio"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/tv_all_radio"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoSizeMaxTextSize="50sp"
+                    android:autoSizeMinTextSize="2sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_vertical"
+                    android:text="@string/all_radio"
+                    android:textColor="@color/radio_text_color"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_all_radio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <LinearLayout
                 android:id="@+id/ll_adView"
@@ -151,86 +154,24 @@
                 android:foreground="?attr/selectableItemBackground">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:id="@+id/tv_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoSizeMaxTextSize="50sp"
+                    android:autoSizeMinTextSize="2sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_vertical"
                     android:text="@string/city"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
+                    android:textColor="@color/radio_text_color"
                     android:textStyle="bold" />
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/option_icon"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"/>
 
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_city"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
-
-            <RelativeLayout
-                android:id="@+id/rl_all_radio"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackground">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="@string/all_radio"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
-                    android:textStyle="bold" />
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/option_icon"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"/>
-
-            </RelativeLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_all_radio"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:text="More App"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_more_app"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
+                android:layout_height="match_parent"/>
 
             <RelativeLayout
                 android:id="@+id/rl_language"
@@ -240,30 +181,24 @@
                 android:foreground="?attr/selectableItemBackground">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:id="@+id/tv_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoSizeMaxTextSize="50sp"
+                    android:autoSizeMinTextSize="2sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_vertical"
                     android:text="@string/language"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/black"
-                    android:textSize="23sp"
+                    android:textColor="@color/radio_text_color"
                     android:textStyle="bold" />
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/option_icon"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"/>
 
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_language"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="65dp" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 

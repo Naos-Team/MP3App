@@ -3,6 +3,7 @@ package com.zxfdwka.bestcountrymusic.radio.fragments;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,13 +15,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
-import com.zxfdwka.bestcountrymusic.mp3.activity.BaseActivity;
 import com.zxfdwka.bestcountrymusic.mp3.utils.EndlessRecyclerViewScrollListener;
 import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.adapter.AdapterRadios;
@@ -55,6 +56,7 @@ public class FragmentAllRadio extends Fragment {
     private String errr_msg;
     SharedPref sharedPref;
     private int page = 1;
+    private ConstraintLayout.LayoutParams radio_lp_grid, radio_lp_linear;
     private Boolean isLoaded = false, isVisible = false, isOver = false, isScroll = false, isLoading = false;
 
     @Override
@@ -117,10 +119,26 @@ public class FragmentAllRadio extends Fragment {
             }
         });
 
+        setItemResponsive();
+
         loadAllRadio();
 
         setHasOptionsMenu(true);
         return rootView;
+    }
+
+    private void setItemResponsive(){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RadioBaseActivity) getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        radio_lp_grid = new ConstraintLayout.LayoutParams((int) Math.floor(width/2), (int) Math.floor(height*0.25));
+        int top = (int) Math.floor(width*0.04);
+        int bottom = (int) Math.floor(width*0.04);
+        radio_lp_grid.setMargins(0, top, 0, bottom);
+
+        radio_lp_linear = new ConstraintLayout.LayoutParams((int) Math.floor(width*0.373), (int) Math.floor(height*0.25));
     }
 
     private void getBannerAds(){
@@ -218,7 +236,7 @@ public class FragmentAllRadio extends Fragment {
 
     private void setAdapter() {
         if (!isScroll) {
-            adapterRadios = new AdapterRadios(getActivity(), arrayList);
+            adapterRadios = new AdapterRadios(getActivity(), arrayList, radio_lp_grid);
             recyclerView.setAdapter(adapterRadios);
             setEmpty();
         } else {

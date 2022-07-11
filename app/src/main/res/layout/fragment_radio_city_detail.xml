@@ -4,7 +4,7 @@
     android:id="@+id/activity_city_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@color/radio_bg_color"
     android:orientation="vertical"
     style="@style/AppTheme">
 

@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#015C23</color>
     <color name="colorAccent">#B9BACF</color>
 
+    <color name="colorThemeRadio">#3CB966</color>
+
     <color name="primary">#2b1d58</color>
     <color name="primary_dark">#186B8E</color>
 
@@ -17,6 +19,7 @@
     <color name="positive_button">#f00</color>
 
     <color name="bg_playing">#e2e2e2</color>
+    <color name="bg_radius_ondemand">#B3000000</color>
 
     <color name="text_black">#000000</color>
     <color name="text_blackAA">#AA000000</color>
@@ -24,7 +27,7 @@
     <color name="text_duration">#404040</color>
     <color name="text_desc">#878787</color>
 
-    <color name="white_dark">#ffffff</color>
+    <color name="white_dark">#B3FFFFFF</color>
     <color name="black_dark">#000000</color>
     <color name="line">#d9dadb</color>
     <color name="bottom_item_active_color">#2192C1</color>
@@ -34,6 +37,8 @@
     <color name="white90_dark">#90ffffff</color>
     <color name="view_grey">#F6F7F8</color>
     <color name="grey_dark">#6F6F6F</color>
+    <color name="radio_player_theme">#3CB966</color>
+    <color name="radio_item_border">#032810</color>
 
     <color name="progress_drawable_bg">#20000000</color>
     <color name="notification_title">#000000</color>
@@ -80,5 +85,11 @@
     <color name="bg_pro_pic">#e2dcdc</color>
     <color name="social_fb">#3b5999</color>
     <color name="social_ggle">#ea4235</color>
+
+    <color name="toggle_radio">#E1FFFFFF</color>
+    <color name="radio_text_color">#171717</color>
+    <color name="radio_subtext_color">#2C2C2C</color>
+    <color name="radio_bg_color">#F6F6F6</color>
+
 
 </resources>

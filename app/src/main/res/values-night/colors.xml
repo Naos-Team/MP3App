@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#5961FF</color>
 
+    <color name="colorThemeRadio">#222222</color>
+    <color name="radio_player_theme">#DBFFFFFF</color>
+    <color name="radio_item_border">#DBFFFFFF</color>
+
     <color name="primary">#2192C1</color>
     <color name="primary_dark">#186B8E</color>
 
@@ -70,5 +74,10 @@
     <color name="gplus_color_2">#f4b400</color>
     <color name="gplus_color_3">#427fed</color>
     <color name="gplus_color_4">#b23424</color>
+
+    <color name="toggle_radio">#121212</color>
+    <color name="radio_text_color">#ECECEC</color>
+    <color name="radio_subtext_color">#838383</color>
+    <color name="radio_bg_color">#121212</color>
 
 </resources>

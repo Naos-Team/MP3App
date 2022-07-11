@@ -2,6 +2,7 @@ package com.zxfdwka.bestcountrymusic.radio.fragments;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,12 +15,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.adapter.AdapterCityDetails;
 import com.zxfdwka.bestcountrymusic.radio.asyncTasks.LoadRadioList;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.RadioListListener;
@@ -149,7 +152,18 @@ public class FragmentLanguageDetails extends Fragment {
     }
 
     private void setAdapter() {
-        adapterLangDetails = new AdapterCityDetails(getActivity(), arrayList);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RadioBaseActivity) getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        ConstraintLayout.LayoutParams radio_lp_grid = new ConstraintLayout.LayoutParams((int) Math.floor(width/2), (int) Math.floor(height*0.25));
+        int top = (int) Math.floor(width*0.04);
+        int bottom = (int) Math.floor(width*0.04);
+        radio_lp_grid.setMargins(0, top, 0, bottom);
+
+        adapterLangDetails = new AdapterCityDetails(getActivity(), arrayList, radio_lp_grid);
         recyclerView.setAdapter(adapterLangDetails);
         setEmpty();
     }

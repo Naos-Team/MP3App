@@ -1,8 +1,10 @@
 package com.zxfdwka.bestcountrymusic.radio.fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.MenuItemCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
@@ -68,7 +72,7 @@ public class FragmentHome extends Fragment {
     private CircularProgressBar progressBar;
     private NestedScrollView scrollView;
     private ViewPager2 viewpager_slide;
-    private RecyclerView recyclerView, recyclerView_mostview, recyclerView_featured, recyclerView_city, recyclerView_language, recyclerView_all_radio, recyclerView_more_app;
+    private RecyclerView recyclerView, recyclerView_mostview, recyclerView_featured, recyclerView_city, recyclerView_language, recyclerView_all_radio;
     private LinearLayout ll_ad;
     private Boolean isLoaded = false, isVisible = false;
     private RelativeLayout rl_featured, rl_trending, rl_latest, rl_city, rl_language, rl_all_radio;
@@ -76,6 +80,8 @@ public class FragmentHome extends Fragment {
     private AdapterHomeLanguage adapterHomeLanguage;
     private int page = 1;
     private Handler handler = new Handler(Looper.getMainLooper());
+    private TextView tv_featured, tv_trending, tv_latest, tv_city, tv_all_radio, tv_language;
+    private ConstraintLayout.LayoutParams radio_lp_grid, radio_lp_linear;
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -105,6 +111,13 @@ public class FragmentHome extends Fragment {
         arrayList_ondemandcat = new ArrayList<>();
 
         ll_ad = rootView.findViewById(R.id.ll_adView);
+
+        tv_featured = rootView.findViewById(R.id.tv_featured);
+        tv_city = rootView.findViewById(R.id.tv_city);
+        tv_all_radio = rootView.findViewById(R.id.tv_all_radio);
+        tv_language = rootView.findViewById(R.id.tv_language);
+        tv_latest = rootView.findViewById(R.id.tv_latest);
+        tv_trending = rootView.findViewById(R.id.tv_trending);
 
         adConsent = new AdConsent(getContext(), new AdConsentListener() {
             @Override
@@ -254,25 +267,61 @@ public class FragmentHome extends Fragment {
         recyclerView_language.setLayoutManager(ll_lan);
         recyclerView_language.setHasFixedSize(true);
 
-        recyclerView_more_app = rootView.findViewById(R.id.recyclerView_more_app);
-        recyclerView_more_app.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerView_more_app.setHasFixedSize(true);
-
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView_mostview.setNestedScrollingEnabled(false);
         recyclerView_featured.setNestedScrollingEnabled(false);
         recyclerView_city.setNestedScrollingEnabled(false);
-        recyclerView_more_app.setNestedScrollingEnabled(false);
 
-//        if (isVisible && !isLoaded) {
-//            loadList();
-//            isLoaded = true;
-//        }
+        setItemResponsive();
+
+        setupResponsiveScreen();
 
         loadList();
 
         setHasOptionsMenu(true);
         return rootView;
+    }
+
+    private void setupResponsiveScreen(){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RadioBaseActivity)getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        int title_height = (int) Math.floor(height*0.0438);
+        int margin_start_width = (int) Math.floor(width*0.04);
+        LinearLayout.LayoutParams lp_title = new LinearLayout.LayoutParams(width, title_height);
+
+        lp_title.setMarginStart(margin_start_width);
+
+        rl_all_radio.setLayoutParams(lp_title);
+        rl_city.setLayoutParams(lp_title);
+        rl_featured.setLayoutParams(lp_title);
+        rl_language.setLayoutParams(lp_title);
+        rl_latest.setLayoutParams(lp_title);
+        rl_trending.setLayoutParams(lp_title);
+
+        tv_trending.setTypeface(null, Typeface.BOLD);
+        tv_all_radio.setTypeface(null, Typeface.BOLD);
+        tv_language.setTypeface(null, Typeface.BOLD);
+        tv_featured.setTypeface(null, Typeface.BOLD);
+        tv_city.setTypeface(null, Typeface.BOLD);
+        tv_latest.setTypeface(null, Typeface.BOLD);
+
+
+    }
+
+    private void setItemResponsive(){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RadioBaseActivity) getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        radio_lp_grid = new ConstraintLayout.LayoutParams((int) Math.floor(width/2), (int) Math.floor(height*0.25));
+
+        radio_lp_linear = new ConstraintLayout.LayoutParams((int) Math.floor(width*0.373), (int) Math.floor(height*0.25));
+        radio_lp_linear.setMargins((int) Math.floor(width*0.032), (int) Math.floor(height*0.018), 0,(int) Math.floor(height*0.032));
+        //0.018 0.032
     }
 
     private void loadList() {
@@ -295,14 +344,14 @@ public class FragmentHome extends Fragment {
                                 arrayList_radio_latest.addAll(arrayListRadio);
                                 if (arrayList_radio_latest.size() > 0) {
                                     if(arrayList_radio_latest.size() <= 6){
-                                        adapterRadioList = new AdapterRadioList(getActivity(), arrayList_radio_latest, "linear");
+                                        adapterRadioList = new AdapterRadioList(getActivity(), arrayList_radio_latest, radio_lp_linear, false);
                                         recyclerView.setAdapter(adapterRadioList);
                                     }else{
                                         ArrayList<Object> list = new ArrayList<>();
                                         for (int i = 0; i < 6; i++){
                                             list.add(arrayList_radio_latest.get(i));
                                         }
-                                        adapterRadioList = new AdapterRadioList(getActivity(), list, "linear");
+                                        adapterRadioList = new AdapterRadioList(getActivity(), list, radio_lp_linear, false);
                                         recyclerView.setAdapter(adapterRadioList);
                                     }
                                     if (Constants.arrayList_radio.size() == 0) {
@@ -348,25 +397,25 @@ public class FragmentHome extends Fragment {
 
                         if (arrayList_mostviewed.size() > 0) {
                             if(arrayList_radio_featured.size() <= 6){
-                                adapterRadioList_featured = new AdapterRadioList(getActivity(), arrayList_radio_featured, "linear");
+                                adapterRadioList_featured = new AdapterRadioList(getActivity(), arrayList_radio_featured, radio_lp_linear, false);
                                 recyclerView_featured.setAdapter(adapterRadioList_featured);
                             }else{
                                 ArrayList<Object> list = new ArrayList<>();
                                 for (int i = 0; i < 6; i++){
                                     list.add(arrayList_radio_featured.get(i));
                                 }
-                                adapterRadioList_featured = new AdapterRadioList(getActivity(), list, "linear");
+                                adapterRadioList_featured = new AdapterRadioList(getActivity(), list, radio_lp_linear, false);
                                 recyclerView_featured.setAdapter(adapterRadioList_featured);
                             }
                             if(arrayList_radio_mostviewed.size() <= 6){
-                                adapterRadioList_mostview = new AdapterRadioList(getActivity(), arrayList_radio_mostviewed, "linear");
+                                adapterRadioList_mostview = new AdapterRadioList(getActivity(), arrayList_radio_mostviewed, radio_lp_linear, false);
                                 recyclerView_mostview.setAdapter(adapterRadioList_mostview);
                             }else{
                                 ArrayList<Object> list = new ArrayList<>();
                                 for (int i = 0; i < 6; i++){
                                     list.add(arrayList_radio_mostviewed.get(i));
                                 }
-                                adapterRadioList_mostview = new AdapterRadioList(getActivity(), list, "linear");
+                                adapterRadioList_mostview = new AdapterRadioList(getActivity(), list, radio_lp_linear, false);
                                 recyclerView_mostview.setAdapter(adapterRadioList_mostview);
                             }
 //                            adapterRadioList_mostview = new AdapterRadioList(getActivity(), arrayList_radio_mostviewed, "linear");
@@ -534,6 +583,7 @@ public class FragmentHome extends Fragment {
                 FragmentTransaction ft = fm.beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("item", arrayList_ondemandcat.get(position));
+                bundle.putBoolean("is_from_home", true);
                 f1.setArguments(bundle);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.add(R.id.content_frame_activity, f1, arrayList_ondemandcat.get(position).getName());
@@ -638,7 +688,7 @@ public class FragmentHome extends Fragment {
                     ft.commit();
                     ((BaseActivity) getActivity()).getSupportActionBar().setTitle(Constants.itemCity.getName());
                 }
-            });
+            }, radio_lp_linear);
             recyclerView_city.setAdapter(adapterHomeCity);
             setEmptyCity();
         }else{
@@ -660,7 +710,7 @@ public class FragmentHome extends Fragment {
                     ft.commit();
                     ((BaseActivity) getActivity()).getSupportActionBar().setTitle(Constants.itemCity.getName());
                 }
-            });
+            }, radio_lp_linear);
             recyclerView_city.setAdapter(adapterHomeCity);
             setEmptyCity();
         }
@@ -668,14 +718,14 @@ public class FragmentHome extends Fragment {
 
     private void setAdapterAllRadio(){
         if(arrayList_radio_all.size() <= 6){
-            adapterRadioList_all = new AdapterRadioList(getActivity(), arrayList_radio_all, "linear");
+            adapterRadioList_all = new AdapterRadioList(getActivity(), arrayList_radio_all, radio_lp_linear, false);
             recyclerView_all_radio.setAdapter(adapterRadioList_all);
         }else{
             ArrayList<Object> list = new ArrayList<>();
             for(int i = 0; i < 6; i++){
                 list.add(arrayList_radio_all.get(i));
             }
-            adapterRadioList_all = new AdapterRadioList(getActivity(), list, "linear");
+            adapterRadioList_all = new AdapterRadioList(getActivity(), list, radio_lp_linear, false);
             recyclerView_all_radio.setAdapter(adapterRadioList_all);
         }
     }
@@ -702,7 +752,7 @@ public class FragmentHome extends Fragment {
                     ft.commit();
                     ((BaseActivity) getActivity()).getSupportActionBar().setTitle(Constants.itemLanguage.getName());
                 }
-            });
+            }, radio_lp_linear);
             recyclerView_language.setAdapter(adapterHomeLanguage);
             setEmptyLanguage();
         }else{
@@ -724,7 +774,7 @@ public class FragmentHome extends Fragment {
                     ft.commit();
                     ((BaseActivity) getActivity()).getSupportActionBar().setTitle(Constants.itemLanguage.getName());
                 }
-            });
+            }, radio_lp_linear);
             recyclerView_language.setAdapter(adapterHomeLanguage);
             setEmptyLanguage();
         }

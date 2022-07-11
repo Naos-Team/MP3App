@@ -2,6 +2,7 @@ package com.zxfdwka.bestcountrymusic.radio.fragments;
 
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -54,6 +56,7 @@ public class FragmentCity extends Fragment {
     private LinearLayout ll_empty;
     private String errr_msg;
     SharedPref sharedPref;
+    private ConstraintLayout.LayoutParams radio_lp_grid;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public class FragmentCity extends Fragment {
         sharedPref = new SharedPref(getActivity());
         methods = new Methods(getActivity());
         progressBar = rootView.findViewById(R.id.progressBar_cat);
-
+        setItemResponsive();
         Constants.fragmentStatus = Constants.OTHER_HOME;
 
         ll_empty = rootView.findViewById(R.id.ll_empty);
@@ -88,7 +91,7 @@ public class FragmentCity extends Fragment {
                 ft.commit();
                 ((RadioBaseActivity) getActivity()).getSupportActionBar().setTitle(Constants.itemCity.getName());
             }
-        });
+        }, radio_lp_grid);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -107,7 +110,6 @@ public class FragmentCity extends Fragment {
 //        if (isVisible && !isLoaded) {
 //            loadCity();
 //        }
-
         loadCity();
 
         button_try.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +120,18 @@ public class FragmentCity extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void setItemResponsive(){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((RadioBaseActivity) getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        radio_lp_grid = new ConstraintLayout.LayoutParams((int) Math.floor(width/2), (int) Math.floor(width/2));
+//        int top = (int) Math.floor(width*0.04);
+//        int bottom = (int) Math.floor(width*0.04);
+//        radio_lp_grid.setMargins(0, top, 0, bottom);
     }
 
     private void getBannerAds(){

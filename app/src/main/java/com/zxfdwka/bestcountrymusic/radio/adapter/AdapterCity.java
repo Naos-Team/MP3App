@@ -1,18 +1,24 @@
 package com.zxfdwka.bestcountrymusic.radio.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.graphics.drawable.PaintDrawable;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.CityClickListener;
 import com.zxfdwka.bestcountrymusic.radio.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemCity;
@@ -35,26 +41,31 @@ public class AdapterCity extends RecyclerView.Adapter{
     private CityClickListener cityClickListener;
     private Methods methods;
     private SharedPref sharedPref;
+    private ConstraintLayout.LayoutParams lp_item;
+    private Context context;
 
-    public AdapterCity(Context context, ArrayList<Object> list, CityClickListener cityClickListener) {
+    public AdapterCity(Context context, ArrayList<Object> list, CityClickListener cityClickListener, ConstraintLayout.LayoutParams lp_item) {
         this.arraylist = list;
         this.filteredArrayList = list;
         this.cityClickListener = cityClickListener;
         methods = new Methods(context, interAdListener);
         sharedPref = new SharedPref(context);
+        this.lp_item = lp_item;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textView_title;
-        private CardView cardView;
-        private ImageView imageView;
+        private TextView tv_title, tv_number;
+        private RoundedImageView iv_demand;
+        private ConstraintLayout cs_title, cs_item;
 
         private MyViewHolder(View view) {
             super(view);
-            textView_title = view.findViewById(R.id.tv_city_title);
-            cardView = view.findViewById(R.id.cv_city_item);
-            imageView = view.findViewById(R.id.image_citylist_item);
+            cs_title = view.findViewById(R.id.cs_title);
+            cs_item = view.findViewById(R.id.cs_item);
+            tv_title = view.findViewById(R.id.tv_title);
+            tv_number = view.findViewById(R.id.tv_number);
+            iv_demand = view.findViewById(R.id.iv_demand);
         }
     }
     public static class BannerAdsViewHolder extends RecyclerView.ViewHolder{
@@ -68,6 +79,8 @@ public class AdapterCity extends RecyclerView.Adapter{
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        context = parent.getContext();
+
         switch (viewType){
             case Constants.ITEM_BANNER_AD:
                 View bannerAdView = LayoutInflater.from(parent.getContext())
@@ -75,7 +88,7 @@ public class AdapterCity extends RecyclerView.Adapter{
                 return new BannerAdsViewHolder(bannerAdView);
             default:
                 View itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.layout_citylist, parent, false);
+                        .inflate(R.layout.layout_ondemandcat2, parent, false);
                 return new MyViewHolder(itemView);
         }
     }
@@ -99,13 +112,39 @@ public class AdapterCity extends RecyclerView.Adapter{
             default:
                 MyViewHolder viewHolder = (MyViewHolder) holder;
                 ItemCity item = (ItemCity) arraylist.get(position);
-                viewHolder.textView_title.setText(item.getName());
-                viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+
+                String[] parts = item.getName().split("-");
+                viewHolder.tv_number.setVisibility(View.GONE);
+                viewHolder.tv_title.setText(parts[0].trim());
+
+                ConstraintSet constraintSet = new ConstraintSet();
+                constraintSet.clone(viewHolder.cs_title);
+                constraintSet.setVerticalBias(R.id.tv_title, 0.5f);
+                constraintSet.applyTo(viewHolder.cs_title);
+
+                viewHolder.cs_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         methods.showInter(holder.getAdapterPosition(), "");
                     }
                 });
+
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                ((RadioBaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                int height = displayMetrics.heightPixels;
+                int width = displayMetrics.widthPixels;
+
+                PaintDrawable paintDrawable = new PaintDrawable();
+                paintDrawable.setCornerRadius(width*0.06f);
+                paintDrawable.setTint(context.getResources().getColor(R.color.bg_radius_ondemand));
+                viewHolder.cs_title.setBackground(paintDrawable);
+
+                viewHolder.iv_demand.setCornerRadius(width*0.07f);
+
+                viewHolder.tv_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, height*0.019f);
+                viewHolder.tv_title.setMaxLines(2);
+                viewHolder.tv_title.setTypeface(null, Typeface.BOLD);
+                viewHolder.cs_item.setLayoutParams(lp_item);
 
                 String url ="";
 
@@ -200,7 +239,7 @@ public class AdapterCity extends RecyclerView.Adapter{
                 }
                 Picasso.get()
                         .load(url)
-                        .into(viewHolder.imageView);
+                        .into(viewHolder.iv_demand);
                 break;
         }
 

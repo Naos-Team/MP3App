@@ -101,6 +101,7 @@ public class Constants implements Serializable {
     public static final int ITEM_BANNER_AD = 575;
     public static final int ITEM_CITY = 130;
     public static final int ITEM_RADIO_HOME = 774;
+    public static final int ITEM_RADIO_HOME_GRID = 4958;
 
     public static ItemCity itemCity;
     public static ItemLanguage itemLanguage;

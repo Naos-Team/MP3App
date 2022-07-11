@@ -217,20 +217,6 @@ public class Methods {
         }
     }
 
-    private AdSize getAdSize() {
-        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
-        Display display = ((Activity)context).getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        display.getMetrics(outMetrics);
-
-        float widthPixels = outMetrics.widthPixels;
-        float density = outMetrics.density;
-
-        int adWidth = (int) (widthPixels / density);
-
-        // Step 3 - Get adaptive ad size and return for setting on the ad view.
-        return AdSize.getCurrentOrientationBannerAdSizeWithWidth(context, adWidth);
-    }
 
 //    public void showNativeAd(){
 //        NativeAdsView = ((BaseActivity) context).findViewById(R.id.my_template_native_ads);
@@ -338,7 +324,7 @@ public class Methods {
                     }
                 }, 2000);
             } else {
-                showRateDialog();
+//                showRateDialog();
 
                 if(type.equals("BackPress")){
                     backInterAdListener.onClick();
@@ -347,7 +333,7 @@ public class Methods {
                 }
             }
         } else {
-            showRateDialog();
+//            showRateDialog();
 
             if(type.equals("BackPress")){
                 backInterAdListener.onClick();
@@ -357,42 +343,42 @@ public class Methods {
         }
     }
 
-    public void showRateDialog() {
-        Constants.dialogCount = Constants.dialogCount + 1;
-        if (Constants.dialogCount % 4 == 0) {
-            final SharedPref sharedPref = new SharedPref(context);
-
-            if (sharedPref.getIsRate()) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-                alertDialog.setTitle(context.getString(R.string.rate_this_app));
-                alertDialog.setMessage(context.getString(R.string.rate_this_app_message));
-                alertDialog.setPositiveButton(context.getString(R.string.rate_it_now), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        sharedPref.setIsRate(false);
-                        final String appName = context.getPackageName();//your application package name i.e play store application url
-                        try {
-                            context.startActivity(new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse("market://details?id="
-                                            + appName)));
-                        } catch (android.content.ActivityNotFoundException anfe) {
-                            context.startActivity(new Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("http://play.google.com/store/apps/details?id="
-                                            + appName)));
-                        }
-                    }
-                });
-                alertDialog.setNegativeButton(context.getString(R.string.remind_me_later), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.show();
-            }
-        }
-    }
+//    public void showRateDialog() {
+//        Constants.dialogCount = Constants.dialogCount + 1;
+//        if (Constants.dialogCount % 4 == 0) {
+//            final SharedPref sharedPref = new SharedPref(context);
+//
+//            if (sharedPref.getIsRate()) {
+//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+//                alertDialog.setTitle(context.getString(R.string.rate_this_app));
+//                alertDialog.setMessage(context.getString(R.string.rate_this_app_message));
+//                alertDialog.setPositiveButton(context.getString(R.string.rate_it_now), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        sharedPref.setIsRate(false);
+//                        final String appName = context.getPackageName();//your application package name i.e play store application url
+//                        try {
+//                            context.startActivity(new Intent(Intent.ACTION_VIEW,
+//                                    Uri.parse("market://details?id="
+//                                            + appName)));
+//                        } catch (android.content.ActivityNotFoundException anfe) {
+//                            context.startActivity(new Intent(
+//                                    Intent.ACTION_VIEW,
+//                                    Uri.parse("http://play.google.com/store/apps/details?id="
+//                                            + appName)));
+//                        }
+//                    }
+//                });
+//                alertDialog.setNegativeButton(context.getString(R.string.remind_me_later), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                alertDialog.show();
+//            }
+//        }
+//    }
 
     public GradientDrawable getRoundDrawable(int color) {
         GradientDrawable gd = new GradientDrawable();
