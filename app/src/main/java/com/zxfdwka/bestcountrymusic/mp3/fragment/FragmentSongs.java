@@ -414,6 +414,7 @@ public class FragmentSongs extends Fragment {
     @Override
     public void onStop() {
         GlobalBus.getBus().unregister(this);
+        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.colorThemeRadio));
         ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.colorPrimary));
         ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
         super.onStop();
@@ -421,6 +422,7 @@ public class FragmentSongs extends Fragment {
 
     @Override
     public void onResume() {
+        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.color_2));
         ColorDrawable colorDrawable = new ColorDrawable(getActivity().getResources().getColor(R.color.color_2));
         ((MainActivity) getActivity()).getSupportActionBar().setBackgroundDrawable(colorDrawable);
         super.onResume();

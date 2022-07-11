@@ -1166,7 +1166,13 @@ public class RadioBaseActivity extends AppCompatActivity{
             bottomNavigationView.getMenu().getItem(0).setChecked(true);
         }else if(Constants.fragmentStatus == Constants.OTHER_HOME){
 
-            String current_fragment = fm.getFragments().get(fm.getBackStackEntryCount() - 2).getTag();
+            String current_fragment = "";
+
+            try{
+                current_fragment = fm.getFragments().get(fm.getBackStackEntryCount() - 2).getTag();
+            }catch (Exception e){
+                current_fragment = fm.getFragments().get(fm.getBackStackEntryCount() - 1).getTag();
+            }
 
             if(current_fragment.equals(getString(R.string.on_demand)) ||
                     current_fragment.equals(getString(R.string.favourite)) ||

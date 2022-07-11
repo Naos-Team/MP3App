@@ -46,7 +46,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.74"
                     app:layout_constraintWidth_percent="0.8"
-                    app:riv_border_color="@color/colorPrimary"
+                    app:riv_border_color="#F2F2F2"
                     app:riv_border_width="2dp"
                     app:riv_mutate_background="false"
                     app:riv_oval="true"
@@ -73,7 +73,7 @@
                     android:layout_alignParentBottom="true"
                     android:indeterminate="true"
                     android:visibility="gone"
-                    app:cpb_color="@color/radio_player_theme"
+                    app:cpb_color="@color/white"
                     app:cpb_min_sweep_angle="10"
                     app:cpb_rotation_speed="1.0"
                     app:cpb_stroke_width="4dp"
@@ -221,8 +221,8 @@
                     android:layout_height="0dp"
                     android:layout_toLeftOf="@id/textView_total_duration"
                     android:layout_toRightOf="@id/textView_song_duration"
-                    android:progressTint="#CC43C56F"
-                    android:thumbTint="#43C56F"
+                    android:progressTint="#DAD8D8"
+                    android:thumbTint="@color/white"
                     android:foregroundTint="@color/white"
                     android:progressBackgroundTint="@color/white"
                     android:secondaryProgressTint="@color/white"
@@ -281,7 +281,7 @@
                     android:id="@+id/btn_play_music"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="@drawable/shape_button_play"
+                    android:background="@drawable/shape_button_play_home"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -295,7 +295,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
-                    app:tint="@color/radio_player_theme"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btn_play_music"
                     app:layout_constraintHeight_percent="0.11"
@@ -303,21 +302,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.81"
-                    app:srcCompat="@drawable/ic_radio_rewind" />
+                    app:srcCompat="@drawable/ic_radio_rewind"
+                    app:tint="#F2F2F2" />
 
                 <ImageView
                     android:id="@+id/imageView_fav_expand"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
-                    app:tint="@color/radio_player_theme"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btn_previous_expand"
                     app:layout_constraintHeight_percent="0.09"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.81"
-                    app:srcCompat="@drawable/ic_unfill_heart" />
+                    app:srcCompat="@drawable/ic_unfill_heart"
+                    app:tint="#F2F2F2" />
 
                 <ImageView
                     android:id="@+id/btn_next_expand"
@@ -332,14 +332,13 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.81"
                     app:srcCompat="@drawable/ic_radio_forward"
-                    app:tint="@color/radio_player_theme" />
+                    app:tint="#F2F2F2" />
 
                 <ImageView
                     android:id="@+id/btn_volume"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:adjustViewBounds="true"
-                    app:tint="@color/radio_player_theme"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHeight_percent="0.11"
@@ -347,13 +346,14 @@
                     app:layout_constraintStart_toEndOf="@+id/btn_next_expand"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.81"
-                    app:srcCompat="@drawable/ic_btn_volume" />
+                    app:srcCompat="@drawable/ic_btn_volume"
+                    app:tint="#F2F2F2" />
 
                 <ImageView
                     android:id="@+id/iv_play_music"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:tint="@color/toggle_radio"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/btn_play_music"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintHeight_percent="0.1"
@@ -362,21 +362,21 @@
                     app:layout_constraintRight_toRightOf="@id/btn_play_music"
                     app:layout_constraintTop_toTopOf="@id/btn_play_music"
                     app:srcCompat="@drawable/ic_btn_play"
-                    android:visibility="gone"/>
+                    app:tint="#171717" />
 
                 <ImageView
                     android:id="@+id/iv_pause_music"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:tint="@color/toggle_radio"
-                    app:layout_constraintLeft_toLeftOf="@id/btn_play_music"
-                    app:layout_constraintRight_toRightOf="@id/btn_play_music"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/btn_play_music"
-                    app:layout_constraintTop_toTopOf="@id/btn_play_music"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintHeight_percent="0.1"
+                    app:layout_constraintLeft_toLeftOf="@id/btn_play_music"
+                    app:layout_constraintRight_toRightOf="@id/btn_play_music"
+                    app:layout_constraintTop_toTopOf="@id/btn_play_music"
                     app:srcCompat="@drawable/ic_btn_pause"
-                    android:visibility="gone"/>
+                    app:tint="#171717" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
