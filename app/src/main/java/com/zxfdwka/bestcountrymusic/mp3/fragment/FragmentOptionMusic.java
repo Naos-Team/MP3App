@@ -1,11 +1,8 @@
 package com.zxfdwka.bestcountrymusic.mp3.fragment;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +14,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.activity.BaseActivity;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadFav;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.OptionMusicListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.SuccessListener;

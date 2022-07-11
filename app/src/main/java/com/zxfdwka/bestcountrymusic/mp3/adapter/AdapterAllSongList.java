@@ -30,9 +30,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.activity.BaseActivity;
 import com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.GetRating;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadRating;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentOptionMusic;

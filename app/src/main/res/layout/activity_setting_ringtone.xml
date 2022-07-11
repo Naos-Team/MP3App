@@ -276,7 +276,7 @@
                             android:padding="12dp"
                             android:backgroundTint="#26607D8B"
                             android:background="@drawable/abs_top_tracks_playlist"
-                            android:src="@drawable/ic_share"
+                            android:src="@drawable/ic_share1"
                             app:tint="#607d8b"/>
 
 

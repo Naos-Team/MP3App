@@ -42,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Target;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.GetRating;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadFav;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadRating;

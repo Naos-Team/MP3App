@@ -188,7 +188,7 @@
                 app:layout_constraintHeight_percent="0.7"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_share"
+                app:srcCompat="@drawable/ic_share1"
                 app:tint="@color/grey" />
 
             <TextView
