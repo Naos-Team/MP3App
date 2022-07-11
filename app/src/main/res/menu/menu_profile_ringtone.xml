@@ -7,7 +7,7 @@
         android:id="@+id/item_search"
         android:title="search"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_loupe"/>
+        android:icon="@mipmap/ic_search"/>
 
 
 </menu>
