@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     NavigationView navigationView;
 
-    MenuItem menu_login, menu_upload,menu_user_by;
+    MenuItem menu_login, menu_upload,menu_user_by, menu_fav;
     public static Activity activity;
     Methods methods;
     DBHelper dbHelper;
@@ -103,11 +103,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Setting.Dark_Mode) {
-            setTheme(R.style.AppTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+//        if (Setting.Dark_Mode) {
+//            setTheme(R.style.AppTheme);
+//        } else {
+//            setTheme(R.style.AppTheme);
+//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_ringtone);
         //initBuy();
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         menu_login = menu.findItem(R.id.nav_login);
         menu_upload = menu.findItem(R.id.nav_upload);
         menu_user_by = menu.findItem(R.id.nav_user_by);
-
+        menu_fav = menu.findItem(R.id.nav_fav);
         changeLoginName();
 
 
@@ -211,11 +211,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                    // menu_login.setIcon(getResources().getDrawable(R.drawable.ic_logout));
                     menu_upload.setVisible(false);
                     menu_user_by.setVisible(false);
+                    menu_fav.setVisible(true);
                 } else {
                     //menu_login.setTitle(getResources().getString(R.string.login));
                     //menu_login.setIcon(getResources().getDrawable(R.drawable.ic_login));
                     menu_upload.setVisible(false);
                     menu_user_by.setVisible(false);
+                    menu_fav.setVisible(false);
                 }
             } else {
                 menu_login.setVisible(false);

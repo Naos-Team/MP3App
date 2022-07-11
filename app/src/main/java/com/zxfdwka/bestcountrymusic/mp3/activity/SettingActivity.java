@@ -50,7 +50,7 @@ public class SettingActivity extends AppCompatActivity {
     Methods methods;
     AdConsent adConsent;
     ConstraintLayout ll_theme;
-    LinearLayout ll_consent, ll_adView, llfav;
+    LinearLayout ll_consent, ll_adView;
     SwitchCompat switch_consent, switch_noti;
     Boolean isNoti = true;
     ImageView iv_theme;
@@ -106,7 +106,7 @@ public class SettingActivity extends AppCompatActivity {
         tv_about = findViewById(R.id.tv_about);
         tv_privacy = findViewById(R.id.tv_privacy);
         ll_adView = findViewById(R.id.ll_adView);
-        llfav = findViewById(R.id.llfav);
+        //llfav = findViewById(R.id.llfav);
         methods.showBannerAd(ll_adView);
 
         if (adConsent.isUserFromEEA()) {
@@ -221,12 +221,12 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        llfav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SettingActivity.this, BaseFavoriteActivity.class));
-            }
-        });
+//        llfav.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(SettingActivity.this, BaseFavoriteActivity.class));
+//            }
+//        });
 
         changeThemeColor();
     }

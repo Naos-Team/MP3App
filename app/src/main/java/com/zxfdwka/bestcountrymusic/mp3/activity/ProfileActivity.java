@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     LinearLayout ll_mobile;
     View view_phone;
     ProgressDialog progressDialog;
+    Button btn_logout;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -61,6 +63,15 @@ public class ProfileActivity extends AppCompatActivity {
         ll_mobile = findViewById(R.id.ll_prof_phone);
 
         view_phone = findViewById(R.id.view_prof_phone);
+
+        btn_logout = findViewById(R.id.btn_logout);
+
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                methods.clickLogin();
+            }
+        });
 
         LinearLayout ll_adView = findViewById(R.id.ll_adView);
         methods.showBannerAd(ll_adView);

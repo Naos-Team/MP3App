@@ -12,15 +12,45 @@
         android:id="@+id/setting"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/ic_setting_home"
+        android:src="@drawable/ic_setting_home1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.045"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHeight_percent="0.035"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintVertical_bias="0.92" />
+
+    <ImageView
+        android:id="@+id/favorite"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:tint="@color/white"
+        android:src="@drawable/bookmark_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.035"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.92" />
+
+    <ImageView
+        android:id="@+id/user"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/home_user"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.035"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.92" />
 
 
 
@@ -37,7 +67,7 @@
         app:layout_constraintHeight_percent="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_bias="0.4"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintWidth_percent="0.85" />
 

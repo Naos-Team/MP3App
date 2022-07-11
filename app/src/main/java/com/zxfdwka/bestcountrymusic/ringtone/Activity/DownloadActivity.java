@@ -37,11 +37,11 @@ public class DownloadActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Setting.Dark_Mode) {
-            setTheme(R.style.AppTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
+//        if (Setting.Dark_Mode) {
+//            setTheme(R.style.AppTheme);
+//        } else {
+//            setTheme(R.style.AppTheme);
+//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_ringtone);
 

@@ -42,7 +42,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         int width = context.getResources().getDisplayMetrics().widthPixels;
         int height = context.getResources().getDisplayMetrics().heightPixels;
-        ConstraintLayout.LayoutParams layoutParams= new ConstraintLayout.LayoutParams((int)Math.round(width*0.45), (int)Math.round(height*0.2));
+        ConstraintLayout.LayoutParams layoutParams= new ConstraintLayout.LayoutParams((int)Math.round(width*0.45), (int)Math.round(height*0.185));
         layoutParams.setMargins(10,20,10,20);
         holder.cat_layout.setLayoutParams(layoutParams);
 
