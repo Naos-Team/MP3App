@@ -1157,7 +1157,8 @@ public class RadioBaseActivity extends AppCompatActivity{
         }
 
         if(Constants.fragmentStatus == Constants.AT_HOME){
-            Toast.makeText(this, "quit", Toast.LENGTH_SHORT).show();
+            super.onBackPressed();
+            //Toast.makeText(this, "quit", Toast.LENGTH_SHORT).show();
         }else if(Constants.fragmentStatus == Constants.NEAR_HOME){
             loadFrag(new FragmentMain(), getResources().getString(R.string.radio), fm);
             getSupportActionBar().setTitle(getString(R.string.radio));

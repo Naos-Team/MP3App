@@ -306,12 +306,13 @@ public class LoginActivity extends AppCompatActivity {
                                 if (from!=null && from.equals("app")) {
                                     finish();
                                 } else {
-                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                    LoginActivity.super.onBackPressed();
+                                    //startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                                 }
                             }
                             catch (Exception e){
                                 e.printStackTrace();
-                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                LoginActivity.super.onBackPressed();
 
                             }
 

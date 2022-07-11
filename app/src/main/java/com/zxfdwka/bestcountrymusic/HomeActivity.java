@@ -12,6 +12,7 @@ import com.zxfdwka.bestcountrymusic.mp3.activity.LoginActivity;
 import com.zxfdwka.bestcountrymusic.mp3.activity.ProfileActivity;
 import com.zxfdwka.bestcountrymusic.mp3.activity.SettingActivity;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
+import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity;
 import com.zxfdwka.bestcountrymusic.ringtone.Activity.SplashActivity;
 
@@ -31,6 +32,15 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        binding.radio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, RadioBaseActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         binding.mp3.setOnClickListener(new View.OnClickListener() {
             @Override

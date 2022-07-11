@@ -43,9 +43,6 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.nemosofts.library.Nemosofts;
-import com.nemosofts.library.UpdateManager.UpdateManager;
-import com.nemosofts.library.UpdateManager.UpdateManagerConstant;
 import com.zxfdwka.bestcountrymusic.HomeActivity;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.ViewPagerAdapter;
@@ -83,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean readyToPurchase = false;
     private static final String LOG_TAG = "iabv3";
 
-    UpdateManager update;
-    Nemosofts nemosofts;
+//    UpdateManager update;
+//    Nemosofts nemosofts;
 
 //    ServiceConnection mServiceConn = new ServiceConnection() {
 //        @Override
@@ -111,23 +108,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_ringtone);
         //initBuy();
-        nemosofts = new Nemosofts(this);
+//        nemosofts = new Nemosofts(this);
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
         dbHelper = new DBHelper(this);
         sharedPref = new SharedPref(MainActivity.this);
-        nemosofts = new Nemosofts(this);
-        // Initialize the Update Manager with the Activity and the Update Mode
-        update = UpdateManager.Builder(this).mode(UpdateManagerConstant.FLEXIBLE);
-        update.start();
-
-        update.getAvailableVersionCode(new UpdateManager.onVersionCheckListener() {
-            @Override
-            public void onReceiveVersionCode(final int code) {
-                // Do something here
-            }
-        });
+//        nemosofts = new Nemosofts(this);
+//        // Initialize the Update Manager with the Activity and the Update Mode
+//        update = UpdateManager.Builder(this).mode(UpdateManagerConstant.FLEXIBLE);
+//        update.start();
+//
+//        update.getAvailableVersionCode(new UpdateManager.onVersionCheckListener() {
+//            @Override
+//            public void onReceiveVersionCode(final int code) {
+//                // Do something here
+//            }
+//        });
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -533,7 +530,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         // Continue updates when resumed
-        update.continueUpdate();
+//        update.continueUpdate();
     }
 
 }

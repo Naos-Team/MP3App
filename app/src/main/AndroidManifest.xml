@@ -193,7 +193,6 @@
         <activity android:name=".ringtone.Activity.intActivity" />
         <activity android:name=".ringtone.Activity.MainActivity" />
         <activity android:name=".ringtone.Activity.SearchActivity" />
-        <activity android:name=".ringtone.Activity.SettingActivity" />
         <activity android:name=".ringtone.Activity.UploadRingtoneActivity" />
         <activity android:name=".ringtone.Activity.UserActivity" />
         <activity android:name=".ringtone.Login.LoginActivity" />
