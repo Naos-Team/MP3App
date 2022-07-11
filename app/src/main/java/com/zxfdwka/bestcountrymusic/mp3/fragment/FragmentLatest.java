@@ -128,7 +128,7 @@ public class FragmentLatest extends Fragment {
         TypedValue typedValue = new TypedValue();
         getActivity().getTheme().resolveAttribute(android.R.attr.actionBarSize, typedValue, true);
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                getResources().getDisplayMetrics().heightPixels * 30 / 100 - typedValue.TYPE_DIMENSION);
+                getResources().getDisplayMetrics().heightPixels * 25 / 100 - typedValue.TYPE_DIMENSION);
         iv_latest.setLayoutParams(layoutParams);
 
         rv.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm_banner) {

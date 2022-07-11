@@ -41,6 +41,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -63,6 +64,7 @@ public class FragmentFav extends Fragment {
     private int page = 1;
     private Boolean isOver = false, isScroll = false, isLoading = false, isNewAdded = true, isAllNew = false;
     private NativeAdsManager mNativeAdsManager;
+    private ConstraintLayout iv_latest;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,7 +91,9 @@ public class FragmentFav extends Fragment {
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setHasFixedSize(true);
         rv.setNestedScrollingEnabled(false);
-
+        iv_latest = rootView.findViewById(R.id.iv_latest);
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        iv_latest.setLayoutParams(layoutParams);
         frameLayout = rootView.findViewById(R.id.fl_empty);
 
         rv.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm_banner) {

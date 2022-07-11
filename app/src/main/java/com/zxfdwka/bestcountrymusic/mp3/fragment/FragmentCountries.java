@@ -71,6 +71,7 @@ public class FragmentCountries extends Fragment {
                 intent.putExtra("type", getString(R.string.countries));
                 intent.putExtra("id", adapterCountry.getItem(position).getId());
                 intent.putExtra("name", adapterCountry.getItem(position).getName());
+                intent.putExtra("image", adapterCountry.getItem(position).getImage());
                 startActivity(intent);
             }
         });
