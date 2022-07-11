@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_dark"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white_dark"
+        app:navigationIcon="@drawable/ic_baseline_menu_24"
+        app:title="Update Ringtone"
+        app:titleTextColor="@color/text_black" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar2"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Update By : User Name"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Ringtone Category"
+                    android:textColor="@color/text_black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <Spinner
+                android:id="@+id/spinner2list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_round_border"
+                android:padding="20dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Ringtone Name"
+                    android:textColor="@color/text_black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/tvimagename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_round_border"
+                android:hint="Enter Ringtone Name"
+                android:padding="15dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white_with_alpha" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Ringtone"
+                    android:textColor="@color/text_black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/browsebtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_round_border"
+                    android:textStyle="bold"
+                    android:translationZ="0dp" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="90dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_files_and_folders"
+                    android:translationZ="2dp"
+                    app:tint="@color/text_black" />
+
+                <ImageView
+                    android:id="@+id/add"
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_plus"
+                    android:translationZ="2dp"
+                    app:tint="@color/text_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/add"
+                    android:text="Select Ringtone"
+                    android:textColor="@color/text_black"
+                    android:textSize="18dp"
+                    android:translationZ="2dp" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/uripathtv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="URI Path"
+                android:textColor="@color/text_black"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/relativelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dp"
+                    app:cardCornerRadius="5dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimary">
+
+                        <SeekBar
+                            android:id="@+id/seek_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:fitsSystemWindows="true"
+                            android:progressDrawable="@drawable/progress"
+                            android:thumb="@color/transperent" />
+
+                        <ImageView
+                            android:id="@+id/transimage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_round_border"
+                            android:clickable="true" />
+
+                        <RelativeLayout
+                            android:id="@+id/uirel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp">
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerInParent="true"
+                                android:clickable="true"
+                                android:indeterminateTint="@color/text_black"
+                                android:padding="10dp"
+                                android:theme="@style/WhiteAccent"
+                                android:visibility="gone"
+                                tools:ignore="VectorDrawableCompat" />
+
+                            <ImageView
+                                android:id="@+id/image_play_bg"
+                                android:layout_width="42dp"
+                                android:layout_height="42dp"
+                                android:layout_centerInParent="true"
+                                android:clickable="true"
+                                android:src="@drawable/gradient6"
+                                tools:ignore="VectorDrawableCompat" />
+
+                            <ImageView
+                                android:id="@+id/image_play"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_centerInParent="true"
+                                android:clickable="true"
+                                android:src="@drawable/play_ringtone"
+                                tools:ignore="VectorDrawableCompat" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/ringtone_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toEndOf="@id/uirel"
+                            android:layout_toRightOf="@id/uirel"
+                            android:text="S8 classic tone"
+                            android:textColor="@color/text_black"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/submitbtn"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/cardmy"
+                    android:text="Submit"
+                    android:textColor="@color/black"
+                    android:textSize="19dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

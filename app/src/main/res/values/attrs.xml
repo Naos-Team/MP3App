@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <declare-styleable name="EqualizerView">
+    <attr name="foregroundColor" format="integer" />
+    <attr name="animDuration" format="integer" />
+  </declare-styleable>
+
+  <declare-styleable name="VerticalSeekBar">
+    <attr name="seekBarRotation">
+      <!-- Clock wise - 90 deg; top = min, bottom = max -->
+      <enum name="CW90" value="90" />
+      <!-- Clock wise - 270 deg; bottom = min, top = max -->
+      <enum name="CW270" value="270" />
+    </attr>
+  </declare-styleable>
+
+  <declare-styleable name="CircularImageView">
+    <attr name="civ_border" format="boolean" />
+    <attr name="civ_border_width" format="dimension" />
+    <attr name="civ_border_color" format="color" />
+    <attr name="civ_shadow" format="boolean" />
+    <attr name="civ_shadow_color" format="color" />
+    <attr name="civ_shadow_radius" format="float" />
+  </declare-styleable>
+
+  <declare-styleable name="SmoothCheckBox">
+    <attr name="duration" format="integer"/>
+    <attr name="stroke_width" format="dimension"/>
+    <attr name="color_tick" format="color"/>
+    <attr name="color_checked" format="color"/>
+    <attr name="color_unchecked" format="color"/>
+    <attr name="color_unchecked_stroke" format="color"/>
+  </declare-styleable>
+
+
+
+
+  <attr name="BackgroundColor" format="color"/>
+  <attr name="BackgroundTint" format="color"/>
+  <attr name="iconRecode" format="integer"/>
+  <attr name="Boder" format="color"/>
+  <attr name="Titel_1" format="color"/>
+  <attr name="Titel_2" format="color"/>
+  <attr name="icon_a" format="integer"/>
+  <attr name="BackgroundUpdate1" format="color"/>
+  <attr name="BackgroundUpdate2" format="color"/>
+
+
+
+</resources>

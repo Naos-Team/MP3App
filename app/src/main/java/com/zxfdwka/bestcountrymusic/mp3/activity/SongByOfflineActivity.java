@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.adapter.AdapterOFSongList;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.ClickListenerPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;

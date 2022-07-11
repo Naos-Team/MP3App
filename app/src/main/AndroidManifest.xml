@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zxfdwka.bestcountrymusic.mp3.activity">
+    package="com.zxfdwka.bestcountrymusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.zxfdwka.bestcountrymusic.mp3.activity.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
@@ -25,81 +25,90 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".PlayListNowActivity"
+            android:name=".mp3.activity.PlayListNowActivity"
             android:exported="false" />
         <activity
-            android:name="com.zxfdwka.bestcountrymusic.HomeActivity"
+            android:name=".mp3.activity.FavoriteActivity"
             android:exported="false" />
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".BaseFavoriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ringtone.Activity.BaseCategoriesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".mp3.activity.SplashActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".mp3.activity.LoginActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".MainActivity"
+            android:name=".mp3.activity.MainActivity"
             android:label="@string/title_activity_main"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
-        <activity android:name=".BaseActivity" />
+        <activity android:name=".mp3.activity.BaseActivity" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".mp3.activity.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".mp3.activity.ForgotPasswordActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".mp3.activity.ProfileActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".ProfileEditActivity"
+            android:name=".mp3.activity.ProfileEditActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ReportActivity"
+            android:name=".mp3.activity.ReportActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".SuggestionActivity"
+            android:name=".mp3.activity.SuggestionActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".SongByCatActivity"
+            android:name=".mp3.activity.SongByCatActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".SongByServerPlaylistActivity"
+            android:name=".mp3.activity.SongByServerPlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".SongByMyPlaylistActivity"
+            android:name=".mp3.activity.SongByMyPlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".SongByOfflineActivity"
+            android:name=".mp3.activity.SongByOfflineActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".SongByOFFPlaylistActivity"
+            android:name=".mp3.activity.SongByOFFPlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".Add2OfflinePlaylistActivity"
+            android:name=".mp3.activity.Add2OfflinePlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".SettingActivity"
+            android:name=".mp3.activity.SettingActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".AboutActivity"
+            android:name=".mp3.activity.AboutActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".OfflineMusicActivity"
+            android:name=".mp3.activity.OfflineMusicActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".SelectSongActivity"
+            android:name=".mp3.activity.SelectSongActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".ArtistByGenreActivity"
+            android:name=".mp3.activity.ArtistByGenreActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".MiniPlayer"
+            android:name=".mp3.activity.MiniPlayer"
             android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
@@ -125,10 +134,10 @@
             android:value="@integer/google_play_services_version" />
 
         <service
-            android:name=".PlayerService"
+            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.PlayerService"
             android:exported="false" />
         <service
-            android:name="com.zxfdwka.bestcountrymusic.mp3.utils.NotificationExtenderExample"
+            android:name=".mp3.utils.NotificationExtenderExample"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>
@@ -136,10 +145,10 @@
             </intent-filter>
         </service>
         <service
-            android:name=".DownloadService"
+            android:name="com.zxfdwka.bestcountrymusic.mp3.activity.DownloadService"
             android:exported="false" />
 
-        <receiver android:name="com.zxfdwka.bestcountrymusic.mp3.utils.MediaButtonIntentReceiver">
+        <receiver android:name=".mp3.utils.MediaButtonIntentReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
@@ -165,6 +174,18 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".ringtone.Activity.SplashActivity" />
+        <activity android:name=".ringtone.Activity.CategoriesActivity" />
+        <activity android:name=".ringtone.Activity.DownloadActivity" />
+        <activity android:name=".ringtone.Activity.FavouriteActivity" />
+        <activity android:name=".ringtone.Activity.intActivity" />
+        <activity android:name=".ringtone.Activity.MainActivity" />
+        <activity android:name=".ringtone.Activity.SearchActivity" />
+        <activity android:name=".ringtone.Activity.SettingActivity" />
+        <activity android:name=".ringtone.Activity.UploadRingtoneActivity" />
+        <activity android:name=".ringtone.Activity.UserActivity" />
+        <activity android:name=".ringtone.Login.LoginActivity" />
+        <activity android:name=".ringtone.Login.RegisterActivity" />
     </application>
 
 </manifest>

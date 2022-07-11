@@ -11,8 +11,8 @@ import com.facebook.crypto.Entity;
 import com.facebook.crypto.exception.CryptoInitializationException;
 import com.facebook.crypto.exception.KeyChainException;
 import com.facebook.crypto.util.SystemNativeCryptoLibrary;
+import com.zxfdwka.bestcountrymusic.BuildConfig;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemSong;
-import com.zxfdwka.bestcountrymusic.mp3.activity.BuildConfig;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;

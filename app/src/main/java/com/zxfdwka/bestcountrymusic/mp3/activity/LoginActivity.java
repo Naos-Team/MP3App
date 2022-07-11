@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.Login;
+import com.zxfdwka.bestcountrymusic.HomeActivity;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadLogin;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadRegister;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.LoginListener;
@@ -44,6 +48,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.onesignal.OneSignal;
+import com.zxfdwka.bestcountrymusic.ringtone.SharedPref.Setting;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -150,7 +155,9 @@ public class LoginActivity extends AppCompatActivity {
         button_skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openMainActivity();
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+                //openMainActivity();
             }
         });
 
@@ -292,13 +299,22 @@ public class LoginActivity extends AppCompatActivity {
                             }
                             sharedPref.setIsAutoLogin(true);
                             Constant.isLogged = true;
+                            Setting.isLogged = true;
                             Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
 
-                            if (from.equals("app")) {
-                                finish();
-                            } else {
-                                openMainActivity();
+                            try{
+                                if (from!=null && from.equals("app")) {
+                                    finish();
+                                } else {
+                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                }
                             }
+                            catch (Exception e){
+                                e.printStackTrace();
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
+                            }
+
                         } else {
                             Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                         }

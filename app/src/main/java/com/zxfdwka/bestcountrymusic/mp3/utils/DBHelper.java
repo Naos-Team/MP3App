@@ -8,10 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemAbout;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemMyPlayList;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemSong;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 
 import java.io.File;
 import java.util.ArrayList;

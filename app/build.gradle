@@ -43,6 +43,9 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.things:androidthings:1.0'
+    implementation project(path: ':nemosofts')
+    implementation project(path: ':nemosofts')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('androidx.test:runner:1.1.0-alpha4', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -110,6 +113,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation 'com.anjlab.android.iab.v3:library:1.1.0'
+    implementation 'me.relex:circleindicator:2.1.6'
     implementation 'com.aurelhubert:ahbottomnavigation:2.3.4'
 
 }

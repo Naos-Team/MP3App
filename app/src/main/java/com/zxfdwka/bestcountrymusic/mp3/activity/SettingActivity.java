@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.zxfdwka.bestcountrymusic.BaseFavoriteActivity;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.AdConsentListener;
 import com.zxfdwka.bestcountrymusic.mp3.utils.AdConsent;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
@@ -29,6 +31,7 @@ import com.google.ads.consent.ConsentInformation;
 import com.google.ads.consent.ConsentStatus;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
+import com.zxfdwka.bestcountrymusic.ringtone.Activity.FavouriteActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -73,9 +76,16 @@ public class SettingActivity extends AppCompatActivity {
         them_mode = methods.getDarkMode();
 
         toolbar = this.findViewById(R.id.toolbar_setting);
-        toolbar.setTitle(getString(R.string.settings));
         this.setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
 
         adConsent = new AdConsent(this, new AdConsentListener() {
             @Override
@@ -96,6 +106,7 @@ public class SettingActivity extends AppCompatActivity {
         tv_about = findViewById(R.id.tv_about);
         tv_privacy = findViewById(R.id.tv_privacy);
         ll_adView = findViewById(R.id.ll_adView);
+        //llfav = findViewById(R.id.llfav);
         methods.showBannerAd(ll_adView);
 
         if (adConsent.isUserFromEEA()) {
@@ -109,11 +120,11 @@ public class SettingActivity extends AppCompatActivity {
             switch_noti.setChecked(false);
         }
 
-        if (methods.isDarkMode()) {
-            iv_theme.setImageResource(R.mipmap.mode_dark);
-        } else {
-            iv_theme.setImageResource(R.mipmap.mode_icon);
-        }
+//        if (methods.isDarkMode()) {
+//            iv_theme.setImageResource(R.mipmap.mode_dark);
+//        } else {
+//            iv_theme.setImageResource(R.mipmap.mode_icon);
+//        }
 
         String mode = methods.getDarkMode();
         switch (mode) {
@@ -209,6 +220,13 @@ public class SettingActivity extends AppCompatActivity {
                 adConsent.requestConsent();
             }
         });
+
+//        llfav.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(SettingActivity.this, BaseFavoriteActivity.class));
+//            }
+//        });
 
         changeThemeColor();
     }

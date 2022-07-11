@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadAbout;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentAlbums;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentArtist;

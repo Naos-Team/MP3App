@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemArtist;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
 
 import java.util.ArrayList;
 

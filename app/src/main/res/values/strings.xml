@@ -119,8 +119,8 @@
     <string name="set_as_ring">Set As Ringtone</string>
     <string name="set_ringnotification">Notification Ringtone</string>
     <string name="set_ringalarm">Alarm Ringtone</string>
-    <string name="set_as_noti">Set As Notificaiton tone</string>
-    <string name="set_as_alarm">Set As Alarm tone</string>
+    <string name="set_as_noti">Set As Notificaiton Tone</string>
+    <string name="set_as_alarm">Set As Alarm Tone</string>
     <string name="alarm_set">Alarm Ringtone Set</string>
     <string name="noti_set">Notification tone set</string>
     <string name="ringtone_set">Ringtone Set</string>
@@ -259,7 +259,7 @@
     <string name="noti_set_ringtone">Notification tone set</string>
     <string name="ringtone_set_ringtone">Ringtone Set</string>
     <string name="exit_ringtone">exit</string>
-    <string name="retey_ringtone">RETEY</string>
+    <string name="retey_ringtone">RETRY</string>
 
     <string name="err_no_categories_found_ringtone">No Categories Found</string>
     <string name="error_unauth_access_ringtone">Unauthorized Access</string>

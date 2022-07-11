@@ -27,7 +27,7 @@ import com.zxfdwka.bestcountrymusic.mp3.interfaces.ArtistListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterAdListener;
 import com.zxfdwka.bestcountrymusic.mp3.item.ItemArtist;
 import com.zxfdwka.bestcountrymusic.mp3.activity.MainActivity;
-import com.zxfdwka.bestcountrymusic.mp3.activity.R;
+import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
 import com.zxfdwka.bestcountrymusic.mp3.utils.EndlessRecyclerViewScrollListener;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
