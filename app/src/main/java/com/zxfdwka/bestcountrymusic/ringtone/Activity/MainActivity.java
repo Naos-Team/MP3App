@@ -54,6 +54,11 @@ import com.zxfdwka.bestcountrymusic.ringtone.SharedPref.Setting;
 import com.zxfdwka.bestcountrymusic.ringtone.SharedPref.SharedPref;
 
 import java.io.File;
+
+import io.github.inflationx.calligraphy3.CalligraphyConfig;
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
+import io.github.inflationx.viewpump.ViewPump;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -112,6 +117,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main_ringtone);
         //initBuy();
 //        nemosofts = new Nemosofts(this);
+
+        ViewPump.init(ViewPump.builder()
+                .addInterceptor(new CalligraphyInterceptor(
+                        new CalligraphyConfig.Builder()
+                                .setDefaultFontPath("fonts/poppins_reg.ttf")
+                                .setFontAttrId(R.attr.fontPath)
+                                .build()))
+                .build());
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());

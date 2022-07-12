@@ -14,6 +14,8 @@ import com.zxfdwka.bestcountrymusic.databinding.ActivityBaseCategoriesBinding;
 import com.zxfdwka.bestcountrymusic.databinding.ActivityBaseFavoriteBinding;
 import com.zxfdwka.bestcountrymusic.databinding.ActivityHomeBinding;
 import com.zxfdwka.bestcountrymusic.mp3.activity.FavoriteActivity;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
+import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
 import com.zxfdwka.bestcountrymusic.ringtone.Activity.FavouriteActivity;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.PhotoSlideAdapter;
 import com.zxfdwka.bestcountrymusic.ringtone.item.ItemPhotoSlide;
@@ -30,6 +32,7 @@ public class BaseFavoriteActivity extends AppCompatActivity {
     private PhotoSlideAdapter adapter;
     private List<ItemPhotoSlide> mList;
     private Timer timer;
+    private Methods methods;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,8 @@ public class BaseFavoriteActivity extends AppCompatActivity {
 
         mList = getListPhoto();
         adapter = new PhotoSlideAdapter(this, mList);
+
+        methods = new Methods(this);
 
         binding.viewPager.setAdapter(adapter);
         binding.circleIndicator.setViewPager(binding.viewPager);
@@ -50,21 +55,36 @@ public class BaseFavoriteActivity extends AppCompatActivity {
         binding.lRingtone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(BaseFavoriteActivity.this, FavouriteActivity.class));
+                methods.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(BaseFavoriteActivity.this, FavouriteActivity.class));
+                    }
+                });
             }
         });
 
         binding.lMp3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(BaseFavoriteActivity.this, FavoriteActivity.class));
+                methods.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(BaseFavoriteActivity.this, FavoriteActivity.class));
+                    }
+                });
             }
         });
 
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                methods.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        onBackPressed();
+                    }
+                });
             }
         });
     }
