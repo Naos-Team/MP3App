@@ -328,7 +328,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             getSupportActionBar().setTitle(title);
             super.onBackPressed();
         } else {
-            exitDialog();
+//            exitDialog();
+            finish();
         }
     }
 
