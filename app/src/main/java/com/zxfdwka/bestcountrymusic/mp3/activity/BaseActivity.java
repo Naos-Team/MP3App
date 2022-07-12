@@ -42,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Target;
+import com.zxfdwka.bestcountrymusic.PurchaseActivity;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.GetRating;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadFav;
@@ -49,6 +50,7 @@ import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadRating;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadSong;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentOptionMusic;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.LyricsFragment;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.OptionMusicListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.RatingListener;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.SongListener;
@@ -93,6 +95,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     Methods methods;
+    Methods methods1;
     DBHelper dbHelper;
     DrawerLayout drawer;
     public ViewPager viewpager;
@@ -140,6 +143,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         deviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
         methods = new Methods(this);
+        methods1 = new Methods(this);
         dbHelper = new DBHelper(this);
         am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
@@ -441,6 +445,15 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.menu_search_home:
 //                searchView.openSearch();
+                break;
+
+            case R.id.item_purchase:
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(BaseActivity.this, PurchaseActivity.class));
+                    }
+                });
                 break;
 
             default:

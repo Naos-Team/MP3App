@@ -30,6 +30,8 @@ public class HomeActivity extends AppCompatActivity {
 
         methods = new Methods(this);
 
+        methods.showSMARTBannerAd(binding.adView);
+
         binding.ringtone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +130,19 @@ public class HomeActivity extends AppCompatActivity {
                     });
                 }
 
+            }
+        });
+
+        binding.layoutPremium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                methods.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(HomeActivity.this, PurchaseActivity.class));
+
+                    }
+                });
             }
         });
     }

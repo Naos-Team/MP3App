@@ -44,6 +44,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.zxfdwka.bestcountrymusic.HomeActivity;
+import com.zxfdwka.bestcountrymusic.PurchaseActivity;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.ViewPagerAdapter;
@@ -338,6 +339,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
 
+            case R.id.nav_premium:
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        Stop();
+                        Intent pre = new Intent(MainActivity.this, PurchaseActivity.class);
+                        startActivity(pre);
+                    }
+                });
+
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -474,9 +485,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                break;
 
             case R.id.item_search :
-                startActivity(new Intent(MainActivity.this, SearchActivity.class));
-                Stop();
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                        Stop();
+                    }
+                });
+
                 break;
+            case R.id.item_purchase:
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+
+                        startActivity(new Intent(MainActivity.this, PurchaseActivity.class));
+                        Stop();
+                    }
+                });
+
+                break;
+
 
 
         }
