@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -36,6 +37,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Constant.Constant;
 import com.zxfdwka.bestcountrymusic.ringtone.Method.API;
 import com.zxfdwka.bestcountrymusic.ringtone.Method.Methods;
@@ -87,6 +89,9 @@ public class UploadRingtoneActivity extends AppCompatActivity {
     SharedPref savePref;
     Toolbar toolbar2;
 
+    com.zxfdwka.bestcountrymusic.mp3.utils.Methods methods1;
+    LinearLayout ll_ad;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +107,18 @@ public class UploadRingtoneActivity extends AppCompatActivity {
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        finish();
+                    }
+                });
             }
         });
+
+        methods1 = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
+        ll_ad = findViewById(R.id.adView);
+        methods1.showSMARTBannerAd(ll_ad);
 
         savePref = new SharedPref(this);
         spin2 = (Spinner) findViewById(R.id.spinner2list);

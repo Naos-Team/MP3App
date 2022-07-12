@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment {
             adapter = new RingtoneAdapter(getActivity(), arrayList , new ClickListenerRecorder(){
                 @Override
                 public void onClick(int position) {
-                    methods.showInter(position, "");
+                    //methods.showInter(position, "");
                     Setting.arrayList_play_rc.clear();
                     Setting.arrayList_play_rc.addAll(arrayList);
                     Setting.playPos_rc = position;

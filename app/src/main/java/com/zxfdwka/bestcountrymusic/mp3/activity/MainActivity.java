@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.zxfdwka.bestcountrymusic.PurchaseActivity;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadAbout;
 import com.zxfdwka.bestcountrymusic.mp3.fragment.FragmentAlbums;
@@ -186,6 +187,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 finish();
                 //methods.clickLogin();
                 break;
+            case R.id.nav_premium:
+                Intent purchase = new Intent(MainActivity.this, PurchaseActivity.class);
+                startActivity(purchase);
+                //methods.clickLogin();
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -328,7 +334,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             getSupportActionBar().setTitle(title);
             super.onBackPressed();
         } else {
-            exitDialog();
+//            exitDialog();
+            finish();
         }
     }
 

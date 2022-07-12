@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.SongAdapter;
 import com.zxfdwka.bestcountrymusic.ringtone.EndlessRecyclerViewScroll.EndlessRecyclerViewScrollListener;
 import com.zxfdwka.bestcountrymusic.ringtone.Listener.ClickListenerRecorder;
@@ -36,11 +38,13 @@ public class SearchActivity extends AppCompatActivity {
     int page = 0;
     GridLayoutManager grid;
     LoadSongs load;
-
+    LinearLayout ll_ad;
     EditText searchView;
     ImageView search;
     Methods methods;
     Toolbar toolbar2;
+
+    com.zxfdwka.bestcountrymusic.mp3.utils.Methods methods1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +66,22 @@ public class SearchActivity extends AppCompatActivity {
         toolbar2.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                methods1.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        onBackPressed();
+
+                    }
+                });
             }
         });
 
-
         arrayList = new ArrayList<>();
         progressBar = findViewById(R.id.load_video);
+
+        methods1 = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
+        ll_ad = findViewById(R.id.ll_ad);
+        methods1.showSMARTBannerAd(ll_ad);
 
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
@@ -112,7 +125,7 @@ public class SearchActivity extends AppCompatActivity {
         methods = new Methods(SearchActivity.this, new InterAdListener() {
             @Override
             public void onClick(int position, String type) {
-                methods.showInter(position, "");
+                //methods.showInter(position, "");
                 Setting.arrayList_play_rc.clear();
                 Setting.arrayList_play_rc.addAll(arrayList);
                 Setting.playPos_rc = position;
@@ -161,7 +174,7 @@ public class SearchActivity extends AppCompatActivity {
             adapter = new SongAdapter(SearchActivity.this, arrayList, new ClickListenerRecorder() {
                 @Override
                 public void onClick(int position) {
-                    methods.showInter(position, "");
+                    //methods.showInter(position, "");
                     Setting.arrayList_play_rc.clear();
                     Setting.arrayList_play_rc.addAll(arrayList);
                     Setting.playPos_rc = position;

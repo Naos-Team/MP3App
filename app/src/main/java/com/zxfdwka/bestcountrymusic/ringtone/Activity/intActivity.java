@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +16,8 @@ public class intActivity extends AppCompatActivity {
 
     Button btn;
     Methods methods;
+    com.zxfdwka.bestcountrymusic.mp3.utils.Methods methods1;
+    LinearLayout ll_ad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,10 @@ public class intActivity extends AppCompatActivity {
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
+
+        methods1 = new com.zxfdwka.bestcountrymusic.mp3.utils.Methods(this);
+        ll_ad = findViewById(R.id.ll_ad);
+        methods1.showSMARTBannerAd(ll_ad);
 
         btn = (Button) findViewById(R.id.btn);
         btn.setOnClickListener(new View.OnClickListener() {
