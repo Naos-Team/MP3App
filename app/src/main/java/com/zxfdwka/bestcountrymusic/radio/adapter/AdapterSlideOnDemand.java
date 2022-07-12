@@ -1,5 +1,10 @@
 package com.zxfdwka.bestcountrymusic.radio.adapter;
 
+import android.content.Context;
+import android.graphics.Typeface;
+import android.graphics.drawable.PaintDrawable;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +15,20 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.item.ItemOnDemandCat;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
 
+import java.net.ContentHandler;
 import java.util.ArrayList;
 
 public class AdapterSlideOnDemand extends RecyclerView.Adapter<AdapterSlideOnDemand.OndemandViewHolder> {
     private ArrayList<ItemOnDemandCat> arrayList;
     private Methods methods;
+    private Context context;
     private static int selected_index= 0;
 
     public AdapterSlideOnDemand(ArrayList<ItemOnDemandCat> arrayList,  Methods methods) {
@@ -30,6 +39,9 @@ public class AdapterSlideOnDemand extends RecyclerView.Adapter<AdapterSlideOnDem
     @NonNull
     @Override
     public OndemandViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        context = parent.getContext();
+
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.layout_slide_ondemand_item, parent, false);
         return new OndemandViewHolder(itemView);
@@ -46,20 +58,37 @@ public class AdapterSlideOnDemand extends RecyclerView.Adapter<AdapterSlideOnDem
     }
 
     class OndemandViewHolder extends RecyclerView.ViewHolder{
-        private TextView txt_ondemand_slide_item;
-        private ImageView imageView_ondemand2_slide_item, imageView_transparency_slide_item;
-        private ConstraintLayout layout_item_slide;
+        private TextView tv_title;
+        private RoundedImageView imageView_ondemand2_slide_item, imageView_transparency_slide_item;
+        private ConstraintLayout layout_item_slide, cs_title;
 
         public OndemandViewHolder(@NonNull View itemView) {
             super(itemView);
-            txt_ondemand_slide_item = (TextView) itemView.findViewById(R.id.txt_ondemand_slide_item);
-            imageView_ondemand2_slide_item = (ImageView) itemView.findViewById(R.id.imageView_ondemand2_slide_item);
-            imageView_transparency_slide_item = (ImageView) itemView.findViewById(R.id.imageView_transparency_slide_item);
-            layout_item_slide = (ConstraintLayout) itemView.findViewById(R.id.layout_item_slide);
+            tv_title = (TextView) itemView.findViewById(R.id.tv_title);
+            cs_title = itemView.findViewById(R.id.cs_title);
+            imageView_ondemand2_slide_item = itemView.findViewById(R.id.imageView_ondemand2_slide_item);
+            imageView_transparency_slide_item =  itemView.findViewById(R.id.imageView_transparency_slide_item);
+            layout_item_slide = itemView.findViewById(R.id.layout_item_slide);
         }
 
         public void bindView(int position){
-            txt_ondemand_slide_item.setText(arrayList.get(position).getName());
+            tv_title.setText(arrayList.get(position).getName());
+
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            ((RadioBaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int height = displayMetrics.heightPixels;
+            int width = displayMetrics.widthPixels;
+
+            PaintDrawable paintDrawable = new PaintDrawable();
+            paintDrawable.setCornerRadius(width*0.02f);
+            paintDrawable.setTint(context.getResources().getColor(R.color.bg_radius_ondemand));
+            cs_title.setBackground(paintDrawable);
+
+//            imageView_ondemand2_slide_item.setCornerRadius(width*0.07f);
+
+            tv_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, height*0.018f);
+            tv_title.setTypeface(null, Typeface.BOLD);
+
             Picasso.get().load(arrayList.get(position).getImage()).into(imageView_ondemand2_slide_item);
             if(position == selected_index){
                 //itemView.setScaleX(1.3f);

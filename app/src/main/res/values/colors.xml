@@ -21,7 +21,7 @@
     <color name="positive_button">#f00</color>
 
     <color name="bg_playing">#e2e2e2</color>
-    <color name="bg_radius_ondemand">#B3000000</color>
+    <color name="bg_radius_ondemand">#99000000</color>
 
     <color name="text_black">#000000</color>
     <color name="text_blackAA">#AA000000</color>
