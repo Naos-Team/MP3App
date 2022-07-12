@@ -45,6 +45,8 @@ public class BaseFavoriteActivity extends AppCompatActivity {
 
         methods = new Methods(this);
 
+        methods.showSMARTBannerAd(binding.adView);
+
         binding.viewPager.setAdapter(adapter);
         binding.circleIndicator.setViewPager(binding.viewPager);
         adapter.registerDataSetObserver(binding.circleIndicator.getDataSetObserver());

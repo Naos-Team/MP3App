@@ -2,11 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/item_purchase"
+        android:title="search"
+        app:showAsAction="always"
+        android:iconTint="@color/white"
+        android:icon="@drawable/crown"/>
 
     <item
         android:id="@+id/item_search"
         android:title="search"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:iconTint="@color/white"
         android:icon="@mipmap/ic_search"/>
 

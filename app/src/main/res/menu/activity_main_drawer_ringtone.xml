@@ -42,6 +42,12 @@
             android:title="Upload"
             android:visible="false"/>
 
+        <item
+            android:id="@+id/nav_premium"
+            android:icon="@drawable/crown"
+            android:title="Premium"
+            android:visible="true"/>
+
 <!--        <item-->
 <!--            android:id="@+id/nav_set"-->
 <!--            android:icon="@drawable/ic_setting_ringtone"-->

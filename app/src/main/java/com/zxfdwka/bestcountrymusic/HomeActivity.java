@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -47,6 +48,8 @@ public class HomeActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("save_time_use", Context.MODE_PRIVATE);
         Constant.use_app_time = sharedPreferences.getInt("time_use", 0);
+
+        methods.showSMARTBannerAd(binding.adView);
 
         binding.ringtone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +149,19 @@ public class HomeActivity extends AppCompatActivity {
                     });
                 }
 
+            }
+        });
+
+        binding.layoutPremium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                methods.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        startActivity(new Intent(HomeActivity.this, PurchaseActivity.class));
+
+                    }
+                });
             }
         });
     }
