@@ -16,7 +16,9 @@ import com.zxfdwka.bestcountrymusic.databinding.ActivityHomeBinding;
 import com.zxfdwka.bestcountrymusic.mp3.activity.FavoriteActivity;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.InterScreenListener;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
+import com.zxfdwka.bestcountrymusic.radio.fragments.FragmentFavourite;
 import com.zxfdwka.bestcountrymusic.ringtone.Activity.FavouriteActivity;
+import com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity;
 import com.zxfdwka.bestcountrymusic.ringtone.Adapter.PhotoSlideAdapter;
 import com.zxfdwka.bestcountrymusic.ringtone.item.ItemPhotoSlide;
 
@@ -39,6 +41,8 @@ public class BaseFavoriteActivity extends AppCompatActivity {
         binding = ActivityBaseFavoriteBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        MethodsAll.getInstance().setContext(BaseFavoriteActivity.this);
 
         mList = getListPhoto();
         adapter = new PhotoSlideAdapter(this, mList);
@@ -75,6 +79,13 @@ public class BaseFavoriteActivity extends AppCompatActivity {
                         startActivity(new Intent(BaseFavoriteActivity.this, FavoriteActivity.class));
                     }
                 });
+            }
+        });
+
+        binding.lRadio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BaseFavoriteActivity.this, FragmentFavourite.class));
             }
         });
 
