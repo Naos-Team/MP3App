@@ -92,17 +92,19 @@ public class HomeActivity extends AppCompatActivity {
         binding.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Constant.isLogged) {
-                    methods.showInterScreenAd(new InterScreenListener() {
-                        @Override
-                        public void onClick() {
-                            startActivity(new Intent(HomeActivity.this, BaseFavoriteActivity.class));
-                        }
-                    });
-                }
-                else{
-                    Toast.makeText(HomeActivity.this, "Please login first", Toast.LENGTH_LONG).show();
-                }
+//                if (Constant.isLogged) {
+//                    methods.showInterScreenAd(new InterScreenListener() {
+//                        @Override
+//                        public void onClick() {
+//                            startActivity(new Intent(HomeActivity.this, BaseFavoriteActivity.class));
+//                        }
+//                    });
+//                }
+//                else{
+//                    Toast.makeText(HomeActivity.this, "Please login first", Toast.LENGTH_LONG).show();
+//                }
+                startActivity(new Intent(HomeActivity.this, BaseFavoriteActivity.class));
+
 
 
             }
