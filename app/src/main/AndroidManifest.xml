@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zxfdwka.bestcountrymusic">
+    package="com.naosteam.countrymusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,14 +9,14 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.naosteam.countrymusic.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
@@ -25,22 +25,22 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".PurchaseActivity"
+            android:name="com.naosteam.countrymusic.PurchaseActivity"
             android:exported="false" />
         <activity
-            android:name=".mp3.activity.PlayListNowActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.PlayListNowActivity"
             android:exported="false" />
         <activity
-            android:name=".mp3.activity.FavoriteActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.FavoriteActivity"
             android:exported="false" />
         <activity
-            android:name=".BaseFavoriteActivity"
+            android:name="com.naosteam.countrymusic.BaseFavoriteActivity"
             android:exported="false" />
         <activity
-            android:name=".ringtone.Activity.BaseCategoriesActivity"
+            android:name="com.naosteam.countrymusic.ringtone.Activity.BaseCategoriesActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name="com.naosteam.countrymusic.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,70 +48,70 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mp3.activity.SplashActivity" />
+        <activity android:name="com.naosteam.countrymusic.mp3.activity.SplashActivity" />
         <activity
-            android:name=".mp3.activity.LoginActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.LoginActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".mp3.activity.MainActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.MainActivity"
             android:label="@string/title_activity_main"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
-        <activity android:name=".mp3.activity.BaseActivity" />
+        <activity android:name="com.naosteam.countrymusic.mp3.activity.BaseActivity" />
         <activity
-            android:name=".mp3.activity.RegisterActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".mp3.activity.ForgotPasswordActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.ForgotPasswordActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".mp3.activity.ProfileActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.ProfileActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.ProfileEditActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.ProfileEditActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".mp3.activity.ReportActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.ReportActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.SuggestionActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.SuggestionActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.SongByCatActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.SongByCatActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.SongByServerPlaylistActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.SongByServerPlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.SongByMyPlaylistActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.SongByMyPlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.SongByOfflineActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.SongByOfflineActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.SongByOFFPlaylistActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.SongByOFFPlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.Add2OfflinePlaylistActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.Add2OfflinePlaylistActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.SettingActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.SettingActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.AboutActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.AboutActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.OfflineMusicActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.OfflineMusicActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.SelectSongActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.SelectSongActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.ArtistByGenreActivity"
+            android:name="com.naosteam.countrymusic.mp3.activity.ArtistByGenreActivity"
             android:windowSoftInputMode="adjustPan|adjustNothing" />
         <activity
-            android:name=".mp3.activity.MiniPlayer"
+            android:name="com.naosteam.countrymusic.mp3.activity.MiniPlayer"
             android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
@@ -128,7 +128,7 @@
                 <data android:mimeType="audio/*" />
             </intent-filter>
         </activity>
-        <activity android:name=".radio.activity.RadioBaseActivity"></activity>
+        <activity android:name="com.naosteam.countrymusic.radio.activity.RadioBaseActivity"></activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -138,13 +138,13 @@
             android:value="@integer/google_play_services_version" />
 
         <service
-            android:name=".mp3.activity.PlayerService"
+            android:name="com.naosteam.countrymusic.mp3.activity.PlayerService"
             android:exported="false" />
         <service
-            android:name=".radio.utils.PlayService"
+            android:name="com.naosteam.countrymusic.radio.utils.PlayService"
             android:exported="false" />
         <service
-            android:name=".mp3.utils.NotificationExtenderExample"
+            android:name="com.naosteam.countrymusic.mp3.utils.NotificationExtenderExample"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE">
             <intent-filter>
@@ -152,10 +152,10 @@
             </intent-filter>
         </service>
         <service
-            android:name=".mp3.activity.DownloadService"
+            android:name="com.naosteam.countrymusic.mp3.activity.DownloadService"
             android:exported="false" />
 
-        <receiver android:name=".mp3.utils.MediaButtonIntentReceiver">
+        <receiver android:name="com.naosteam.countrymusic.mp3.utils.MediaButtonIntentReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
@@ -181,17 +181,17 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".ringtone.Activity.SplashActivity" />
-        <activity android:name=".ringtone.Activity.CategoriesActivity" />
-        <activity android:name=".ringtone.Activity.DownloadActivity" />
-        <activity android:name=".ringtone.Activity.FavouriteActivity" />
-        <activity android:name=".ringtone.Activity.intActivity" />
-        <activity android:name=".ringtone.Activity.MainActivity" />
-        <activity android:name=".ringtone.Activity.SearchActivity" />
-        <activity android:name=".ringtone.Activity.UploadRingtoneActivity" />
-        <activity android:name=".ringtone.Activity.UserActivity" />
-        <activity android:name=".ringtone.Login.LoginActivity" />
-        <activity android:name=".ringtone.Login.RegisterActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Activity.SplashActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Activity.CategoriesActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Activity.DownloadActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Activity.FavouriteActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Activity.intActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Activity.MainActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Activity.SearchActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Activity.UploadRingtoneActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Activity.UserActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Login.LoginActivity" />
+        <activity android:name="com.naosteam.countrymusic.ringtone.Login.RegisterActivity" />
     </application>
 
 </manifest>

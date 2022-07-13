@@ -6,10 +6,10 @@ android {
     }
     compileSdkVersion 30
     defaultConfig {
-        applicationId "com.zxfdwka.bestcountrymusic"
+        applicationId "com.naosteam.countrymusic"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 121
+        versionCode 2
         versionName "5.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [onesignal_app_id : "47b389eb-8bb6-4a19-9dee-cb847cab47f6",
@@ -42,13 +42,14 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.billingclient:billing:5.0.0"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.android.things:androidthings:1.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation('androidx.test:runner:1.1.0-alpha4', {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha05', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-alpha4', {
+    androidTestImplementation('androidx.test:runner:1.1.0-alpha4', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation project(path: ':checkbox')
@@ -87,12 +88,6 @@ dependencies {
     implementation 'com.tiagosantos:enchantedviewpager:1.1.0'
     implementation 'com.yakivmospan:scytale:1.0.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('androidx.test:runner:1.3.0-alpha05', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.3.0-alpha05', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     implementation "androidx.appcompat:appcompat-resources:1.1.0"
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'

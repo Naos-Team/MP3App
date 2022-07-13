@@ -20,6 +20,11 @@
         android:id="@+id/nav_fav"
         android:icon="@drawable/ic_nav_featured"
         android:title="@string/favourite" />
+
+    <item
+        android:id="@+id/nav_premium"
+        android:icon="@drawable/home_crown"
+        android:title="Premium" />
 <!--    <group android:checkableBehavior="single">-->
 <!--        <item-->
 <!--            android:id="@+id/nav_home"-->

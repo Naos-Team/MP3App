@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
-                <com.zxfdwka.bestcountrymusic.radio.utils.StatusBarView
+                <com.naosteam.countrymusic.radio.utils.StatusBarView
                     android:id="@+id/statusBar"
                     app:layout_scrollFlags="scroll"
                     android:layout_width="match_parent"

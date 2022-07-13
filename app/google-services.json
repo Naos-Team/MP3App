@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:260605719538:android:a9bd8574362e7cb766316b",
         "android_client_info": {
-          "package_name": "com.zxfdwka.bestcountrymusic"
+          "package_name": "com.naosteam.countrymusic"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "260605719538-6adlmcjmenni8vi1rn02t3gei3kghl60.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.zxfdwka.bestcountrymusic",
+            "package_name": "com.naosteam.countrymusic",
             "certificate_hash": "e802d3d0418d867c373865ec04d0d6c4a925500c"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "260605719538-m7qg2cha53e27klbm779p8ape4tftdbk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.zxfdwka.bestcountrymusic",
+            "package_name": "com.naosteam.countrymusic",
             "certificate_hash": "59dc3d8031ac803c72dead252dc391b791073525"
           }
         },
@@ -34,7 +34,7 @@
           "client_id": "260605719538-vthe2sgva3vf773ptm9995fll4lm5i52.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.zxfdwka.bestcountrymusic",
+            "package_name": "com.naosteam.countrymusic",
             "certificate_hash": "7b6e604372ebfee4ee97f179b7511f36ddf358ed"
           }
         },
