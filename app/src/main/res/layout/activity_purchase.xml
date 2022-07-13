@@ -230,7 +230,7 @@
             android:autoSizeMinTextSize="10sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
-            android:text="TextView"
+            android:text="Subscription 1"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/item1"
@@ -249,7 +249,7 @@
             android:autoSizeMinTextSize="10sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
-            android:text="TextView"
+            android:text="Subscription 2"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/item2"
@@ -268,15 +268,16 @@
             android:autoSizeMinTextSize="10sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
-            android:text="TextView"
+            android:text="Subscription 3"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/item3"
             app:layout_constraintEnd_toEndOf="@+id/item3"
             app:layout_constraintHeight_percent="0.09"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/ic_cost3"
             app:layout_constraintTop_toTopOf="@+id/item3"
-            app:layout_constraintVertical_bias="0.19999999" />
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
