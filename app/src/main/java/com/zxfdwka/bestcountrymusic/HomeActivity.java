@@ -49,6 +49,19 @@ public class HomeActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("save_time_use", Context.MODE_PRIVATE);
         Constant.use_app_time = sharedPreferences.getInt("time_use", 0);
 
+        int new_time;
+
+        if(Constant.use_app_time == Constant.time_to_rate &&
+                !sharedPreferences.getBoolean("rated", false)) {
+            showRateDialog();
+            new_time = 0;
+        } else {
+            new_time = (Constant.use_app_time  < Constant.time_to_rate) ? Constant.use_app_time + 1 : 0;
+        }
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("time_use", new_time);
+        editor.commit();
+
         methods.showSMARTBannerAd(binding.adView);
 
         binding.ringtone.setOnClickListener(new View.OnClickListener() {
@@ -180,60 +193,7 @@ public class HomeActivity extends AppCompatActivity {
         alert.setPositiveButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                int new_time;
-
-                if(Constant.use_app_time == Constant.time_to_rate &&
-                        !sharedPreferences.getBoolean("rated", false)) {
-                    new_time = 0;
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("time_use", new_time);
-                    editor.commit();
-                    Dialog dialog = new Dialog(HomeActivity.this);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setContentView(R.layout.layout_dialog_rate);
-                    Window window = dialog.getWindow();
-                    if (window == null) {
-                        return;
-                    }
-                    window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-                    window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    WindowManager.LayoutParams windowAttributes = window.getAttributes();
-                    windowAttributes.gravity = Gravity.CENTER;
-                    dialog.setCancelable(true);
-                    RatingBar ratingBar = dialog.findViewById(R.id.ratingBar);
-                    Button btn_cancel_dialog = dialog.findViewById(R.id.btn_cancel_dialog);
-                    btn_cancel_dialog.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                            finish();
-                        }
-                    });
-
-                    Button btn_change_dialog = dialog.findViewById(R.id.btn_change_dialog);
-                    btn_change_dialog.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            int rating = (int) ratingBar.getRating();
-                            editor.putBoolean("rated", true);
-                            editor.commit();
-                            if (rating >= 3) {
-                                rateApp();
-                            } else {
-                            }
-                            dialog.dismiss();
-                            finish();
-                        }
-                    });
-                    dialog.show();
-                } else {
-                    new_time = (Constant.use_app_time  < Constant.time_to_rate) ? Constant.use_app_time + 1 : 0;
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("time_use", new_time);
-                    editor.commit();
-                    finish();
-                }
+                finish();
             }
         });
         alert.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -245,6 +205,49 @@ public class HomeActivity extends AppCompatActivity {
 
         alert.show();
 //        super.onBackPressed();
+    }
+
+    private void showRateDialog(){
+        Dialog dialog = new Dialog(HomeActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_dialog_rate);
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = Gravity.CENTER;
+        dialog.setCancelable(true);
+        RatingBar ratingBar = dialog.findViewById(R.id.ratingBar);
+        Button btn_cancel_dialog = dialog.findViewById(R.id.btn_cancel_dialog);
+        btn_cancel_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+//                finish();
+            }
+        });
+
+        Button btn_change_dialog = dialog.findViewById(R.id.btn_change_dialog);
+        btn_change_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                int rating = (int) ratingBar.getRating();
+                editor.putBoolean("rated", true);
+                editor.commit();
+                if (rating >= 3) {
+                    rateApp();
+                } else {
+                }
+                dialog.dismiss();
+//                finish();
+            }
+        });
+        dialog.show();
     }
 
     public void rateApp()
