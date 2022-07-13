@@ -1,11 +1,29 @@
 package com.zxfdwka.bestcountrymusic;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.zxfdwka.bestcountrymusic.databinding.ActivityHomeBinding;
 import com.zxfdwka.bestcountrymusic.mp3.activity.LoginActivity;
@@ -16,7 +34,6 @@ import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
 import com.zxfdwka.bestcountrymusic.mp3.utils.Methods;
 import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity;
-import com.zxfdwka.bestcountrymusic.ringtone.Activity.SplashActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private Methods methods;
@@ -27,6 +44,8 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        MethodsAll.getInstance().setContext(HomeActivity.this);
+        MethodsAll.getInstance().startCountdown();
 
         methods = new Methods(this);
 
@@ -149,5 +168,38 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alert;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            alert = new AlertDialog.Builder(HomeActivity.this, R.style.ThemeDialog);
+        } else {
+            alert = new AlertDialog.Builder(HomeActivity.this);
+        }
 
+        alert.setTitle(getString(R.string.exit));
+        alert.setMessage(getString(R.string.sure_exit));
+        alert.setPositiveButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        alert.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alert.show();
+//        super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MethodsAll.getInstance().setContext(HomeActivity.this);
+//        MethodsAll.getInstance().startCountdown();
+    }
 }

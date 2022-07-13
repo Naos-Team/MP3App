@@ -72,6 +72,7 @@ import com.squareup.picasso.Target;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
+import com.zxfdwka.bestcountrymusic.MethodsAll;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.AdConsentListener;
 import com.zxfdwka.bestcountrymusic.radio.utils.Methods;
@@ -101,6 +102,7 @@ import com.zxfdwka.bestcountrymusic.radio.utils.PlayService;
 import com.zxfdwka.bestcountrymusic.radio.utils.RecyclerItemClickListener;
 import com.zxfdwka.bestcountrymusic.radio.utils.SharedPref;
 import com.zxfdwka.bestcountrymusic.radio.utils.StatusBarView;
+import com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -165,6 +167,8 @@ public class RadioBaseActivity extends AppCompatActivity{
          setContentView(R.layout.activity_base_radio);
 
         Constants.isAppOpen = true;
+
+        MethodsAll.getInstance().setContext(RadioBaseActivity.this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading));

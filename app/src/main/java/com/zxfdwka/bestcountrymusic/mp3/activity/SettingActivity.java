@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.zxfdwka.bestcountrymusic.BaseFavoriteActivity;
+import com.zxfdwka.bestcountrymusic.MethodsAll;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.interfaces.AdConsentListener;
 import com.zxfdwka.bestcountrymusic.mp3.utils.AdConsent;
@@ -32,6 +33,7 @@ import com.google.ads.consent.ConsentStatus;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.zxfdwka.bestcountrymusic.ringtone.Activity.FavouriteActivity;
+import com.zxfdwka.bestcountrymusic.ringtone.Activity.MainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -66,6 +68,8 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        MethodsAll.getInstance().setContext(SettingActivity.this);
 
         sharedPref = new SharedPref(this);
         methods = new Methods(this);
