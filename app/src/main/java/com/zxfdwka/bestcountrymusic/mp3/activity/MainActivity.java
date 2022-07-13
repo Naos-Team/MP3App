@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.zxfdwka.bestcountrymusic.MethodsAll;
 import com.zxfdwka.bestcountrymusic.PurchaseActivity;
 import com.zxfdwka.bestcountrymusic.R;
 import com.zxfdwka.bestcountrymusic.mp3.asyncTask.LoadAbout;
@@ -84,6 +85,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         menu_login = menu.findItem(R.id.nav_login);
         menu_prof = menu.findItem(R.id.nav_profile);
         menu_suggest = menu.findItem(R.id.nav_suggest);
+
+        MethodsAll.getInstance().setContext(MainActivity.this);
 
         changeLoginName();
 
