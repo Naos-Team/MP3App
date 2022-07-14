@@ -42,13 +42,14 @@
         <activity
             android:name=".HomeActivity"
             android:exported="true">
+        </activity>
+        <activity android:name=".mp3.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mp3.activity.SplashActivity" />
         <activity
             android:name=".mp3.activity.LoginActivity"
             android:windowSoftInputMode="adjustPan" />
