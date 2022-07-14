@@ -86,8 +86,8 @@ public class RingtoneAdapter extends RecyclerView.Adapter {
 
     public String ringtonename;
 
-    File pathfile = new File(Environment.getExternalStorageDirectory(), Constant.appFolderName);
-    File outputfile = new File(pathfile, "ringtone.mp3");
+    File pathfile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES).getAbsolutePath());
+    File outputfile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES), "ringtone.mp3");
 
 
     ProgressDialog dialog;
@@ -682,7 +682,7 @@ public class RingtoneAdapter extends RecyclerView.Adapter {
                 contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
                 ContentResolver contentResolver = context.getContentResolver();
                 Uri generalaudiouri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                contentResolver.delete(generalaudiouri, MediaStore.MediaColumns.DATA + "='" + outputfile.getAbsolutePath() + "'", null);
+//                contentResolver.delete(generalaudiouri, MediaStore.MediaColumns.DATA + "='" + outputfile.getAbsolutePath() + "'", null);
                 Uri ringtoneuri = contentResolver.insert(generalaudiouri, contentValues);
 
 
@@ -750,7 +750,7 @@ public class RingtoneAdapter extends RecyclerView.Adapter {
                 contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
                 ContentResolver contentResolver = context.getContentResolver();
                 Uri generalaudiouri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                contentResolver.delete(generalaudiouri, MediaStore.MediaColumns.DATA + "='" + outputfile.getAbsolutePath() + "'", null);
+//                contentResolver.delete(generalaudiouri, MediaStore.MediaColumns.DATA + "='" + outputfile.getAbsolutePath() + "'", null);
                 Uri ringtoneuri = contentResolver.insert(generalaudiouri, contentValues);
 
                 try {
@@ -815,7 +815,7 @@ public class RingtoneAdapter extends RecyclerView.Adapter {
             contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
             ContentResolver contentResolver = context.getContentResolver();
             Uri generalaudiouri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-            contentResolver.delete(generalaudiouri, MediaStore.MediaColumns.DATA + "='" + outputfile.getAbsolutePath() + "'", null);
+//            contentResolver.delete(generalaudiouri, MediaStore.MediaColumns.DATA + "='" + outputfile.getAbsolutePath() + "'", null);
             Uri ringtoneuri = contentResolver.insert(generalaudiouri, contentValues);
 
             try {

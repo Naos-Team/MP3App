@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zxfdwka.bestcountrymusic.R;
+import com.zxfdwka.bestcountrymusic.mp3.utils.Constant;
 import com.zxfdwka.bestcountrymusic.radio.activity.RadioBaseActivity;
 import com.zxfdwka.bestcountrymusic.radio.adapter.AdapterLanguage;
 import com.zxfdwka.bestcountrymusic.radio.asyncTasks.LoadLanguage;
@@ -137,7 +138,7 @@ public class FragmentLanguage extends Fragment {
             if(Constants.adBannerShow++ < Constants.BANNER_SHOW_LIMIT){
                 final AdView adView = new AdView(getContext());
                 adView.setAdSize(AdSize.SMART_BANNER);
-                adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+                adView.setAdUnitId(Constant.ad_banner_id);
                 adView.loadAd(new AdRequest.Builder().build());
                 arrayList.add(i, adView);
             }
