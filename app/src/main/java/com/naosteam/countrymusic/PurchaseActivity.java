@@ -18,36 +18,33 @@ import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
 import com.android.billingclient.api.QueryPurchasesParams;
+import com.google.gson.JsonObject;
 import com.naosteam.countrymusic.databinding.ActivityPurchaseBinding;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
 import com.naosteam.countrymusic.mp3.utils.Methods;
+import com.naosteam.countrymusic.mp3.utils.SharedPref;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PurchaseActivity extends AppCompatActivity {
     ActivityPurchaseBinding binding;
     BillingClient billingClient;
     Methods methods;
-    private final String ONE_MONTH_SUBS = "one_month_subs";
-    private final String THREE_MONTHS_SUBS = "three_month_subs";
-    private final String ONE_YEAR_SUBS = "one_year_subs";
+    SharedPref sharedPref;
+
+    private final String ONE_MONTH_SUBS = "subs_monthly";
+    private final String THREE_MONTHS_SUBS = "subs_3month";
+    private final String ONE_YEAR_SUBS = "subs_yearly";
 
     protected void onResume() {
         super.onResume();
-        billingClient.queryPurchasesAsync(
-                QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build(),
-                (billingResult, list) -> {
-                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                        for (Purchase purchase : list) {
-                            if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED && !purchase.isAcknowledged()) {
-                                verifySubPurchase(purchase);
-                            }
-                        }
-                    }
-                }
-        );
-
+        checkUserCurrentPurchase();
     }
 
 
@@ -59,6 +56,7 @@ public class PurchaseActivity extends AppCompatActivity {
         setContentView(view);
 
         methods = new Methods(this);
+        sharedPref = new SharedPref(this);
 
         binding.icBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +79,10 @@ public class PurchaseActivity extends AppCompatActivity {
                     for (Purchase purchase : purchases) {
                         verifySubPurchase(purchase);
                     }
+                } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
+                    Toast.makeText(PurchaseActivity.this, "You own this subscription!", Toast.LENGTH_SHORT).show();
+                } else if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.BILLING_UNAVAILABLE) {
+                    Toast.makeText(PurchaseActivity.this, "Something went wrong while process the purchase! Please try again!", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -101,6 +103,8 @@ public class PurchaseActivity extends AppCompatActivity {
             public void onBillingSetupFinished(BillingResult billingResult) {
                 if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                     // The BillingClient is ready. You can query purchases here.
+                    checkUserCurrentPurchase();
+
                     showProducts();
                 }
             }
@@ -112,6 +116,74 @@ public class PurchaseActivity extends AppCompatActivity {
                 establishConnection();
             }
         });
+    }
+
+    private void checkUserCurrentPurchase() {
+
+        billingClient.queryPurchasesAsync(
+                QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build(),
+                (billingResult, list) -> {
+                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+
+                        boolean isPremium = false;
+
+                        for (Purchase purchase : list) {
+                            if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED && !purchase.isAcknowledged()) {
+
+                                verifySubPurchase(purchase);
+                                isPremium = true;
+
+                            } else if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED && purchase.isAcknowledged()) {
+                                try {
+                                    JSONObject json = new JSONObject(purchase.getOriginalJson());
+                                    String product_id = json.getString("productId");
+
+                                    this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (product_id.equals(ONE_MONTH_SUBS)) {
+                                                binding.ivCheck1.setVisibility(View.VISIBLE);
+                                            } else if (product_id.equals(THREE_MONTHS_SUBS)) {
+                                                binding.ivCheck2.setVisibility(View.VISIBLE);
+                                            } else if (product_id.equals(ONE_YEAR_SUBS)) {
+                                                binding.ivCheck3.setVisibility(View.VISIBLE);
+                                            }
+
+                                        }
+                                    });
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                isPremium = true;
+                            }
+                        }
+
+                        setPremiumUI(isPremium);
+                        sharedPref.setIsPremium(isPremium);
+
+                    }
+
+
+                }
+        );
+    }
+
+    private void setPremiumUI(boolean isPremium) {
+
+        if (isPremium) {
+            binding.tvTitle.setText("You are PREMIUM now \n Upgrade more?");
+            binding.topImg.setImageDrawable(getResources().getDrawable(R.drawable.bg_art_premium));
+        } else {
+            binding.tvTitle.setText("Get Premium With No Ads?");
+            binding.topImg.setImageDrawable(getResources().getDrawable(R.drawable.in_app_purchase_img));
+
+            binding.ivCheck1.setVisibility(View.GONE);
+            binding.ivCheck2.setVisibility(View.GONE);
+            binding.ivCheck3.setVisibility(View.GONE);
+        }
+
+
     }
 
     void showProducts() {
@@ -142,45 +214,38 @@ public class PurchaseActivity extends AppCompatActivity {
                     // Process the result
                     for (ProductDetails productDetails : productDetailsList) {
 
-                        switch (productDetails.getProductId()) {
-                            case ONE_MONTH_SUBS:
-                                List<ProductDetails.SubscriptionOfferDetails> subDetails = productDetails.getSubscriptionOfferDetails();
+                        String product_id = productDetails.getProductId();
 
-                                if (subDetails != null) {
-                                    binding.tvItem1Title.setText(productDetails.getTitle());
-                                    binding.tvItem1Price.setText(subDetails.get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice() + " / Month");
-                                    binding.item1.setOnClickListener(v -> {
-                                        launchPurchaseFlow(productDetails);
-                                    });
-                                }
+                        if (product_id.equals(ONE_MONTH_SUBS)) {
+                            List<ProductDetails.SubscriptionOfferDetails> subDetails = productDetails.getSubscriptionOfferDetails();
 
-                                break;
-                            case THREE_MONTHS_SUBS:
+                            if (subDetails != null) {
+                                binding.tvItem1Title.setText(productDetails.getDescription());
+                                binding.tvItem1Price.setText(subDetails.get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice() + " /Month");
+                                binding.item1.setOnClickListener(v -> {
+                                    launchPurchaseFlow(productDetails);
+                                });
+                            }
+                        } else if (product_id.equals(THREE_MONTHS_SUBS)) {
+                            List<ProductDetails.SubscriptionOfferDetails> subDetails1 = productDetails.getSubscriptionOfferDetails();
 
-                                List<ProductDetails.SubscriptionOfferDetails> subDetails1 = productDetails.getSubscriptionOfferDetails();
+                            if (subDetails1 != null) {
+                                binding.tvItem2Title.setText(productDetails.getDescription());
+                                binding.tvItem2Price.setText(subDetails1.get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice() + " /3 Months");
+                                binding.item2.setOnClickListener(v -> {
+                                    launchPurchaseFlow(productDetails);
+                                });
+                            }
+                        } else if (product_id.equals(ONE_YEAR_SUBS)) {
+                            List<ProductDetails.SubscriptionOfferDetails> subDetails2 = productDetails.getSubscriptionOfferDetails();
 
-                                if (subDetails1 != null) {
-                                    binding.tvItem2Title.setText(productDetails.getTitle());
-                                    binding.tvItem2Price.setText(subDetails1.get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice() + " / 3 Months");
-                                    binding.item2.setOnClickListener(v -> {
-                                        launchPurchaseFlow(productDetails);
-                                    });
-                                }
-
-                                break;
-                            case ONE_YEAR_SUBS:
-
-                                List<ProductDetails.SubscriptionOfferDetails> subDetails2 = productDetails.getSubscriptionOfferDetails();
-
-                                if (subDetails2 != null) {
-                                    binding.tvItem3Title.setText(productDetails.getTitle());
-                                    binding.tvItem3Price.setText(subDetails2.get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice() + " / Year");
-                                    binding.item3.setOnClickListener(v -> {
-                                        launchPurchaseFlow(productDetails);
-                                    });
-                                }
-
-                                break;
+                            if (subDetails2 != null) {
+                                binding.tvItem3Title.setText(productDetails.getDescription());
+                                binding.tvItem3Price.setText(subDetails2.get(0).getPricingPhases().getPricingPhaseList().get(0).getFormattedPrice() + " /Year");
+                                binding.item3.setOnClickListener(v -> {
+                                    launchPurchaseFlow(productDetails);
+                                });
+                            }
                         }
                     }
                 }
@@ -188,7 +253,7 @@ public class PurchaseActivity extends AppCompatActivity {
 
     }
 
-    void launchPurchaseFlow(ProductDetails productDetails) {
+    private void launchPurchaseFlow(ProductDetails productDetails) {
 
         if (productDetails.getSubscriptionOfferDetails() != null) {
             List<BillingFlowParams.ProductDetailsParams> productDetailsParamsList = new ArrayList<>();
@@ -199,7 +264,7 @@ public class PurchaseActivity extends AppCompatActivity {
             BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
                     .setProductDetailsParamsList(productDetailsParamsList)
                     .build();
-            BillingResult billingResult = billingClient.launchBillingFlow(this, billingFlowParams);
+            billingClient.launchBillingFlow(this, billingFlowParams);
         }
     }
 
@@ -212,19 +277,38 @@ public class PurchaseActivity extends AppCompatActivity {
 
         billingClient.acknowledgePurchase(acknowledgePurchaseParams, billingResult -> {
             if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                //user prefs to set premium
-                Toast.makeText(this, "You are a premium user now", Toast.LENGTH_SHORT).show();
+
+
+                sharedPref.setIsPremium(true);
+
+                try{
+                    JSONObject json = new JSONObject(purchases.getOriginalJson());
+                    String product_id = json.getString("productId");
+
+                    this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (product_id.equals(ONE_MONTH_SUBS)) {
+                                binding.ivCheck1.setVisibility(View.VISIBLE);
+                            } else if (product_id.equals(THREE_MONTHS_SUBS)) {
+                                binding.ivCheck2.setVisibility(View.VISIBLE);
+                            } else if (product_id.equals(ONE_YEAR_SUBS)) {
+                                binding.ivCheck3.setVisibility(View.VISIBLE);
+                            }
+
+                            binding.tvTitle.setText("You are PREMIUM now \n Upgrade more?");
+                            binding.topImg.setImageDrawable(getResources().getDrawable(R.drawable.bg_art_premium));
+                        }
+                    });
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
             }
         });
 
-        Log.d("AAA", "Purchase Token: " + purchases.getPurchaseToken());
-        Log.d("AAA", "Purchase Time: " + purchases.getPurchaseTime());
-        Log.d("AAA", "Purchase OrderID: " + purchases.getOrderId());
     }
-
-
-
 
 
 }

@@ -1,32 +1,12 @@
 package com.naosteam.countrymusic;
-
-import static android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION;
-
-import android.app.Dialog;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
-import android.os.Environment;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.RatingBar;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.naosteam.countrymusic.databinding.ActivityHomeBinding;
 import com.naosteam.countrymusic.mp3.activity.LoginActivity;
@@ -51,8 +31,6 @@ public class HomeActivity extends AppCompatActivity {
         MethodsAll.getInstance().startCountdown();
 
         methods = new Methods(this);
-
-        methods.showSMARTBannerAd(binding.adView);
 
         binding.ringtone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,13 +64,13 @@ public class HomeActivity extends AppCompatActivity {
         binding.mp3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 methods.showInterScreenAd(new InterScreenListener() {
-                     @Override
-                     public void onClick() {
-                         Intent intent = new Intent(HomeActivity.this, com.naosteam.countrymusic.mp3.activity.MainActivity.class);
-                         startActivity(intent);
-                     }
-                 });
+                methods.showInterScreenAd(new InterScreenListener() {
+                    @Override
+                    public void onClick() {
+                        Intent intent = new Intent(HomeActivity.this, com.naosteam.countrymusic.mp3.activity.MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
 
             }
         });

@@ -108,4 +108,10 @@ public class FragmentFavourite extends Fragment {
             return true;
         }
     };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Constants.fragmentStatus = Constants.AT_HOME;
+    }
 }

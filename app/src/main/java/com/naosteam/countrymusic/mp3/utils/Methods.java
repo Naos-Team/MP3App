@@ -412,7 +412,11 @@ public class Methods {
 
     public AdView showSMARTBannerAd(LinearLayout linearLayout) {
         try {
-            if (isNetworkAvailable() && Constant.isBannerAd) {
+
+            SharedPref sharePref = new SharedPref(context);
+            boolean isPremium = sharePref.getIsPremium();
+
+            if (isNetworkAvailable() && Constant.isBannerAd && !isPremium) {
                 if (Constant.bannerAdType.equals("admob")) {
                     AdView adView = new AdView(context);
                     AdRequest adRequest;
@@ -443,7 +447,8 @@ public class Methods {
                         }
                     });
 
-                    adView.setAdUnitId(Constant.ad_banner_id);
+//                    adView.setAdUnitId(Constant.ad_banner_id);
+                    adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
                     adView.setAdSize(getAdSize());
                     adView.loadAd(adRequest);
                     return adView;
@@ -514,7 +519,11 @@ public class Methods {
     }
 
     public void showInterAd(final int pos, final String type) {
-        if (Constant.isInterAd) {
+
+        SharedPref sharePref = new SharedPref(context);
+        boolean isPremium = sharePref.getIsPremium();
+
+        if (Constant.isInterAd && !isPremium) {
             Constant.adCount = Constant.adCount + 1;
             if (Constant.adCount % Constant.ad_interstitial_display == 0) {
 
@@ -533,8 +542,8 @@ public class Methods {
                                 .addNetworkExtrasBundle(AdMobAdapter.class, extras)
                                 .build();
                     }
-                    interstitialAd.setAdUnitId(Constant.ad_inter_id);
-//                    interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//                    interstitialAd.setAdUnitId(Constant.ad_inter_id);
+                    interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
                     interstitialAd.loadAd(adRequest);
                     interstitialAd.setAdListener(new AdListener() {
                         @Override
@@ -1285,7 +1294,7 @@ public class Methods {
     public RequestBody getAPIRequest(String method, int page, String deviceID, String songID, String searchText, String type, String catID, String albumID, String artistName, String playListID, String rate, String email, String password, String name, String phone, String userID, String reportMessage, File file) {
         JsonObject jsObj = (JsonObject) new Gson().toJsonTree(new API());
         jsObj.addProperty("method_name", method);
-        jsObj.addProperty("package_name", context.getPackageName());
+        jsObj.addProperty("package_name", "com.zxfdwka.bestcountrymusic");
 
         switch (method) {
             case Constant.METHOD_HOME:

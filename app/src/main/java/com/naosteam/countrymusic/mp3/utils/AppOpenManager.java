@@ -18,6 +18,7 @@ public class AppOpenManager implements Application.ActivityLifecycleCallbacks {
     private static final String LOG_TAG = "AppOpenManager";
     private static final String AD_UNIT_ID = "ca-app-pub-5200863430642944/2141582376";
     private AppOpenAd appOpenAd = null;
+    private SharedPref sharedPref;
 
     private AppOpenAd.AppOpenAdLoadCallback loadCallback;
 
@@ -30,6 +31,7 @@ public class AppOpenManager implements Application.ActivityLifecycleCallbacks {
     public AppOpenManager(MyApplication myApplication) {
         this.myApplication = myApplication;
         this.myApplication.registerActivityLifecycleCallbacks(this);
+        sharedPref = new SharedPref(myApplication.getApplicationContext());
     }
 
     /** Request an ad */
@@ -71,7 +73,10 @@ public class AppOpenManager implements Application.ActivityLifecycleCallbacks {
     public void showAdIfAvailable() {
         // Only show ad if there is not already an app open ad currently showing
         // and an ad is available.
-        if (!Constant.isAppOpenAdShown && !isShowingAd && isAdAvailable()) {
+
+        boolean isPremium = sharedPref.getIsPremium();
+
+        if (!Constant.isAppOpenAdShown && !isShowingAd && isAdAvailable() && !isPremium) {
             Log.d(LOG_TAG, "Will show ad.");
 
             FullScreenContentCallback fullScreenContentCallback =

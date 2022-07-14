@@ -138,7 +138,7 @@ public class FragmentLanguage extends Fragment {
             if(Constants.adBannerShow++ < Constants.BANNER_SHOW_LIMIT){
                 final AdView adView = new AdView(getContext());
                 adView.setAdSize(AdSize.SMART_BANNER);
-                adView.setAdUnitId(Constant.ad_banner_id);
+                adView.setAdUnitId(Constant.ad_banner_id_test);
                 adView.loadAd(new AdRequest.Builder().build());
                 arrayList.add(i, adView);
             }
@@ -248,4 +248,10 @@ public class FragmentLanguage extends Fragment {
 //        }
 //        super.setUserVisibleHint(isVisibleToUser);
 //    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Constants.fragmentStatus = Constants.AT_HOME;
+    }
 }

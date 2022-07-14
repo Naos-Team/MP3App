@@ -12,7 +12,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.github.ybq.android.spinkit.SpinKitView;
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.QueryPurchasesParams;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.naosteam.countrymusic.HomeActivity;
@@ -36,6 +40,7 @@ public class SplashActivity extends AppCompatActivity {
     Methods methods;
     DBHelper dbHelper;
     ProgressBar pb_latest;
+    BillingClient billingClient;
 
 
     @Override
@@ -53,8 +58,11 @@ public class SplashActivity extends AppCompatActivity {
         pb_latest.setIndeterminateDrawable(doubleBounce);
 
         if (sharedPref.getIsFirst()) {
-            loadAboutData();
+
         } else {
+
+            loadAboutData();
+
             try {
                 Constant.isFromPush = getIntent().getExtras().getBoolean("ispushnoti", false);
             } catch (Exception e) {
@@ -65,6 +73,8 @@ public class SplashActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Constant.isFromNoti = false;
             }
+
+            checkUserSubscription();
 
             if (!sharedPref.getIsAutoLogin()) {
                 new Handler().postDelayed(new Runnable() {
@@ -94,6 +104,45 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void checkUserSubscription() {
+        billingClient = BillingClient.newBuilder(this).enablePendingPurchases().setListener((billingResult, list) -> {}).build();
+        final BillingClient finalBillingClient = billingClient;
+        billingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingServiceDisconnected() {
+
+            }
+
+            @Override
+            public void onBillingSetupFinished(BillingResult billingResult) {
+
+                if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK){
+                    finalBillingClient.queryPurchasesAsync(
+                            QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.SUBS).build(),
+                            (billingResult1, purchases) -> {
+                                if (billingResult1.getResponseCode() == BillingClient.BillingResponseCode.OK){
+
+                                    boolean isPremium = false;
+
+                                    for(Purchase purchase : purchases){
+                                        if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED && purchase.isAcknowledged()) {
+                                            isPremium = true;
+                                        }
+                                    }
+
+                                    sharedPref.setIsPremium(isPremium);
+
+                                }else{
+                                    sharedPref.setIsPremium(false);
+                                }
+                            });
+
+                }
+
+            }
+        });
     }
 
     private void loadLogin(final String loginType, final String authID) {

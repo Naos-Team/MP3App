@@ -1,4 +1,4 @@
-package com.zxfdwka.bestcountrymusic;
+package com.naosteam.countrymusic;
 
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
