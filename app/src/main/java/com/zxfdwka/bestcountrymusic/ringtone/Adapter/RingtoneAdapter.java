@@ -561,6 +561,7 @@ public class RingtoneAdapter extends RecyclerView.Adapter {
                 output.close();
                 input.close();
             } catch (Exception e) {
+                String err = e.getMessage();
             }
             return null;
 
@@ -683,6 +684,7 @@ public class RingtoneAdapter extends RecyclerView.Adapter {
                 Uri generalaudiouri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
                 contentResolver.delete(generalaudiouri, MediaStore.MediaColumns.DATA + "='" + outputfile.getAbsolutePath() + "'", null);
                 Uri ringtoneuri = contentResolver.insert(generalaudiouri, contentValues);
+
 
             try {
                 if (checkSystemWritePermission()) {
