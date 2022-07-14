@@ -8,11 +8,15 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 
+import com.naosteam.countrymusic.databinding.ActivityBaseCategoriesBinding;
 import com.naosteam.countrymusic.databinding.ActivityBaseFavoriteBinding;
+import com.naosteam.countrymusic.databinding.ActivityHomeBinding;
 import com.naosteam.countrymusic.mp3.activity.FavoriteActivity;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
 import com.naosteam.countrymusic.mp3.utils.Methods;
+import com.naosteam.countrymusic.radio.fragments.FragmentFavourite;
 import com.naosteam.countrymusic.ringtone.Activity.FavouriteActivity;
+import com.naosteam.countrymusic.ringtone.Activity.MainActivity;
 import com.naosteam.countrymusic.ringtone.Adapter.PhotoSlideAdapter;
 import com.naosteam.countrymusic.ringtone.item.ItemPhotoSlide;
 
@@ -33,6 +37,8 @@ public class BaseFavoriteActivity extends AppCompatActivity {
         binding = ActivityBaseFavoriteBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        MethodsAll.getInstance().setContext(BaseFavoriteActivity.this);
 
         mList = getListPhoto();
         adapter = new PhotoSlideAdapter(this, mList);
@@ -69,6 +75,13 @@ public class BaseFavoriteActivity extends AppCompatActivity {
                         startActivity(new Intent(BaseFavoriteActivity.this, FavoriteActivity.class));
                     }
                 });
+            }
+        });
+
+        binding.lRadio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BaseFavoriteActivity.this, FragmentFavourite.class));
             }
         });
 

@@ -13,11 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadProfile;
 import com.naosteam.countrymusic.mp3.interfaces.SuccessListener;
 import com.naosteam.countrymusic.mp3.utils.Constant;
 import com.naosteam.countrymusic.mp3.utils.Methods;
+import com.naosteam.countrymusic.ringtone.Activity.MainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -42,6 +44,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        MethodsAll.getInstance().setContext(ProfileActivity.this);
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());

@@ -9,8 +9,13 @@ import android.os.Handler;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
+import com.naosteam.countrymusic.HomeActivity;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadAbout;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadLogin;
@@ -30,6 +35,8 @@ public class SplashActivity extends AppCompatActivity {
     SharedPref sharedPref;
     Methods methods;
     DBHelper dbHelper;
+    ProgressBar pb_latest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,10 @@ public class SplashActivity extends AppCompatActivity {
         methods = new Methods(this);
         sharedPref = new SharedPref(this);
         dbHelper = new DBHelper(this);
+        pb_latest = findViewById(R.id.pb_latest);
+        Sprite doubleBounce = new DoubleBounce();
+        doubleBounce.setColor(R.color.colorPrimary);
+        pb_latest.setIndeterminateDrawable(doubleBounce);
 
         if (sharedPref.getIsFirst()) {
             loadAboutData();
@@ -197,34 +208,41 @@ public class SplashActivity extends AppCompatActivity {
 //    }
 
     private void openMainActivity() {
-        Intent intent;
-        if (Constant.isFromPush && !Constant.pushCID.equals("0")) {
-            intent = new Intent(SplashActivity.this, SongByCatActivity.class);
-            intent.putExtra("isPush", true);
-            intent.putExtra("type", getString(R.string.categories));
-            intent.putExtra("id", Constant.pushCID);
-            intent.putExtra("name", Constant.pushCName);
-            intent.putExtra("image", "");
-        } else if (Constant.isFromPush && !Constant.pushArtID.equals("0")) {
-            intent = new Intent(SplashActivity.this, SongByCatActivity.class);
-            intent.putExtra("isPush", true);
-            intent.putExtra("type", getString(R.string.artist));
-            intent.putExtra("id", Constant.pushArtID);
-            intent.putExtra("name", Constant.pushArtNAME);
-            intent.putExtra("image", "");
-        } else if (Constant.isFromPush && !Constant.pushAlbID.equals("0")) {
-            intent = new Intent(SplashActivity.this, SongByCatActivity.class);
-            intent.putExtra("isPush", true);
-            intent.putExtra("type", getString(R.string.albums));
-            intent.putExtra("id", Constant.pushAlbID);
-            intent.putExtra("name", Constant.pushAlbNAME);
-            intent.putExtra("image", "");
-        } else {
-            intent = new Intent(SplashActivity.this, MainActivity.class);
-        }
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
+//        Intent intent;
+//        if (Constant.isFromPush && !Constant.pushCID.equals("0")) {
+//            intent = new Intent(SplashActivity.this, SongByCatActivity.class);
+//            intent.putExtra("isPush", true);
+//            intent.putExtra("type", getString(R.string.categories));
+//            intent.putExtra("id", Constant.pushCID);
+//            intent.putExtra("name", Constant.pushCName);
+//            intent.putExtra("image", "");
+//        } else if (Constant.isFromPush && !Constant.pushArtID.equals("0")) {
+//            intent = new Intent(SplashActivity.this, SongByCatActivity.class);
+//            intent.putExtra("isPush", true);
+//            intent.putExtra("type", getString(R.string.artist));
+//            intent.putExtra("id", Constant.pushArtID);
+//            intent.putExtra("name", Constant.pushArtNAME);
+//            intent.putExtra("image", "");
+//        } else if (Constant.isFromPush && !Constant.pushAlbID.equals("0")) {
+//            intent = new Intent(SplashActivity.this, SongByCatActivity.class);
+//            intent.putExtra("isPush", true);
+//            intent.putExtra("type", getString(R.string.albums));
+//            intent.putExtra("id", Constant.pushAlbID);
+//            intent.putExtra("name", Constant.pushAlbNAME);
+//            intent.putExtra("image", "");
+//        } else {
+//            intent = new Intent(SplashActivity.this, MainActivity.class);
+//        }
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                finish();
+            }
+        },2000);
+
     }
 
     void hideStatusBar() {

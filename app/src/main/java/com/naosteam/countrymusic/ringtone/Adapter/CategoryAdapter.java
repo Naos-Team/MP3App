@@ -2,6 +2,7 @@ package com.naosteam.countrymusic.ringtone.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ListltemCategory listltem = listltems.get(position);
 
+        methods = new Methods(context);
+
         int width = context.getResources().getDisplayMetrics().widthPixels;
         int height = context.getResources().getDisplayMetrics().heightPixels;
         ConstraintLayout.LayoutParams layoutParams= new ConstraintLayout.LayoutParams((int)Math.round(width*0.45), (int)Math.round(height*0.185));
@@ -52,9 +55,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.name.setText(listltem.getCategory_name());
 
         //load album cover using picasso
+
+        Log.e("ringtone","ringtone url: " + listltem.getCategory_image_thumb());
+
         Picasso.get()
                 .load(listltem.getCategory_image_thumb())
-                .placeholder(R.color.colorAccent)
+                .placeholder(R.drawable.placeholder)
                 .into(holder.imageView);
 
         int step = 1;

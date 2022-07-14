@@ -1,15 +1,23 @@
 package com.naosteam.countrymusic.ringtone.Activity;
 
+import static android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,6 +25,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,6 +48,8 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.naosteam.countrymusic.HomeActivity;
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.PurchaseActivity;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
@@ -109,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_ringtone);
+
+        MethodsAll.getInstance().setContext(MainActivity.this);
         //initBuy();
 //        nemosofts = new Nemosofts(this);
 
@@ -212,6 +226,63 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         checkIfAlreadyhavePermission(this);
         requestForSpecificPermission(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
+            openAccessFileDialog();
+        }
+    }
+
+    private void openAccessFileDialog() {
+
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
+
+        dialog.setContentView(R.layout.dialog_alert);
+
+        TextView maintext = dialog.findViewById(R.id.maintext);
+        maintext.setText("Please give permission to this app to access all file!");
+
+        Button img_btn_yes = dialog.findViewById(R.id.yes);
+        Button img_btn_no = dialog.findViewById(R.id.no);
+
+        img_btn_no.setOnClickListener(v ->{
+            dialog.dismiss();
+            quitScreen();
+        });
+
+        img_btn_yes.setOnClickListener(v->{
+            Intent i = new Intent();
+            i.setAction(ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+            startActivityIfNeeded(i, 11);
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 11 && resultCode == RESULT_OK){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()){
+                Toast.makeText(this, "Grant permission successfully!", Toast.LENGTH_SHORT).show();
+            }else{
+                quitScreen();
+            }
+        }
+    }
+
+    private void quitScreen(){
+        Toast.makeText(this, "Please allow the permissions to continue", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 1500);
     }
 
     private void changeLoginName() {

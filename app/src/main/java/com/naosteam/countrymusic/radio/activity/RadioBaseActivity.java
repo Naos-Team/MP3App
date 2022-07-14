@@ -49,12 +49,16 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-import com.naosteam.countrymusic.PurchaseActivity;
+import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.OnSeekChangeListener;
+import com.warkiz.widget.SeekParams;
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.interfaces.AdConsentListener;
 import com.naosteam.countrymusic.radio.utils.Methods;
 import com.naosteam.countrymusic.radio.adapter.AdapterSuggest;
 import com.naosteam.countrymusic.radio.asyncTasks.LoadRadioViewed;
+import com.naosteam.countrymusic.radio.asyncTasks.LoadReport;
 import com.naosteam.countrymusic.radio.fragments.FragmentCity;
 import com.naosteam.countrymusic.radio.fragments.FragmentFavourite;
 import com.naosteam.countrymusic.radio.fragments.FragmentFeaturedRadio;
@@ -68,14 +72,17 @@ import com.naosteam.countrymusic.radio.fragments.FragmentSearch;
 import com.naosteam.countrymusic.radio.interfaces.BackInterAdListener;
 import com.naosteam.countrymusic.radio.interfaces.InterAdListener;
 import com.naosteam.countrymusic.radio.interfaces.RadioViewListener;
+import com.naosteam.countrymusic.radio.interfaces.SuccessListener;
 import com.naosteam.countrymusic.radio.item.ItemOnDemandCat;
 import com.naosteam.countrymusic.radio.item.ItemRadio;
 import com.naosteam.countrymusic.mp3.utils.AdConsent;
 import com.naosteam.countrymusic.radio.utils.Constants;
 import com.naosteam.countrymusic.radio.utils.DBHelper;
 import com.naosteam.countrymusic.radio.utils.PlayService;
+import com.naosteam.countrymusic.radio.utils.RecyclerItemClickListener;
 import com.naosteam.countrymusic.radio.utils.SharedPref;
 import com.naosteam.countrymusic.radio.utils.StatusBarView;
+import com.naosteam.countrymusic.ringtone.Activity.MainActivity;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -140,6 +147,8 @@ public class RadioBaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base_radio);
 
         Constants.isAppOpen = true;
+
+        MethodsAll.getInstance().setContext(RadioBaseActivity.this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading));
