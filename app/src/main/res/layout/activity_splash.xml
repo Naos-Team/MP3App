@@ -33,7 +33,7 @@
         android:autoSizeTextType="uniform"
         android:gravity="center"
         android:text="Best Country Music Songs"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#5B4484"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -21,6 +21,7 @@ import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.naosteam.countrymusic.HomeActivity;
 import com.naosteam.countrymusic.R;
+import com.naosteam.countrymusic.intro.IntroActivity;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadAbout;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadLogin;
 import com.naosteam.countrymusic.mp3.interfaces.AboutListener;
@@ -287,7 +288,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                startActivity(new Intent(SplashActivity.this, IntroActivity.class));
                 finish();
             }
         },2000);

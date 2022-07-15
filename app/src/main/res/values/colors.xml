@@ -3,7 +3,7 @@
     <color name="colorPrimary">#5B4484</color>
     <color name="colorPrimaryDark">#5B4484</color>
     <color name="colorAccent">#B9BACF</color>
-
+    <color name="intro_text">#C7B7E4</color>
     <color name="colorThemeRadio">#6E559A</color>
     <color name="radio_player_theme">#6E559A</color>
     <color name="radio_item_border">#563791</color>
