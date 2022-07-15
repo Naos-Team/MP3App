@@ -21,6 +21,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.naosteam.countrymusic.MethodsAll;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -87,6 +88,9 @@ public class PlayListNowActivity extends BaseActivity {
         ((BaseActivity) Constant.context).hide_Music_layout();
         FrameLayout contentFrameLayout = findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_play_list_now, contentFrameLayout);
+
+        MethodsAll.getInstance().setContext(PlayListNowActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(PlayListNowActivity.this);
 
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
@@ -212,6 +216,7 @@ public class PlayListNowActivity extends BaseActivity {
             }
         }, "online");
 
+        adapter.setIs_currentList(true);
         loadNativeAds();
         rv.setAdapter(adapter);
     }
@@ -231,5 +236,12 @@ public class PlayListNowActivity extends BaseActivity {
     public void onEquilizerChange(ItemAlbums itemAlbums) {
         adapter.notifyDataSetChanged();
         GlobalBus.getBus().removeStickyEvent(itemAlbums);
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(PlayListNowActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(PlayListNowActivity.this);
+        super.onResume();
     }
 }

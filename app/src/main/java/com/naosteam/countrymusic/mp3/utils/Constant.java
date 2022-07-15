@@ -150,6 +150,7 @@ public class Constant implements Serializable {
     public static int adCount = 0;
     public static int ad_interstitial_display = 5;
     public static int adNativeDisplay = 6;
+    public static int native_ad_count = 1;
     public static String ad_publisher_id = "";
     public static String ad_banner_id = "";
     public static String ad_banner_id_test = "ca-app-pub-3940256099942544/6300978111";

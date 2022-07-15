@@ -30,6 +30,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -39,6 +40,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.squareup.picasso.Target;
 import com.naosteam.countrymusic.PurchaseActivity;
 import com.naosteam.countrymusic.R;
@@ -138,6 +140,9 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
         Constant.context = this;
         deviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        MethodsAll.getInstance().setContext(BaseActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(BaseActivity.this);
 
         methods = new Methods(this);
         methods1 = new Methods(this);
@@ -1305,6 +1310,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             View imageLayout = inflater.inflate(R.layout.layout_viewpager, container, false);
             assert imageLayout != null;
             RoundedImageView imageView = imageLayout.findViewById(R.id.image);
+            FrameLayout frame_native_ads = imageLayout.findViewById(R.id.frame_native_ads);
             final ImageView imageView_play = imageLayout.findViewById(R.id.iv_vp_play);
             final ProgressBar spinner = imageLayout.findViewById(R.id.loading);
             final ImageView fav = imageLayout.findViewById(R.id.iv_max_fav);
@@ -1497,6 +1503,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
+        MethodsAll.getInstance().setContext(BaseActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(BaseActivity.this);
         handler.removeCallbacks(runnable);
         handler.postDelayed(runnable,180000);
         super.onResume();

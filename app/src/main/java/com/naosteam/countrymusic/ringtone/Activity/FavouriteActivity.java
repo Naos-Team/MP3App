@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
 import com.naosteam.countrymusic.ringtone.Adapter.SongAdapter;
@@ -46,6 +47,9 @@ public class FavouriteActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories_ringtone);
+
+        MethodsAll.getInstance().setContext(FavouriteActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(FavouriteActivity.this);
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
@@ -142,9 +146,10 @@ public class FavouriteActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-
-
-
-
-
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(FavouriteActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(FavouriteActivity.this);
+        super.onResume();
+    }
 }

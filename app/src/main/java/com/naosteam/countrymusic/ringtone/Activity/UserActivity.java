@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.naosteam.countrymusic.BuildConfig;
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
 import com.naosteam.countrymusic.ringtone.Adapter.RingtoneAdapter;
@@ -48,6 +49,9 @@ public class UserActivity extends AppCompatActivity {
 //        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_ringtone);
+
+        MethodsAll.getInstance().setContext(UserActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(UserActivity.this);
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
@@ -200,5 +204,12 @@ public class UserActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(UserActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(UserActivity.this);
+        super.onResume();
     }
 }

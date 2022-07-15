@@ -85,6 +85,21 @@
                     app:layout_constraintStart_toStartOf="@id/rl_shadow_radio"
                     app:layout_constraintTop_toTopOf="@id/rl_shadow_radio" />
 
+                <FrameLayout
+                    android:id="@+id/frame_native_ads"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.74"
+                    app:layout_constraintWidth_percent="0.8"/>
+
 
                 <ImageView
                     android:id="@+id/ll_top_collapse"

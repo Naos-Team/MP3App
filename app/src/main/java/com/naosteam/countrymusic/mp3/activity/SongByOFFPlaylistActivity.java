@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -82,6 +83,9 @@ public class SongByOFFPlaylistActivity extends BaseActivity {
         getLayoutInflater().inflate(R.layout.activity_song_by_offline_playlist, contentFrameLayout);
 
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        MethodsAll.getInstance().setContext(SongByOFFPlaylistActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SongByOFFPlaylistActivity.this);
 
         itemMyPlayList = (ItemMyPlayList) getIntent().getSerializableExtra("item");
         addedFrom = addedFrom + itemMyPlayList.getName();
@@ -370,6 +374,8 @@ public class SongByOFFPlaylistActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
+        MethodsAll.getInstance().setContext(SongByOFFPlaylistActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SongByOFFPlaylistActivity.this);
         if (isLoaded) {
 
             new LoadOfflineSongs().execute();

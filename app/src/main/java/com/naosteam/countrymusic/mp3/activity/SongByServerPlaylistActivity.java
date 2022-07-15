@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.squareup.picasso.Target;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.adapter.AdapterAllSongList;
@@ -103,6 +104,9 @@ public class SongByServerPlaylistActivity extends BaseActivity {
         type = getIntent().getStringExtra("type");
         itemServerPlayList = (ItemServerPlayList) getIntent().getSerializableExtra("item");
         addedFrom = addedFrom + itemServerPlayList.getName();
+
+        MethodsAll.getInstance().setContext(SongByServerPlaylistActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SongByServerPlaylistActivity.this);
 
         methods = new Methods(this, new InterAdListener() {
             @Override
@@ -567,5 +571,12 @@ public class SongByServerPlaylistActivity extends BaseActivity {
     public void onEquilizerChange(ItemAlbums itemAlbums) {
         adapter.notifyDataSetChanged();
         GlobalBus.getBus().removeStickyEvent(itemAlbums);
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(SongByServerPlaylistActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SongByServerPlaylistActivity.this);
+        super.onResume();
     }
 }

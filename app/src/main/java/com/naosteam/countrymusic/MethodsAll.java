@@ -18,18 +18,26 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.TextView;
+
+import com.naosteam.countrymusic.mp3.utils.SharedPref;
 
 public class MethodsAll {
-    private Dialog dialog;
-    private Context context;
+    private Dialog dialog, dialog_upgrade;
+    private Context context, context_upgrade;
     private static MethodsAll instance;
-    private CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer, countDownTimer_upgrade;
     private static long time_show = 5*60*1000; //minutes
     private SharedPreferences sharedPreferences;
+    private int time_to_show_upgrade = 3;
+    private int time_show_ads = 0;
 
     public void setContext(Context context) {
         this.context = context;
+    }
 
+    public void setContext_upgrade(Context context_upgrade) {
+        this.context_upgrade = context_upgrade;
     }
 
     private MethodsAll(){
@@ -45,7 +53,6 @@ public class MethodsAll {
             @Override
             public void onFinish() {
                 if(sharedPreferences.getBoolean("rated", false)){
-                    Log.e("TEST", "onTick: End" );
                 } else {
                     this.start();
                 }
@@ -60,13 +67,68 @@ public class MethodsAll {
         return instance;
     }
 
-    public void startCountdown(){
+    public void startCountdown_rate(){
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 countDownTimer.start();
             }
         }, time_show);
+    }
+
+    public void show_upgrade_dialog(){
+        if(!new SharedPref(context_upgrade).getIsPremium()) {
+            if (time_show_ads == time_to_show_upgrade) {
+                time_show_ads = 0;
+                showUpgradeDialog();
+            } else {
+                time_show_ads += 1;
+            }
+        }
+    }
+
+    private void showUpgradeDialog(){
+        if(context_upgrade != null) {
+            if (dialog_upgrade != null) {
+                if (dialog_upgrade.isShowing())
+                    dialog_upgrade.dismiss();
+            }
+            dialog_upgrade = new Dialog(context_upgrade);
+            dialog_upgrade.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog_upgrade.setContentView(R.layout.layout_dialog_rate);
+            Window window = dialog_upgrade.getWindow();
+            if (window == null) {
+                return;
+            }
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            WindowManager.LayoutParams windowAttributes = window.getAttributes();
+            windowAttributes.gravity = Gravity.CENTER;
+            dialog_upgrade.setCancelable(true);
+            RatingBar ratingBar = dialog_upgrade.findViewById(R.id.ratingBar);
+            ratingBar.setVisibility(View.GONE);
+            TextView txt_dialog_rate = dialog_upgrade.findViewById(R.id.txt_dialog_rate);
+            txt_dialog_rate.setText("Do you want to experience our app without ads?");
+            Button btn_cancel_dialog = dialog_upgrade.findViewById(R.id.btn_cancel_dialog);
+            btn_cancel_dialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog_upgrade.dismiss();
+                }
+            });
+
+            Button btn_change_dialog = dialog_upgrade.findViewById(R.id.btn_change_dialog);
+            btn_change_dialog.setText("Upgrade");
+            btn_change_dialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    context_upgrade.startActivity(new Intent(context, PurchaseActivity.class));
+                    dialog_upgrade.dismiss();
+                }
+            });
+            dialog_upgrade.show();
+        }
     }
 
     private void showRateDialog(){

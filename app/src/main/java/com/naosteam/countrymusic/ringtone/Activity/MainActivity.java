@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main_ringtone);
 
         MethodsAll.getInstance().setContext(MainActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(MainActivity.this);
         //initBuy();
 //        nemosofts = new Nemosofts(this);
 
@@ -676,6 +677,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onResume() {
+        MethodsAll.getInstance().setContext(MainActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(MainActivity.this);
         super.onResume();
         // Continue updates when resumed
 //        update.continueUpdate();

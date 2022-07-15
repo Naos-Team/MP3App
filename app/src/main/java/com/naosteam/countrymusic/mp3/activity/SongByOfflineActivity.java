@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.adapter.AdapterOFSongList;
@@ -87,6 +88,10 @@ public class SongByOfflineActivity extends BaseActivity {
                 startService(intent);
             }
         });
+
+        MethodsAll.getInstance().setContext(SongByOfflineActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SongByOfflineActivity.this);
+
         methods.forceRTLIfSupported(getWindow());
         methods.showSMARTBannerAd(ll_adView_base);
 
@@ -347,5 +352,12 @@ public class SongByOfflineActivity extends BaseActivity {
     public void onEquilizerChange(ItemAlbums itemAlbums) {
         adapter.notifyDataSetChanged();
         GlobalBus.getBus().removeStickyEvent(itemAlbums);
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(SongByOfflineActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SongByOfflineActivity.this);
+        super.onResume();
     }
 }
