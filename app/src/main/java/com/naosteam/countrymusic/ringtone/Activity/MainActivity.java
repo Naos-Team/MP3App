@@ -111,11 +111,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        if (Setting.Dark_Mode) {
-//            setTheme(R.style.AppTheme);
-//        } else {
-//            setTheme(R.style.AppTheme);
-//        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_ringtone);
 
