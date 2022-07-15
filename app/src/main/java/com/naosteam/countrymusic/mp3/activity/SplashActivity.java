@@ -43,7 +43,6 @@ public class SplashActivity extends AppCompatActivity {
     ProgressBar pb_latest;
     BillingClient billingClient;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +52,12 @@ public class SplashActivity extends AppCompatActivity {
         methods = new Methods(this);
         sharedPref = new SharedPref(this);
         dbHelper = new DBHelper(this);
+
         pb_latest = findViewById(R.id.pb_latest);
         Sprite doubleBounce = new DoubleBounce();
         doubleBounce.setColor(R.color.colorPrimary);
         pb_latest.setIndeterminateDrawable(doubleBounce);
+
 
         if (sharedPref.getIsFirst()) {
             loadAboutData();
@@ -288,8 +289,17 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, IntroActivity.class));
-                finish();
+                if (sharedPref.getIsFirst()) {
+                    startActivity(new Intent(SplashActivity.this, IntroActivity.class));
+                    finish();
+                    sharedPref.setIsFirst(false);
+                }
+                else{
+                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                    finish();
+                }
+
+
             }
         },2000);
 

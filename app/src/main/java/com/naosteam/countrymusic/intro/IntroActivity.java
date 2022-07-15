@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.naosteam.countrymusic.HomeActivity;
 import com.naosteam.countrymusic.R;
+import com.naosteam.countrymusic.ringtone.Activity.MainActivity;
+import com.naosteam.countrymusic.ringtone.SharedPref.SharedPref;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,7 @@ public class IntroActivity extends AppCompatActivity {
     TabLayout tabIndicator;
     RelativeLayout rl_bottom;
     TextView btn_skip;
+
 
 //    String[] permissionsList = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
 //            Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -40,10 +43,11 @@ public class IntroActivity extends AppCompatActivity {
         rl_bottom = findViewById(R.id.rl_bottom);
         btn_skip = findViewById(R.id.btn_skip);
 
+
         ArrayList<IntroItem> arrayList = new ArrayList<>();
-        arrayList.add(new IntroItem("Enjoy musics and radios", R.drawable.intro_1));
+        arrayList.add(new IntroItem("Enjoy songs and radios", R.drawable.intro_1));
         arrayList.add(new IntroItem("Choose your own ringtone", R.drawable.intro_2));
-        arrayList.add(new IntroItem("Let's start", R.drawable.intro_3));
+        arrayList.add(new IntroItem("All is set. Try it yourself", R.drawable.intro_3));
 
 
         adapter = new IntroViewPagerAdapter(this, arrayList, () ->{
