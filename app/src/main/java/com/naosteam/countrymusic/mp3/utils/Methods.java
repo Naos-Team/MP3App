@@ -551,11 +551,15 @@ public class Methods {
                             super.onAdLoaded();
                             if (!isClicked) {
                                 isClicked = true;
+
                                 interstitialAd.show();
                             }
                         }
 
                         public void onAdClosed() {
+
+                            //dismiss ads
+                            //check
                             interAdListener.onClick(pos, type);
                             super.onAdClosed();
                         }
@@ -632,7 +636,6 @@ public class Methods {
             interAdListener.onClick(pos, type);
         }
     }
-
     public void showInterScreenAd(InterScreenListener listener) {
         if (Constant.isInterAd) {
             Constant.adCount = Constant.adCount + 1;

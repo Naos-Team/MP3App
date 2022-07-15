@@ -10,19 +10,30 @@
         android:id="@+id/fragment_dash"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/space"
+        app:layout_constraintBottom_toTopOf="@+id/space1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-        android:id="@+id/space"
+    <RelativeLayout
+        android:id="@+id/space1"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:backgroundTint="@color/bg_bottom_bar"
+        android:background="@drawable/bg_bottom_nav_home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="0.6dp"
+        android:paddingBottom="0.6dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_dash" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_dash">
+
+        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/bg_bottom_bar" />
+    </RelativeLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

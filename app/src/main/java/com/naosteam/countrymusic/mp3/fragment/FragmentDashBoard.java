@@ -48,7 +48,7 @@ public class FragmentDashBoard extends Fragment {
         bottomNavigation.addItem(item5);
 
         bottomNavigation.setColored(false);
-        bottomNavigation.setDefaultBackgroundColor(getActivity().getResources().getColor(R.color.grey));
+//        bottomNavigation.setDefaultBackgroundColor(getActivity().getResources().getColor(R.color.grey));
         bottomNavigation.setAccentColor(getActivity().getResources().getColor(R.color.bottom_item_active_color));
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
 
