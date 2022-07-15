@@ -28,6 +28,7 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,12 +37,20 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.VideoController;
+import com.google.android.gms.ads.formats.MediaView;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.naosteam.countrymusic.BuildConfig;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.adapter.AdapterPlaylistDialog;
@@ -75,6 +84,7 @@ import com.yakivmospan.scytale.Store;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -85,6 +95,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -97,6 +108,7 @@ public class Methods {
     private Context context;
     private DBHelper dbHelper;
     private InterAdListener interAdListener;
+    private UnifiedNativeAd mUnifiedNativeAd;
     private SecretKey key;
     private boolean isClicked = false;
 
@@ -196,7 +208,7 @@ public class Methods {
     }
 
     public String milliSecondsToTimer(long milliseconds, long duration) {
-        if(duration > 0) {
+        if (duration > 0) {
             String finalTimerString = "";
             String hourString = "";
             String secondsString = "";
@@ -386,6 +398,117 @@ public class Methods {
         }
     }
 
+    public void showNativeAds(FrameLayout frameLayout) {
+
+        SharedPref sharedPref = new SharedPref(context);
+        boolean isPremium = sharedPref.getIsPremium();
+
+        if (isNetworkAvailable() && Constant.native_ad_count % 3 == 0 && !isPremium) {
+            AdLoader adLoader = new AdLoader.Builder(context, "ca-app-pub-3940256099942544/2247696110")
+                    .forUnifiedNativeAd(
+                            new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+                                @Override
+                                public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+
+                                    if (mUnifiedNativeAd != null) {
+                                        mUnifiedNativeAd.destroy();
+                                    }
+                                    mUnifiedNativeAd = unifiedNativeAd;
+                                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                    UnifiedNativeAdView adView = (UnifiedNativeAdView) inflater.inflate(R.layout.ad_unified, null);
+                                    populateUnifiedNativeAdView(unifiedNativeAd, adView);
+                                    frameLayout.removeAllViews();
+                                    frameLayout.addView(adView);
+                                    frameLayout.setVisibility(View.VISIBLE);
+
+                                }
+                            })
+                    .withAdListener(new AdListener() {
+                        @Override
+                        public void onAdFailedToLoad(LoadAdError loadAdError) {
+                            String err = loadAdError.getMessage();
+                            super.onAdFailedToLoad(loadAdError);
+                        }
+
+                    })
+                    .withNativeAdOptions(new NativeAdOptions.Builder().build())
+                    .build();
+
+            adLoader.loadAd(new AdRequest.Builder().build());
+        }else{
+            frameLayout.setVisibility(View.GONE);
+        }
+
+        Constant.native_ad_count++;
+
+    }
+
+    private void populateUnifiedNativeAdView(UnifiedNativeAd nativeAd, UnifiedNativeAdView adView) {
+        // Set the media view.
+        adView.setMediaView((MediaView) adView.findViewById(R.id.ad_media));
+
+        // Set other ad assets.
+        adView.setHeadlineView(adView.findViewById(R.id.ad_headline));
+        adView.setBodyView(adView.findViewById(R.id.ad_body));
+        adView.setCallToActionView(adView.findViewById(R.id.ad_call_to_action));
+        adView.setIconView(adView.findViewById(R.id.ad_app_icon));
+        adView.setPriceView(adView.findViewById(R.id.ad_price));
+        adView.setStarRatingView(adView.findViewById(R.id.ad_stars));
+        adView.setStoreView(adView.findViewById(R.id.ad_store));
+
+        // The headline and mediaContent are guaranteed to be in every UnifiedNativeAd.
+        ((TextView) adView.getHeadlineView()).setText(nativeAd.getHeadline());
+        adView.getMediaView().setMediaContent(nativeAd.getMediaContent());
+
+        // These assets aren't guaranteed to be in every UnifiedNativeAd, so it's important to
+        // check before trying to display them.
+        if (nativeAd.getBody() == null) {
+            adView.getBodyView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getBodyView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getBodyView()).setText(nativeAd.getBody());
+        }
+
+        if (nativeAd.getCallToAction() == null) {
+            adView.getCallToActionView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getCallToActionView().setVisibility(View.VISIBLE);
+            ((Button) adView.getCallToActionView()).setText(nativeAd.getCallToAction());
+        }
+
+        if (nativeAd.getIcon() == null) {
+            adView.getIconView().setVisibility(View.GONE);
+        } else {
+            ((ImageView) adView.getIconView()).setImageDrawable(
+                    nativeAd.getIcon().getDrawable());
+            adView.getIconView().setVisibility(View.VISIBLE);
+        }
+
+        if (nativeAd.getPrice() == null) {
+            adView.getPriceView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getPriceView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getPriceView()).setText(nativeAd.getPrice());
+        }
+
+        if (nativeAd.getStore() == null) {
+            adView.getStoreView().setVisibility(View.INVISIBLE);
+        } else {
+            adView.getStoreView().setVisibility(View.VISIBLE);
+            ((TextView) adView.getStoreView()).setText(nativeAd.getStore());
+        }
+
+        if (nativeAd.getStarRating() == null) {
+            adView.getStarRatingView().setVisibility(View.INVISIBLE);
+        } else {
+            ((RatingBar) adView.getStarRatingView())
+                    .setRating(nativeAd.getStarRating().floatValue());
+            adView.getStarRatingView().setVisibility(View.VISIBLE);
+        }
+
+        adView.setNativeAd(nativeAd);
+    }
+
     public AdView showBannerAd(LinearLayout linearLayout) {
         try {
             if (isNetworkAvailable() && Constant.isBannerAd) {
@@ -461,7 +584,6 @@ public class Methods {
 //                    linearLayout.addView(adView);
 
 
-
                     com.facebook.ads.AdView adView = new com.facebook.ads.AdView(context, Constant.ad_banner_id, com.facebook.ads.AdSize.BANNER_HEIGHT_50);
 
                     com.facebook.ads.AdListener adListener = new com.facebook.ads.AdListener() {
@@ -497,7 +619,7 @@ public class Methods {
             } else {
                 return null;
             }
-        }  catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -505,7 +627,7 @@ public class Methods {
 
     private AdSize getAdSize() {
         // Step 2 - Determine the screen width (less decorations) to use for the ad width.
-        Display display = ((Activity)context).getWindowManager().getDefaultDisplay();
+        Display display = ((Activity) context).getWindowManager().getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
 
@@ -636,6 +758,7 @@ public class Methods {
             interAdListener.onClick(pos, type);
         }
     }
+
     public void showInterScreenAd(InterScreenListener listener) {
         if (Constant.isInterAd) {
             Constant.adCount = Constant.adCount + 1;
@@ -978,7 +1101,7 @@ public class Methods {
                 String artist = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
 
                 String url = "", image = "";
-                if(android.os.Build.VERSION.SDK_INT >= 29) {
+                if (android.os.Build.VERSION.SDK_INT >= 29) {
                     url = Uri.withAppendedPath(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id).toString();
                 } else {
                     url = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.DATA));
@@ -991,7 +1114,7 @@ public class Methods {
 
                 String desc = context.getString(R.string.title) + " - " + title + "</br>" + context.getString(R.string.artist) + " - " + artist;
 
-                ItemSong itemSong = new ItemSong(id, "", "", artist, url, image, image, title, desc, "0", "0", "0", "0", "",false);
+                ItemSong itemSong = new ItemSong(id, "", "", artist, url, image, image, title, desc, "0", "0", "0", "0", "", false);
                 itemSong.setDuration(duration);
                 Constant.arrayListOfflineSongs.add(itemSong);
             } while (songCursor.moveToNext());
@@ -1096,7 +1219,7 @@ public class Methods {
                 intent.setAction(PlayerService.ACTION_STOP);
                 context.startService(intent);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -1237,17 +1360,17 @@ public class Methods {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String url = Constant.appUpdateURL;
-                if(url.equals("")) {
+                if (url.equals("")) {
                     url = "http://play.google.com/store/apps/details?id=" + context.getPackageName();
                 }
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 context.startActivity(i);
 
-                ((Activity)context).finish();
+                ((Activity) context).finish();
             }
         });
-        if(Constant.appUpdateCancel) {
+        if (Constant.appUpdateCancel) {
             alertDialog.setNegativeButton(context.getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -1257,7 +1380,7 @@ public class Methods {
             alertDialog.setNegativeButton(context.getString(R.string.exit), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((Activity)context).finish();
+                    ((Activity) context).finish();
                 }
             });
         }

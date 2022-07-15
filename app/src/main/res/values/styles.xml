@@ -64,6 +64,7 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+
     <style name="NavigationDrawer" parent="AppTheme" >
         <item name="android:textStyle">bold</item>
         <item name="android:textColorPrimary">@color/nav_icon</item>
