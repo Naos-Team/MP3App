@@ -149,6 +149,12 @@ public class FragmentCatHome extends Fragment {
     }
 
     private void getBannerAds(){
+
+        com.naosteam.countrymusic.mp3.utils.SharedPref mp3_pref = new com.naosteam.countrymusic.mp3.utils.SharedPref(getContext());
+        if(mp3_pref.getIsPremium()){
+            return;
+        }
+
         for (int i = Constants.ITEM_PER_AD_GRID; i < arrayList.size(); i += Constants.ITEM_PER_AD_GRID+1){
             if(Constants.adBannerShow++ < Constants.BANNER_SHOW_LIMIT){
                 final AdView adView = new AdView(getContext());
