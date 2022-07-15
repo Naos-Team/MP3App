@@ -14,10 +14,17 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.naosteam.countrymusic.HomeActivity;
 import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
+import com.naosteam.countrymusic.mp3.utils.Constant;
+import com.naosteam.countrymusic.mp3.utils.SharedPref;
+import com.naosteam.countrymusic.radio.item.ItemRadio;
+import com.naosteam.countrymusic.radio.utils.Constants;
 import com.naosteam.countrymusic.ringtone.Adapter.CategoryAdapter;
 import com.naosteam.countrymusic.ringtone.Method.Methods;
 import com.naosteam.countrymusic.ringtone.SharedPref.Setting;
@@ -33,7 +40,7 @@ public class BaseCategoriesActivity extends AppCompatActivity {
     private Methods methods;
     private RecyclerView recyclerView_category;
     private CategoryAdapter adapterCat;
-    private ArrayList<ListltemCategory> arrayList;
+    private ArrayList<Object> arrayList;
     private int page = 0;
     private ProgressBar progressBar;
     private Toolbar toolbar;
@@ -75,7 +82,18 @@ public class BaseCategoriesActivity extends AppCompatActivity {
         });
 
         recyclerView_category = findViewById(R.id.category);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(BaseCategoriesActivity.this, 2);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(BaseCategoriesActivity.this, 2);
+        mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (arrayList.get(position) instanceof AdView) {
+                    return 2;
+                } else {
+                    return 1;
+                }
+            }
+        });
+
         recyclerView_category.setLayoutManager(mLayoutManager);
         recyclerView_category.addItemDecoration(new BaseCategoriesActivity.GridSpacingItemDecoration(2, dpToPx(2), true));
         recyclerView_category.setItemAnimator(new DefaultItemAnimator());
@@ -106,6 +124,7 @@ public class BaseCategoriesActivity extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
                                     page = page + 1;
                                     arrayList.addAll(arrayListCat);
+                                    getBannerAds();
                                     setAdapter();
                                 }
                             } else {
@@ -120,6 +139,26 @@ public class BaseCategoriesActivity extends AppCompatActivity {
             loadCat.execute();
         } else {
 
+        }
+    }
+
+    private void getBannerAds(){
+
+        SharedPref mp3_pref = new SharedPref(this);
+        if(mp3_pref.getIsPremium()){
+            return;
+        }
+
+        for (int i = 4; i < arrayList.size(); i += 4+1){
+            if(arrayList.get(i) instanceof ListltemCategory){
+                if(Constants.adBannerShow++ < Constants.BANNER_SHOW_LIMIT){
+                    final AdView adView = new AdView(this);
+                    adView.setAdSize(AdSize.SMART_BANNER);
+                    adView.setAdUnitId(Constant.ad_banner_id_test);
+                    adView.loadAd(new AdRequest.Builder().build());
+                    arrayList.add(i, adView);
+                }
+            }
         }
     }
 

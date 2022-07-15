@@ -15,6 +15,7 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.item.ItemArtist;
 import com.naosteam.countrymusic.mp3.utils.Constant;
@@ -27,6 +28,7 @@ import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.naosteam.countrymusic.radio.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,11 +39,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AdapterArtist extends RecyclerView.Adapter {
 
     private Context context;
-    private ArrayList<ItemArtist> arrayList;
-    private ArrayList<ItemArtist> filteredArrayList;
+    private ArrayList<Object> arrayList;
+    private ArrayList<Object> filteredArrayList;
     private NameFilter filter;
     private int columnWidth = 0;
 
@@ -52,7 +56,7 @@ public class AdapterArtist extends RecyclerView.Adapter {
     private NativeAdsManager mNativeAdsManager;
     private ArrayList<NativeAd> mNativeAdsFB = new ArrayList<>();
 
-    public AdapterArtist(Context context, ArrayList<ItemArtist> arrayList) {
+    public AdapterArtist(Context context, ArrayList<Object> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
         this.filteredArrayList = arrayList;
@@ -97,10 +101,19 @@ public class AdapterArtist extends RecyclerView.Adapter {
         }
     }
 
+    public static class BannerAdsViewHolder extends RecyclerView.ViewHolder{
+        public BannerAdsViewHolder(@NonNull @NotNull View itemView) {
+            super(itemView);
+        }
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == VIEW_PROG) {
+        if(viewType == Constants.ITEM_BANNER_AD){
+            View bannerAdView = LayoutInflater.from(parent.getContext()).inflate(R.layout.banner_ad_containter, parent, false);
+            return new BannerAdsViewHolder(bannerAdView);
+        }else if (viewType == VIEW_PROG) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_progressbar, parent, false);
             return new ProgressViewHolder(v);
         } else if (viewType >= 1000) {
@@ -115,19 +128,31 @@ public class AdapterArtist extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MyViewHolder) {
+
+            ItemArtist itemArtist = (ItemArtist) arrayList.get(position);
+
             ((MyViewHolder) holder).iv.setVisibility(View.GONE);
             ((MyViewHolder) holder).vieww.setVisibility(View.GONE);
             ((MyViewHolder) holder).imageView.setLayoutParams(new FrameLayout.LayoutParams(columnWidth, columnWidth));
             ((MyViewHolder) holder).cardView.setLayoutParams(new LinearLayout.LayoutParams(columnWidth, columnWidth));
             ((MyViewHolder) holder).cardView.setRadius(columnWidth / 2);
             ((MyViewHolder) holder).imageView.setCornerRadius(columnWidth / 2);
-            ((MyViewHolder) holder).textView.setText(arrayList.get(position).getName());
+            ((MyViewHolder) holder).textView.setText(itemArtist.getName());
             ((MyViewHolder) holder).imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Picasso.get()
-                    .load(arrayList.get(position).getImage())
+                    .load(itemArtist.getImage())
                     .resize(300, 300)
                     .placeholder(R.drawable.placeholder_artist)
                     .into(((MyViewHolder) holder).imageView);
+        }else if(holder instanceof BannerAdsViewHolder) {
+            BannerAdsViewHolder adsViewHolder = (BannerAdsViewHolder) holder;
+            AdView adView = (AdView) arrayList.get(position);
+            ViewGroup adCardView = (ViewGroup) adsViewHolder.itemView;
+
+            if(adCardView.getChildCount()>0){
+                adCardView.removeAllViews();
+            }
+            adCardView.addView(adView);
         } else if (holder instanceof ADViewHolder) {
             if (isAdLoaded) {
                 if (((ADViewHolder) holder).rl_native_ad.getChildCount() == 0) {
@@ -223,12 +248,14 @@ public class AdapterArtist extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return arrayList.size() + 1;
+        return arrayList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (isHeader(position)) {
+        if(arrayList.get(position) instanceof AdView){
+            return Constants.ITEM_BANNER_AD;
+        }else if (isHeader(position)) {
             return VIEW_PROG;
         } else if (arrayList.get(position) == null) {
             return 1000 + position;
@@ -341,7 +368,7 @@ public class AdapterArtist extends RecyclerView.Adapter {
     }
 
     public ItemArtist getItem(int pos) {
-        return arrayList.get(pos);
+        return (ItemArtist) arrayList.get(pos);
     }
 
     public Filter getFilter() {
@@ -362,9 +389,9 @@ public class AdapterArtist extends RecyclerView.Adapter {
                 ArrayList<ItemArtist> filteredItems = new ArrayList<>();
 
                 for (int i = 0, l = filteredArrayList.size(); i < l; i++) {
-                    String nameList = filteredArrayList.get(i).getName();
+                    String nameList = ((ItemArtist) filteredArrayList.get(i)).getName();
                     if (nameList.toLowerCase().contains(constraint))
-                        filteredItems.add(filteredArrayList.get(i));
+                        filteredItems.add((ItemArtist) filteredArrayList.get(i));
                 }
                 result.count = filteredItems.size();
                 result.values = filteredItems;
@@ -382,7 +409,7 @@ public class AdapterArtist extends RecyclerView.Adapter {
         protected void publishResults(CharSequence constraint,
                                       FilterResults results) {
 
-            arrayList = (ArrayList<ItemArtist>) results.values;
+            arrayList = (ArrayList<Object>) results.values;
             notifyDataSetChanged();
         }
     }

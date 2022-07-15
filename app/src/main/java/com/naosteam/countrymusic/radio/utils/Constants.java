@@ -95,7 +95,7 @@ public class Constants implements Serializable {
     public static final String CAT_THUMB = "category_image_thumb";
     public static final String TOTAL_ITEMS = "total_items";
     public static final int ITEM_PER_AD = 5;
-    public static final int ITEM_PER_AD_GRID = 8;
+    public static final int ITEM_PER_AD_GRID = 4;
     public static final int BANNER_SHOW_LIMIT = 99999;
     public static final int ITEM_LANGUAGE = 0;
     public static final int ITEM_BANNER_AD = 575;

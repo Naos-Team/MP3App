@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
 import com.naosteam.countrymusic.mp3.adapter.AdapterGenres;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadGenres;
 import com.naosteam.countrymusic.mp3.activity.ArtistByGenreActivity;
@@ -47,7 +48,7 @@ public class FragmentGenres extends Fragment {
     private Methods methods;
     private RecyclerView rv;
     private AdapterGenres adapterGenres;
-    private ArrayList<ItemGenres> arrayList, arrayListTemp;
+    private ArrayList<Object> arrayList, arrayListTemp;
     private CircularProgressBar progressBar;
     private FrameLayout frameLayout;
     private GridLayoutManager glm_banner;
@@ -88,8 +89,13 @@ public class FragmentGenres extends Fragment {
         glm_banner.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-//                return adapterCat.isHeader(position) ? glm_banner.getSpanCount() : 1;
-                return (adapterGenres.getItemViewType(position) >= 1000 || adapterGenres.isHeader(position)) ? glm_banner.getSpanCount() : 1;
+                if (adapterGenres.getItemViewType(position) >= 1000 || adapterGenres.isHeader(position)) {
+                    return glm_banner.getSpanCount();
+                } else if (arrayList.get(position) instanceof AdView) {
+                    return 3;
+                } else {
+                    return 1;
+                }
             }
         });
 
@@ -185,7 +191,8 @@ public class FragmentGenres extends Fragment {
                                     errr_msg = getString(R.string.err_no_genres_found);
                                     setEmpty();
                                 } else {
-                                    addNewDataToArrayList(arrayListGenres, total_records);
+                                    ArrayList<Object> ads_list = methods.addFetchAlbumBannerAds(new ArrayList<>(arrayListGenres), arrayList, 2, 3);
+                                    addNewDataToArrayList(ads_list, total_records);
 
                                     page = page + 1;
                                     setAdapter();
@@ -252,7 +259,7 @@ public class FragmentGenres extends Fragment {
         }
     }
 
-    private void addNewDataToArrayList(ArrayList<ItemGenres> arrayListGenres, int total_records) {
+    private void addNewDataToArrayList(ArrayList<Object> arrayListGenres, int total_records) {
         arrayListTemp.addAll(arrayListGenres);
         for (int i = 0; i < arrayListGenres.size(); i++) {
             arrayList.add(arrayListGenres.get(i));

@@ -2,9 +2,11 @@ package com.naosteam.countrymusic.mp3.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -21,6 +23,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.naosteam.countrymusic.mp3.adapter.AdapterAlbums;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadAlbums;
 import com.naosteam.countrymusic.mp3.interfaces.AlbumsListener;
@@ -39,6 +43,8 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.naosteam.countrymusic.mp3.utils.SharedPref;
+import com.naosteam.countrymusic.radio.utils.Constants;
 
 import java.util.ArrayList;
 
@@ -49,7 +55,7 @@ public class FragmentSearchAlbums extends Fragment {
     private Methods methods;
     private RecyclerView rv;
     private AdapterAlbums adapter;
-    private ArrayList<ItemAlbums> arrayList_albums, arrayListTemp;
+    private ArrayList<Object> arrayList_albums, arrayListTemp;
     private CircularProgressBar progressBar;
     private FrameLayout frameLayout;
 
@@ -86,7 +92,13 @@ public class FragmentSearchAlbums extends Fragment {
         glm_banner.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return (adapter.getItemViewType(position) >= 1000 || adapter.isHeader(position)) ? glm_banner.getSpanCount() : 1;
+                if (adapter.getItemViewType(position) >= 1000 || adapter.isHeader(position)) {
+                    return glm_banner.getSpanCount();
+                } else if (arrayList_albums.get(position) instanceof AdView) {
+                    return 2;
+                } else {
+                    return 1;
+                }
             }
         });
         rv.setLayoutManager(glm_banner);
@@ -172,6 +184,7 @@ public class FragmentSearchAlbums extends Fragment {
                         }
                     }
 
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemAlbums> arrayListAlbums, int total_records) {
                         if (getActivity() != null) {
@@ -187,8 +200,10 @@ public class FragmentSearchAlbums extends Fragment {
                                         }
                                         setEmpty();
                                     } else {
-                                        addNewDataToArrayList(arrayListAlbums, total_records);
 
+                                        ArrayList<Object> ads_list = methods.addFetchAlbumBannerAds(new ArrayList<>(arrayListAlbums), arrayList_albums, 2, 2);
+
+                                        addNewDataToArrayList(ads_list, total_records);
                                         page = page + 1;
                                         setAdapter();
                                     }
@@ -256,7 +271,7 @@ public class FragmentSearchAlbums extends Fragment {
         }
     }
 
-    private void addNewDataToArrayList(ArrayList<ItemAlbums> arrayListAlbums, int total_records) {
+    private void addNewDataToArrayList(ArrayList<Object> arrayListAlbums, int total_records) {
         arrayListTemp.addAll(arrayListAlbums);
         for (int i = 0; i < arrayListAlbums.size(); i++) {
             arrayList_albums.add(arrayListAlbums.get(i));

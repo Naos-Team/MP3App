@@ -15,6 +15,7 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.item.ItemAlbums;
 import com.naosteam.countrymusic.mp3.utils.Constant;
@@ -27,6 +28,8 @@ import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.naosteam.countrymusic.radio.adapter.AdapterCity;
+import com.naosteam.countrymusic.radio.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,11 +40,13 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AdapterAlbums extends RecyclerView.Adapter {
 
     private Context context;
-    private ArrayList<ItemAlbums> arrayList;
-    private ArrayList<ItemAlbums> filteredArrayList;
+    private ArrayList<Object> arrayList;
+    private ArrayList<Object> filteredArrayList;
     private NameFilter filter;
     private int columnWidth = 0;
     private Boolean isOnline;
@@ -53,7 +58,7 @@ public class AdapterAlbums extends RecyclerView.Adapter {
     private NativeAdsManager mNativeAdsManager;
     private ArrayList<NativeAd> mNativeAdsFB = new ArrayList<>();
 
-    public AdapterAlbums(Context context, ArrayList<ItemAlbums> arrayList, Boolean isOnline) {
+    public AdapterAlbums(Context context, ArrayList<Object> arrayList, Boolean isOnline) {
         this.context = context;
         this.arrayList = arrayList;
         this.isOnline = isOnline;
@@ -93,10 +98,21 @@ public class AdapterAlbums extends RecyclerView.Adapter {
         }
     }
 
+    public static class BannerAdsViewHolder extends RecyclerView.ViewHolder{
+
+        public BannerAdsViewHolder(@NonNull @NotNull View itemView) {
+            super(itemView);
+        }
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == VIEW_PROG) {
+
+        if(viewType == Constants.ITEM_BANNER_AD){
+            View bannerAdView = LayoutInflater.from(parent.getContext()).inflate(R.layout.banner_ad_containter, parent, false);
+            return new BannerAdsViewHolder(bannerAdView);
+        }else if (viewType == VIEW_PROG) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_progressbar, parent, false);
             return new ProgressViewHolder(v);
         } else if (viewType >= 1000) {
@@ -113,10 +129,12 @@ public class AdapterAlbums extends RecyclerView.Adapter {
 
         if (holder instanceof MyViewHolder) {
 
-            ((MyViewHolder) holder).textView_album.setText(arrayList.get(position).getName());
+            ItemAlbums item = (ItemAlbums) arrayList.get(position);
+
+            ((MyViewHolder) holder).textView_album.setText(item.getName());
             ((MyViewHolder) holder).imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Picasso.get()
-                    .load(arrayList.get(position).getImage())
+                    .load(item.getImage())
                     .placeholder(R.drawable.placeholder_song)
                     .into(((MyViewHolder) holder).imageView);
 
@@ -128,7 +146,18 @@ public class AdapterAlbums extends RecyclerView.Adapter {
                     context.getResources().getDisplayMetrics().widthPixels*5/100,
                     context.getResources().getDisplayMetrics().widthPixels*2/100, 0);
             ((AdapterAlbums.MyViewHolder) holder).layout_albums_home.setLayoutParams(layoutParams);
-        } else if (holder instanceof ADViewHolder) {
+
+
+        }else if(holder instanceof BannerAdsViewHolder) {
+            BannerAdsViewHolder adsViewHolder = (BannerAdsViewHolder) holder;
+            AdView adView = (AdView) arrayList.get(position);
+            ViewGroup adCardView = (ViewGroup) adsViewHolder.itemView;
+
+            if(adCardView.getChildCount()>0){
+                adCardView.removeAllViews();
+            }
+            adCardView.addView(adView);
+        }else if (holder instanceof ADViewHolder) {
             if (isAdLoaded) {
                 if (((ADViewHolder) holder).rl_native_ad.getChildCount() == 0) {
                     if (Constant.natveAdType.equals("admob")) {
@@ -210,7 +239,13 @@ public class AdapterAlbums extends RecyclerView.Adapter {
     }
 
     public ItemAlbums getItem(int pos) {
-        return arrayList.get(pos);
+
+        if(arrayList.get(pos) instanceof ItemAlbums){
+            return (ItemAlbums)arrayList.get(pos);
+        }else {
+            return null;
+        }
+
     }
 
     public void hideHeader() {
@@ -223,12 +258,14 @@ public class AdapterAlbums extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return arrayList.size() + 1;
+        return arrayList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (isHeader(position)) {
+        if(arrayList.get(position) instanceof AdView){
+            return Constants.ITEM_BANNER_AD;
+        }else if (isHeader(position)) {
             return VIEW_PROG;
         } else if (arrayList.get(position) == null) {
             return 1000 + position;
@@ -359,9 +396,9 @@ public class AdapterAlbums extends RecyclerView.Adapter {
                 ArrayList<ItemAlbums> filteredItems = new ArrayList<>();
 
                 for (int i = 0, l = filteredArrayList.size(); i < l; i++) {
-                    String nameList = filteredArrayList.get(i).getName();
+                    String nameList = ((ItemAlbums) filteredArrayList.get(i)).getName();
                     if (nameList.toLowerCase().contains(constraint))
-                        filteredItems.add(filteredArrayList.get(i));
+                        filteredItems.add((ItemAlbums) filteredArrayList.get(i));
                 }
                 result.count = filteredItems.size();
                 result.values = filteredItems;
@@ -378,7 +415,7 @@ public class AdapterAlbums extends RecyclerView.Adapter {
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
-            arrayList = (ArrayList<ItemAlbums>) results.values;
+            arrayList = (ArrayList<Object>) results.values;
             notifyDataSetChanged();
         }
     }

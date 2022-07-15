@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
 import com.naosteam.countrymusic.mp3.adapter.AdapterServerPlaylist;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadServerPlaylist;
 import com.naosteam.countrymusic.mp3.interfaces.InterAdListener;
@@ -45,7 +46,7 @@ public class FragmentServerPlaylist extends Fragment {
     private Methods methods;
     private RecyclerView rv;
     private AdapterServerPlaylist adapter;
-    private ArrayList<ItemServerPlayList> arrayList, arrayListTemp;
+    private ArrayList<Object> arrayList, arrayListTemp;
     private CircularProgressBar progressBar;
     private FrameLayout frameLayout;
     private GridLayoutManager glm_banner;
@@ -79,10 +80,15 @@ public class FragmentServerPlaylist extends Fragment {
         glm_banner.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return (adapter.getItemViewType(position) >= 1000 || adapter.isHeader(position)) ? glm_banner.getSpanCount() : 1;
+                if (adapter.getItemViewType(position) >= 1000 || adapter.isHeader(position)) {
+                    return glm_banner.getSpanCount();
+                } else if (arrayList.get(position) instanceof AdView) {
+                    return 2;
+                } else {
+                    return 1;
+                }
             }
         });
-
         rv.setLayoutManager(glm_banner);
         rv.setItemAnimator(new DefaultItemAnimator());
         rv.setHasFixedSize(true);
@@ -172,7 +178,8 @@ public class FragmentServerPlaylist extends Fragment {
                                     }
                                     setEmpty();
                                 } else {
-                                    addNewDataToArrayList(arrayListPlaylist, total_records);
+                                    ArrayList<Object> ads_list = methods.addFetchAlbumBannerAds(new ArrayList<>(arrayListPlaylist), arrayList, 2, 2);
+                                    addNewDataToArrayList(ads_list, total_records);
 
                                     page = page + 1;
                                     setAdapter();
@@ -220,7 +227,7 @@ public class FragmentServerPlaylist extends Fragment {
         }
     }
 
-    private void addNewDataToArrayList(ArrayList<ItemServerPlayList> arrayListCountry, int total_records) {
+    private void addNewDataToArrayList(ArrayList<Object> arrayListCountry, int total_records) {
         arrayListTemp.addAll(arrayListCountry);
         for (int i = 0; i < arrayListCountry.size(); i++) {
             arrayList.add(arrayListCountry.get(i));

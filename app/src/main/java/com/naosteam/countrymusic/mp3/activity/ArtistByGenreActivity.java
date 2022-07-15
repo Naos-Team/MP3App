@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
 import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.adapter.AdapterArtist;
@@ -43,7 +44,7 @@ public class ArtistByGenreActivity extends BaseActivity {
     private Methods methods;
     private RecyclerView rv;
     private AdapterArtist adapterArtist;
-    private ArrayList<ItemArtist> arrayList, arrayListTemp;
+    private ArrayList<Object> arrayList, arrayListTemp;
     private CircularProgressBar progressBar;
     private FrameLayout frameLayout;
     private GridLayoutManager glm_banner;
@@ -72,9 +73,9 @@ public class ArtistByGenreActivity extends BaseActivity {
             public void onClick(int position, String type) {
                 Intent intent = new Intent(ArtistByGenreActivity.this, SongByCatActivity.class);
                 intent.putExtra("type", getString(R.string.artist));
-                intent.putExtra("id", arrayList.get(position).getId());
-                intent.putExtra("name", arrayList.get(position).getName());
-                intent.putExtra("image", arrayList.get(position).getImage());
+                intent.putExtra("id", ((ItemArtist) arrayList.get(position)).getId());
+                intent.putExtra("name", ((ItemArtist) arrayList.get(position)).getName());
+                intent.putExtra("image", ((ItemArtist) arrayList.get(position)).getImage());
                 startActivity(intent);
             }
         });
@@ -95,7 +96,13 @@ public class ArtistByGenreActivity extends BaseActivity {
         glm_banner.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return (adapterArtist.getItemViewType(position) >= 1000 || adapterArtist.isHeader(position)) ? glm_banner.getSpanCount() : 1;
+                if (adapterArtist.getItemViewType(position) >= 1000 || adapterArtist.isHeader(position)) {
+                    return glm_banner.getSpanCount();
+                } else if (arrayList.get(position) instanceof AdView) {
+                    return 3;
+                } else {
+                    return 1;
+                }
             }
         });
 
@@ -185,7 +192,8 @@ public class ArtistByGenreActivity extends BaseActivity {
                                     }
                                     setEmpty();
                                 } else {
-                                    addNewDataToArrayList(arrayListArtist, total_records);
+                                    ArrayList<Object> ads_list = methods.addFetchAlbumBannerAds(new ArrayList<>(arrayListArtist), arrayList, 2, 3);
+                                    addNewDataToArrayList(ads_list, total_records);
                                     page = page + 1;
                                     setAdapter();
                                 }
@@ -248,7 +256,7 @@ public class ArtistByGenreActivity extends BaseActivity {
         }
     }
 
-    private void addNewDataToArrayList(ArrayList<ItemArtist> arrayListArtist, int total_records) {
+    private void addNewDataToArrayList(ArrayList<Object> arrayListArtist, int total_records) {
         arrayListTemp.addAll(arrayListArtist);
         for (int i = 0; i < arrayListArtist.size(); i++) {
             arrayList.add(arrayListArtist.get(i));

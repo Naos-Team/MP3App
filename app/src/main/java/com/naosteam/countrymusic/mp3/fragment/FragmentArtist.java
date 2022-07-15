@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdView;
 import com.naosteam.countrymusic.mp3.adapter.AdapterArtist;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadArtist;
 import com.naosteam.countrymusic.mp3.interfaces.ArtistListener;
@@ -48,7 +49,7 @@ public class FragmentArtist extends Fragment {
     private Methods methods;
     private RecyclerView rv;
     private AdapterArtist adapterArtist;
-    private ArrayList<ItemArtist> arrayList, arrayListTemp;
+    private ArrayList<Object> arrayList, arrayListTemp;
     private CircularProgressBar progressBar;
     private FrameLayout frameLayout;
     private GridLayoutManager glm_banner;
@@ -67,7 +68,7 @@ public class FragmentArtist extends Fragment {
             public void onClick(int position, String type) {
                 FragmentAlbumsByArtist f_alb = new FragmentAlbumsByArtist();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("item", arrayList.get(position));
+                bundle.putSerializable("item",  (ItemArtist) arrayList.get(position));
                 f_alb.setArguments(bundle);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -90,7 +91,13 @@ public class FragmentArtist extends Fragment {
         glm_banner.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return (adapterArtist.getItemViewType(position) >= 1000 || adapterArtist.isHeader(position)) ? glm_banner.getSpanCount() : 1;
+                if (adapterArtist.getItemViewType(position) >= 1000 || adapterArtist.isHeader(position)) {
+                    return glm_banner.getSpanCount();
+                } else if (arrayList.get(position) instanceof AdView) {
+                    return 3;
+                } else {
+                    return 1;
+                }
             }
         });
 
@@ -187,7 +194,8 @@ public class FragmentArtist extends Fragment {
                                     }
                                     setEmpty();
                                 } else {
-                                    addNewDataToArrayList(arrayListArtist, total_records);
+                                    ArrayList<Object> ads_list = methods.addFetchAlbumBannerAds(new ArrayList<>(arrayListArtist), arrayList, 2, 3);
+                                    addNewDataToArrayList(ads_list, total_records);
                                     page = page + 1;
                                     setAdapter();
                                 }
@@ -251,7 +259,7 @@ public class FragmentArtist extends Fragment {
         }
     }
 
-    private void addNewDataToArrayList(ArrayList<ItemArtist> arrayListArtist, int total_records) {
+    private void addNewDataToArrayList(ArrayList<Object> arrayListArtist, int total_records) {
         arrayListTemp.addAll(arrayListArtist);
         for (int i = 0; i < arrayListArtist.size(); i++) {
             arrayList.add(arrayListArtist.get(i));

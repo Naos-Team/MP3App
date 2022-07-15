@@ -2,9 +2,12 @@ package com.naosteam.countrymusic.mp3.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +27,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.naosteam.countrymusic.mp3.adapter.AdapterAlbums;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadAlbums;
 import com.naosteam.countrymusic.mp3.interfaces.AlbumsListener;
@@ -41,6 +47,8 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.naosteam.countrymusic.mp3.utils.SharedPref;
+import com.naosteam.countrymusic.radio.utils.Constants;
 
 import java.util.ArrayList;
 
@@ -51,7 +59,7 @@ public class FragmentAlbumsByArtist extends Fragment {
     private Methods methods;
     private RecyclerView rv;
     private AdapterAlbums adapterAlbums;
-    private ArrayList<ItemAlbums> arrayList, arrayListTemp;
+    private ArrayList<Object> arrayList, arrayListTemp;
     private ItemArtist itemArtist;
     private CircularProgressBar progressBar;
     private TextView tv_artist;
@@ -104,7 +112,13 @@ public class FragmentAlbumsByArtist extends Fragment {
         glm_banner.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return (adapterAlbums.getItemViewType(position) >= 1000 || adapterAlbums.isHeader(position)) ? glm_banner.getSpanCount() : 1;
+                if (adapterAlbums.getItemViewType(position) >= 1000 || adapterAlbums.isHeader(position)) {
+                    return glm_banner.getSpanCount();
+                } else if (arrayList.get(position) instanceof AdView) {
+                    return 2;
+                } else {
+                    return 1;
+                }
             }
         });
 
@@ -210,6 +224,7 @@ public class FragmentAlbumsByArtist extends Fragment {
                     }
                 }
 
+                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onEnd(String success, String verifyStatus, String message, ArrayList<ItemAlbums> arrayListAlbums, int total_records) {
                     if (getActivity() != null) {
@@ -231,7 +246,10 @@ public class FragmentAlbumsByArtist extends Fragment {
 
                                     setEmpty();
                                 } else {
-                                    addNewDataToArrayList(arrayListAlbums, total_records);
+
+                                    ArrayList<Object> ads_list = methods.addFetchAlbumBannerAds(new ArrayList<>(arrayListAlbums), arrayList, 2, 2);
+
+                                    addNewDataToArrayList(ads_list, total_records);
                                     page = page + 1;
                                     setAdapter();
                                 }
@@ -246,7 +264,7 @@ public class FragmentAlbumsByArtist extends Fragment {
                         isLoading = false;
                     }
                 }
-            }, methods.getAPIRequest(Constant.METHOD_ALBUMS_BY_ARTIST, page, "", itemArtist.getId(), "", "", "", "", "", "","","","","","","","", null));
+            }, methods.getAPIRequest(Constant.METHOD_ALBUMS_BY_ARTIST, page, "", itemArtist.getId(), "", "", "", "", "", "", "", "", "", "", "", "", "", null));
             loadAlbums.execute(String.valueOf(page));
         } else {
             errr_msg = getString(R.string.err_internet_not_conn);
@@ -295,7 +313,7 @@ public class FragmentAlbumsByArtist extends Fragment {
         }
     }
 
-    private void addNewDataToArrayList(ArrayList<ItemAlbums> arrayListAlbums, int total_records) {
+    private void addNewDataToArrayList(ArrayList<Object> arrayListAlbums, int total_records) {
         arrayListTemp.addAll(arrayListAlbums);
         for (int i = 0; i < arrayListAlbums.size(); i++) {
             arrayList.add(arrayListAlbums.get(i));
@@ -358,7 +376,7 @@ public class FragmentAlbumsByArtist extends Fragment {
 
     @Override
     public void onDestroy() {
-        if(adapterAlbums != null) {
+        if (adapterAlbums != null) {
             adapterAlbums.destroyNativeAds();
         }
         super.onDestroy();
