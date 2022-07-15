@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
         pb_latest.setIndeterminateDrawable(doubleBounce);
 
         if (sharedPref.getIsFirst()) {
-
+            loadAboutData();
         } else {
 
             loadAboutData();
