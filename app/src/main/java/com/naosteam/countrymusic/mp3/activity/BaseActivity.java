@@ -113,6 +113,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     PausableRotateAnimation rotateAnimation;
     String deviceId;
 
+    FrameLayout frame_native_ads;
+
     RatingBar ratingBar;
     SeekBar seekBar_music, seekbar_min;
     View view_playlist, view_download, view_rate, view_round;
@@ -174,6 +176,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         ratingBar = findViewById(R.id.rb_music);
         seekBar_music = findViewById(R.id.seekbar_music);
         iv_list = findViewById(R.id.iv_list);
+        frame_native_ads = findViewById(R.id.frame_native_ads);
         seekbar_min = findViewById(R.id.seekbar_min);
         seekbar_min.setPadding(0, 0, 0, 0);
 
@@ -386,10 +389,12 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 changeFav(Constant.arrayList_play.get(position).getIsFavourite());
                 if (view != null) {
                     ImageView iv = view.findViewById(R.id.iv_vp_play);
+                    FrameLayout frame_native_ads = view.findViewById(R.id.frame_native_ads);
                     if (Constant.playPos == position) {
                         iv.setVisibility(View.GONE);
                     } else {
                         iv.setVisibility(View.VISIBLE);
+                        frame_native_ads.setVisibility(View.GONE);
                     }
                 }
             }
@@ -1037,21 +1042,12 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     public void changeImageAnimation(Boolean isPlay) {
         try {
-            if (!isPlay) {
-                rotateAnimation.pause();
-            } else {
-                if (!isRotateAnim) {
-                    isRotateAnim = true;
-                    if (imageView_pager != null) {
-                        imageView_pager.setAnimation(null);
-                    }
-                    View view_pager = viewpager.findViewWithTag("myview" + Constant.playPos);
+            View view_pager = viewpager.findViewWithTag("myview" + Constant.playPos);
 //                    newRotateAnim();
-                    imageView_pager = view_pager.findViewById(R.id.image);
-                    imageView_pager.startAnimation(rotateAnimation);
-                } else {
-                    rotateAnimation.resume();
-                }
+            frame_native_ads = view_pager.findViewById(R.id.frame_native_ads);
+            if(frame_native_ads.getVisibility() == View.GONE) {
+                frame_native_ads.setVisibility(View.VISIBLE);
+                methods.showNativeAds(frame_native_ads);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1319,6 +1315,9 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             if (Constant.playPos == position) {
                 imageView_play.setVisibility(View.GONE);
             }
+//            else {
+//                frame_native_ads.setVisibility(View.GONE);
+//            }
 
             if (Constant.isOnline) {
                 Picasso.get()
