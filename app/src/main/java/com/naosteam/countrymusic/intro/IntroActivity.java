@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -49,5 +52,68 @@ public class IntroActivity extends AppCompatActivity {
                 startActivity(mIntent);
             },100);
         });
+
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position < 2){
+                    tabIndicator.animate()
+                            .alpha(1f)
+                            .setDuration(300)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+                                    tabIndicator.setVisibility(View.VISIBLE);
+                                }
+                            });
+
+                    btn_skip.animate()
+                            .alpha(1f)
+                            .setDuration(300)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+                                    btn_skip.setVisibility(View.VISIBLE);
+                                }
+                            });
+                }else {
+                    tabIndicator.animate()
+                            .alpha(0f)
+                            .setDuration(300)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    tabIndicator.setVisibility(View.GONE);
+                                }
+                            });
+                    btn_skip.animate()
+                            .alpha(0f)
+                            .setDuration(300)
+                            .setListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    btn_skip.setVisibility(View.GONE);
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        btn_skip.setOnClickListener((v) ->{
+            viewPager.setCurrentItem(2, true);
+        });
+
+        tabIndicator.setupWithViewPager(viewPager);
     }
 }
