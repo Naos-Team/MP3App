@@ -47,6 +47,7 @@ import com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.naosteam.countrymusic.PurchaseActivity;
+import com.naosteam.countrymusic.mp3.activity.SuggestionActivity;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -150,6 +151,7 @@ public class RadioBaseActivity extends AppCompatActivity {
         Constants.isAppOpen = true;
 
         MethodsAll.getInstance().setContext(RadioBaseActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(RadioBaseActivity.this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage(getString(R.string.loading));
@@ -1466,6 +1468,8 @@ public class RadioBaseActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        MethodsAll.getInstance().setContext(RadioBaseActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(RadioBaseActivity.this);
         changeLoginName();
 
         Constants.isQuitDialog = true;

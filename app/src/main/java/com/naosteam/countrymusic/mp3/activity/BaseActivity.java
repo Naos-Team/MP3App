@@ -39,6 +39,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.squareup.picasso.Target;
 import com.naosteam.countrymusic.PurchaseActivity;
 import com.naosteam.countrymusic.R;
@@ -138,6 +139,9 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
         Constant.context = this;
         deviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        MethodsAll.getInstance().setContext(BaseActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(BaseActivity.this);
 
         methods = new Methods(this);
         methods1 = new Methods(this);
@@ -1497,6 +1501,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
+        MethodsAll.getInstance().setContext(BaseActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(BaseActivity.this);
         handler.removeCallbacks(runnable);
         handler.postDelayed(runnable,180000);
         super.onResume();

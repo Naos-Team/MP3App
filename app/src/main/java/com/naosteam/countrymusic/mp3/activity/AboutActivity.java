@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadAbout;
 import com.naosteam.countrymusic.mp3.interfaces.AboutListener;
@@ -45,6 +46,9 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        MethodsAll.getInstance().setContext(AboutActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(AboutActivity.this);
 
         dbHelper = new DBHelper(this);
         methods = new Methods(this);
@@ -190,5 +194,12 @@ public class AboutActivity extends AppCompatActivity {
 
         webView.setBackgroundColor(Color.TRANSPARENT);
         webView.loadDataWithBaseURL("blarg://ignored", text, mimeType, encoding, "");
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(AboutActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(AboutActivity.this);
+        super.onResume();
     }
 }

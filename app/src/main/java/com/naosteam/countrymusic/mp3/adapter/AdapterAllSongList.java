@@ -79,7 +79,7 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
     private Dialog dialog_rate;
     private BottomSheetDialog dialog_desc;
 
-    private boolean is_currentList = false;
+    private boolean is_currentList = false, is_playlist = false;
 
     private final int VIEW_PROG = -1;
 
@@ -88,12 +88,12 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
     private NativeAdsManager mNativeAdsManager;
     private ArrayList<NativeAd> mNativeAdsFB = new ArrayList<>();
 
-    public boolean isIs_currentList() {
-        return is_currentList;
-    }
-
     public void setIs_currentList(boolean is_currentList) {
         this.is_currentList = is_currentList;
+    }
+
+    public void setIs_PlayList(boolean is_playlist){
+        this.is_playlist = is_playlist;
     }
 
     public AdapterAllSongList(Context context, ArrayList<ItemSong> arrayList, ClickListenerPlayList recyclerClickListener, String type) {
@@ -277,7 +277,7 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
 
                         @Override
                         public void onAddToPlaylist(ItemSong itemSong) {
-                            if(is_currentList){
+                            if(is_playlist){
                                 switch (type) {
                                     case "playlist":
                                         dbHelper.removeFromPlayList(itemSong.getId(), true);
@@ -346,7 +346,7 @@ public class AdapterAllSongList extends RecyclerView.Adapter {
                         public void onEndLike() {
                             notifyItemChanged(index);
                         }
-                    }, methods, null, is_currentList);
+                    }, methods, null, is_playlist);
 
                     fragmentOptionMusic.show(((FragmentActivity) context).getSupportFragmentManager(), fragmentOptionMusic.getTag());
                 }

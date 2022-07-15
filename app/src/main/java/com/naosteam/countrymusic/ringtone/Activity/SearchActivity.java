@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
 import com.naosteam.countrymusic.ringtone.Adapter.SongAdapter;
@@ -54,6 +55,9 @@ public class SearchActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_ringtone);
+
+        MethodsAll.getInstance().setContext(SearchActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SearchActivity.this);
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
@@ -217,5 +221,11 @@ public class SearchActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(SearchActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SearchActivity.this);
+        super.onResume();
+    }
 }
 

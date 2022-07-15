@@ -85,8 +85,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         menu_login = menu.findItem(R.id.nav_login);
         menu_prof = menu.findItem(R.id.nav_profile);
         menu_suggest = menu.findItem(R.id.nav_suggest);
+        menu_prof.setVisible(false);
 
         MethodsAll.getInstance().setContext(MainActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(MainActivity.this);
 
         changeLoginName();
 
@@ -375,6 +377,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void onResume() {
+        MethodsAll.getInstance().setContext(MainActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(MainActivity.this);
         changeLoginName();
         super.onResume();
     }

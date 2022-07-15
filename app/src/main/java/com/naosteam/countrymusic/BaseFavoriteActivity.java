@@ -14,6 +14,7 @@ import com.naosteam.countrymusic.databinding.ActivityHomeBinding;
 import com.naosteam.countrymusic.mp3.activity.FavoriteActivity;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
 import com.naosteam.countrymusic.mp3.utils.Methods;
+import com.naosteam.countrymusic.radio.activity.RadioBaseActivity;
 import com.naosteam.countrymusic.radio.fragments.FragmentFavourite;
 import com.naosteam.countrymusic.ringtone.Activity.FavouriteActivity;
 import com.naosteam.countrymusic.ringtone.Activity.MainActivity;
@@ -39,6 +40,7 @@ public class BaseFavoriteActivity extends AppCompatActivity {
         setContentView(view);
 
         MethodsAll.getInstance().setContext(BaseFavoriteActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(BaseFavoriteActivity.this);
 
         mList = getListPhoto();
         adapter = new PhotoSlideAdapter(this, mList);
@@ -145,5 +147,12 @@ public class BaseFavoriteActivity extends AppCompatActivity {
             timer.cancel();
             timer = null;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(BaseFavoriteActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(BaseFavoriteActivity.this);
+        super.onResume();
     }
 }

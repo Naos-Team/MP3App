@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.facebook.ads.NativeAdsManager;
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.adapter.AdapterAllSongList;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadSong;
@@ -66,6 +67,9 @@ public class FavoriteActivity extends AppCompatActivity {
                 startService(intent);
             }
         });
+
+        MethodsAll.getInstance().setContext(FavoriteActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(FavoriteActivity.this);
 
         arrayList = new ArrayList<>();
         arrayListTemp = new ArrayList<>();
@@ -281,6 +285,13 @@ public class FavoriteActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         GlobalBus.getBus().removeStickyEvent(itemAlbums);
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(FavoriteActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(FavoriteActivity.this);
+        super.onResume();
     }
 
     @Override

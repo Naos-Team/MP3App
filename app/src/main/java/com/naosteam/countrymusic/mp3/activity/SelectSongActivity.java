@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.adapter.AdapterSelectableSongList;
 import com.naosteam.countrymusic.mp3.interfaces.ClickListenerPlayList;
@@ -58,6 +59,9 @@ public class SelectSongActivity extends AppCompatActivity {
         if (type.equals(getString(R.string.playlist))) {
             play_id = getIntent().getStringExtra("play_id");
         }
+
+        MethodsAll.getInstance().setContext(SelectSongActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SelectSongActivity.this);
 
         dbHelper = new DBHelper(this);
         methods = new Methods(this);
@@ -151,6 +155,13 @@ public class SelectSongActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(SelectSongActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SelectSongActivity.this);
+        super.onResume();
     }
 
     private void setEmpty() {

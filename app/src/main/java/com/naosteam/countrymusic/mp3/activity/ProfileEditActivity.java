@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadProfileEdit;
 import com.naosteam.countrymusic.mp3.interfaces.SuccessListener;
@@ -40,6 +41,9 @@ public class ProfileEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
+
+        MethodsAll.getInstance().setContext(ProfileEditActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(ProfileEditActivity.this);
 
         sharedPref = new SharedPref(this);
         methods = new Methods(this);
@@ -182,5 +186,12 @@ public class ProfileEditActivity extends AppCompatActivity {
         editText_name.setText(Constant.itemUser.getName());
         editText_phone.setText(Constant.itemUser.getMobile());
         editText_email.setText(Constant.itemUser.getEmail());
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(ProfileEditActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(ProfileEditActivity.this);
+        super.onResume();
     }
 }

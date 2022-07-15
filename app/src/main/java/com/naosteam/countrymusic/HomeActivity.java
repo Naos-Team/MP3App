@@ -28,7 +28,9 @@ public class HomeActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         MethodsAll.getInstance().setContext(HomeActivity.this);
-        MethodsAll.getInstance().startCountdown();
+        MethodsAll.getInstance().startCountdown_rate();
+
+        MethodsAll.getInstance().setContext_upgrade(HomeActivity.this);
 
         methods = new Methods(this);
 
@@ -179,8 +181,8 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         MethodsAll.getInstance().setContext(HomeActivity.this);
-//        MethodsAll.getInstance().startCountdown();
+        MethodsAll.getInstance().setContext_upgrade(HomeActivity.this);
+        super.onResume();
     }
 }

@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
 import com.naosteam.countrymusic.ringtone.Adapter.RingtoneAdapter;
@@ -49,6 +50,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
+
+        MethodsAll.getInstance().setContext(CategoriesActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(CategoriesActivity.this);
 
         methods1 = new com.naosteam.countrymusic.mp3.utils.Methods(this);
         adView = findViewById(R.id.adView);
@@ -210,4 +214,10 @@ public class CategoriesActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(CategoriesActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(CategoriesActivity.this);
+        super.onResume();
+    }
 }

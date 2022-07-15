@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
 import com.naosteam.countrymusic.ringtone.Adapter.AdapterDownload;
@@ -48,6 +49,9 @@ public class DownloadActivity extends AppCompatActivity{
 //        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_ringtone);
+
+        MethodsAll.getInstance().setContext(DownloadActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(DownloadActivity.this);
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
@@ -238,5 +242,12 @@ public class DownloadActivity extends AppCompatActivity{
             e.printStackTrace();
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(DownloadActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(DownloadActivity.this);
+        super.onResume();
     }
 }
