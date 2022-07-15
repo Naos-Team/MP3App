@@ -35,17 +35,17 @@
         android:autoSizeStepGranularity="2dp"
         android:autoSizeTextType="uniform"
         android:autoSizeMinTextSize="30sp"
-        android:autoSizeMaxTextSize="200dp"
+        android:autoSizeMaxTextSize="47dp"
         android:textColor="@color/intro_text"
         android:textStyle="bold"/>
 
     <LinearLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/btn_start"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_gravity="bottom"
+        android:layout_gravity="center"
         android:layout_marginHorizontal="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
@@ -56,10 +56,11 @@
         android:gravity="center">
 
         <TextView
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Open your gallery"
+            android:text="Let's start"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="30dp" />
     </LinearLayout>
 </LinearLayout>

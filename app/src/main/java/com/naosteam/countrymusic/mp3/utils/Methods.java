@@ -46,7 +46,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.VideoController;
 import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
@@ -87,7 +86,6 @@ import com.yakivmospan.scytale.Store;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -722,6 +720,7 @@ public class Methods {
                             if (!isClicked) {
                                 isClicked = true;
                                 interstitialAd.show();
+                                MethodsAll.getInstance().count_show_inter_ads();
                             }
                         }
 
@@ -730,7 +729,6 @@ public class Methods {
                             //check
                             interAdListener.onClick(pos, type);
                             super.onAdClosed();
-                            MethodsAll.getInstance().show_upgrade_dialog();
                         }
 
                         @Override
@@ -840,13 +838,13 @@ public class Methods {
                             if (!isClicked) {
                                 isClicked = true;
                                 interstitialAd.show();
+                                MethodsAll.getInstance().count_show_inter_ads();
                             }
                         }
 
                         public void onAdClosed() {
                             listener.onClick();
                             super.onAdClosed();
-                            MethodsAll.getInstance().show_upgrade_dialog();
                         }
 
                         @Override
