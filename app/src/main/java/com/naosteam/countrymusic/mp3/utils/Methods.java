@@ -404,7 +404,7 @@ public class Methods {
         SharedPref sharedPref = new SharedPref(context);
         boolean isPremium = sharedPref.getIsPremium();
 
-        if (isNetworkAvailable() && Constant.native_ad_count % 3 == 0 && !isPremium) {
+        if (isNetworkAvailable() && Constant.native_ad_count % 4 == 0 && !isPremium) {
             AdLoader adLoader = new AdLoader.Builder(context, "ca-app-pub-3940256099942544/2247696110")
                     .forUnifiedNativeAd(
                             new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {

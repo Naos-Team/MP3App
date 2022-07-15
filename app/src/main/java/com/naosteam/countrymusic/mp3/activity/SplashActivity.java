@@ -49,6 +49,7 @@ public class SplashActivity extends AppCompatActivity {
     private AppOpenAdsManager appOpenAdsManager;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,9 +207,7 @@ public class SplashActivity extends AppCompatActivity {
                             if(Constant.showUpdateDialog && !Constant.appVersion.equals(version)) {
                                 methods.showUpdateAlert(Constant.appUpdateMsg);
                             } else {
-                                sharedPref.setIsFirst(false);
                                 dbHelper.addtoAbout();
-//                                openMainActivity();
                             }
                         } else if (verifyStatus.equals("-2")) {
                             methods.getInvalidUserDialog(message);
@@ -295,7 +294,10 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (sharedPref.getIsFirst()) {
+
+                boolean isFirst = sharedPref.getIsFirst();
+
+                if (isFirst) {
                     startActivity(new Intent(SplashActivity.this, IntroActivity.class));
                     finish();
                     sharedPref.setIsFirst(false);
