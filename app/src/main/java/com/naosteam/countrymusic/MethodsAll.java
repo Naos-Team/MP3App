@@ -38,6 +38,13 @@ public class MethodsAll {
 
     public void setContext_upgrade(Context context_upgrade) {
         this.context_upgrade = context_upgrade;
+        if(!new SharedPref(this.context_upgrade).getIsPremium()) {
+            if (time_show_ads == time_to_show_upgrade) {
+                time_show_ads = 0;
+                showUpgradeDialog();
+            } else {
+            }
+        }
     }
 
     private MethodsAll(){
@@ -76,15 +83,8 @@ public class MethodsAll {
         }, time_show);
     }
 
-    public void show_upgrade_dialog(){
-        if(!new SharedPref(context_upgrade).getIsPremium()) {
-            if (time_show_ads == time_to_show_upgrade) {
-                time_show_ads = 0;
-                showUpgradeDialog();
-            } else {
-                time_show_ads += 1;
-            }
-        }
+    public void count_show_inter_ads(){
+        time_show_ads += 1;
     }
 
     private void showUpgradeDialog(){
