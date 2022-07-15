@@ -69,6 +69,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         MethodsAll.getInstance().setContext(SettingActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SettingActivity.this);
 
         sharedPref = new SharedPref(this);
         methods = new Methods(this);
@@ -419,5 +420,12 @@ public class SettingActivity extends AppCompatActivity {
         DrawableCompat.setTintList(DrawableCompat.wrap(switch_noti.getTrackDrawable()), new ColorStateList(states, trackColors));
         DrawableCompat.setTintList(DrawableCompat.wrap(switch_consent.getThumbDrawable()), new ColorStateList(states, thumbColors));
         DrawableCompat.setTintList(DrawableCompat.wrap(switch_consent.getTrackDrawable()), new ColorStateList(states, trackColors));
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(SettingActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SettingActivity.this);
+        super.onResume();
     }
 }

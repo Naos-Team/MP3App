@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadSuggestion;
 import com.naosteam.countrymusic.mp3.interfaces.SuccessListener;
@@ -67,6 +68,9 @@ public class SuggestionActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(SuggestionActivity.this);
         progressDialog.setMessage(getString(R.string.loading));
+
+        MethodsAll.getInstance().setContext(SuggestionActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SuggestionActivity.this);
 
         toolbar = this.findViewById(R.id.toolbar_sugg);
         this.setSupportActionBar(toolbar);
@@ -210,5 +214,12 @@ public class SuggestionActivity extends AppCompatActivity {
             }
             return true;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(SuggestionActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SuggestionActivity.this);
+        super.onResume();
     }
 }

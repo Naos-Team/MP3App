@@ -38,6 +38,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.naosteam.countrymusic.MethodsAll;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -98,6 +99,9 @@ public class SongByCatActivity extends BaseActivity {
 
         FrameLayout contentFrameLayout = findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.activity_song_by_cat, contentFrameLayout);
+
+        MethodsAll.getInstance().setContext(SongByCatActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SongByCatActivity.this);
 
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
@@ -606,5 +610,12 @@ public class SongByCatActivity extends BaseActivity {
     public void onEquilizerChange(ItemAlbums itemAlbums) {
         adapter.notifyDataSetChanged();
         GlobalBus.getBus().removeStickyEvent(itemAlbums);
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(SongByCatActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SongByCatActivity.this);
+        super.onResume();
     }
 }

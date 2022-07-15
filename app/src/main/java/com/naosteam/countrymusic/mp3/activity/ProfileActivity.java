@@ -46,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         MethodsAll.getInstance().setContext(ProfileActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(ProfileActivity.this);
 
         methods = new Methods(this);
         methods.forceRTLIfSupported(getWindow());
@@ -173,6 +174,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
+        MethodsAll.getInstance().setContext(ProfileActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(ProfileActivity.this);
         if (Constant.isUpdate) {
             Constant.isUpdate = false;
             setVariables();

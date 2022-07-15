@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.adapter.AdapterMyPlaylist;
 import com.naosteam.countrymusic.mp3.interfaces.ClickListenerPlayList;
@@ -48,6 +49,9 @@ public class Add2OfflinePlaylistActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_2_off_playlist);
+
+        MethodsAll.getInstance().setContext(Add2OfflinePlaylistActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(Add2OfflinePlaylistActivity.this);
 
         pid = getIntent().getStringExtra("pid");
 
@@ -150,6 +154,8 @@ public class Add2OfflinePlaylistActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        MethodsAll.getInstance().setContext(Add2OfflinePlaylistActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(Add2OfflinePlaylistActivity.this);
         if(isLoaded) {
             arrayList.clear();
             arrayList.addAll(dbHelper.loadPlayList(false));

@@ -52,6 +52,7 @@ import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
 import com.naosteam.countrymusic.BuildConfig;
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.adapter.AdapterPlaylistDialog;
 import com.naosteam.countrymusic.mp3.activity.DownloadService;
@@ -673,17 +674,16 @@ public class Methods {
                             super.onAdLoaded();
                             if (!isClicked) {
                                 isClicked = true;
-
                                 interstitialAd.show();
                             }
                         }
 
                         public void onAdClosed() {
-
                             //dismiss ads
                             //check
                             interAdListener.onClick(pos, type);
                             super.onAdClosed();
+                            MethodsAll.getInstance().show_upgrade_dialog();
                         }
 
                         @Override
@@ -795,6 +795,7 @@ public class Methods {
                         public void onAdClosed() {
                             listener.onClick();
                             super.onAdClosed();
+                            MethodsAll.getInstance().show_upgrade_dialog();
                         }
 
                         @Override

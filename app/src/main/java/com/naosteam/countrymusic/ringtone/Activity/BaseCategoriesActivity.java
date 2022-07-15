@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.naosteam.countrymusic.HomeActivity;
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
 import com.naosteam.countrymusic.ringtone.Adapter.CategoryAdapter;
@@ -46,6 +48,9 @@ public class BaseCategoriesActivity extends AppCompatActivity {
         methods = new Methods(BaseCategoriesActivity.this);
         arrayList = new ArrayList<>();
         progressBar = findViewById(R.id.progressbar);
+
+        MethodsAll.getInstance().setContext(BaseCategoriesActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(BaseCategoriesActivity.this);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -163,5 +168,12 @@ public class BaseCategoriesActivity extends AppCompatActivity {
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(BaseCategoriesActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(BaseCategoriesActivity.this);
+        super.onResume();
     }
 }

@@ -39,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.naosteam.countrymusic.MethodsAll;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -94,6 +95,9 @@ public class SongByMyPlaylistActivity extends BaseActivity {
         getLayoutInflater().inflate(R.layout.activity_song_by_playlist, contentFrameLayout);
 
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        MethodsAll.getInstance().setContext(SongByMyPlaylistActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SongByMyPlaylistActivity.this);
 
         itemMyPlayList = (ItemMyPlayList) getIntent().getSerializableExtra("item");
         addedFrom = addedFrom + itemMyPlayList.getName();
@@ -339,7 +343,7 @@ public class SongByMyPlaylistActivity extends BaseActivity {
                 setEmpty();
             }
         }, "playlist");
-        adapter.setIs_currentList(true);
+        adapter.setIs_PlayList(true);
         loadNativeAds();
 
         rv.setAdapter(adapter);
@@ -441,5 +445,12 @@ public class SongByMyPlaylistActivity extends BaseActivity {
     public void onEquilizerChange(ItemAlbums itemAlbums) {
         adapter.notifyDataSetChanged();
         GlobalBus.getBus().removeStickyEvent(itemAlbums);
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(SongByMyPlaylistActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(SongByMyPlaylistActivity.this);
+        super.onResume();
     }
 }

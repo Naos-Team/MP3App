@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.naosteam.countrymusic.MethodsAll;
 import com.naosteam.countrymusic.R;
 import com.naosteam.countrymusic.mp3.adapter.AdapterArtist;
 import com.naosteam.countrymusic.mp3.asyncTask.LoadArtist;
@@ -60,6 +61,9 @@ public class ArtistByGenreActivity extends BaseActivity {
 
         FrameLayout contentFrameLayout = findViewById(R.id.content_frame);
         getLayoutInflater().inflate(R.layout.fragment_categories, contentFrameLayout);
+
+        MethodsAll.getInstance().setContext(ArtistByGenreActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(ArtistByGenreActivity.this);
 
         itemGenres = (ItemGenres) getIntent().getSerializableExtra("item");
 
@@ -302,6 +306,13 @@ public class ArtistByGenreActivity extends BaseActivity {
 
             frameLayout.addView(myView);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        MethodsAll.getInstance().setContext(ArtistByGenreActivity.this);
+        MethodsAll.getInstance().setContext_upgrade(ArtistByGenreActivity.this);
+        super.onResume();
     }
 
     @Override
