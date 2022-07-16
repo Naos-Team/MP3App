@@ -4,8 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
@@ -27,6 +30,7 @@ import com.naosteam.countrymusic.mp3.asyncTask.LoadLogin;
 import com.naosteam.countrymusic.mp3.interfaces.AboutListener;
 import com.naosteam.countrymusic.mp3.interfaces.LoginListener;
 import com.naosteam.countrymusic.mp3.item.ItemUser;
+import com.naosteam.countrymusic.mp3.utils.AppOpenAdsManager;
 import com.naosteam.countrymusic.mp3.utils.Constant;
 import com.naosteam.countrymusic.mp3.utils.DBHelper;
 import com.naosteam.countrymusic.mp3.utils.Methods;
@@ -42,68 +46,71 @@ public class SplashActivity extends AppCompatActivity {
     DBHelper dbHelper;
     ProgressBar pb_latest;
     BillingClient billingClient;
+    private AppOpenAdsManager appOpenAdsManager;
 
+
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
         hideStatusBar();
+        appOpenAdsManager = new AppOpenAdsManager(SplashActivity.this, new AppOpenAdsManager.OpenAdsListener() {
+            @Override
+            public void onClick() {
+                openMainActivity();
+            }
+        });
+
         methods = new Methods(this);
         sharedPref = new SharedPref(this);
         dbHelper = new DBHelper(this);
-
         pb_latest = findViewById(R.id.pb_latest);
         Sprite doubleBounce = new DoubleBounce();
         doubleBounce.setColor(R.color.colorPrimary);
         pb_latest.setIndeterminateDrawable(doubleBounce);
 
+        loadAboutData();
 
-        if (sharedPref.getIsFirst()) {
-            loadAboutData();
-        } else {
+        try {
+            Constant.isFromPush = getIntent().getExtras().getBoolean("ispushnoti", false);
+        } catch (Exception e) {
+            Constant.isFromPush = false;
+        }
+        try {
+            Constant.isFromNoti = getIntent().getExtras().getBoolean("isnoti", false);
+        } catch (Exception e) {
+            Constant.isFromNoti = false;
+        }
 
-            loadAboutData();
+        checkUserSubscription();
 
-            try {
-                Constant.isFromPush = getIntent().getExtras().getBoolean("ispushnoti", false);
-            } catch (Exception e) {
-                Constant.isFromPush = false;
-            }
-            try {
-                Constant.isFromNoti = getIntent().getExtras().getBoolean("isnoti", false);
-            } catch (Exception e) {
-                Constant.isFromNoti = false;
-            }
-
-            checkUserSubscription();
-
-            if (!sharedPref.getIsAutoLogin()) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        openMainActivity();
-                    }
-                }, 2000);
-            } else {
-                if (sharedPref.getLoginType().equals(Constant.LOGIN_TYPE_FB)) {
-                    if (AccessToken.getCurrentAccessToken() != null) {
-                        loadLogin(Constant.LOGIN_TYPE_FB, sharedPref.getAuthID());
-                    } else {
-                        sharedPref.setIsAutoLogin(false);
-                        openMainActivity();
-                    }
-                } else if (sharedPref.getLoginType().equals(Constant.LOGIN_TYPE_GOOGLE)) {
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if (currentUser != null) {
-                        loadLogin(Constant.LOGIN_TYPE_GOOGLE, sharedPref.getAuthID());
-                    } else {
-                        sharedPref.setIsAutoLogin(false);
-                        openMainActivity();
-                    }
-                } else {
-                    loadLogin(Constant.LOGIN_TYPE_NORMAL, "");
+        if (!sharedPref.getIsAutoLogin()) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    appOpenAdsManager.showAdIfAvailable();
                 }
+            }, 2000);
+        } else {
+            if (sharedPref.getLoginType().equals(Constant.LOGIN_TYPE_FB)) {
+                if (AccessToken.getCurrentAccessToken() != null) {
+                    loadLogin(Constant.LOGIN_TYPE_FB, sharedPref.getAuthID());
+                } else {
+                    sharedPref.setIsAutoLogin(false);
+                    appOpenAdsManager.showAdIfAvailable();
+                }
+            } else if (sharedPref.getLoginType().equals(Constant.LOGIN_TYPE_GOOGLE)) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser != null) {
+                    loadLogin(Constant.LOGIN_TYPE_GOOGLE, sharedPref.getAuthID());
+                } else {
+                    sharedPref.setIsAutoLogin(false);
+                    appOpenAdsManager.showAdIfAvailable();
+                }
+            } else {
+                loadLogin(Constant.LOGIN_TYPE_NORMAL, "");
             }
         }
     }
@@ -166,9 +173,9 @@ public class SplashActivity extends AppCompatActivity {
                         } else {
 
                         }
-                        openMainActivity();
+                        appOpenAdsManager.showAdIfAvailable();
                     } else {
-                        openMainActivity();
+                        appOpenAdsManager.showAdIfAvailable();
                     }
                 }
             }, methods.getAPIRequest(Constant.METHOD_LOGIN, 0, authID, "", "", loginType, "", "", "", "", "", sharedPref.getEmail(), sharedPref.getPassword(), "", "", "", "", null));
@@ -200,9 +207,7 @@ public class SplashActivity extends AppCompatActivity {
                             if(Constant.showUpdateDialog && !Constant.appVersion.equals(version)) {
                                 methods.showUpdateAlert(Constant.appUpdateMsg);
                             } else {
-                                sharedPref.setIsFirst(false);
                                 dbHelper.addtoAbout();
-                                openMainActivity();
                             }
                         } else if (verifyStatus.equals("-2")) {
                             methods.getInvalidUserDialog(message);
@@ -289,7 +294,10 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (sharedPref.getIsFirst()) {
+
+                boolean isFirst = sharedPref.getIsFirst();
+
+                if (isFirst) {
                     startActivity(new Intent(SplashActivity.this, IntroActivity.class));
                     finish();
                     sharedPref.setIsFirst(false);

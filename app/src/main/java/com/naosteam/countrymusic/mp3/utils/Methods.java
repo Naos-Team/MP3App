@@ -46,7 +46,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.VideoController;
 import com.google.android.gms.ads.formats.MediaView;
 import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
@@ -61,6 +60,7 @@ import com.naosteam.countrymusic.mp3.activity.PlayerService;
 import com.naosteam.countrymusic.mp3.interfaces.ClickListenerPlayList;
 import com.naosteam.countrymusic.mp3.interfaces.InterAdListener;
 import com.naosteam.countrymusic.mp3.interfaces.InterScreenListener;
+import com.naosteam.countrymusic.mp3.item.ItemAlbums;
 import com.naosteam.countrymusic.mp3.item.ItemMyPlayList;
 import com.naosteam.countrymusic.mp3.item.ItemSong;
 import com.naosteam.countrymusic.mp3.item.ItemUser;
@@ -78,6 +78,7 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
+import com.naosteam.countrymusic.radio.utils.Constants;
 import com.yakivmospan.scytale.Crypto;
 import com.yakivmospan.scytale.Options;
 import com.yakivmospan.scytale.Store;
@@ -85,7 +86,6 @@ import com.yakivmospan.scytale.Store;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -404,7 +404,7 @@ public class Methods {
         SharedPref sharedPref = new SharedPref(context);
         boolean isPremium = sharedPref.getIsPremium();
 
-        if (isNetworkAvailable() && Constant.native_ad_count % 3 == 0 && !isPremium) {
+        if (isNetworkAvailable() && Constant.native_ad_count % 4 == 0 && !isPremium) {
             AdLoader adLoader = new AdLoader.Builder(context, "ca-app-pub-3940256099942544/2247696110")
                     .forUnifiedNativeAd(
                             new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
@@ -436,7 +436,7 @@ public class Methods {
                     .build();
 
             adLoader.loadAd(new AdRequest.Builder().build());
-        }else{
+        } else {
             frameLayout.setVisibility(View.GONE);
         }
 
@@ -641,6 +641,51 @@ public class Methods {
         return AdSize.getCurrentOrientationBannerAdSizeWithWidth(context, adWidth);
     }
 
+    public ArrayList<Object> addFetchAlbumBannerAds(ArrayList<Object> arrayList, ArrayList<Object> crrList, int perLine, int col) {
+
+        SharedPref mp3_pref = new SharedPref(context);
+
+        if (mp3_pref.getIsPremium()) {
+            return arrayList;
+        }
+
+        int crr_count = 0;
+
+        for(Object obj : crrList){
+            if(!(obj instanceof AdView)){
+                crr_count++;
+            }
+        }
+
+        int preCount = crr_count % (col*perLine);
+
+        if(preCount == 0 && crr_count > 0){
+            for (int i = 0; i < arrayList.size(); i += (perLine * col) + 1) {
+                if (Constants.adBannerShow++ < Constants.BANNER_SHOW_LIMIT) {
+                    final AdView adView = new AdView(context);
+                    adView.setAdSize(AdSize.SMART_BANNER);
+                    adView.setAdUnitId(Constant.ad_banner_id_test);
+                    adView.loadAd(new AdRequest.Builder().build());
+                    arrayList.add(i, adView);
+                }
+            }
+        }else{
+            for (int i = (perLine * col) - preCount; i < arrayList.size(); i += (perLine * col) + 1) {
+                if (Constants.adBannerShow++ < Constants.BANNER_SHOW_LIMIT) {
+                    final AdView adView = new AdView(context);
+                    adView.setAdSize(AdSize.SMART_BANNER);
+                    adView.setAdUnitId(Constant.ad_banner_id_test);
+                    adView.loadAd(new AdRequest.Builder().build());
+                    arrayList.add(i, adView);
+                }
+            }
+        }
+
+
+
+        return arrayList;
+    }
+
     public void showInterAd(final int pos, final String type) {
 
         SharedPref sharePref = new SharedPref(context);
@@ -675,6 +720,7 @@ public class Methods {
                             if (!isClicked) {
                                 isClicked = true;
                                 interstitialAd.show();
+                                MethodsAll.getInstance().count_show_inter_ads();
                             }
                         }
 
@@ -683,7 +729,6 @@ public class Methods {
                             //check
                             interAdListener.onClick(pos, type);
                             super.onAdClosed();
-                            MethodsAll.getInstance().show_upgrade_dialog();
                         }
 
                         @Override
@@ -760,7 +805,11 @@ public class Methods {
     }
 
     public void showInterScreenAd(InterScreenListener listener) {
-        if (Constant.isInterAd) {
+
+        SharedPref sharePref = new SharedPref(context);
+        boolean isPremium = sharePref.getIsPremium();
+
+        if (Constant.isInterAd && !isPremium) {
             Constant.adCount = Constant.adCount + 1;
             if (Constant.adCount % Constant.ad_interstitial_display == 0) {
 
@@ -779,8 +828,8 @@ public class Methods {
                                 .addNetworkExtrasBundle(AdMobAdapter.class, extras)
                                 .build();
                     }
-                    interstitialAd.setAdUnitId(Constant.ad_inter_id);
-//                    interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//                    interstitialAd.setAdUnitId(Constant.ad_inter_id);
+                    interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
                     interstitialAd.loadAd(adRequest);
                     interstitialAd.setAdListener(new AdListener() {
                         @Override
@@ -789,13 +838,13 @@ public class Methods {
                             if (!isClicked) {
                                 isClicked = true;
                                 interstitialAd.show();
+                                MethodsAll.getInstance().count_show_inter_ads();
                             }
                         }
 
                         public void onAdClosed() {
                             listener.onClick();
                             super.onAdClosed();
-                            MethodsAll.getInstance().show_upgrade_dialog();
                         }
 
                         @Override

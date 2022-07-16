@@ -95,7 +95,7 @@ public class FragmentHome extends Fragment {
     private String addedFrom = "";
     private String errr_msg;
 
-    private LinearLayout ll_trending, ll_artist, ll_albums, ll_recent, ll_playlist, ll_country, ll_genres, ll_apps;
+    private LinearLayout ll_trending, ll_artist, ll_albums, ll_recent, ll_playlist, ll_country, ll_genres, ll_apps, ll_home_banner;
     private TextView tv_songs_all, tv_recent_all, tv_albums_all, tv_artist_all, tv_playlist_all, tv_country_all, tv_genres_all, tv_apps_all;
     private LinearLayout ll_home;
 
@@ -259,6 +259,7 @@ public class FragmentHome extends Fragment {
         ll_country = rootView.findViewById(R.id.ll_country);
         ll_genres = rootView.findViewById(R.id.ll_genres);
         ll_apps = rootView.findViewById(R.id.ll_apps);
+        ll_home_banner = rootView.findViewById(R.id.ll_home_banner);
 
         tv_country_all = rootView.findViewById(R.id.tv_home_country_all);
         tv_genres_all = rootView.findViewById(R.id.tv_home_genres_all);
@@ -421,6 +422,8 @@ public class FragmentHome extends Fragment {
                 }
             }
         });
+
+        methods.showSMARTBannerAd(ll_home_banner);
 
         return rootView;
     }

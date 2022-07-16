@@ -13,7 +13,14 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.naosteam.countrymusic.R;
+import com.naosteam.countrymusic.mp3.utils.Constant;
+import com.naosteam.countrymusic.mp3.utils.SharedPref;
+import com.naosteam.countrymusic.radio.item.ItemRadio;
+import com.naosteam.countrymusic.radio.utils.Constants;
 import com.naosteam.countrymusic.ringtone.Adapter.CategoryAdapter;
 import com.naosteam.countrymusic.ringtone.Method.Methods;
 import com.naosteam.countrymusic.ringtone.SharedPref.Setting;
@@ -29,7 +36,7 @@ public class CategoriesFragment extends Fragment {
     private Methods methods;
     private RecyclerView recyclerView_category;
     private CategoryAdapter adapterCat;
-    private ArrayList<ListltemCategory> arrayList;
+    private ArrayList<Object> arrayList;
     private int page = 1;
 
     @Override
@@ -41,7 +48,17 @@ public class CategoriesFragment extends Fragment {
         arrayList = new ArrayList<>();
 
         recyclerView_category = rootView.findViewById(R.id.category);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (arrayList.get(position) instanceof AdView) {
+                    return 2;
+                } else {
+                    return 1;
+                }
+            }
+        });
         recyclerView_category.setLayoutManager(mLayoutManager);
         recyclerView_category.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(2), true));
         recyclerView_category.setItemAnimator(new DefaultItemAnimator());
@@ -70,7 +87,10 @@ public class CategoriesFragment extends Fragment {
 
                                 } else {
                                     page = page + 1;
+
                                     arrayList.addAll(arrayListCat);
+
+                                    getBannerAds();
                                     setAdapter();
                                 }
                             } else {
@@ -85,6 +105,26 @@ public class CategoriesFragment extends Fragment {
             loadCat.execute();
         } else {
 
+        }
+    }
+
+    private void getBannerAds(){
+
+        SharedPref mp3_pref = new SharedPref(getContext());
+        if(mp3_pref.getIsPremium()){
+            return;
+        }
+
+        for (int i = Constants.ITEM_PER_AD_GRID; i < arrayList.size(); i += Constants.ITEM_PER_AD_GRID+1){
+            if(arrayList.get(i) instanceof ItemRadio){
+                if(Constants.adBannerShow++ < Constants.BANNER_SHOW_LIMIT){
+                    final AdView adView = new AdView(getContext());
+                    adView.setAdSize(AdSize.SMART_BANNER);
+                    adView.setAdUnitId(Constant.ad_banner_id_test);
+                    adView.loadAd(new AdRequest.Builder().build());
+                    arrayList.add(i, adView);
+                }
+            }
         }
     }
 

@@ -132,8 +132,8 @@ public class Constant implements Serializable {
     public static String addedFrom = "";
     public static ArrayList<ItemSong> arrayList_play = new ArrayList<>();
     public static ArrayList<ItemSong> arrayListOfflineSongs = new ArrayList<>();
-    public static ArrayList<ItemAlbums> arrayListOfflineAlbums = new ArrayList<>();
-    public static ArrayList<ItemArtist> arrayListOfflineArtist = new ArrayList<>();
+    public static ArrayList<Object> arrayListOfflineAlbums = new ArrayList<>();
+    public static ArrayList<Object> arrayListOfflineArtist = new ArrayList<>();
 
     public static Boolean isRepeat = false, isSuffle = false, isPlayed = false, isFromNoti = false, isFromPush = false, isAppOpen = false, isOnline = true, isDownloaded = false, isBannerAd = true,
             isInterAd = true, isNativeAd = true, isSongDownload = false, isUpdate = false, showUpdateDialog = true, appUpdateCancel = false, isAppOpenAdShown = false;

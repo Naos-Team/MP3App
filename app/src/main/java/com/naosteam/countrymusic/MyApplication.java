@@ -3,7 +3,6 @@ package com.naosteam.countrymusic;
 import android.app.Application;
 import android.os.StrictMode;
 
-import com.naosteam.countrymusic.mp3.utils.AppOpenManager;
 import com.naosteam.countrymusic.mp3.utils.Constant;
 import com.naosteam.countrymusic.mp3.utils.DBHelper;
 import com.naosteam.countrymusic.mp3.utils.SharedPref;
@@ -20,7 +19,6 @@ import io.github.inflationx.viewpump.ViewPump;
 public class MyApplication extends Application {
 
     SharedPref sharedPref;
-    private static AppOpenManager appOpenManager;
 
     @Override
     public void onCreate() {
@@ -65,6 +63,5 @@ public class MyApplication extends Application {
                 break;
         }
 
-        appOpenManager = new AppOpenManager(this);
     }
 }
