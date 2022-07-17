@@ -1,6 +1,8 @@
 package com.naosteam.countrymusic;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -83,7 +85,14 @@ public class BaseFavoriteActivity extends AppCompatActivity {
         binding.lRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(BaseFavoriteActivity.this, FragmentFavourite.class));
+//                startActivity(new Intent(BaseFavoriteActivity.this, FragmentFavourite.class));
+                FragmentFavourite f1 = new FragmentFavourite();
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.add(R.id.layout_fragment_chang, f1, "fav");
+                ft.addToBackStack("fav");
+                ft.commit();
             }
         });
 

@@ -8,267 +8,284 @@
     tools:context=".BaseFavoriteActivity">
 
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:autoSizeMaxTextSize="25sp"
-        android:autoSizeMinTextSize="20sp"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform"
-        android:background="@color/white_dark"
-        android:gravity="center"
-        android:text="Favorite"
-        android:textColor="@color/text_black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/ic_keyboard_backspace_black_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.04"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.032"
-        app:tint="@color/text_black" />
-
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/circle_indicator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.28"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintWidth_percent="0.86" />
-
-
-    <!--    <com.makeramen.roundedimageview.RoundedImageView-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        app:riv_corner_radius="20dp"-->
-    <!--        android:src="@drawable/home_fav"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHeight_percent="0.27"-->
-    <!--        app:layout_constraintWidth_percent="0.82"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.22" />-->
-
-    <me.relex.circleindicator.CircleIndicator
-        android:id="@+id/circle_indicator"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:outlineAmbientShadowColor="@color/text_black"
-        android:outlineSpotShadowColor="@color/text_black"
-        app:ci_drawable="@drawable/circle_indi_fav"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.05"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_pager" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/l_mp3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/l_ringtone"
-        app:layout_constraintDimensionRatio="28:35"
-        app:layout_constraintEnd_toStartOf="@id/l_radio"
-        app:layout_constraintHeight_percent="0.22"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9">
-
-        <ImageView
-            android:id="@+id/bg_mp3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/bg_fav_btn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.9" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_fav_mp3"
-            app:layout_constraintBottom_toBottomOf="@id/bg_mp3"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/bg_mp3"
-            app:layout_constraintHeight_percent="0.32"
-            app:layout_constraintStart_toStartOf="@id/bg_mp3"
-            app:layout_constraintTop_toTopOf="@id/bg_mp3"
-            app:layout_constraintVertical_bias="0.2"
-            app:tint="#6939C1" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:autoSizeMaxTextSize="22sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:gravity="center"
-            android:text="MP3"
-            android:textColor="#6939C1"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/bg_mp3"
-            app:layout_constraintEnd_toEndOf="@id/bg_mp3"
-            app:layout_constraintHeight_percent="0.3"
-            app:layout_constraintStart_toStartOf="@id/bg_mp3"
-            app:layout_constraintTop_toTopOf="@id/bg_mp3"
-            app:layout_constraintVertical_bias="0.9" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/l_radio"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/l_ringtone"
-        app:layout_constraintDimensionRatio="28:35"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.22"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toEndOf="@id/l_mp3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9">
-
-        <ImageView
-            android:id="@+id/bg_radio"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/bg_fav_btn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_fav_radio"
-            app:layout_constraintBottom_toBottomOf="@id/bg_radio"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/bg_radio"
-            app:layout_constraintHeight_percent="0.32"
-            app:layout_constraintStart_toStartOf="@id/bg_radio"
-            app:layout_constraintTop_toTopOf="@id/bg_radio"
-            app:layout_constraintVertical_bias="0.2"
-            app:tint="#6939C1" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:autoSizeMaxTextSize="22sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:gravity="center"
-            android:text="Radio"
-            android:textColor="#6939C1"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/bg_radio"
-            app:layout_constraintEnd_toEndOf="@id/bg_radio"
-            app:layout_constraintHeight_percent="0.3"
-            app:layout_constraintStart_toStartOf="@id/bg_radio"
-            app:layout_constraintTop_toTopOf="@id/bg_radio"
-            app:layout_constraintVertical_bias="0.9" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/l_ringtone"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="28:35"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.22"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.93">
-
-        <ImageView
-            android:id="@+id/bg_ringtone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/bg_fav_btn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.95" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_fav_ringtone"
-            app:layout_constraintBottom_toBottomOf="@id/bg_ringtone"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@id/bg_ringtone"
-            app:layout_constraintHeight_percent="0.32"
-            app:layout_constraintStart_toStartOf="@id/bg_ringtone"
-            app:layout_constraintTop_toTopOf="@id/bg_ringtone"
-            app:layout_constraintVertical_bias="0.2"
-            app:tint="#6939C1" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:autoSizeMaxTextSize="22sp"
-            android:autoSizeMinTextSize="15sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:gravity="center"
-            android:text="Ringtone"
-            android:textColor="#6939C1"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/bg_ringtone"
-            app:layout_constraintEnd_toEndOf="@id/bg_ringtone"
-            app:layout_constraintHeight_percent="0.3"
-            app:layout_constraintStart_toStartOf="@id/bg_ringtone"
-            app:layout_constraintTop_toTopOf="@id/bg_ringtone"
-            app:layout_constraintVertical_bias="0.9" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/adView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/l_ringtone"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeMinTextSize="20sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+            android:background="@color/white_dark"
+            android:gravity="center"
+            android:text="Favorite"
+            android:textColor="@color/text_black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_keyboard_backspace_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.04"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.032"
+            app:tint="@color/text_black" />
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/circle_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.28"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_percent="0.86" />
+
+
+        <!--    <com.makeramen.roundedimageview.RoundedImageView-->
+        <!--        android:layout_width="0dp"-->
+        <!--        android:layout_height="0dp"-->
+        <!--        app:riv_corner_radius="20dp"-->
+        <!--        android:src="@drawable/home_fav"-->
+        <!--        android:scaleType="centerCrop"-->
+        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintHeight_percent="0.27"-->
+        <!--        app:layout_constraintWidth_percent="0.82"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintTop_toTopOf="parent"-->
+        <!--        app:layout_constraintVertical_bias="0.22" />-->
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/circle_indicator"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:outlineAmbientShadowColor="@color/text_black"
+            android:outlineSpotShadowColor="@color/text_black"
+            app:ci_drawable="@drawable/circle_indi_fav"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_pager" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_mp3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/l_ringtone"
+            app:layout_constraintDimensionRatio="28:35"
+            app:layout_constraintEnd_toStartOf="@id/l_radio"
+            app:layout_constraintHeight_percent="0.22"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circle_indicator">
+
+            <ImageView
+                android:id="@+id/bg_mp3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bg_fav_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.9" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_fav_mp3"
+                app:layout_constraintBottom_toBottomOf="@id/bg_mp3"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@id/bg_mp3"
+                app:layout_constraintHeight_percent="0.32"
+                app:layout_constraintStart_toStartOf="@id/bg_mp3"
+                app:layout_constraintTop_toTopOf="@id/bg_mp3"
+                app:layout_constraintVertical_bias="0.2"
+                app:tint="#6939C1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:autoSizeMaxTextSize="22sp"
+                android:autoSizeMinTextSize="15sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="MP3"
+                android:textColor="#6939C1"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/bg_mp3"
+                app:layout_constraintEnd_toEndOf="@id/bg_mp3"
+                app:layout_constraintHeight_percent="0.3"
+                app:layout_constraintStart_toStartOf="@id/bg_mp3"
+                app:layout_constraintTop_toTopOf="@id/bg_mp3"
+                app:layout_constraintVertical_bias="0.9" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_radio"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/l_ringtone"
+            app:layout_constraintDimensionRatio="28:35"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.22"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toEndOf="@id/l_mp3"
+            app:layout_constraintTop_toBottomOf="@+id/circle_indicator">
+
+            <ImageView
+                android:id="@+id/bg_radio"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bg_fav_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_fav_radio"
+                app:layout_constraintBottom_toBottomOf="@id/bg_radio"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@id/bg_radio"
+                app:layout_constraintHeight_percent="0.32"
+                app:layout_constraintStart_toStartOf="@id/bg_radio"
+                app:layout_constraintTop_toTopOf="@id/bg_radio"
+                app:layout_constraintVertical_bias="0.2"
+                app:tint="#6939C1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:autoSizeMaxTextSize="22sp"
+                android:autoSizeMinTextSize="15sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="Radio"
+                android:textColor="#6939C1"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/bg_radio"
+                app:layout_constraintEnd_toEndOf="@id/bg_radio"
+                app:layout_constraintHeight_percent="0.3"
+                app:layout_constraintStart_toStartOf="@id/bg_radio"
+                app:layout_constraintTop_toTopOf="@id/bg_radio"
+                app:layout_constraintVertical_bias="0.9" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l_ringtone"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/adView"
+            app:layout_constraintDimensionRatio="28:35"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.22"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circle_indicator"
+            app:layout_constraintVertical_bias="0.93">
+
+            <ImageView
+                android:id="@+id/bg_ringtone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bg_fav_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.95" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_fav_ringtone"
+                app:layout_constraintBottom_toBottomOf="@id/bg_ringtone"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@id/bg_ringtone"
+                app:layout_constraintHeight_percent="0.32"
+                app:layout_constraintStart_toStartOf="@id/bg_ringtone"
+                app:layout_constraintTop_toTopOf="@id/bg_ringtone"
+                app:layout_constraintVertical_bias="0.2"
+                app:tint="#6939C1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:autoSizeMaxTextSize="22sp"
+                android:autoSizeMinTextSize="15sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:text="Ringtone"
+                android:textColor="#6939C1"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/bg_ringtone"
+                app:layout_constraintEnd_toEndOf="@id/bg_ringtone"
+                app:layout_constraintHeight_percent="0.3"
+                app:layout_constraintStart_toStartOf="@id/bg_ringtone"
+                app:layout_constraintTop_toTopOf="@id/bg_ringtone"
+                app:layout_constraintVertical_bias="0.9" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <LinearLayout
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_fragment_chang"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

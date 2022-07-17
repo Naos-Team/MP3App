@@ -46,7 +46,7 @@ public class FragmentFavourite extends Fragment {
         textView_empty = rootView.findViewById(R.id.textView_empty_fav);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((RadioBaseActivity) getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
