@@ -67,7 +67,7 @@ public class IntroActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if(position < 2){
+                if(position < 3){
                     tabIndicator.animate()
                             .alpha(1f)
                             .setDuration(300)
@@ -116,7 +116,7 @@ public class IntroActivity extends AppCompatActivity {
         });
 
         btn_skip.setOnClickListener((v) ->{
-            viewPager.setCurrentItem(2, true);
+            viewPager.setCurrentItem(3, true);
         });
 
         tabIndicator.setupWithViewPager(viewPager);

@@ -39,7 +39,7 @@ public class IntroViewPagerAdapter extends PagerAdapter {
         tv_intro.setText(mList.get(position).getTitle());
         iv_intro.setImageResource(mList.get(position).getImage());
 
-        if(position == 2){
+        if(position == 3){
             btn_start.setVisibility(View.VISIBLE);
             btn_start.setOnClickListener((v) -> {
                 listener.onClick();
