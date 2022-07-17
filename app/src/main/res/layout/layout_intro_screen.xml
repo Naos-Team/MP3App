@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/intro_3"/>
+            android:src="@drawable/intro_4"/>
         <!--            android:src="@drawable/ic_rate" />-->
 
         <RelativeLayout

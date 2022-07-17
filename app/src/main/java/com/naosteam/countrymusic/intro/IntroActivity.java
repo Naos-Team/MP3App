@@ -45,9 +45,10 @@ public class IntroActivity extends AppCompatActivity {
 
 
         ArrayList<IntroItem> arrayList = new ArrayList<>();
-        arrayList.add(new IntroItem("Enjoy songs and radios", R.drawable.intro_1));
-        arrayList.add(new IntroItem("Choose your own ringtone", R.drawable.intro_2));
-        arrayList.add(new IntroItem("All is set. Try it yourself", R.drawable.intro_3));
+        arrayList.add(new IntroItem("Feel the music from mp3 songs", R.drawable.intro_1));
+        arrayList.add(new IntroItem("Radio enjoy sounds different", R.drawable.intro_2));
+        arrayList.add(new IntroItem("Choose your own ringtone", R.drawable.intro_3));
+        arrayList.add(new IntroItem("All is set. Try it yourself", R.drawable.intro_4));
 
 
         adapter = new IntroViewPagerAdapter(this, arrayList, () ->{
