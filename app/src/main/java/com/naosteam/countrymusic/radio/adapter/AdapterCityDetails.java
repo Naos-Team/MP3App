@@ -1,5 +1,6 @@
 package com.naosteam.countrymusic.radio.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -95,7 +96,7 @@ public class AdapterCityDetails extends RecyclerView.Adapter<AdapterCityDetails.
         holder.textView_freq.setText(objAllBean.getRadioFreq());
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((RadioBaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
